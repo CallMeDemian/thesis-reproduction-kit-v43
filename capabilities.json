@@ -3,10 +3,10 @@
   "FrozenReplay": "CERTIFIED_EXECUTED",
   "OracleClean": "CERTIFIED_SMOKE_HARNESS",
   "OracleRLClean": "CERTIFIED_SMOKE_HARNESS",
-  "OracleRLLLMClean": "DRY_RUN_CARDINALITY_CERTIFIED_SOURCE_GAP",
+  "OracleRLLLMClean": "DRY_RUN_CARDINALITY_CERTIFIED_SOURCE_FOUND_MIGRATION_PENDING",
   "FullClean": "PLANNED",
   "notes": [
     "Frozen ZIP and 914-row registry are locally verifiable.",
-    "The historical live LLM source snapshot is unavailable; no live call is enabled by default."
+    "The historical live LLM source snapshot is found in the original deployment tree but is not yet migrated; no live call is enabled by default."
   ]
 }

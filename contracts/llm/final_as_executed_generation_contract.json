@@ -1,6 +1,6 @@
 {
   "schema_version": "final_as_executed_generation_contract_v1",
-  "status": "DECLARED_COUNT_SOURCE_SNAPSHOT_GAP",
+  "status": "SOURCE_SNAPSHOT_FOUND_MIGRATION_PENDING",
   "authority_order": ["final frozen Stage8 evidence", "final V1.3 result contract", "submission release registry", "final as-executed manifests", "source code", "historical prose last"],
   "historical_evidence": {
     "raw_generation_count": 48300,
@@ -8,8 +8,24 @@
     "high_requests": 24150,
     "firms": 575,
     "cells_per_regime": 42,
-    "source_snapshot": "SOURCE_SNAPSHOT_UNRECOVERED",
-    "source_snapshot_status": "MISSING"
+    "source_snapshot": "archive/DEPLOYED_RELEASE/llm_runs/final_plan3",
+    "source_snapshot_status": "FOUND_IN_ORIGINAL_DEPLOYMENT_TREE",
+    "source_snapshot_runs": {
+      "baseline": {
+        "run_id": "2cf6d6d0e4250e66ce882ab95f9d641f2c73711ffbc6429e9a203dcc2ee680a2",
+        "logical_requests": 24150,
+        "provider_inputs": 24150,
+        "provider_outputs": 24150,
+        "normalized_raw_responses": 24150
+      },
+      "high": {
+        "run_id": "d5d878bf50718bac65ede73df3fc88c16723870b6c90a790557ff35b063b7ba7",
+        "logical_requests": 24150,
+        "provider_inputs": 24150,
+        "provider_outputs": 24150,
+        "normalized_raw_responses": 24150
+      }
+    }
   },
   "deterministic_product_plan": {
     "matrix_source": "frozen/evidence/llm/experiment_matrix.csv",
@@ -30,5 +46,5 @@
   "execution_policies": ["Strict", "Repaired"],
   "retry_semantics": "retry only transport, throttling, provider-job, and incomplete-output failures; persist each attempt",
   "live_gate": "THESIS_REPRO_ENABLE_LIVE_LLM=I_APPROVE_FRESH_REPLICATION",
-  "certification_rule": "Do not call this contract historical-exact until the unrecovered provider request snapshot is restored and independently reconciled."
+  "certification_rule": "Do not call this contract historical-exact until the found provider request snapshot is migrated and independently reconciled byte-for-byte against its source manifest."
 }

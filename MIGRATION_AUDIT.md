@@ -20,7 +20,9 @@
 - raw empirical inputs and provider credentials
 - historical analysis/archive trees not needed by the product surface
 - manuscript binaries whose exact bytes were unavailable
-- live provider responses and the unrecovered historical request snapshot
+- live provider responses and the large historical request snapshot, which is
+  now found in the source deployment tree and awaiting immutable asset
+  migration
 
 ## Identity checks
 
@@ -34,4 +36,3 @@
 The public CLI imports only `thesis_repro` and resolves paths from the product root. It does not import the old repository or use author-specific absolute paths. The curated legacy compatibility modules are not on the public CLI execution path; their remaining historical relative path strings are tracked for the next adapter pass.
 
 Runtime dependency on the old repository: **0**.
-

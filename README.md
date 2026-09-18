@@ -25,7 +25,7 @@ python -m thesis_repro compare --run-id oracle_smoke
 
 `OracleClean`, `OracleRLClean`, `OracleRLLMClean`, and `FullClean` are explicit DAG targets. Use `--plan` to inspect stages and resources. Use `--resume`, `--from-stage`, and `--to-stage` for namespaced execution.
 
-The smoke profile exercises the run engine with deterministic stage manifests. The full Oracle/RL adapters are being wired from the curated source port. The LLM lane renders a deterministic 48,300-request product plan, but live calls remain blocked by the unrecovered historical provider request snapshot documented in [docs/LLM_CONTRACT_GAP.md](docs/LLM_CONTRACT_GAP.md).
+The smoke profile exercises the run engine with deterministic stage manifests. The full Oracle/RL adapters are being wired from the curated source port. The LLM lane renders a deterministic 48,300-request product plan; the exact historical provider snapshot has been found in the original deployment tree but remains blocked from live use until it is migrated and reconciled, as documented in [docs/LLM_CONTRACT_GAP.md](docs/LLM_CONTRACT_GAP.md).
 
 ## Frozen lane
 
@@ -63,4 +63,3 @@ The repository is a product layer over frozen scientific evidence. Fresh numeric
 ## Provenance
 
 See [PROVENANCE.md](PROVENANCE.md), [frozen/release/frozen_manifest.json](frozen/release/frozen_manifest.json), and [MIGRATION_AUDIT.md](MIGRATION_AUDIT.md).
-
