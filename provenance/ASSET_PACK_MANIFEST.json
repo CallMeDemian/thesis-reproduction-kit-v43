@@ -9,7 +9,7 @@
       "pack_id": "oracle_stage0_foundation",
       "source_relative_root": "archive/DEPLOYED_RELEASE/stage0_oracle_foundation",
       "planned_target_root": "frozen/original_release/oracle/stage0_oracle_foundation",
-      "status": "FOUND_IN_SOURCE_MIGRATION_PENDING",
+      "status": "COPIED_AND_HASH_VERIFIED",
       "file_count": 7,
       "total_bytes": 124411620,
       "files": [
@@ -19,7 +19,8 @@
           "byte_size": 928841,
           "sha256": "16a320be2cdd1d0828b35e18cb95aaa8c51eb4e71f9a5c0d83e05c106952c167",
           "semantic_role": "oracle_stage0_foundation",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage0_oracle_foundation/canonical_panel/rating_event_panel.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage0_oracle_foundation/canonical_panel/stage0_canonical_panel.parquet",
@@ -27,7 +28,8 @@
           "byte_size": 1010628,
           "sha256": "b59122562876bdf6c2be253942eb8646b660826a68f6f71014364c595f7f16e1",
           "semantic_role": "oracle_stage0_foundation",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage0_oracle_foundation/canonical_panel/stage0_canonical_panel.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage0_oracle_foundation/canonical_panel/stage0_manifest.json",
@@ -35,7 +37,8 @@
           "byte_size": 21219,
           "sha256": "12fc3c106cbebd13949dde9f71cd1b546191fd8d342c44a603a20d7cd0daaa23",
           "semantic_role": "oracle_stage0_foundation",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage0_oracle_foundation/canonical_panel/stage0_manifest.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage0_oracle_foundation/canonical_panel/stage0_validation.json",
@@ -43,7 +46,8 @@
           "byte_size": 1104,
           "sha256": "f6d5cc05080a5d726a9344eb479b6cdc04e00b02c1233c1f0bfaab017b35eb3f",
           "semantic_role": "oracle_stage0_foundation",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage0_oracle_foundation/canonical_panel/stage0_validation.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage0_oracle_foundation/canonical_panel/statement_items_panel.parquet",
@@ -51,7 +55,8 @@
           "byte_size": 122427505,
           "sha256": "c52c08500034c8340dbcfc42d1fb4d439c8103347334c33a20f3f793598ddfd8",
           "semantic_role": "oracle_stage0_foundation",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage0_oracle_foundation/canonical_panel/statement_items_panel.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage0_oracle_foundation/stage0_manifest.json",
@@ -59,7 +64,8 @@
           "byte_size": 21219,
           "sha256": "12fc3c106cbebd13949dde9f71cd1b546191fd8d342c44a603a20d7cd0daaa23",
           "semantic_role": "oracle_stage0_foundation",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage0_oracle_foundation/stage0_manifest.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage0_oracle_foundation/stage0_validation.json",
@@ -67,7 +73,8 @@
           "byte_size": 1104,
           "sha256": "f6d5cc05080a5d726a9344eb479b6cdc04e00b02c1233c1f0bfaab017b35eb3f",
           "semantic_role": "oracle_stage0_foundation",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage0_oracle_foundation/stage0_validation.json"
         }
       ]
     },
@@ -75,7 +82,7 @@
       "pack_id": "oracle_stage1_inputs",
       "source_relative_root": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs",
       "planned_target_root": "frozen/original_release/oracle/stage1_oracle_inputs",
-      "status": "FOUND_IN_SOURCE_MIGRATION_PENDING",
+      "status": "COPIED_AND_HASH_VERIFIED",
       "file_count": 170,
       "total_bytes": 178749154,
       "files": [
@@ -85,7 +92,8 @@
           "byte_size": 7732605,
           "sha256": "495617fe5e58339fdd0318ecab586b24a1c8d1eb6354290098affa357dc65ed9",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/alpha_vanilla_input_candidate.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/alpha_vanilla_input_candidate_metadata.json",
@@ -93,7 +101,8 @@
           "byte_size": 2681,
           "sha256": "1cf38adf75d1f148361ba91564e0c830cb1f48d83485e53683a9d9201c3caa6a",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/alpha_vanilla_input_candidate_metadata.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/oracle_backend_input/stage1b/firm_year_panel_v1.parquet",
@@ -101,7 +110,8 @@
           "byte_size": 503002,
           "sha256": "d44251cdc98e1c7c3ad7ad8e8709b5a4cbc15f8cfaeb72f7b3da6b28f0888100",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/oracle_backend_input/stage1b/firm_year_panel_v1.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/oracle_backend_input/stage1c_v3/nonfinancial_metadata_panel.parquet",
@@ -109,7 +119,8 @@
           "byte_size": 198978,
           "sha256": "0f1d271b1a70ae9a987114ff4f93a7256a142b7a7a8beeddc4f20606ecddcff7",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/oracle_backend_input/stage1c_v3/nonfinancial_metadata_panel.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/oracle_backend_input/stage2/engineered_financial_ratios.parquet",
@@ -117,7 +128,8 @@
           "byte_size": 6955047,
           "sha256": "1e3225d86b53a3f030872bc0dec64ebec0702604927f2897fe8ba28445bb2044",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/oracle_backend_input/stage2/engineered_financial_ratios.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/oracle_backend_input/stage3_v2/direction_encoding_v2.json",
@@ -125,7 +137,8 @@
           "byte_size": 1176,
           "sha256": "8d2c25e1ebcbea779ceaafbe5e3d3ca102c59eff173e8ddb9b6e00407bc7c223",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/oracle_backend_input/stage3_v2/direction_encoding_v2.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/oracle_backend_input/stage3_v2/growth_candidate_input_contract.json",
@@ -133,7 +146,8 @@
           "byte_size": 2267,
           "sha256": "b9bb0704780597e0ca5725c5e54339fb1b631c430450420c9617133ebdca958d",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/oracle_backend_input/stage3_v2/growth_candidate_input_contract.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/oracle_backend_input/stage3_v2/nested_development_contract.json",
@@ -141,7 +155,8 @@
           "byte_size": 316,
           "sha256": "9cf9b1761dd13a870a9fa93d46b9aedf19156c85891a923396bcaa73a0169496",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/oracle_backend_input/stage3_v2/nested_development_contract.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/oracle_backend_input/stage3_v2/selected_variable_master.csv",
@@ -149,7 +164,8 @@
           "byte_size": 2594,
           "sha256": "fd85f96963944cd2b71cc950df2c40ae2207bffc1b39f9a18e74e2f948f960f3",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/oracle_backend_input/stage3_v2/selected_variable_master.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/oracle_backend_input/stage3_v2/selected_variables_v2.json",
@@ -157,7 +173,8 @@
           "byte_size": 12266,
           "sha256": "ac15e290b2440b066a509ed62653e2e0bde1564b365de6694aeaed5c48b2ef3c",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/oracle_backend_input/stage3_v2/selected_variables_v2.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/oracle_backend_input/stage3_v2/simulator_ratio_alias_map.json",
@@ -165,7 +182,8 @@
           "byte_size": 364,
           "sha256": "2b7fc0cc747442fe1b1ff7f06962bfd987a1fe3c6f047a8c540f227db49b6129",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/oracle_backend_input/stage3_v2/simulator_ratio_alias_map.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/oracle_backend_input/stage3_v2/weights_prior_v3.json",
@@ -173,7 +191,8 @@
           "byte_size": 1418,
           "sha256": "c404cf340105c9ac0e9dd131652b2ed3a9f3a17425feafcbbd56d652d930452e",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/oracle_backend_input/stage3_v2/weights_prior_v3.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/oracle_backend_input/stage4_alpha/oracle_firm_year_output_alpha.csv",
@@ -181,7 +200,8 @@
           "byte_size": 1668168,
           "sha256": "9579593c6e3f76cdbfec9e720820214ab5b22ff954b101f13f67c1de32e86800",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/oracle_backend_input/stage4_alpha/oracle_firm_year_output_alpha.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/oracle_backend_input/stage4_alpha/oracle_firm_year_output_alpha.parquet",
@@ -189,7 +209,8 @@
           "byte_size": 480563,
           "sha256": "9eb0fcf5bb64de58efa86034e741e87bb067a9eb6c5afcee3039f3d4fb5513e1",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/oracle_backend_input/stage4_alpha/oracle_firm_year_output_alpha.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/oracle_backend_input/stage4_alpha/preliminary_dev_oot_metrics_alpha.csv",
@@ -197,7 +218,8 @@
           "byte_size": 160,
           "sha256": "525c683a9c13419d08d4cbf7aba5e4d43406796b3f4c4e94589f41094ecd2d96",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/oracle_backend_input/stage4_alpha/preliminary_dev_oot_metrics_alpha.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_01_rating_statement_integration/cleaned_statement_panels/손익계산서_clean.parquet",
@@ -205,7 +227,8 @@
           "byte_size": 6357829,
           "sha256": "086538f3b8addb14215a3b9238541378a82a56edaf9086f03c3e1db256897cfd",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_01_rating_statement_integration/cleaned_statement_panels/손익계산서_clean.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_01_rating_statement_integration/cleaned_statement_panels/이익잉여금처분계산서_clean.parquet",
@@ -213,7 +236,8 @@
           "byte_size": 672191,
           "sha256": "2d1338cc451105b3522a47874aefd4c27ce0d4447eb888067934d2e28a4068ab",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_01_rating_statement_integration/cleaned_statement_panels/이익잉여금처분계산서_clean.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_01_rating_statement_integration/cleaned_statement_panels/자본변동표_clean.parquet",
@@ -221,7 +245,8 @@
           "byte_size": 1386443,
           "sha256": "ca3af433fe625a09954cbff3322b948000337cdce3a8ee0d7f039493a141a0c4",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_01_rating_statement_integration/cleaned_statement_panels/자본변동표_clean.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_01_rating_statement_integration/cleaned_statement_panels/재무비율_clean.parquet",
@@ -229,7 +254,8 @@
           "byte_size": 3455628,
           "sha256": "62a521f2c8ed9d737432f2a69def86af707fb530ea1097698fb0a1dd9b61bd0e",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_01_rating_statement_integration/cleaned_statement_panels/재무비율_clean.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_01_rating_statement_integration/cleaned_statement_panels/재무상태표_clean.parquet",
@@ -237,7 +263,8 @@
           "byte_size": 7647092,
           "sha256": "ba3a7208a1ba66175218ec33a020dd1ee647c719a3288c7c8ca221ad54bcedd4",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_01_rating_statement_integration/cleaned_statement_panels/재무상태표_clean.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_01_rating_statement_integration/cleaned_statement_panels/현금흐름표_clean.parquet",
@@ -245,7 +272,8 @@
           "byte_size": 6903783,
           "sha256": "971d989ebde126a7fc55827d4f64d301fad5ecd6d2a319844b305c5274af67d7",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_01_rating_statement_integration/cleaned_statement_panels/현금흐름표_clean.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_01_rating_statement_integration/financial_statement_items_raw.parquet",
@@ -253,7 +281,8 @@
           "byte_size": 14585866,
           "sha256": "82ed3d36f0a257fb486804df4e149f33b484aa8755b89e89f832d70cdec8efce",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_01_rating_statement_integration/financial_statement_items_raw.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_01_rating_statement_integration/firm_year_panel_v1.parquet",
@@ -261,7 +290,8 @@
           "byte_size": 503002,
           "sha256": "d44251cdc98e1c7c3ad7ad8e8709b5a4cbc15f8cfaeb72f7b3da6b28f0888100",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_01_rating_statement_integration/firm_year_panel_v1.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_01_rating_statement_integration/stage00_01_context_contract_repair.json",
@@ -269,7 +299,8 @@
           "byte_size": 578,
           "sha256": "0886a7f2ec15093ea5725ef9a22c34c259b5c135859292bf58f584b60d5154f6",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_01_rating_statement_integration/stage00_01_context_contract_repair.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_01_rating_statement_integration/stage00_01_metadata.json",
@@ -277,7 +308,8 @@
           "byte_size": 3630,
           "sha256": "b58a9e1ef4ed8645752c1e7cdb3db37dfb2c7c5a83dec1c8da88e8647e605d21",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_01_rating_statement_integration/stage00_01_metadata.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_01_rating_statement_integration/stage00_01_raw_context_code_static_lookup.csv",
@@ -285,7 +317,8 @@
           "byte_size": 564952,
           "sha256": "422d88f344492f7369a7eb1004d4375a92b8898270904ca83ba3b9a86e8ffa7d",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_01_rating_statement_integration/stage00_01_raw_context_code_static_lookup.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_01_rating_statement_integration/stage00_01_raw_context_code_year_lookup.csv",
@@ -293,7 +326,8 @@
           "byte_size": 11521177,
           "sha256": "af2a2a9c09e1cb0e212e64aa9822bcc2b2e1ab26ea49a6cedc03270e5f880725",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_01_rating_statement_integration/stage00_01_raw_context_code_year_lookup.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_01_rating_statement_integration/stage00_01_statement_coverage_contract.json",
@@ -301,7 +335,8 @@
           "byte_size": 951,
           "sha256": "087788e6fc7b26be87a5d96b05bd7e04e4c29dfb204c58dbe58b2d9151b477e6",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_01_rating_statement_integration/stage00_01_statement_coverage_contract.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/account_item_master_full.csv",
@@ -309,7 +344,8 @@
           "byte_size": 5834,
           "sha256": "db77e4abe52480c32bdd50450b4c082ace89f716343cfe2f3790165c4722b5ac",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/account_item_master_full.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/candidate_ratio_pool_by_item.csv",
@@ -317,7 +353,8 @@
           "byte_size": 16119,
           "sha256": "034720b41b256beb43ccd21829f04517a8d637befee62b91274490c81519b622",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/candidate_ratio_pool_by_item.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/candidate_ratio_pool_canonical.csv",
@@ -325,7 +362,8 @@
           "byte_size": 42500,
           "sha256": "2c908996617512c60da41ed030bc1519a1aebe46f12e868aea5fd3a0c250e5d5",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/candidate_ratio_pool_canonical.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/duplicate_ratio_alias_log.csv",
@@ -333,7 +371,8 @@
           "byte_size": 5893,
           "sha256": "31cbb1875aff0f5e2567f02427fd68f782f06f44873b2ae75a921005d6beaa2a",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/duplicate_ratio_alias_log.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/duplicate_ratio_alias_map.json",
@@ -341,7 +380,8 @@
           "byte_size": 8882,
           "sha256": "e2e25129ff14315ead4d1ef84465a204104e5859dd061065fe6c14a3c5c59b03",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/duplicate_ratio_alias_map.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/duplicate_ratio_alias_master_final.csv",
@@ -349,7 +389,8 @@
           "byte_size": 13391,
           "sha256": "5181f9dd67f0395e1bfb25bc635aa2d66505a316af4cfc1b21ea2a8e4ff305d5",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/duplicate_ratio_alias_master_final.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/duplicate_ratio_alias_master_resolved.csv",
@@ -357,7 +398,8 @@
           "byte_size": 5893,
           "sha256": "31cbb1875aff0f5e2567f02427fd68f782f06f44873b2ae75a921005d6beaa2a",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/duplicate_ratio_alias_master_resolved.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/duplicate_ratio_alias_quality_log.csv",
@@ -365,7 +407,8 @@
           "byte_size": 3325,
           "sha256": "d713870f70c5b1830161f16a929cc7d62a566633e2504332ccc80ef75d19394c",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/duplicate_ratio_alias_quality_log.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/engineered_financial_ratios.csv",
@@ -373,7 +416,8 @@
           "byte_size": 14150762,
           "sha256": "2427ec9998b9d259a0b25ae8e4d37363915b07dd9a1d4b81fac383b776e336e8",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/engineered_financial_ratios.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/engineered_financial_ratios.parquet",
@@ -381,7 +425,8 @@
           "byte_size": 6891367,
           "sha256": "5e0c8bb5f8104437c8e08ace13042cdfc7ceecf29980bf10e12ba7c4d117d186",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/engineered_financial_ratios.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/engineered_financial_ratios_canonical.parquet",
@@ -389,7 +434,8 @@
           "byte_size": 6955047,
           "sha256": "1e3225d86b53a3f030872bc0dec64ebec0702604927f2897fe8ba28445bb2044",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/engineered_financial_ratios_canonical.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/engineered_financial_ratios_preview.csv",
@@ -397,7 +443,8 @@
           "byte_size": 450594,
           "sha256": "e0c7bd219ccf82b8bd729a5fd6d66128615eb062481a18a3fc4027533150e7d6",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/engineered_financial_ratios_preview.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/financial_ratio_formula_dictionary_draft.csv",
@@ -405,7 +452,8 @@
           "byte_size": 115828,
           "sha256": "d4331abcaddd0960d407599fea26030ceaf561037144d943c260f28ea7fd19fc",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/financial_ratio_formula_dictionary_draft.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/financial_ratio_formula_dictionary_final.csv",
@@ -413,7 +461,8 @@
           "byte_size": 111140,
           "sha256": "44652781cbd77559fe4531ad675749e771ca593382fe1acc9d710966a074eb1e",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/financial_ratio_formula_dictionary_final.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/growth_audit/candidate_ratio_pool_growth_expanded.csv",
@@ -421,7 +470,8 @@
           "byte_size": 42500,
           "sha256": "2c908996617512c60da41ed030bc1519a1aebe46f12e868aea5fd3a0c250e5d5",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/growth_audit/candidate_ratio_pool_growth_expanded.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/growth_audit/engineered_financial_ratios_growth_expanded.parquet",
@@ -429,7 +479,8 @@
           "byte_size": 6955047,
           "sha256": "1e3225d86b53a3f030872bc0dec64ebec0702604927f2897fe8ba28445bb2044",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/growth_audit/engineered_financial_ratios_growth_expanded.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/growth_audit/growth_audit_existing.csv",
@@ -437,7 +488,8 @@
           "byte_size": 1029,
           "sha256": "a5bc0e3fd882a9aafaedcbf6d4a227052a49fca1628e3f08c0c077945863a8d9",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/growth_audit/growth_audit_existing.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/growth_audit/growth_audit_new.csv",
@@ -445,7 +497,8 @@
           "byte_size": 1163,
           "sha256": "505da5eea409f26f1b34b1a25b3372fdcf8e65f25e7b767ce281612ebbf4889e",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/growth_audit/growth_audit_new.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/growth_audit/growth_audit_report.md",
@@ -453,7 +506,8 @@
           "byte_size": 2092,
           "sha256": "a1daf322cdfe1865a0705563a3dea25fe171ec540d35e3fbcf990839d7425938",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/growth_audit/growth_audit_report.md"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/growth_ratio_policy.md",
@@ -461,7 +515,8 @@
           "byte_size": 414,
           "sha256": "86a27f36c770f5080d0487a0457fe5ca1e40b2545a35f4f5ee9903dba4673ee4",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/growth_ratio_policy.md"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support/손익계산서_lag_support.parquet",
@@ -469,7 +524,8 @@
           "byte_size": 5061398,
           "sha256": "b706c74d5f35a25037db5fee1a05ff9813f24f88e25203d2754caa11b1ebdbb3",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support/손익계산서_lag_support.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support/이익잉여금처분계산서_lag_support.parquet",
@@ -477,7 +533,8 @@
           "byte_size": 544007,
           "sha256": "3882a4a75c1c1adde192b05248e3f700a04cc4b007890b8e6a74490d3465f7f6",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support/이익잉여금처분계산서_lag_support.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support/자본변동표_lag_support.parquet",
@@ -485,7 +542,8 @@
           "byte_size": 1107591,
           "sha256": "fa52962575ac600cc6a11f4283e3d6672eb752e19864778eae4e3569b7f9ba34",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support/자본변동표_lag_support.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support/재무비율_lag_support.parquet",
@@ -493,7 +551,8 @@
           "byte_size": 3358280,
           "sha256": "6711dd6bde2f3171a217ba5b6abc567b586d2448d137d9539dd7c0294474e56c",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support/재무비율_lag_support.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support/재무상태표_lag_support.parquet",
@@ -501,7 +560,8 @@
           "byte_size": 6301646,
           "sha256": "885505af920d4912f9254f6ba16d506a2c86b579d3c730ad1876e97af12ac316",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support/재무상태표_lag_support.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support/현금흐름표_lag_support.parquet",
@@ -509,7 +569,8 @@
           "byte_size": 5367466,
           "sha256": "83226b8fb78fd32e2d4cb4bfc66bf03fee276ae673f9685666a1c5cd5912bf2d",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support/현금흐름표_lag_support.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support_coverage_report.csv",
@@ -517,7 +578,8 @@
           "byte_size": 2072,
           "sha256": "789374dfec708336081e6611e5960be65dc47f149b3985221b4340326616c23a",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support_coverage_report.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support_dup_excl_log.csv",
@@ -525,7 +587,8 @@
           "byte_size": 13779,
           "sha256": "1ceede82be637a99207e9c789a7452be27a754bb0a37fb54dee6f2c44045c131",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support_dup_excl_log.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support_financial_items.parquet",
@@ -533,7 +596,8 @@
           "byte_size": 22853757,
           "sha256": "a7651e21c197eb8d6936b4b9077d5c4160edb231fb8df25b6a3eed336c99bc07",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/lag_support_financial_items.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/pre_exclusion_log.csv",
@@ -541,7 +605,8 @@
           "byte_size": 2911,
           "sha256": "bc00c8b6775939bfb69b291b92918577caeb25a80f96ec1db791b667784429e9",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/pre_exclusion_log.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/quality_gate_scope_contract.json",
@@ -549,7 +614,8 @@
           "byte_size": 205,
           "sha256": "a4209294a801e2c1ab9be7537fb29495629e15e24fa1dbf61e33a9260e661ef2",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/quality_gate_scope_contract.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_audit_against_precomputed_panel.csv",
@@ -557,7 +623,8 @@
           "byte_size": 14398,
           "sha256": "7eb9e7e0e44fd47d999e660066606ebbb87a77d3824f3c9d8918623534aca569",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_audit_against_precomputed_panel.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_calculation_log.csv",
@@ -565,7 +632,8 @@
           "byte_size": 26418,
           "sha256": "316b12917b3a19f4bc9e862da399145c3757baa521c84c6947969e491d9bd240",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_calculation_log.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_code_master_stage2.csv",
@@ -573,7 +641,8 @@
           "byte_size": 105163,
           "sha256": "783d619a7c6f978deafde46d4d21593bd74ea1f4743a79ff0290f3d2e531f5fc",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_code_master_stage2.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_code_master_stage2.json",
@@ -581,7 +650,8 @@
           "byte_size": 332498,
           "sha256": "24553f29d5a095c4bf1509ed5d624c7648c01afd70c18c45fd72a01e119bf9cb",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_code_master_stage2.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_code_master_stage2_final.csv",
@@ -589,7 +659,8 @@
           "byte_size": 123897,
           "sha256": "29b0d80e52ab0a51489a0fa83cce3b67dbff4fa71736bed47134aa50d8d6dc0d",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_code_master_stage2_final.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_code_master_stage2_final.json",
@@ -597,7 +668,8 @@
           "byte_size": 393208,
           "sha256": "ba3acf2d0d234e23f1dc340105ad7cb411ded02b9165f2f0a8b733f8f0b0090f",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_code_master_stage2_final.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_item_availability_report.csv",
@@ -605,7 +677,8 @@
           "byte_size": 31027,
           "sha256": "3624d79dcd191e1f3b1e74f0a6b7718fd69d4bbe856792de02297a9a6a2c7a4f",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_item_availability_report.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_quality_report.csv",
@@ -613,7 +686,8 @@
           "byte_size": 36794,
           "sha256": "f467c8931ee24d8dab00fa132ef96fee2da0f81247b707e197af5423dfaed8b9",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/ratio_quality_report.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/README_STAGE3_INPUTS.md",
@@ -621,7 +695,8 @@
           "byte_size": 1208,
           "sha256": "73ea84149db8a46e40c858eb56729c675880f0a8557b24c26618923179cb051c",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/README_STAGE3_INPUTS.md"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/simulator_ratio_alias_map.json",
@@ -629,7 +704,8 @@
           "byte_size": 3347,
           "sha256": "9b03461e5b3f1ee5c147468391a47ad4decf2f8f1605571c37a260911ede0d77",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/simulator_ratio_alias_map.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/stage00_02_market_carryover_lookup.csv",
@@ -637,7 +713,8 @@
           "byte_size": 120866,
           "sha256": "7ebccbdf3ae7683ab31f285df62645f69416cbe21b7e2b9f1cff99dca615e55d",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/stage00_02_market_carryover_lookup.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/stage00_02_market_carryover_summary.csv",
@@ -645,7 +722,8 @@
           "byte_size": 114,
           "sha256": "dcaad1cf0f467bd7b00c8ba6d2f6c01edc4c1f9c05ba58130c361d5ef63935a3",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/stage00_02_market_carryover_summary.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/stage2_file_manifest.csv",
@@ -653,7 +731,8 @@
           "byte_size": 5729,
           "sha256": "7bfe0ba7f66dd676fdb0616bc05db8d2d2b6ef518ef73c8f5e6139ad5e3b27cf",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/stage2_file_manifest.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/stage2_formula_investigation_targets.csv",
@@ -661,7 +740,8 @@
           "byte_size": 5,
           "sha256": "f01a374e9c81e3db89b3a42940c4d6a5447684986a1296e42bf13f196eed6295",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/stage2_formula_investigation_targets.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/stage2_summary.md",
@@ -669,7 +749,8 @@
           "byte_size": 742,
           "sha256": "c0628614a4149edb72dab32c5196422adfbd8bc8338f0999c48f10feba11ae7e",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/stage2_summary.md"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/stage2_verdict.md",
@@ -677,7 +758,8 @@
           "byte_size": 1134,
           "sha256": "db04f8a9f4fa28be8181bb7433e5e35bc995fa3478fffea4bc69cda5590cf558",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/stage2_verdict.md"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/statement_item_inventory.csv",
@@ -685,7 +767,8 @@
           "byte_size": 2155422,
           "sha256": "0c5cec967e73bca3acd50cb9768862c130476cdba83e766be5b6f5b6eb02eef5",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_02_financial_ratio_engineering/statement_item_inventory.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/business_risk_features.parquet",
@@ -693,7 +776,8 @@
           "byte_size": 100612,
           "sha256": "e2f4aaee331caeaf4eaaf2b40cf2d749476204fe429d557f93f05cdab1134c50",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/business_risk_features.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/event_parsing_log.csv",
@@ -701,7 +785,8 @@
           "byte_size": 234,
           "sha256": "a37a09f91a255d7523e33715d61e481ee431475ce79103c5a7a51eb9efc51c39",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/event_parsing_log.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/financial_risk_proxy_features.parquet",
@@ -709,7 +794,8 @@
           "byte_size": 22030,
           "sha256": "b99aa13656b30da931ac8650664c09cfdc7b16ce602a4800daa3c754b38b9521",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/financial_risk_proxy_features.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/general_info_asof_contract.json",
@@ -717,7 +803,8 @@
           "byte_size": 348,
           "sha256": "375afba2ebdeb8429066749d6a94685c7c76d2ebb1ba335152c8db19c289d802",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/general_info_asof_contract.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/industry_risk_features.parquet",
@@ -725,7 +812,8 @@
           "byte_size": 25872,
           "sha256": "5f540722e260b775d2bb28a34bcaa850934e8968bca7016554e2254b5331078d",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/industry_risk_features.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/industry_sector_coverage_contract.json",
@@ -733,7 +821,8 @@
           "byte_size": 1046,
           "sha256": "3143f877d7fc1649c1f785a2ca5eb7066d1dcf63ed98de3b807ca1da5753625c",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/industry_sector_coverage_contract.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/management_risk_features.parquet",
@@ -741,7 +830,8 @@
           "byte_size": 33099,
           "sha256": "63263102eec06481a395975a6769a20cf82c283a83a8aa4db8a4a07e0faab51c",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/management_risk_features.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/metadata_candidate_availability_report.csv",
@@ -749,7 +839,8 @@
           "byte_size": 4300,
           "sha256": "3a974c942e98c869f6a742093a177020c8fe850a0d5002f9f2465e68ce2a5f46",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/metadata_candidate_availability_report.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/metadata_source_inventory.csv",
@@ -757,7 +848,8 @@
           "byte_size": 15823,
           "sha256": "9a65aac13a09c267bb881e584bd50db4fe4d78efad158621f972275037030693",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/metadata_source_inventory.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/nonfinancial_candidate_pool_by_item.csv",
@@ -765,7 +857,8 @@
           "byte_size": 2988,
           "sha256": "3d9da38ef39d568db111dc82dd99df918c12547c2e78c1c19d075c4ca00f6df0",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/nonfinancial_candidate_pool_by_item.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/nonfinancial_metadata_panel.csv",
@@ -773,7 +866,8 @@
           "byte_size": 958138,
           "sha256": "4ec26ca3b805a01c75cdc0435196e5636b80d19b52e2202a2df51b5694dc476c",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/nonfinancial_metadata_panel.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/nonfinancial_metadata_panel.parquet",
@@ -781,7 +875,8 @@
           "byte_size": 198978,
           "sha256": "0f1d271b1a70ae9a987114ff4f93a7256a142b7a7a8beeddc4f20606ecddcff7",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/nonfinancial_metadata_panel.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/nonfinancial_variable_quality_report.csv",
@@ -789,7 +884,8 @@
           "byte_size": 9982,
           "sha256": "516ad7e6f22edfbe3585bd5843258c28ebfabb14d6596bb2fa1e49631689d8ba",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/nonfinancial_variable_quality_report.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/quality_gate_scope_contract.json",
@@ -797,7 +893,8 @@
           "byte_size": 600,
           "sha256": "5924caf455db492071f181b7d6afa0722ed3c90afbdd77ef288da84b4f3fa8a8",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/quality_gate_scope_contract.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/reliability_features.parquet",
@@ -805,7 +902,8 @@
           "byte_size": 25360,
           "sha256": "c9c3640a6f58133a8a8a94a3d641d1d6bde0cf1744c26321a88d80968daf8788",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/reliability_features.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/stage1c_summary.md",
@@ -813,7 +911,8 @@
           "byte_size": 2381,
           "sha256": "780d367f1df1d0030a26139a0f18da6938fda6738394fc32748027203cf62041",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/stage1c_summary.md"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/stage1c_v2_vs_v3_2_diff_report.md",
@@ -821,7 +920,8 @@
           "byte_size": 1693,
           "sha256": "9645bf589cbdd142fb1629713f62d040175fa30b9f8676b265a411d09509e215",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/stage1c_v2_vs_v3_2_diff_report.md"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/stage1c_v3_2_acceptance_checklist.csv",
@@ -829,7 +929,8 @@
           "byte_size": 1289,
           "sha256": "c754abb839adefca90982af5765c8ec0f5ddce854ae343033e72635c312e8cba",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_03_nonfinancial_metadata/stage1c_v3_2_acceptance_checklist.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/absolute_signal_floor_guard.csv",
@@ -837,7 +938,8 @@
           "byte_size": 27499,
           "sha256": "6950541f2f5bf63c8ddcf3541dfc45a7e4039c2f26a8704d7daa661fe444b6d3",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/absolute_signal_floor_guard.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/canonical_financial_candidate_pool.csv",
@@ -845,7 +947,8 @@
           "byte_size": 49399,
           "sha256": "1e66d7000add40f563ae1dabd883221daa6e04bce62fae79c2107ba7faaaf291",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/canonical_financial_candidate_pool.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/category_selection_status.csv",
@@ -853,7 +956,8 @@
           "byte_size": 915,
           "sha256": "dd7adf96d822aa0a51faa2d35b88205fa8f419943a84d0707a107081a894fd88",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/category_selection_status.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/category_selection_status.json",
@@ -861,7 +965,8 @@
           "byte_size": 3115,
           "sha256": "9d8fb3add20b3bc0c77882482de1c52a4b20132b27be13abd7609e60adc7c61d",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/category_selection_status.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/direction_encoding_v2.json",
@@ -869,7 +974,8 @@
           "byte_size": 1176,
           "sha256": "8d2c25e1ebcbea779ceaafbe5e3d3ca102c59eff173e8ddb9b6e00407bc7c223",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/direction_encoding_v2.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/expected_direction_guard.csv",
@@ -877,7 +983,8 @@
           "byte_size": 18460,
           "sha256": "f1271694877f6a998d01e87881b15a0f4aa24ee203184deeae1f5f294870f8ec",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/expected_direction_guard.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/growth_candidate_input_contract.json",
@@ -885,7 +992,8 @@
           "byte_size": 2267,
           "sha256": "b9bb0704780597e0ca5725c5e54339fb1b631c430450420c9617133ebdca958d",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/growth_candidate_input_contract.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/inner_validation_variable_report.csv",
@@ -893,7 +1001,8 @@
           "byte_size": 823,
           "sha256": "c62065061b6f7bee9cda27157a80a23ae20eb18fffb0780617cd0f4e1c6e8282",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/inner_validation_variable_report.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/nested_development_contract.json",
@@ -901,7 +1010,8 @@
           "byte_size": 316,
           "sha256": "9cf9b1761dd13a870a9fa93d46b9aedf19156c85891a923396bcaa73a0169496",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/nested_development_contract.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/absolute_signal_floor_guard.csv",
@@ -909,7 +1019,8 @@
           "byte_size": 27499,
           "sha256": "6950541f2f5bf63c8ddcf3541dfc45a7e4039c2f26a8704d7daa661fe444b6d3",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/absolute_signal_floor_guard.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/canonical_financial_candidate_pool.csv",
@@ -917,7 +1028,8 @@
           "byte_size": 49399,
           "sha256": "1e66d7000add40f563ae1dabd883221daa6e04bce62fae79c2107ba7faaaf291",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/canonical_financial_candidate_pool.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/category_selection_status.csv",
@@ -925,7 +1037,8 @@
           "byte_size": 915,
           "sha256": "dd7adf96d822aa0a51faa2d35b88205fa8f419943a84d0707a107081a894fd88",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/category_selection_status.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/category_selection_status.json",
@@ -933,7 +1046,8 @@
           "byte_size": 3115,
           "sha256": "9d8fb3add20b3bc0c77882482de1c52a4b20132b27be13abd7609e60adc7c61d",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/category_selection_status.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/collinearity_matrix.csv",
@@ -941,7 +1055,8 @@
           "byte_size": 1673,
           "sha256": "d0db4f090d32ee1445a5795e658d6f158d78d094ee9f1188372a73a63faf3ca2",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/collinearity_matrix.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/collinearity_matrix_v2.csv",
@@ -949,7 +1064,8 @@
           "byte_size": 1673,
           "sha256": "d0db4f090d32ee1445a5795e658d6f158d78d094ee9f1188372a73a63faf3ca2",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/collinearity_matrix_v2.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/collinearity_matrix_v3.csv",
@@ -957,7 +1073,8 @@
           "byte_size": 1673,
           "sha256": "d0db4f090d32ee1445a5795e658d6f158d78d094ee9f1188372a73a63faf3ca2",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/collinearity_matrix_v3.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/collinearity_replacement_trace.csv",
@@ -965,7 +1082,8 @@
           "byte_size": 336,
           "sha256": "e2ffe3e2a15034cb89a7a30da5321ed5353eb8e4c0e17d47e1340777883a3a28",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/collinearity_replacement_trace.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/direction_encoding.json",
@@ -973,7 +1091,8 @@
           "byte_size": 1176,
           "sha256": "8d2c25e1ebcbea779ceaafbe5e3d3ca102c59eff173e8ddb9b6e00407bc7c223",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/direction_encoding.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/direction_encoding_latest.json",
@@ -981,7 +1100,8 @@
           "byte_size": 1176,
           "sha256": "8d2c25e1ebcbea779ceaafbe5e3d3ca102c59eff173e8ddb9b6e00407bc7c223",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/direction_encoding_latest.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/direction_encoding_v2.json",
@@ -989,7 +1109,8 @@
           "byte_size": 1176,
           "sha256": "8d2c25e1ebcbea779ceaafbe5e3d3ca102c59eff173e8ddb9b6e00407bc7c223",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/direction_encoding_v2.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/direction_encoding_v3.json",
@@ -997,7 +1118,8 @@
           "byte_size": 1176,
           "sha256": "8d2c25e1ebcbea779ceaafbe5e3d3ca102c59eff173e8ddb9b6e00407bc7c223",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/direction_encoding_v3.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/domain_filter_log_v3.csv",
@@ -1005,7 +1127,8 @@
           "byte_size": 2493,
           "sha256": "9a00890781a189cb3dabfcedd55e261e84cf9467427186d181c8fa80405610f2",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/domain_filter_log_v3.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/duplicate_ratio_alias_log.csv",
@@ -1013,7 +1136,8 @@
           "byte_size": 1744,
           "sha256": "83214cdf96beb6dc2c4536f6a05f7165a19fe50dcc0513f533e606ed9d8bbeb7",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/duplicate_ratio_alias_log.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/expected_direction_guard.csv",
@@ -1021,7 +1145,8 @@
           "byte_size": 18460,
           "sha256": "f1271694877f6a998d01e87881b15a0f4aa24ee203184deeae1f5f294870f8ec",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/expected_direction_guard.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/growth_candidate_input_contract.json",
@@ -1029,7 +1154,8 @@
           "byte_size": 2267,
           "sha256": "b9bb0704780597e0ca5725c5e54339fb1b631c430450420c9617133ebdca958d",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/growth_candidate_input_contract.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/inner_validation_variable_report.csv",
@@ -1037,7 +1163,8 @@
           "byte_size": 823,
           "sha256": "c62065061b6f7bee9cda27157a80a23ae20eb18fffb0780617cd0f4e1c6e8282",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/inner_validation_variable_report.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/nested_development_contract.json",
@@ -1045,7 +1172,8 @@
           "byte_size": 316,
           "sha256": "9cf9b1761dd13a870a9fa93d46b9aedf19156c85891a923396bcaa73a0169496",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/nested_development_contract.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/oot_sanity_check.csv",
@@ -1053,7 +1181,8 @@
           "byte_size": 1333,
           "sha256": "2fb0854cb6b118edaf94d028a5a4c531f8319678aaa1b4aade6608526224c974",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/oot_sanity_check.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/selected_variable_master.csv",
@@ -1061,7 +1190,8 @@
           "byte_size": 2594,
           "sha256": "fd85f96963944cd2b71cc950df2c40ae2207bffc1b39f9a18e74e2f948f960f3",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/selected_variable_master.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/selected_variables_latest.json",
@@ -1069,7 +1199,8 @@
           "byte_size": 12266,
           "sha256": "ac15e290b2440b066a509ed62653e2e0bde1564b365de6694aeaed5c48b2ef3c",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/selected_variables_latest.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/selected_variables_v1.json",
@@ -1077,7 +1208,8 @@
           "byte_size": 10124,
           "sha256": "8caf989939fba454d91f4f31c80b670d9ce3b283ef88709e1f3a0d89091b0a24",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/selected_variables_v1.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/selected_variables_v2.json",
@@ -1085,7 +1217,8 @@
           "byte_size": 12266,
           "sha256": "ac15e290b2440b066a509ed62653e2e0bde1564b365de6694aeaed5c48b2ef3c",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/selected_variables_v2.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/selected_variables_v3.json",
@@ -1093,7 +1226,8 @@
           "byte_size": 12266,
           "sha256": "ac15e290b2440b066a509ed62653e2e0bde1564b365de6694aeaed5c48b2ef3c",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/selected_variables_v3.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/selection_score_table.csv",
@@ -1101,7 +1235,8 @@
           "byte_size": 101752,
           "sha256": "0c031fe4c31e0477479ec22ee889a7df2cbad035a79cdcb6fa2bb00be80fe29d",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/selection_score_table.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/selection_tie_break_log.csv",
@@ -1109,7 +1244,8 @@
           "byte_size": 1290,
           "sha256": "680ecec53e13477cdd3668bf18221bf3302a579d837f041202ddad85e4c39880",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/selection_tie_break_log.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/simulator_computability_guard.csv",
@@ -1117,7 +1253,8 @@
           "byte_size": 9922,
           "sha256": "4216efed25fc9c5c32b581b65c6f7d78a9c9927c952138edb7eb721f8f66105d",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/simulator_computability_guard.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/simulator_ratio_alias_map.json",
@@ -1125,7 +1262,8 @@
           "byte_size": 364,
           "sha256": "2b7fc0cc747442fe1b1ff7f06962bfd987a1fe3c6f047a8c540f227db49b6129",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/simulator_ratio_alias_map.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/split_reconciliation_report.csv",
@@ -1133,7 +1271,8 @@
           "byte_size": 1005,
           "sha256": "139bf5ec59419aaad16f78623c1596df7c98140ec717fcfe9f3bd91e36838942",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/split_reconciliation_report.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/stage3_compliance_checklist.csv",
@@ -1141,7 +1280,8 @@
           "byte_size": 1952,
           "sha256": "9346e9379b7191bb3a4c46ee56815a5612288bb7e30385ea98d9079552c73cdf",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/stage3_compliance_checklist.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/stage3_file_manifest.csv",
@@ -1149,7 +1289,8 @@
           "byte_size": 3940,
           "sha256": "6f34d437979600d73503e9f1a3cdb4758f7859aace7df88bde6f3f9bb464a4a3",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/stage3_file_manifest.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/stage3_ratio_alias_map_used.json",
@@ -1157,7 +1298,8 @@
           "byte_size": 4157,
           "sha256": "4d7d2d7a7078cbd5b75fa11e189d93353c5d856545617c4e8bb53f4a79919df0",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/stage3_ratio_alias_map_used.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/stage3_ratio_alias_master_used.csv",
@@ -1165,7 +1307,8 @@
           "byte_size": 2760,
           "sha256": "4367835a1a8b9d0527125d7b07193ba6a443e327a5fe1b81b663a4850b6ff3b3",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/stage3_ratio_alias_master_used.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/stage3_subfix_override_log.csv",
@@ -1173,7 +1316,8 @@
           "byte_size": 2,
           "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/stage3_subfix_override_log.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/stage3_verdict.md",
@@ -1181,7 +1325,8 @@
           "byte_size": 126,
           "sha256": "9ac3c7dd8e38a6f43de2560e0112163018b7d1b7beaade2540a4b99e7e73c1ee",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/stage3_verdict.md"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/variable_screening_metrics.csv",
@@ -1189,7 +1334,8 @@
           "byte_size": 100931,
           "sha256": "5a2dee62af12e619c2bce28a2a277865d9c11fe7a5ffe07e3c28e9ee119f31ea",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/variable_screening_metrics.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/variable_selection_report.md",
@@ -1197,7 +1343,8 @@
           "byte_size": 8037,
           "sha256": "a9638af26ead5dbba7a2fdc2587615175a85b7cc0925ff262441c4f02fd5fd94",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/variable_selection_report.md"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/weights_prior_latest.json",
@@ -1205,7 +1352,8 @@
           "byte_size": 1418,
           "sha256": "c404cf340105c9ac0e9dd131652b2ed3a9f3a17425feafcbbd56d652d930452e",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/weights_prior_latest.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/weights_prior_v3.json",
@@ -1213,7 +1361,8 @@
           "byte_size": 1418,
           "sha256": "c404cf340105c9ac0e9dd131652b2ed3a9f3a17425feafcbbd56d652d930452e",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/weights_prior_v3.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/outputs/winsorization_bounds.csv",
@@ -1221,7 +1370,8 @@
           "byte_size": 13978,
           "sha256": "c0abc8c6cfa34f153d32e4a88dc2fda6fb25f323437f1fc04683decfee56a548",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/outputs/winsorization_bounds.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/selected_variable_master.csv",
@@ -1229,7 +1379,8 @@
           "byte_size": 2594,
           "sha256": "fd85f96963944cd2b71cc950df2c40ae2207bffc1b39f9a18e74e2f948f960f3",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/selected_variable_master.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/selected_variables_v2.json",
@@ -1237,7 +1388,8 @@
           "byte_size": 12266,
           "sha256": "ac15e290b2440b066a509ed62653e2e0bde1564b365de6694aeaed5c48b2ef3c",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/selected_variables_v2.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/selection_score_table.csv",
@@ -1245,7 +1397,8 @@
           "byte_size": 101752,
           "sha256": "0c031fe4c31e0477479ec22ee889a7df2cbad035a79cdcb6fa2bb00be80fe29d",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/selection_score_table.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/selection_tie_break_log.csv",
@@ -1253,7 +1406,8 @@
           "byte_size": 1290,
           "sha256": "680ecec53e13477cdd3668bf18221bf3302a579d837f041202ddad85e4c39880",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/selection_tie_break_log.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/simulator_computability_guard.csv",
@@ -1261,7 +1415,8 @@
           "byte_size": 9922,
           "sha256": "4216efed25fc9c5c32b581b65c6f7d78a9c9927c952138edb7eb721f8f66105d",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/simulator_computability_guard.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/simulator_ratio_alias_map.json",
@@ -1269,7 +1424,8 @@
           "byte_size": 364,
           "sha256": "2b7fc0cc747442fe1b1ff7f06962bfd987a1fe3c6f047a8c540f227db49b6129",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/simulator_ratio_alias_map.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage1b/firm_year_panel_v1.parquet",
@@ -1277,7 +1433,8 @@
           "byte_size": 503002,
           "sha256": "d44251cdc98e1c7c3ad7ad8e8709b5a4cbc15f8cfaeb72f7b3da6b28f0888100",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage1b/firm_year_panel_v1.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage1c/nonfinancial_candidate_pool_by_item.csv",
@@ -1285,7 +1442,8 @@
           "byte_size": 2988,
           "sha256": "3d9da38ef39d568db111dc82dd99df918c12547c2e78c1c19d075c4ca00f6df0",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage1c/nonfinancial_candidate_pool_by_item.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage1c/nonfinancial_metadata_panel.parquet",
@@ -1293,7 +1451,8 @@
           "byte_size": 198978,
           "sha256": "0f1d271b1a70ae9a987114ff4f93a7256a142b7a7a8beeddc4f20606ecddcff7",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage1c/nonfinancial_metadata_panel.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage1c/nonfinancial_variable_quality_report.csv",
@@ -1301,7 +1460,8 @@
           "byte_size": 9982,
           "sha256": "516ad7e6f22edfbe3585bd5843258c28ebfabb14d6596bb2fa1e49631689d8ba",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage1c/nonfinancial_variable_quality_report.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage2/candidate_ratio_pool_by_item.csv",
@@ -1309,7 +1469,8 @@
           "byte_size": 16119,
           "sha256": "034720b41b256beb43ccd21829f04517a8d637befee62b91274490c81519b622",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage2/candidate_ratio_pool_by_item.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage2/candidate_ratio_pool_canonical.csv",
@@ -1317,7 +1478,8 @@
           "byte_size": 42500,
           "sha256": "2c908996617512c60da41ed030bc1519a1aebe46f12e868aea5fd3a0c250e5d5",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage2/candidate_ratio_pool_canonical.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage2/engineered_financial_ratios.parquet",
@@ -1325,7 +1487,8 @@
           "byte_size": 6891367,
           "sha256": "5e0c8bb5f8104437c8e08ace13042cdfc7ceecf29980bf10e12ba7c4d117d186",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage2/engineered_financial_ratios.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage2/engineered_financial_ratios_canonical.parquet",
@@ -1333,7 +1496,8 @@
           "byte_size": 6955047,
           "sha256": "1e3225d86b53a3f030872bc0dec64ebec0702604927f2897fe8ba28445bb2044",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage2/engineered_financial_ratios_canonical.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage2/growth_audit/candidate_ratio_pool_growth_expanded.csv",
@@ -1341,7 +1505,8 @@
           "byte_size": 42500,
           "sha256": "2c908996617512c60da41ed030bc1519a1aebe46f12e868aea5fd3a0c250e5d5",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage2/growth_audit/candidate_ratio_pool_growth_expanded.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage2/growth_audit/engineered_financial_ratios_growth_expanded.parquet",
@@ -1349,7 +1514,8 @@
           "byte_size": 6955047,
           "sha256": "1e3225d86b53a3f030872bc0dec64ebec0702604927f2897fe8ba28445bb2044",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage2/growth_audit/engineered_financial_ratios_growth_expanded.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage2/growth_audit/growth_audit_existing.csv",
@@ -1357,7 +1523,8 @@
           "byte_size": 1029,
           "sha256": "a5bc0e3fd882a9aafaedcbf6d4a227052a49fca1628e3f08c0c077945863a8d9",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage2/growth_audit/growth_audit_existing.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage2/growth_audit/growth_audit_new.csv",
@@ -1365,7 +1532,8 @@
           "byte_size": 1163,
           "sha256": "505da5eea409f26f1b34b1a25b3372fdcf8e65f25e7b767ce281612ebbf4889e",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage2/growth_audit/growth_audit_new.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage2/growth_audit/growth_audit_report.md",
@@ -1373,7 +1541,8 @@
           "byte_size": 2092,
           "sha256": "a1daf322cdfe1865a0705563a3dea25fe171ec540d35e3fbcf990839d7425938",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage2/growth_audit/growth_audit_report.md"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage2/quality_gate_scope_contract.json",
@@ -1381,7 +1550,8 @@
           "byte_size": 205,
           "sha256": "a4209294a801e2c1ab9be7537fb29495629e15e24fa1dbf61e33a9260e661ef2",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage2/quality_gate_scope_contract.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage2/ratio_audit_against_precomputed_panel.csv",
@@ -1389,7 +1559,8 @@
           "byte_size": 14398,
           "sha256": "7eb9e7e0e44fd47d999e660066606ebbb87a77d3824f3c9d8918623534aca569",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage2/ratio_audit_against_precomputed_panel.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage2/ratio_quality_report.csv",
@@ -1397,7 +1568,8 @@
           "byte_size": 36794,
           "sha256": "f467c8931ee24d8dab00fa132ef96fee2da0f81247b707e197af5423dfaed8b9",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage2/ratio_quality_report.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage3_ratio_alias_map_used.json",
@@ -1405,7 +1577,8 @@
           "byte_size": 4157,
           "sha256": "4d7d2d7a7078cbd5b75fa11e189d93353c5d856545617c4e8bb53f4a79919df0",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage3_ratio_alias_map_used.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage3_ratio_alias_master_used.csv",
@@ -1413,7 +1586,8 @@
           "byte_size": 2760,
           "sha256": "4367835a1a8b9d0527125d7b07193ba6a443e327a5fe1b81b663a4850b6ff3b3",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage3_ratio_alias_master_used.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/stage3_verdict.md",
@@ -1421,7 +1595,8 @@
           "byte_size": 126,
           "sha256": "9ac3c7dd8e38a6f43de2560e0112163018b7d1b7beaade2540a4b99e7e73c1ee",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/stage3_verdict.md"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/variable_screening_metrics.csv",
@@ -1429,7 +1604,8 @@
           "byte_size": 100931,
           "sha256": "5a2dee62af12e619c2bce28a2a277865d9c11fe7a5ffe07e3c28e9ee119f31ea",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/variable_screening_metrics.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_inputs/stage00_04_variable_selection/weights_prior_v3.json",
@@ -1437,7 +1613,8 @@
           "byte_size": 1418,
           "sha256": "c404cf340105c9ac0e9dd131652b2ed3a9f3a17425feafcbbd56d652d930452e",
           "semantic_role": "oracle_stage1_inputs",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_inputs/stage00_04_variable_selection/weights_prior_v3.json"
         }
       ]
     },
@@ -1445,7 +1622,7 @@
       "pack_id": "oracle_stage1_backends",
       "source_relative_root": "archive/DEPLOYED_RELEASE/stage1_oracle_backends",
       "planned_target_root": "frozen/original_release/oracle/stage1_oracle_backends",
-      "status": "FOUND_IN_SOURCE_MIGRATION_PENDING",
+      "status": "COPIED_AND_HASH_VERIFIED",
       "file_count": 57,
       "total_bytes": 8099745,
       "files": [
@@ -1455,7 +1632,8 @@
           "byte_size": 513,
           "sha256": "68d2f147f08ad11046019f8d1bab92bd0641a7e5ea4072a68424218821b87cf5",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/alpha_boundary_finalization_report.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/bin_assignment_diagnostics.csv",
@@ -1463,7 +1641,8 @@
           "byte_size": 646,
           "sha256": "090f4a90a775f641cf2927903b0900a323c777eac8423c729c61a4fb59dc813e",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/bin_assignment_diagnostics.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/bin_edges_alpha.json",
@@ -1471,7 +1650,8 @@
           "byte_size": 12047,
           "sha256": "5c2b05464691534c49a9b5ce628653019f8c2da538a7edf2dd993f2cebe157f2",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/bin_edges_alpha.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/bin_score_table_isotonic_alpha.json",
@@ -1479,7 +1659,8 @@
           "byte_size": 7727,
           "sha256": "e0fe803177e751033ae58a94fd7eaa5b6cbbef2c1cd183d5fde0e78c481fcb87",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/bin_score_table_isotonic_alpha.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/block_normalization_alpha.json",
@@ -1487,7 +1668,8 @@
           "byte_size": 175,
           "sha256": "3977a8f6989aac6fb076461582c6121ae241171b81ebbfd658e6b78e79c21739",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/block_normalization_alpha.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/boundary_jump_test_alpha.csv",
@@ -1495,7 +1677,8 @@
           "byte_size": 217043,
           "sha256": "899393d70478db2c83b3e2cd57d13b1ab5a4fe1412c59bc0cf52d6fef3be3e84",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/boundary_jump_test_alpha.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/boundary_table_alpha.csv",
@@ -1503,7 +1686,8 @@
           "byte_size": 551,
           "sha256": "3f2b72e47a7e07a084730b10c3ef0decfc3c33555ae23a573ccc0514fa3c807b",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/boundary_table_alpha.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/boundary_table_alpha.json",
@@ -1511,7 +1695,8 @@
           "byte_size": 2084,
           "sha256": "a70a3199174cffbb272e6c36966a3fe7130af4e917cab532509643331229f21a",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/boundary_table_alpha.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/confusion_matrix_alpha_dev.csv",
@@ -1519,7 +1704,8 @@
           "byte_size": 255,
           "sha256": "2948b9169c96fe2fb0be48b97360e26e2dc266b58f9d2e79e70e84660b6d1bbc",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/confusion_matrix_alpha_dev.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/confusion_matrix_alpha_oot.csv",
@@ -1527,7 +1713,8 @@
           "byte_size": 298,
           "sha256": "41dab8a2938e10d289c05bf9a36b29f527aa6a99ece046f299477ecf1d63dcdc",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/confusion_matrix_alpha_oot.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/grade_distribution_alpha.csv",
@@ -1535,7 +1722,8 @@
           "byte_size": 318,
           "sha256": "3f7e9dac0a44f6b4e98dcbc419695e6d8a8bfdb45018c9937678cf050c96b9b2",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/grade_distribution_alpha.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/hyperparameter_grid_search.csv",
@@ -1543,7 +1731,8 @@
           "byte_size": 1202,
           "sha256": "b2137e94a3c9e304b1d7ea9cf1080c788530a4eb64105678fe4bdb1790acebe1",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/hyperparameter_grid_search.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/imputation_map.json",
@@ -1551,7 +1740,8 @@
           "byte_size": 290,
           "sha256": "a3db4b00650e597a4c4ce6865cd4f2781a9726965fd9367cd6986c3bce1b293b",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/imputation_map.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/inner_representation_contract_alpha.json",
@@ -1559,7 +1749,8 @@
           "byte_size": 24193,
           "sha256": "691b8cc87f64e0e514814fc6322d84e9021740c96bec38d77789c96036c2746e",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/inner_representation_contract_alpha.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/item_weights_alpha.csv",
@@ -1567,7 +1758,8 @@
           "byte_size": 556,
           "sha256": "717c1ac92c4a5d7b38370b6c3deaed69d2e76df9a315d95e497b9d08aedfb995",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/item_weights_alpha.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/item_weights_alpha.json",
@@ -1575,7 +1767,8 @@
           "byte_size": 229,
           "sha256": "d9cc2a369c9fd435a5691b67170adab82c64f569767f177c548bfc66c78d7754",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/item_weights_alpha.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/joint_optimization_trace.csv",
@@ -1583,7 +1776,8 @@
           "byte_size": 656,
           "sha256": "ccc0d1da970f6036018ae3900172f6228f926f62903c54f59794abb1dba42f5d",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/joint_optimization_trace.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/master_scale_pd_mapping.json",
@@ -1591,7 +1785,8 @@
           "byte_size": 168,
           "sha256": "9b8bc495c9e3fdf2dff44f1fe89238976dd6f05b12ab5164feaa29b2073fc163",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/master_scale_pd_mapping.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/oracle_alpha_params.json",
@@ -1599,7 +1794,8 @@
           "byte_size": 60449,
           "sha256": "7ddc6ebea4fe8936332b323d07438c9ec82ffc19b030c9138ff85dc116c4694b",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/oracle_alpha_params.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/oracle_firm_year_output_alpha.csv",
@@ -1607,7 +1803,8 @@
           "byte_size": 1668168,
           "sha256": "9579593c6e3f76cdbfec9e720820214ab5b22ff954b101f13f67c1de32e86800",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/oracle_firm_year_output_alpha.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/oracle_firm_year_output_alpha.parquet",
@@ -1615,7 +1812,8 @@
           "byte_size": 480563,
           "sha256": "9eb0fcf5bb64de58efa86034e741e87bb067a9eb6c5afcee3039f3d4fb5513e1",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/oracle_firm_year_output_alpha.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/oracle_modeling_panel_alpha.parquet",
@@ -1623,7 +1821,8 @@
           "byte_size": 330733,
           "sha256": "7de069f0730d830b564ca9cdb99313f2df9879e89b862be4c8066e22f768e6e3",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/oracle_modeling_panel_alpha.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/preliminary_dev_oot_metrics_alpha.csv",
@@ -1631,7 +1830,8 @@
           "byte_size": 160,
           "sha256": "525c683a9c13419d08d4cbf7aba5e4d43406796b3f4c4e94589f41094ecd2d96",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/preliminary_dev_oot_metrics_alpha.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/prior_weights_alpha.json",
@@ -1639,7 +1839,8 @@
           "byte_size": 231,
           "sha256": "806220c84e6ebaeefc00bcf852324b051b16db089608eb46bfa245cfef2f91cc",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/prior_weights_alpha.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/rank_shock_base_panel_alpha.parquet",
@@ -1647,7 +1848,8 @@
           "byte_size": 335469,
           "sha256": "36a3b4f22a8e6d1ba85e895437a65b19dbcadf30539d7cd17129b44ac79707c6",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/rank_shock_base_panel_alpha.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/sample_filter_report.csv",
@@ -1655,7 +1857,8 @@
           "byte_size": 176,
           "sha256": "8182da8eea7859b129e5ad937e3fb1c4182aedde57935f91e199676b6818dd19",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/sample_filter_report.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/split_reconciliation_stage4.csv",
@@ -1663,7 +1866,8 @@
           "byte_size": 258,
           "sha256": "9b6380fcb8a7a99e26739f67181fe9a7a13148dd588fd8dde4fdfbfff8fe39ab",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/split_reconciliation_stage4.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/stage4_alpha_file_manifest.csv",
@@ -1671,7 +1875,8 @@
           "byte_size": 1088,
           "sha256": "7d949137ef69024829e14952918865f2cd763c8b1da599cc508622cd72bb8862",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/stage4_alpha_file_manifest.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/weight_sanity_check_alpha.json",
@@ -1679,7 +1884,8 @@
           "byte_size": 3175,
           "sha256": "b070d31d551262c5ed3e39f99af1b127ea767cafbe29a52ee947640a1eeb8541",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/weight_sanity_check_alpha.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/winsor_params_alpha.csv",
@@ -1687,7 +1893,8 @@
           "byte_size": 707,
           "sha256": "929a3a6f3078a47f1da7cb99ae955518d441da15d9a05cb79671fcaf94f68cc0",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/winsor_params_alpha.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/winsor_params_alpha.json",
@@ -1695,7 +1902,8 @@
           "byte_size": 2296,
           "sha256": "a294473983524d5046b77c8479e18387fc824e4542968e3c8ac8f444ceb0fa29",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/alpha/winsor_params_alpha.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/acceptance_beta.csv",
@@ -1703,7 +1911,8 @@
           "byte_size": 140,
           "sha256": "1fdd4d99fc208923e29165033b38acb9e1466a200b1b6d666668d88e5ac8e000",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/beta/acceptance_beta.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/benchmark_beta_params.json",
@@ -1711,7 +1920,8 @@
           "byte_size": 10110,
           "sha256": "a6c6480aca595c301c6e8412d50e2c224cf89275e2ffd569bcef028d60052c3b",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/beta/benchmark_beta_params.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/benchmark_firm_year_output_beta.csv",
@@ -1719,7 +1929,8 @@
           "byte_size": 1947490,
           "sha256": "5d4706433f6255ea457fc9c488771f7a55d2c3eb2b4d3eebf3dffecb7228d518",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/beta/benchmark_firm_year_output_beta.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/benchmark_firm_year_output_beta.parquet",
@@ -1727,7 +1938,8 @@
           "byte_size": 715028,
           "sha256": "24fc7d63e75c45eaa92ffb79a20151f6a9367636b9f005b0cb6fe282fa6d3a06",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/beta/benchmark_firm_year_output_beta.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/benchmark_firm_year_output_beta_audit_debug_scales.csv",
@@ -1735,7 +1947,8 @@
           "byte_size": 162912,
           "sha256": "5f758a5ac7ecaa55b07440c85ddf69ad5e04f3b212c7b258ca0b52625e021db8",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/beta/benchmark_firm_year_output_beta_audit_debug_scales.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/benchmark_firm_year_output_beta_audit_debug_scales.parquet",
@@ -1743,7 +1956,8 @@
           "byte_size": 35946,
           "sha256": "8b6220ffa9913e68e701831257378e80ee8768a80f849302e17d286a1ba0cbcb",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/beta/benchmark_firm_year_output_beta_audit_debug_scales.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/confusion_matrix_beta_dev.csv",
@@ -1751,7 +1965,8 @@
           "byte_size": 253,
           "sha256": "e804e45f347fe961af84e962070be952700f62cd5ce3170f251d9a56b2b22c3e",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/beta/confusion_matrix_beta_dev.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/confusion_matrix_beta_oot.csv",
@@ -1759,7 +1974,8 @@
           "byte_size": 296,
           "sha256": "4b48749cdb0b43e09c209e70740b3de6be9b285c6533edc651e81cf617c06464",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/beta/confusion_matrix_beta_oot.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/cross_oracle_alpha_beta_comparison.csv",
@@ -1767,7 +1983,8 @@
           "byte_size": 151,
           "sha256": "1dc813dd6b4887d1dc99d219c38ef9d97a7fe206345c7dddaa711f9a650f8dd8",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/beta/cross_oracle_alpha_beta_comparison.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/ordered_logit_coefficients_beta.csv",
@@ -1775,7 +1992,8 @@
           "byte_size": 1548,
           "sha256": "247ede3dbd138710311151cbae822952e3eccec363e7df3d2d2430bd4a69335a",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/beta/ordered_logit_coefficients_beta.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/ordered_logit_summary_beta.txt",
@@ -1783,7 +2001,8 @@
           "byte_size": 2730,
           "sha256": "f9c5ca8be346aa74a9d86ed6fd9095165d6decc55ddc5c5d136e97df237a3ec6",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/beta/ordered_logit_summary_beta.txt"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/preliminary_dev_oot_metrics_beta.csv",
@@ -1791,7 +2010,8 @@
           "byte_size": 225,
           "sha256": "95f046f52931b20bb2955696297b42b399c79523fe476c39d2a421b307b72ea5",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/beta/preliminary_dev_oot_metrics_beta.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/stage4_beta_file_manifest.csv",
@@ -1799,7 +2019,8 @@
           "byte_size": 531,
           "sha256": "16456210601287728c599eb1f80de6bc53fbece566a83369f5e6f47ae138a8e6",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/beta/stage4_beta_file_manifest.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/acceptance_gamma.csv",
@@ -1807,7 +2028,8 @@
           "byte_size": 137,
           "sha256": "1b9d3c1d78b4083c3709b68f461e217a7551de59987cc241ebcbb166024e259f",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/gamma/acceptance_gamma.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/benchmark_firm_year_output_gamma.csv",
@@ -1815,7 +2037,8 @@
           "byte_size": 1324401,
           "sha256": "532aa7fbb354226ccd07fb03df9c59c55ac7d8656a7eae43fbf5ae8516f5862f",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/gamma/benchmark_firm_year_output_gamma.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/benchmark_firm_year_output_gamma.parquet",
@@ -1823,7 +2046,8 @@
           "byte_size": 383316,
           "sha256": "1b7d04e3b12a7faef36cf3408269b6f9c4bcb128cd234ffa7a5b927720933ef4",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/gamma/benchmark_firm_year_output_gamma.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/benchmark_firm_year_output_gamma_audit_debug_scales.csv",
@@ -1831,7 +2055,8 @@
           "byte_size": 162912,
           "sha256": "5f758a5ac7ecaa55b07440c85ddf69ad5e04f3b212c7b258ca0b52625e021db8",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/gamma/benchmark_firm_year_output_gamma_audit_debug_scales.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/benchmark_firm_year_output_gamma_audit_debug_scales.parquet",
@@ -1839,7 +2064,8 @@
           "byte_size": 35946,
           "sha256": "8b6220ffa9913e68e701831257378e80ee8768a80f849302e17d286a1ba0cbcb",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/gamma/benchmark_firm_year_output_gamma_audit_debug_scales.parquet"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/benchmark_gamma_model.joblib",
@@ -1847,7 +2073,8 @@
           "byte_size": 155761,
           "sha256": "1c5242cd78760fa243e69c24ad33ae8868221a2f1788683e4c2e08fe2f3f10c4",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/gamma/benchmark_gamma_model.joblib"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/benchmark_gamma_params.json",
@@ -1855,7 +2082,8 @@
           "byte_size": 5024,
           "sha256": "b0ba74e21fc39221acab92dc020f8649de7d0005bad4615c445579395584e763",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/gamma/benchmark_gamma_params.json"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/confusion_matrix_gamma_dev.csv",
@@ -1863,7 +2091,8 @@
           "byte_size": 250,
           "sha256": "052f65dfecfbf36e6a74a82aa3cc60531e17d6938cdde5653fdbb827848c2f9e",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/gamma/confusion_matrix_gamma_dev.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/confusion_matrix_gamma_oot.csv",
@@ -1871,7 +2100,8 @@
           "byte_size": 296,
           "sha256": "86b3fd72e8d19519b01cddf137e84137121df40d8ee43632fd2e52be5371aad1",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/gamma/confusion_matrix_gamma_oot.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/cross_oracle_alpha_gamma_comparison.csv",
@@ -1879,7 +2109,8 @@
           "byte_size": 155,
           "sha256": "0d98e7526294e9af98f8c8c35eeace7da83104076a9d4f3e7a7f950b7005322f",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/gamma/cross_oracle_alpha_gamma_comparison.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/feature_importance_gamma_ml.csv",
@@ -1887,7 +2118,8 @@
           "byte_size": 922,
           "sha256": "d244a91d5f34e2341232058a08c08e2bbf245985a20f7c58c51b79e0780559f7",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/gamma/feature_importance_gamma_ml.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/preliminary_dev_oot_metrics_gamma.csv",
@@ -1895,7 +2127,8 @@
           "byte_size": 306,
           "sha256": "1f30cbb6957758f48a252ac0b919f979f8d1b05c93484eca01150055dd3ee3ad",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/gamma/preliminary_dev_oot_metrics_gamma.csv"
         },
         {
           "source_relative_path": "archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/stage4_gamma_file_manifest.csv",
@@ -1903,7 +2136,8 @@
           "byte_size": 535,
           "sha256": "c939a9cfb416957c4afb4e65ca7839b25d6ccabad5c7e97b046605ac160923e7",
           "semantic_role": "oracle_stage1_backends",
-          "migration_status": "INVENTORIED_NOT_COPIED"
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/oracle/stage1_oracle_backends/gamma/stage4_gamma_file_manifest.csv"
         }
       ]
     },
