@@ -31,7 +31,7 @@ The source repository remains read-only throughout that operation.
 | Pack | Source size class | Planned destination | Current status |
 |---|---:|---|---|
 | Oracle stage0/stage1 | ~0.3 GB | `frozen/original_release/oracle/` | Inventoried; migration pending |
-| RL C3-E final | ~0.48 GB | `frozen/original_release/rl/` | Inventoried; migration pending |
+| RL C3-E final | ~0.48 GB | `frozen/original_release/rl/` | Copied, hash-verified, and uploaded through Git LFS |
 | LLM final_plan3 | ~3.0 GB | `frozen/original_release/llm/` | Inventoried; migration pending |
 | Stage8/Stage9 evaluation | ~0.5 GB | `frozen/original_release/evaluation/` | Inventoried; migration pending |
 

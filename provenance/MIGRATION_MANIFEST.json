@@ -767,8 +767,8 @@
     },
     {
       "new_relative_path": "docs/ORIGINAL_ASSET_PACKS.md",
-      "new_byte_size": 1952,
-      "new_sha256": "c417adfce2c676924368735805616cff702397b696e23a72b8ff41f14cb2411a",
+      "new_byte_size": 1973,
+      "new_sha256": "6063ae568fd27b469eacbbdd087a144d45ad7a382de37c3c92236796c10fa10d",
       "old_relative_path": null,
       "old_byte_size": null,
       "old_sha256": null,
@@ -837,8 +837,8 @@
     },
     {
       "new_relative_path": "FORENSIC_ARTIFACT_INVENTORY.md",
-      "new_byte_size": 11194,
-      "new_sha256": "8e71424ebd66f8fc1b4a567b7ffed390e90f802fda8a7a049ca7bd16dc1f02b4",
+      "new_byte_size": 11150,
+      "new_sha256": "c8f0d2c8409efc1c5aef68b4ebe807c410318f2480f55463ae9bb150a6bd4d2c",
       "old_relative_path": null,
       "old_byte_size": null,
       "old_sha256": null,
@@ -3637,8 +3637,8 @@
     },
     {
       "new_relative_path": "provenance/MIGRATION_MANIFEST.json",
-      "new_byte_size": 201954,
-      "new_sha256": "68885dd46f2dd7873de046e25dcbc992e1682ef6001e226986c43164ba11747c",
+      "new_byte_size": 330642,
+      "new_sha256": "ee6b625d7a0c483fddf2415b3f463eabbbeaaaf5cf1356af51978100028e0755",
       "old_relative_path": null,
       "old_byte_size": null,
       "old_sha256": null,
