@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import subprocess
 from datetime import datetime, timezone
@@ -29,7 +30,9 @@ def _git_commit() -> str:
 
 
 def _contract_hash() -> str:
-    return sha256_file(ROOT / "contracts/llm/final_as_executed_generation_contract.json")
+    payload = load_json(ROOT / "contracts/llm/final_as_executed_generation_contract.json")
+    canonical = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
 
 
 def _hash_object(value: Any) -> str:
