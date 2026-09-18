@@ -1,0 +1,34 @@
+{
+  "schema_version": "final_as_executed_generation_contract_v1",
+  "status": "DECLARED_COUNT_SOURCE_SNAPSHOT_GAP",
+  "authority_order": ["final frozen Stage8 evidence", "final V1.3 result contract", "submission release registry", "final as-executed manifests", "source code", "historical prose last"],
+  "historical_evidence": {
+    "raw_generation_count": 48300,
+    "baseline_requests": 24150,
+    "high_requests": 24150,
+    "firms": 575,
+    "cells_per_regime": 42,
+    "source_snapshot": "SOURCE_SNAPSHOT_UNRECOVERED",
+    "source_snapshot_status": "MISSING"
+  },
+  "deterministic_product_plan": {
+    "matrix_source": "frozen/evidence/llm/experiment_matrix.csv",
+    "regimes": ["baseline", "high"],
+    "formula": "2 regimes * 42 matrix cells * 575 firms",
+    "expected_logical_request_count": 48300,
+    "request_id_template": "v43:{generation_regime}:{cell_id}:firm-{firm_ordinal:04d}",
+    "parent_rule": "same generation regime and firm ordinal for parent_cell_id",
+    "c3e_binding": "fresh.<run_id>.C3E",
+    "response_contract": "contracts/scientific/final_freeze/llm_response_schema_v1.json"
+  },
+  "models": ["openai_gpt54mini", "google_gemini31flashlite"],
+  "conditions": ["C4", "C5", "C4R", "C6-E", "C6-EX"],
+  "action_space": {
+    "candidate_actions": ["A0", "DL", "RF", "CX", "WC1", "WC2", "OE", "MX1", "MX2"],
+    "managerial_dimensions": 8
+  },
+  "execution_policies": ["Strict", "Repaired"],
+  "retry_semantics": "retry only transport, throttling, provider-job, and incomplete-output failures; persist each attempt",
+  "live_gate": "THESIS_REPRO_ENABLE_LIVE_LLM=I_APPROVE_FRESH_REPLICATION",
+  "certification_rule": "Do not call this contract historical-exact until the unrecovered provider request snapshot is restored and independently reconciled."
+}

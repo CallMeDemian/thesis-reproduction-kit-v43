@@ -1,0 +1,20 @@
+{
+  "action_label_collision_count": 141,
+  "action_label_collision_rate": 0.24521739130434783,
+  "c3e_decision_sha256": "dfebafa6b50e55c2f5019766e0e540af9964b2a9ab7d4e49805d03e8011b792e",
+  "c3e_release_hash": "1100b62b5523e6d96f6a6711f0f07c159d6d7e889600905d6021205ee437aefd",
+  "c3e_release_id": "C3E_E2_7SEED_BALANCED_DFEBAFA6",
+  "distribution_preserved": true,
+  "firm_count": 575,
+  "legacy_mapping_source_sha256": "14bbb2602fc49ff97171cb220d6cdc383601b28d2a8fc691e9d4232fe9302913",
+  "materialized_sha256": "80115ade713fe54c9a0ed27d6220b6983b9584112a23953cf086b2d121bfdf7c",
+  "no_action_collision_optimization": true,
+  "permutation_sha256": "a5385d4c811e73fbf39a46cf299959d72ada8f3931ed3a02a2ba07e4f1c0bd40",
+  "recipient_donor_relation_reused": true,
+  "rng": "numpy.random.Generator(PCG64)",
+  "root_seed": 20260912,
+  "same_mapping_for_models_and_budgets": true,
+  "schema_version": "v43_c6ex_current_materialization_v2",
+  "self_donor_collision_count": 0,
+  "status": "FROZEN_BEFORE_FIRST_LLM_CALL"
+}

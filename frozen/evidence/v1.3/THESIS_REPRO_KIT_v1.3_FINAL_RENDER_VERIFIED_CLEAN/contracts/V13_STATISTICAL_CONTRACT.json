@@ -1,0 +1,9 @@
+{
+  "version": "1.3",
+  "primary": "PRIMARY_PRODUCTION_STREAM",
+  "supplemental": "V13_SUPPLEMENTAL_SHA256_STREAM",
+  "B": 10000,
+  "hash": "sha256_first_8_bytes_big_unsigned",
+  "rng": "PCG64_independent_per_key",
+  "historical": "superseded"
+}

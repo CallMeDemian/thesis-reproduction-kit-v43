@@ -1,0 +1,9 @@
+source,status,count
+primary production rows,PRIMARY_PRODUCTION_STREAM,96
+historical supplemental rows,SUPPLEMENTAL_V13_REFROZEN,276
+PP contrasts,SUPPLEMENTAL_V13_REFROZEN,336
+RQ4/RQ5,SUPPLEMENTAL_V13_REFROZEN,30
+budget interactions,SUPPLEMENTAL_V13_REFROZEN,8
+reasoning-regime interactions,SUPPLEMENTAL_V13_REFROZEN,24
+execution-rule sensitivity,SUPPLEMENTAL_V13_REFROZEN,48
+parent-gate sensitivity,DESCRIPTIVE_SENSITIVITY,96

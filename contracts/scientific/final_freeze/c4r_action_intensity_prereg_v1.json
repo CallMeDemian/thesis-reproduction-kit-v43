@@ -1,0 +1,40 @@
+{
+  "schema_version": "c4r_action_intensity_prereg_v1",
+  "status": "ACTIVE_FRESH_SEMANTIC_CONTRACT",
+  "information_condition": "IC-b",
+  "mode": "free_form_10d",
+  "conditions": ["C4", "C4R", "C6"],
+  "budget_metric": "p50_normalized_action_intensity",
+  "managerial_dimensions": [
+    "ppe_pct",
+    "inv_turnover_chg",
+    "ar_turnover_chg",
+    "ap_turnover_chg",
+    "short_debt_pct",
+    "long_debt_pct",
+    "bond_pct",
+    "cogs_ratio_chg",
+    "sga_ratio_chg"
+  ],
+  "revenue_growth_policy": "excluded_from_intensity_and_exact_zero_for_constrained_arms",
+  "scale_source": "stage2_inner_train_p50_action_intensity_scales",
+  "scale_contract": "all arms and cohorts must share the exact scale vector and scale_hash",
+  "budgets": [
+    {"label": "low", "action_intensity_budget": 1.0},
+    {"label": "medium", "action_intensity_budget": 2.0},
+    {"label": "high", "action_intensity_budget": 3.0},
+    {"label": "unconstrained", "action_intensity_budget": null}
+  ],
+  "row_universe_contract": "derive from the canonical evaluation manifest; all compared arms must share the exact row_id universe",
+  "analysis_populations": ["ITT", "per_protocol"],
+  "equivalence": {
+    "primary_oracle": "alpha",
+    "method": "TOST",
+    "raw_score_margin": 0.109,
+    "basis": "frozen thesis alpha C3-vs-C2 firm-paired MDE80",
+    "boundary": "No beta/gamma equivalence claim is made until scale-specific margins are separately frozen."
+  },
+  "projection_distance_role": "separate nearest-candidate geometry diagnostic",
+  "raw_l1_role": "diagnostic_only",
+  "downstream_rescale_policy": "forbidden"
+}

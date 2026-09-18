@@ -1,0 +1,38 @@
+{
+  "schema_version": "reproduction_environment_lock_v1",
+  "reference_os": "Windows 11",
+  "reference_shell": "Windows PowerShell 5.1 or PowerShell 7",
+  "python": {
+    "required_major": 3,
+    "required_minor": 11,
+    "patch_policy": "record_exact_at_runtime"
+  },
+  "torch": {
+    "version_prefix": "2.6.0",
+    "reference_build": "cu124",
+    "cuda_required_for_reference_rl": true,
+    "cpu_allowed_for_smoke_only": true
+  },
+  "packages": {
+    "numpy": "2.3.3",
+    "pandas": "2.3.3",
+    "scipy": "1.16.1",
+    "scikit-learn": "1.6.1",
+    "joblib": "1.5.3",
+    "PyYAML": "6.0.3",
+    "pyarrow": "20.0.0",
+    "openpyxl": "3.1.5",
+    "python-calamine": "0.7.0",
+    "tabulate": "0.10.0",
+    "statsmodels": "0.14.5",
+    "greenlet": "3.5.2",
+    "openai": "2.43.0",
+    "anthropic": "0.111.0",
+    "matplotlib": "3.10.6"
+  },
+  "semantic_policy": {
+    "oracle_analysis": "exact package versions required",
+    "rl_checkpoint": "numeric reproducibility with deterministic flags; byte identity is not guaranteed across GPU/driver builds",
+    "csv": "semantic equality may be used across OS line-ending differences"
+  }
+}

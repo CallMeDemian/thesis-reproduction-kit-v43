@@ -1,0 +1,5010 @@
+{
+  "claims": [
+    {
+      "artifact_ids": [],
+      "claim_id": "TABLE_BINDING_T01",
+      "claim_type": "EXPERIMENT_CONTRACT",
+      "contract_ids": [
+        "contract_registry"
+      ],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_1",
+      "manuscript_table": "T01",
+      "notes": "Contract/provenance binding.",
+      "result_ids": [],
+      "source_sha256": null
+    },
+    {
+      "artifact_ids": [],
+      "claim_id": "TABLE_BINDING_T03_01",
+      "claim_type": "EXPERIMENT_CONTRACT",
+      "contract_ids": [
+        "contract_registry"
+      ],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_3",
+      "manuscript_table": "T03_01",
+      "notes": "Contract/provenance binding.",
+      "result_ids": [],
+      "source_sha256": null
+    },
+    {
+      "artifact_ids": [],
+      "claim_id": "TABLE_BINDING_T03_02",
+      "claim_type": "EXPERIMENT_CONTRACT",
+      "contract_ids": [
+        "contract.action.8d"
+      ],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_3",
+      "manuscript_table": "T03_02",
+      "notes": "Contract/provenance binding.",
+      "result_ids": [],
+      "source_sha256": null
+    },
+    {
+      "artifact_ids": [],
+      "claim_id": "TABLE_BINDING_T03_03",
+      "claim_type": "EXPERIMENT_CONTRACT",
+      "contract_ids": [
+        "contract.action.8d"
+      ],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_3",
+      "manuscript_table": "T03_03",
+      "notes": "Contract/provenance binding.",
+      "result_ids": [],
+      "source_sha256": null
+    },
+    {
+      "artifact_ids": [],
+      "claim_id": "TABLE_BINDING_T03_04",
+      "claim_type": "EXPERIMENT_CONTRACT",
+      "contract_ids": [
+        "contract.llm.final_v43"
+      ],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_3",
+      "manuscript_table": "T03_04",
+      "notes": "Contract/provenance binding.",
+      "result_ids": [],
+      "source_sha256": null
+    },
+    {
+      "artifact_ids": [],
+      "claim_id": "TABLE_BINDING_T03_05",
+      "claim_type": "EXPERIMENT_CONTRACT",
+      "contract_ids": [
+        "contract.statistics.v13"
+      ],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_3",
+      "manuscript_table": "T03_05",
+      "notes": "Contract/provenance binding.",
+      "result_ids": [],
+      "source_sha256": null
+    },
+    {
+      "artifact_ids": [
+        "artifact.v13.frozen_capsule"
+      ],
+      "claim_id": "TABLE_BINDING_T04_01",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contract_ids": [],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_4",
+      "manuscript_table": "T04_01",
+      "notes": "Table-aware binding; literature, interpretation, and limitation tables are not treated as empirical output tables.",
+      "result_ids": [],
+      "source_sha256": null
+    },
+    {
+      "artifact_ids": [
+        "artifact.v13.frozen_capsule"
+      ],
+      "claim_id": "TABLE_BINDING_T04_02",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contract_ids": [],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_4",
+      "manuscript_table": "T04_02",
+      "notes": "Table-aware binding; literature, interpretation, and limitation tables are not treated as empirical output tables.",
+      "result_ids": [],
+      "source_sha256": null
+    },
+    {
+      "artifact_ids": [
+        "artifact.distribution.v2_1_1_final"
+      ],
+      "claim_id": "TABLE_BINDING_T04_03",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contract_ids": [],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_4",
+      "manuscript_table": "T04_03",
+      "notes": "Table-aware binding; literature, interpretation, and limitation tables are not treated as empirical output tables.",
+      "result_ids": [],
+      "source_sha256": null
+    },
+    {
+      "CI": [
+        0.1034595223751387,
+        0.2883677164684456
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T05_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.1959945279330859,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T05_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+      "search_terms": [
+        "+0.1960"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.1149640479613146,
+        0.2293257207025353
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T05_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.1692620467326202,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T05_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+      "search_terms": [
+        "+0.1693"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0548041311567897,
+        0.1272977337784623
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T05_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0375269883883852,
+      "execution_policy": "STRICT",
+      "holm_p": 0.4035596440355964,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T05_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.4035596440355964,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+      "search_terms": [
+        "+0.0375"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0750886139920362,
+        0.2767238440848518
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T05_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.174191590187809,
+      "execution_policy": "STRICT",
+      "holm_p": 0.001999800019998,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T05_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0003999600039996,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+      "search_terms": [
+        "+0.1742"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0470752482570536,
+        0.1896338496007344
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T05_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.1152706769839722,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0083991600839916,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T05_01",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0011998800119988,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+      "search_terms": [
+        "+0.1153"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0562730284949832,
+        0.0518944620007029
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T05_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": -0.0022939710371035,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T05_01",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.942905709429057,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+      "search_terms": [
+        "-0.0023"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0241003261883717,
+        0.0664753555719942
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T05_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0220147440032473,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T05_01",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.3435656434356564,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+      "search_terms": [
+        "+0.0220"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0155136787280897,
+        0.1058944052917948
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T05_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0452492296328939,
+      "execution_policy": "STRICT",
+      "holm_p": 0.648935106489351,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T05_01",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.1331866813318668,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+      "search_terms": [
+        "+0.0452"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "artifact_ids": [
+        "artifact.distribution.v2_1_1_final"
+      ],
+      "claim_id": "TABLE_BINDING_T05_01",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contract_ids": [],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_5",
+      "manuscript_table": "T05_01",
+      "notes": "Table-aware binding; literature, interpretation, and limitation tables are not treated as empirical output tables.",
+      "result_ids": [
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56"
+    },
+    {
+      "CI": [
+        0.1034595223751387,
+        0.2883677164684456
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.1959945279330859,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+      "search_terms": [
+        "+0.1960"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.1149640479613146,
+        0.2293257207025353
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.1692620467326202,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+      "search_terms": [
+        "+0.1693"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0548041311567897,
+        0.1272977337784623
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0375269883883852,
+      "execution_policy": "STRICT",
+      "holm_p": 0.4035596440355964,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.4035596440355964,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+      "search_terms": [
+        "+0.0375"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0750886139920362,
+        0.2767238440848518
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.174191590187809,
+      "execution_policy": "STRICT",
+      "holm_p": 0.001999800019998,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0003999600039996,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+      "search_terms": [
+        "+0.1742"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.2054064370107093,
+        -0.0362780933990709
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_01_EXECUTION_SENSITIVITY_GPT_BASELINE_REPAIRED_MINUS_STRICT_FREE8_B1_C5_C4_ALPHA_IC_B_1_ITT_holm_p",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": -0.1172965209996642,
+      "execution_policy": "REPAIRED_MINUS_STRICT",
+      "holm_p": 0.0115988401159884,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_01",
+      "model": "GPT",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.0057994200579942,
+      "reasoning_regime": "BASELINE",
+      "result_id": "EXECUTION_SENSITIVITY_GPT_BASELINE_REPAIRED_MINUS_STRICT_FREE8_B1_C5_C4_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "0.0116"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.2237858890991412,
+        -0.1093207099851982
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_01_EXECUTION_SENSITIVITY_GPT_BASELINE_REPAIRED_MINUS_STRICT_FREE8_B1_C4R_C4_ALPHA_IC_B_1_ITT_holm_p",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": -0.1645144043790949,
+      "execution_policy": "REPAIRED_MINUS_STRICT",
+      "holm_p": 0.0007999200079992,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_01",
+      "model": "GPT",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "EXECUTION_SENSITIVITY_GPT_BASELINE_REPAIRED_MINUS_STRICT_FREE8_B1_C4R_C4_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "0.0008"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        0.0800137167909596,
+        0.2324768824018225
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_01_EXECUTION_SENSITIVITY_GPT_BASELINE_REPAIRED_MINUS_STRICT_FREE8_B1_C6_E_C4R_ALPHA_IC_B_1_ITT_holm_p",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.1560386627567145,
+      "execution_policy": "REPAIRED_MINUS_STRICT",
+      "holm_p": 0.0007999200079992,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_01",
+      "model": "GPT",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "EXECUTION_SENSITIVITY_GPT_BASELINE_REPAIRED_MINUS_STRICT_FREE8_B1_C6_E_C4R_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "0.0008"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.057387609941326,
+        0.1110095611377258
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_01_EXECUTION_SENSITIVITY_GPT_BASELINE_REPAIRED_MINUS_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_IC_B_1_ITT_holm_p",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0285326285362915,
+      "execution_policy": "REPAIRED_MINUS_STRICT",
+      "holm_p": 0.5077492250774922,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_01",
+      "model": "GPT",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.5077492250774922,
+      "reasoning_regime": "BASELINE",
+      "result_id": "EXECUTION_SENSITIVITY_GPT_BASELINE_REPAIRED_MINUS_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "0.5077"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "artifact_ids": [
+        "artifact.distribution.v2_1_1_final"
+      ],
+      "claim_id": "TABLE_BINDING_T06_01",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contract_ids": [],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_6",
+      "manuscript_table": "T06_01",
+      "notes": "Table-aware binding; literature, interpretation, and limitation tables are not treated as empirical output tables.",
+      "result_ids": [
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+        "EXECUTION_SENSITIVITY_GPT_BASELINE_REPAIRED_MINUS_STRICT_FREE8_B1_C5_C4_ALPHA_IC_B_1_ITT",
+        "EXECUTION_SENSITIVITY_GPT_BASELINE_REPAIRED_MINUS_STRICT_FREE8_B1_C4R_C4_ALPHA_IC_B_1_ITT",
+        "EXECUTION_SENSITIVITY_GPT_BASELINE_REPAIRED_MINUS_STRICT_FREE8_B1_C6_E_C4R_ALPHA_IC_B_1_ITT",
+        "EXECUTION_SENSITIVITY_GPT_BASELINE_REPAIRED_MINUS_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_IC_B_1_ITT"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56"
+    },
+    {
+      "CI": [
+        0.0750825492065919,
+        0.3004203634705311
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1_MINUS_BINF",
+      "claim_id": "CLAIM_T06_02_BUDGET_INTERACTION_GEMINI_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C5_C4_ALPHA_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.1867358215424468,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0047995200479952,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_02",
+      "model": "GEMINI",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.0015998400159984,
+      "reasoning_regime": "BASELINE",
+      "result_id": "BUDGET_INTERACTION_GEMINI_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C5_C4_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "+0.1867"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.2202488099245758,
+        -0.0723350406509856
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1_MINUS_BINF",
+      "claim_id": "CLAIM_T06_02_BUDGET_INTERACTION_GEMINI_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C4R_C4_ALPHA_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": -0.1450165116000094,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0007999200079992,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_02",
+      "model": "GEMINI",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "BUDGET_INTERACTION_GEMINI_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C4R_C4_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "-0.1450"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.0785083316826283,
+        0.0845727530879405
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1_MINUS_BINF",
+      "claim_id": "CLAIM_T06_02_BUDGET_INTERACTION_GEMINI_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C6_E_C4R_ALPHA_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.003977069797746,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_02",
+      "model": "GEMINI",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.9273072692730728,
+      "reasoning_regime": "BASELINE",
+      "result_id": "BUDGET_INTERACTION_GEMINI_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C6_E_C4R_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "+0.0040"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.1068745685977643,
+        0.0842958282078068
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1_MINUS_BINF",
+      "claim_id": "CLAIM_T06_02_BUDGET_INTERACTION_GEMINI_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C6_E_C6_EX_ALPHA_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": -0.0123724090850736,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_02",
+      "model": "GEMINI",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.8035196480351965,
+      "reasoning_regime": "BASELINE",
+      "result_id": "BUDGET_INTERACTION_GEMINI_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C6_E_C6_EX_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "-0.0124"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.0476274237595696,
+        0.2330397169729537
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1_MINUS_BINF",
+      "claim_id": "CLAIM_T06_02_BUDGET_INTERACTION_GPT_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C5_C4_ALPHA_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.0948762719419937,
+      "execution_policy": "STRICT",
+      "holm_p": 0.5597440255974402,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_02",
+      "model": "GPT",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.1865813418658134,
+      "reasoning_regime": "BASELINE",
+      "result_id": "BUDGET_INTERACTION_GPT_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C5_C4_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "+0.0949"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.0519861239515333,
+        0.1171708926276423
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1_MINUS_BINF",
+      "claim_id": "CLAIM_T06_02_BUDGET_INTERACTION_GPT_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C4R_C4_ALPHA_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.0326199901830818,
+      "execution_policy": "STRICT",
+      "holm_p": 0.8667133286671332,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_02",
+      "model": "GPT",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.4333566643335666,
+      "reasoning_regime": "BASELINE",
+      "result_id": "BUDGET_INTERACTION_GPT_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C4R_C4_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "+0.0326"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.2440772290461932,
+        0.0258310039884175
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1_MINUS_BINF",
+      "claim_id": "CLAIM_T06_02_BUDGET_INTERACTION_GPT_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C6_E_C4R_ALPHA_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": -0.1096747502326596,
+      "execution_policy": "STRICT",
+      "holm_p": 0.4543545645435456,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_02",
+      "model": "GPT",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.1135886411358864,
+      "reasoning_regime": "BASELINE",
+      "result_id": "BUDGET_INTERACTION_GPT_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C6_E_C4R_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "-0.1097"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.0846533116563616,
+        0.1834163405614138
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1_MINUS_BINF",
+      "claim_id": "CLAIM_T06_02_BUDGET_INTERACTION_GPT_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C6_E_C6_EX_ALPHA_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0472181754503251,
+      "execution_policy": "STRICT",
+      "holm_p": 0.8667133286671332,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_02",
+      "model": "GPT",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.503949605039496,
+      "reasoning_regime": "BASELINE",
+      "result_id": "BUDGET_INTERACTION_GPT_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C6_E_C6_EX_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "+0.0472"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "artifact_ids": [
+        "artifact.distribution.v2_1_1_final"
+      ],
+      "claim_id": "TABLE_BINDING_T06_02",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contract_ids": [],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_6",
+      "manuscript_table": "T06_02",
+      "notes": "Table-aware binding; literature, interpretation, and limitation tables are not treated as empirical output tables.",
+      "result_ids": [
+        "BUDGET_INTERACTION_GEMINI_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C5_C4_ALPHA_IC_B_1_ITT",
+        "BUDGET_INTERACTION_GEMINI_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C4R_C4_ALPHA_IC_B_1_ITT",
+        "BUDGET_INTERACTION_GEMINI_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C6_E_C4R_ALPHA_IC_B_1_ITT",
+        "BUDGET_INTERACTION_GEMINI_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C6_E_C6_EX_ALPHA_IC_B_1_ITT",
+        "BUDGET_INTERACTION_GPT_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C5_C4_ALPHA_IC_B_1_ITT",
+        "BUDGET_INTERACTION_GPT_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C4R_C4_ALPHA_IC_B_1_ITT",
+        "BUDGET_INTERACTION_GPT_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C6_E_C4R_ALPHA_IC_B_1_ITT",
+        "BUDGET_INTERACTION_GPT_BASELINE_STRICT_FREE8_B1_MINUS_BINF_C6_E_C6_EX_ALPHA_IC_B_1_ITT"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56"
+    },
+    {
+      "CI": [
+        -0.812901464943153,
+        -0.5948518178324336
+      ],
+      "N": 575,
+      "action_space": "FREE8_MINUS_CANDIDATE9",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_03_RQ4_ACTION_SPACE_GEMINI_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C4_CANDIDATE9_ALPHA_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4-CANDIDATE9",
+      "display_rounding": 4,
+      "estimate": -0.7027986065660772,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0005999400059994,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_03",
+      "model": "GEMINI",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "RQ4_ACTION_SPACE_GEMINI_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C4_CANDIDATE9_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "-0.7028"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.7792477778976983,
+        -0.5554470472104756
+      ],
+      "N": 575,
+      "action_space": "FREE8_MINUS_CANDIDATE9",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_03_RQ4_ACTION_SPACE_GEMINI_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C4R_CANDIDATE9_ALPHA_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-CANDIDATE9",
+      "display_rounding": 4,
+      "estimate": -0.6661362097013006,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0005999400059994,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_03",
+      "model": "GEMINI",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "RQ4_ACTION_SPACE_GEMINI_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C4R_CANDIDATE9_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "-0.6661"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.8041205509995428,
+        -0.5771336695457493
+      ],
+      "N": 575,
+      "action_space": "FREE8_MINUS_CANDIDATE9",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_03_RQ4_ACTION_SPACE_GEMINI_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C6_E_CANDIDATE9_ALPHA_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-CANDIDATE9",
+      "display_rounding": 4,
+      "estimate": -0.6880851812384393,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0005999400059994,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_03",
+      "model": "GEMINI",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "RQ4_ACTION_SPACE_GEMINI_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C6_E_CANDIDATE9_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "-0.6881"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.4479314711408747,
+        -0.2299155818642456
+      ],
+      "N": 575,
+      "action_space": "FREE8_MINUS_CANDIDATE9",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_03_RQ4_ACTION_SPACE_GPT_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C4_CANDIDATE9_ALPHA_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4-CANDIDATE9",
+      "display_rounding": 4,
+      "estimate": -0.3371786142467286,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0005999400059994,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_03",
+      "model": "GPT",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "RQ4_ACTION_SPACE_GPT_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C4_CANDIDATE9_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "-0.3372"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.2956071848739735,
+        -0.0949092394087057
+      ],
+      "N": 575,
+      "action_space": "FREE8_MINUS_CANDIDATE9",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_03_RQ4_ACTION_SPACE_GPT_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C4R_CANDIDATE9_ALPHA_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-CANDIDATE9",
+      "display_rounding": 4,
+      "estimate": -0.1928357128060414,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0005999400059994,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_03",
+      "model": "GPT",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.0003999600039996,
+      "reasoning_regime": "BASELINE",
+      "result_id": "RQ4_ACTION_SPACE_GPT_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C4R_CANDIDATE9_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "-0.1928"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.3446338570329986,
+        -0.1399822414420799
+      ],
+      "N": 575,
+      "action_space": "FREE8_MINUS_CANDIDATE9",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_03_RQ4_ACTION_SPACE_GPT_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C6_E_CANDIDATE9_ALPHA_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-CANDIDATE9",
+      "display_rounding": 4,
+      "estimate": -0.2403624449669615,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0005999400059994,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_03",
+      "model": "GPT",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "RQ4_ACTION_SPACE_GPT_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C6_E_CANDIDATE9_ALPHA_IC_B_1_ITT",
+      "search_terms": [
+        "-0.2404"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "artifact_ids": [
+        "artifact.distribution.v2_1_1_final"
+      ],
+      "claim_id": "TABLE_BINDING_T06_03",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contract_ids": [],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_6",
+      "manuscript_table": "T06_03",
+      "notes": "Table-aware binding; literature, interpretation, and limitation tables are not treated as empirical output tables.",
+      "result_ids": [
+        "RQ4_ACTION_SPACE_GEMINI_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C4_CANDIDATE9_ALPHA_IC_B_1_ITT",
+        "RQ4_ACTION_SPACE_GEMINI_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C4R_CANDIDATE9_ALPHA_IC_B_1_ITT",
+        "RQ4_ACTION_SPACE_GEMINI_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C6_E_CANDIDATE9_ALPHA_IC_B_1_ITT",
+        "RQ4_ACTION_SPACE_GPT_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C4_CANDIDATE9_ALPHA_IC_B_1_ITT",
+        "RQ4_ACTION_SPACE_GPT_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C4R_CANDIDATE9_ALPHA_IC_B_1_ITT",
+        "RQ4_ACTION_SPACE_GPT_BASELINE_STRICT_FREE8_MINUS_CANDIDATE9_B1_C6_E_CANDIDATE9_ALPHA_IC_B_1_ITT"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56"
+    },
+    {
+      "CI": [
+        -0.0792188778812377,
+        0.0413838814980731
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_04_RQ5_INFORMATION_GEMINI_BASELINE_STRICT_FREE8_B1_IC_B_IC_A_ALPHA_IC_B_MINUS_IC_A_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "IC-b-IC-a",
+      "display_rounding": 4,
+      "estimate": -0.0175398159301706,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b_MINUS_IC-a",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_04",
+      "model": "GEMINI",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.5593440655934406,
+      "reasoning_regime": "BASELINE",
+      "result_id": "RQ5_INFORMATION_GEMINI_BASELINE_STRICT_FREE8_B1_IC_B_IC_A_ALPHA_IC_B_MINUS_IC_A_1_ITT",
+      "search_terms": [
+        "-0.0175"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.0561580248527472,
+        0.101581040749309
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_04_RQ5_INFORMATION_GEMINI_BASELINE_STRICT_FREE8_B1_IC_C_IC_B_ALPHA_IC_C_MINUS_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "IC-c-IC-b",
+      "display_rounding": 4,
+      "estimate": 0.022761223005645,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-c_MINUS_IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_04",
+      "model": "GEMINI",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.555944405559444,
+      "reasoning_regime": "BASELINE",
+      "result_id": "RQ5_INFORMATION_GEMINI_BASELINE_STRICT_FREE8_B1_IC_C_IC_B_ALPHA_IC_C_MINUS_IC_B_1_ITT",
+      "search_terms": [
+        "+0.0228"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.0926904662152564,
+        0.0890498412559418
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_04_RQ5_INFORMATION_GPT_BASELINE_STRICT_FREE8_B1_IC_B_IC_A_ALPHA_IC_B_MINUS_IC_A_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "IC-b-IC-a",
+      "display_rounding": 4,
+      "estimate": -0.0015919763952492,
+      "execution_policy": "STRICT",
+      "holm_p": 0.9805019498050196,
+      "information_condition": "IC-b_MINUS_IC-a",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_04",
+      "model": "GPT",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.9805019498050196,
+      "reasoning_regime": "BASELINE",
+      "result_id": "RQ5_INFORMATION_GPT_BASELINE_STRICT_FREE8_B1_IC_B_IC_A_ALPHA_IC_B_MINUS_IC_A_1_ITT",
+      "search_terms": [
+        "-0.0016"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "CI": [
+        -0.0168415060795816,
+        0.166241845447176
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_04_RQ5_INFORMATION_GPT_BASELINE_STRICT_FREE8_B1_IC_C_IC_B_ALPHA_IC_C_MINUS_IC_B_1_ITT_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "IC-c-IC-b",
+      "display_rounding": 4,
+      "estimate": 0.0728032457034825,
+      "execution_policy": "STRICT",
+      "holm_p": 0.2327767223277672,
+      "information_condition": "IC-c_MINUS_IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_04",
+      "model": "GPT",
+      "oracle": "ALPHA",
+      "population": "ITT",
+      "raw_p": 0.1163883611638836,
+      "reasoning_regime": "BASELINE",
+      "result_id": "RQ5_INFORMATION_GPT_BASELINE_STRICT_FREE8_B1_IC_C_IC_B_ALPHA_IC_C_MINUS_IC_B_1_ITT",
+      "search_terms": [
+        "+0.0728"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": "V13_SUPPLEMENTAL_SHA256_STREAM"
+    },
+    {
+      "artifact_ids": [
+        "artifact.distribution.v2_1_1_final"
+      ],
+      "claim_id": "TABLE_BINDING_T06_04",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contract_ids": [],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_6",
+      "manuscript_table": "T06_04",
+      "notes": "Table-aware binding; literature, interpretation, and limitation tables are not treated as empirical output tables.",
+      "result_ids": [
+        "RQ5_INFORMATION_GEMINI_BASELINE_STRICT_FREE8_B1_IC_B_IC_A_ALPHA_IC_B_MINUS_IC_A_1_ITT",
+        "RQ5_INFORMATION_GEMINI_BASELINE_STRICT_FREE8_B1_IC_C_IC_B_ALPHA_IC_C_MINUS_IC_B_1_ITT",
+        "RQ5_INFORMATION_GPT_BASELINE_STRICT_FREE8_B1_IC_B_IC_A_ALPHA_IC_B_MINUS_IC_A_1_ITT",
+        "RQ5_INFORMATION_GPT_BASELINE_STRICT_FREE8_B1_IC_C_IC_B_ALPHA_IC_C_MINUS_IC_B_1_ITT"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56"
+    },
+    {
+      "CI": [
+        -0.0463735873078825,
+        0.0724664143354113
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_05_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C5_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.0129125117762167,
+      "execution_policy": "STRICT",
+      "holm_p": 0.6679332066793321,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_05",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.6679332066793321,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+      "search_terms": [
+        "+0.0129"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -1.7119229216034784e-05,
+        0.0552937558099052
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_05_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C4R_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.026393680407925,
+      "execution_policy": "STRICT",
+      "holm_p": 0.1935806419358064,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_05",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0505949405059494,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+      "search_terms": [
+        "+0.0264"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0368201607315284,
+        0.1630541692852775
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_05_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.1003235457966653,
+      "execution_policy": "STRICT",
+      "holm_p": 0.011998800119988,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_05",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0023997600239976,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+      "search_terms": [
+        "+0.1003"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0443240191270918,
+        0.1864057354683238
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_05_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.1146287777782448,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0083991600839916,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_05",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0013998600139986,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+      "search_terms": [
+        "+0.1146"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0051312646936128,
+        0.1249698414921146
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_05_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C5_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.0648693881700845,
+      "execution_policy": "STRICT",
+      "holm_p": 0.1847815218478152,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_05",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0307969203079692,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+      "search_terms": [
+        "+0.0649"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0429090398201244,
+        0.0209209063949733
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_05_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C4R_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": -0.0101715859116971,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_05",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.5293470652934706,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+      "search_terms": [
+        "-0.0102"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.040756945820926,
+        0.1405161538324494
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_05_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.089721502462878,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0027997200279972,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_05",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0003999600039996,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+      "search_terms": [
+        "+0.0897"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0133592413164991,
+        0.0985927305571175
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_T06_05_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0412234976762198,
+      "execution_policy": "STRICT",
+      "holm_p": 0.6899310068993101,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_t0",
+      "manuscript_table": "T06_05",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.1411858814118588,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+      "search_terms": [
+        "+0.0412"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "artifact_ids": [
+        "artifact.distribution.v2_1_1_final"
+      ],
+      "claim_id": "TABLE_BINDING_T06_05",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contract_ids": [],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_6",
+      "manuscript_table": "T06_05",
+      "notes": "Table-aware binding; literature, interpretation, and limitation tables are not treated as empirical output tables.",
+      "result_ids": [
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56"
+    },
+    {
+      "artifact_ids": [],
+      "claim_id": "TABLE_BINDING_TA_01",
+      "claim_type": "EXPERIMENT_CONTRACT",
+      "contract_ids": [
+        "contract_registry"
+      ],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_A",
+      "manuscript_table": "TA_01",
+      "notes": "Contract/provenance binding.",
+      "result_ids": [],
+      "source_sha256": null
+    },
+    {
+      "CI": [
+        0.1034595223751387,
+        0.2883677164684456
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.1959945279330859,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+      "search_terms": [
+        "+0.1960"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0178810131301334,
+        0.0798987238598597
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.04819600147441,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0167983201679832,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.0023997600239976,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_BETA_1",
+      "search_terms": [
+        "+0.0482"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0212970931876994,
+        0.0867152838829891
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.0531272063882118,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0083991600839916,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.0013998600139986,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_GAMMA_1",
+      "search_terms": [
+        "+0.0531"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.1149640479613146,
+        0.2293257207025353
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.1692620467326202,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+      "search_terms": [
+        "+0.1693"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0026107282596656,
+        0.0412713922758637
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.0213774761049454,
+      "execution_policy": "STRICT",
+      "holm_p": 0.1607839216078392,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.0267973202679732,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_BETA_1",
+      "search_terms": [
+        "+0.0214"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0254763541843488,
+        0.0720913171017817
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.0477811731750335,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_GAMMA_1",
+      "search_terms": [
+        "+0.0478"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0548041311567897,
+        0.1272977337784623
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0375269883883852,
+      "execution_policy": "STRICT",
+      "holm_p": 0.4035596440355964,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.4035596440355964,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+      "search_terms": [
+        "+0.0375"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0049209045394319,
+        0.0503201694542287
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0223787454007272,
+      "execution_policy": "STRICT",
+      "holm_p": 0.5209479052094791,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.1135886411358864,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_BETA_1",
+      "search_terms": [
+        "+0.0224"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0270802196470531,
+        0.0502477084793054
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0114191830562777,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.5593440655934406,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_GAMMA_1",
+      "search_terms": [
+        "+0.0114"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0750886139920362,
+        0.2767238440848518
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.174191590187809,
+      "execution_policy": "STRICT",
+      "holm_p": 0.001999800019998,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0003999600039996,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+      "search_terms": [
+        "+0.1742"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0046418956931714,
+        0.0466009172893693
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0213724810184777,
+      "execution_policy": "STRICT",
+      "holm_p": 0.5209479052094791,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.1041895810418958,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_BETA_1",
+      "search_terms": [
+        "+0.0214"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0013616919358325,
+        0.0812984556806611
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0399611755012864,
+      "execution_policy": "STRICT",
+      "holm_p": 0.212978702129787,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.0425957404259574,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_GAMMA_1",
+      "search_terms": [
+        "+0.0400"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0082435336870828,
+        0.2105577963078861
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C5_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.1011182559910921,
+      "execution_policy": "STRICT",
+      "holm_p": 0.1375862413758624,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0687931206879312,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C5_C4_ALPHA_1",
+      "search_terms": [
+        "+0.1011"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0145944258510682,
+        0.0473219695678959
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C5_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.0158688201442317,
+      "execution_policy": "STRICT",
+      "holm_p": 0.5633436656334366,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.3083691630836916,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C5_C4_BETA_1",
+      "search_terms": [
+        "+0.0159"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0680722264765302,
+        0.020148421020395
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C5_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": -0.023261434327803,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.2867713228677132,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C5_C4_GAMMA_1",
+      "search_terms": [
+        "-0.0233"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0775333496691015,
+        0.1984997682265392
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C4R_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.1366420565495383,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C4R_C4_ALPHA_1",
+      "search_terms": [
+        "+0.1366"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0088001696402878,
+        0.0341009781882655
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C4R_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.0129818863396068,
+      "execution_policy": "STRICT",
+      "holm_p": 0.5633436656334366,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.2143785621437856,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C4R_C4_BETA_1",
+      "search_terms": [
+        "+0.0130"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0228707222967215,
+        0.0686251965807813
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C4R_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.0449984895117176,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C4R_C4_GAMMA_1",
+      "search_terms": [
+        "+0.0450"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0511124950313214,
+        0.2445274844486891
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.1472017386210448,
+      "execution_policy": "STRICT",
+      "holm_p": 0.01999800019998,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.004999500049995,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_ALPHA_1",
+      "search_terms": [
+        "+0.1472"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.021880173738921,
+        0.0799039944474893
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0501194071806989,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0031996800319968,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.0003999600039996,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_BETA_1",
+      "search_terms": [
+        "+0.0501"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0188754783507007,
+        0.0632426454929981
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0220223117543982,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.2777722227777222,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_GAMMA_1",
+      "search_terms": [
+        "+0.0220"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.017285276233398,
+        0.2390364787295707
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.1269734147374839,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0671932806719328,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0223977602239776,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_ALPHA_1",
+      "search_terms": [
+        "+0.1270"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0113443211662792,
+        0.0577469754224314
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0227829798375849,
+      "execution_policy": "STRICT",
+      "holm_p": 0.5633436656334366,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.1877812218778122,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_BETA_1",
+      "search_terms": [
+        "+0.0228"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0211960429805863,
+        0.0586037854060971
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0195783221568799,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.332966703329667,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_GAMMA_1",
+      "search_terms": [
+        "+0.0196"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0470752482570536,
+        0.1896338496007344
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.1152706769839722,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0083991600839916,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0011998800119988,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+      "search_terms": [
+        "+0.1153"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0048347581398009,
+        0.0187121282485261
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C5_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.0118503653688064,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0153984601539846,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.0021997800219978,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C5_C4_BETA_1",
+      "search_terms": [
+        "+0.0119"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0052086074698432,
+        0.0596771715114232
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C5_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.0320760658804888,
+      "execution_policy": "STRICT",
+      "holm_p": 0.1385861413858614,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.0197980201979802,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C5_C4_GAMMA_1",
+      "search_terms": [
+        "+0.0321"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0562730284949832,
+        0.0518944620007029
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": -0.0022939710371035,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.942905709429057,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+      "search_terms": [
+        "-0.0023"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0068637281835575,
+        0.0045299124815512
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C4R_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": -0.0008066933466406,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.8127187281271873,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C4R_C4_BETA_1",
+      "search_terms": [
+        "-0.0008"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0254493420107876,
+        0.0088989172301309
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C4R_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": -0.0074764014747987,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.4053594640535946,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C4R_C4_GAMMA_1",
+      "search_terms": [
+        "-0.0075"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0241003261883717,
+        0.0664753555719942
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0220147440032473,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.3435656434356564,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+      "search_terms": [
+        "+0.0220"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0012554643790049,
+        0.0198661407443433
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C4R_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.007990432547296,
+      "execution_policy": "STRICT",
+      "holm_p": 0.450954904509549,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.100989901009899,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C4R_BETA_1",
+      "search_terms": [
+        "+0.0080"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0083135322290331,
+        0.0271695748380281
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C4R_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0090258705936146,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.3027697230276972,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C4R_GAMMA_1",
+      "search_terms": [
+        "+0.0090"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0155136787280897,
+        0.1058944052917948
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0452492296328939,
+      "execution_policy": "STRICT",
+      "holm_p": 0.648935106489351,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.1331866813318668,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+      "search_terms": [
+        "+0.0452"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0019739304228766,
+        0.0239597937211713
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0114405124130534,
+      "execution_policy": "STRICT",
+      "holm_p": 0.065993400659934,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.010998900109989,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_BETA_1",
+      "search_terms": [
+        "+0.0114"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0097987048373088,
+        0.0329593533639683
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0113908400860193,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.2887711228877112,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_GAMMA_1",
+      "search_terms": [
+        "+0.0114"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.1648773120145177,
+        0.0199020479728405
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C5_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": -0.0714651445584745,
+      "execution_policy": "STRICT",
+      "holm_p": 0.648935106489351,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.1297870212978702,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C5_C4_ALPHA_1",
+      "search_terms": [
+        "-0.0715"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0554706067895156,
+        0.0339376957057717
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C5_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": -0.0097248152150484,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.6803319668033196,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C5_C4_BETA_1",
+      "search_terms": [
+        "-0.0097"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0408506915219613,
+        0.0343094979764421
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C5_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": -0.0034461906496072,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.8461153884611539,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C5_C4_GAMMA_1",
+      "search_terms": [
+        "-0.0034"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0890548889385316,
+        0.1993198983210639
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C4R_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.1427225405629058,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C4R_C4_ALPHA_1",
+      "search_terms": [
+        "+0.1427"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0143422062230292,
+        0.0236536321471033
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C4R_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.0188831093344678,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C4R_C4_BETA_1",
+      "search_terms": [
+        "+0.0189"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0149272295850578,
+        0.0449582475955867
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C4R_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.0290910945537854,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0031996800319968,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.0003999600039996,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C4R_C4_GAMMA_1",
+      "search_terms": [
+        "+0.0291"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0547641299100634,
+        0.0895263426832773
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0180376742055013,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.6157384261573843,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_ALPHA_1",
+      "search_terms": [
+        "+0.0180"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0148699320696748,
+        0.0236632595498194
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0049455856284697,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.6011398860113989,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_BETA_1",
+      "search_terms": [
+        "+0.0049"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.017557618831736,
+        0.0323215070014559
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0071957839822742,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.5661433856614339,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_GAMMA_1",
+      "search_terms": [
+        "+0.0072"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.007289794315225,
+        0.1227989898682762
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0576216387179675,
+      "execution_policy": "STRICT",
+      "holm_p": 0.4847515248475152,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0807919208079192,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_ALPHA_1",
+      "search_terms": [
+        "+0.0576"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0022029273158679,
+        0.0303669582994076
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0137132409204537,
+      "execution_policy": "STRICT",
+      "holm_p": 0.450954904509549,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.0901909809019098,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_BETA_1",
+      "search_terms": [
+        "+0.0137"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0156580798914577,
+        0.0355717049592623
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_01_PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0098212095856971,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_01",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.4493550644935506,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_GAMMA_1",
+      "search_terms": [
+        "+0.0098"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "artifact_ids": [
+        "artifact.distribution.v2_1_1_final"
+      ],
+      "claim_id": "TABLE_BINDING_TB_01",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contract_ids": [],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_B",
+      "manuscript_table": "TB_01",
+      "notes": "Table-aware binding; literature, interpretation, and limitation tables are not treated as empirical output tables.",
+      "result_ids": [
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_BETA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_GAMMA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_BETA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_GAMMA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_BETA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_GAMMA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_BETA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_GAMMA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C5_C4_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C5_C4_BETA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C5_C4_GAMMA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C4R_C4_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C4R_C4_BETA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C4R_C4_GAMMA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_BETA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_GAMMA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_BETA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_GAMMA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C5_C4_BETA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C5_C4_GAMMA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C4R_C4_BETA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C4R_C4_GAMMA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C4R_BETA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C4R_GAMMA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_BETA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_GAMMA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C5_C4_ALPHA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C5_C4_BETA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C5_C4_GAMMA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C4R_C4_ALPHA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C4R_C4_BETA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C4R_C4_GAMMA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_ALPHA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_BETA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C4R_GAMMA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_ALPHA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_BETA_1",
+        "PRIMARY_GEMINI_BASELINE_STRICT_FREE8_BINF_C6_E_C6_EX_GAMMA_1"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56"
+    },
+    {
+      "CI": [
+        -0.0463735873078825,
+        0.0724664143354113
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C5_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.0129125117762167,
+      "execution_policy": "STRICT",
+      "holm_p": 0.6679332066793321,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.6679332066793321,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+      "search_terms": [
+        "+0.0129"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0129894263723677,
+        0.0203303745316386
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C5_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.0052115032564348,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.5227477252274773,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C5_C4_BETA_1",
+      "search_terms": [
+        "+0.0052"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0239238840105951,
+        0.026842555807939
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C5_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.0009542434275145,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.967903209679032,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C5_C4_GAMMA_1",
+      "search_terms": [
+        "+0.0010"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -1.7119229216034784e-05,
+        0.0552937558099052
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C4R_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.026393680407925,
+      "execution_policy": "STRICT",
+      "holm_p": 0.1935806419358064,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0505949405059494,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+      "search_terms": [
+        "+0.0264"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.014144547945534,
+        0.004447262705477
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C4R_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": -0.0025756930048725,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.7413258674132587,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C4R_C4_BETA_1",
+      "search_terms": [
+        "-0.0026"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0057210682610198,
+        0.0088474887290914
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C4R_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.0012341025131362,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.7417258274172582,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C4R_C4_GAMMA_1",
+      "search_terms": [
+        "+0.0012"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0368201607315284,
+        0.1630541692852775
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.1003235457966653,
+      "execution_policy": "STRICT",
+      "holm_p": 0.011998800119988,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0023997600239976,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+      "search_terms": [
+        "+0.1003"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0005842816360655,
+        0.0473811073134618
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C4R_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0230976048189721,
+      "execution_policy": "STRICT",
+      "holm_p": 0.307969203079692,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.043995600439956,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C4R_BETA_1",
+      "search_terms": [
+        "+0.0231"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0048550618254053,
+        0.0429766383177743
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C4R_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0196102463847018,
+      "execution_policy": "STRICT",
+      "holm_p": 0.4631536846315368,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.1157884211578842,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C4R_GAMMA_1",
+      "search_terms": [
+        "+0.0196"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0443240191270918,
+        0.1864057354683238
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.1146287777782448,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0083991600839916,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0013998600139986,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+      "search_terms": [
+        "+0.1146"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0158823103733144,
+        0.0309814583607662
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0083728620958318,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.4881511848815118,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_BETA_1",
+      "search_terms": [
+        "+0.0084"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0010782706717362,
+        0.057815274164452
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0286340386279183,
+      "execution_policy": "STRICT",
+      "holm_p": 0.204979502049795,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.040995900409959,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_GAMMA_1",
+      "search_terms": [
+        "+0.0286"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.1377869893149218,
+        0.0010849156202744
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C5_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": -0.0679510666747616,
+      "execution_policy": "STRICT",
+      "holm_p": 0.1935806419358064,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.053994600539946,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C5_C4_ALPHA_1",
+      "search_terms": [
+        "-0.0680"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0163039815441759,
+        0.0250048480342491
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C5_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.0047568855226433,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.6333366663333667,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C5_C4_BETA_1",
+      "search_terms": [
+        "+0.0048"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0361402279361563,
+        0.0242361142418225
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C5_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": -0.0061893520393798,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.6933306669333067,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C5_C4_GAMMA_1",
+      "search_terms": [
+        "-0.0062"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0289983712086971,
+        0.1188697255728643
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C4R_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.0723646804828786,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C4R_C4_ALPHA_1",
+      "search_terms": [
+        "+0.0724"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0050487659582743,
+        0.0269903987606211
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C4R_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.0105724508304086,
+      "execution_policy": "STRICT",
+      "holm_p": 0.911908809119088,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.1823817618238176,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C4R_C4_BETA_1",
+      "search_terms": [
+        "+0.0106"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0074901752202222,
+        0.0302523019716668
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C4R_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.0178648417187855,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0055994400559944,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.0007999200079992,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C4R_C4_GAMMA_1",
+      "search_terms": [
+        "+0.0179"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.1415037459380062,
+        0.291750904597841
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C4R_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.2141991425072062,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C4R_ALPHA_1",
+      "search_terms": [
+        "+0.2142"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0258371303722006,
+        0.0616658149657038
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C4R_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0424816436421323,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C4R_BETA_1",
+      "search_terms": [
+        "+0.0425"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0397641552242075,
+        0.1053510361727531
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C4R_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0709001300308972,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C4R_GAMMA_1",
+      "search_terms": [
+        "+0.0709"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0007427904222227,
+        0.154366932486286
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0766583914891147,
+      "execution_policy": "STRICT",
+      "holm_p": 0.1935806419358064,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0483951604839516,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_ALPHA_1",
+      "search_terms": [
+        "+0.0767"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0035022675402168,
+        0.0255996092360884
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0108094476909262,
+      "execution_policy": "STRICT",
+      "holm_p": 0.851914808519148,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.141985801419858,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_BETA_1",
+      "search_terms": [
+        "+0.0108"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0083925147884129,
+        0.074369525252246
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0411742529528248,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0815918408159184,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GPT",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.0135986401359864,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_GAMMA_1",
+      "search_terms": [
+        "+0.0412"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0051312646936128,
+        0.1249698414921146
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C5_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.0648693881700845,
+      "execution_policy": "STRICT",
+      "holm_p": 0.1847815218478152,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0307969203079692,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+      "search_terms": [
+        "+0.0649"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0047856430766567,
+        0.0348178819698949
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C5_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.0140109216458056,
+      "execution_policy": "STRICT",
+      "holm_p": 0.9095090490950906,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.1515848415158484,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C5_C4_BETA_1",
+      "search_terms": [
+        "+0.0140"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0153108408672158,
+        0.0437281973562624
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C5_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.0144251914567255,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.3601639836016398,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C5_C4_GAMMA_1",
+      "search_terms": [
+        "+0.0144"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0429090398201244,
+        0.0209209063949733
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C4R_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": -0.0101715859116971,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.5293470652934706,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+      "search_terms": [
+        "-0.0102"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0040889596262204,
+        0.0013335156344873
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C4R_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": -0.0013103484056153,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.338966103389661,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C4R_C4_BETA_1",
+      "search_terms": [
+        "-0.0013"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0086600385842221,
+        0.0162953234772523
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C4R_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.0036267184990259,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.5521447855214479,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C4R_C4_GAMMA_1",
+      "search_terms": [
+        "+0.0036"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.040756945820926,
+        0.1405161538324494
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.089721502462878,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0027997200279972,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0003999600039996,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+      "search_terms": [
+        "+0.0897"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0060378232218724,
+        0.0283033382356119
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C4R_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0156379359911485,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0055994400559944,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.0007999200079992,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C4R_BETA_1",
+      "search_terms": [
+        "+0.0156"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0018992037525231,
+        0.044378380673477
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C4R_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0221744197253284,
+      "execution_policy": "STRICT",
+      "holm_p": 0.2225777422257774,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.0317968203179682,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C4R_GAMMA_1",
+      "search_terms": [
+        "+0.0222"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0133592413164991,
+        0.0985927305571175
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0412234976762198,
+      "execution_policy": "STRICT",
+      "holm_p": 0.6899310068993101,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.1411858814118588,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+      "search_terms": [
+        "+0.0412"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0021365564324645,
+        0.0104579005140974
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0043140206694648,
+      "execution_policy": "STRICT",
+      "holm_p": 0.9095090490950906,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.17998200179982,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_BETA_1",
+      "search_terms": [
+        "+0.0043"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0107505472203146,
+        0.0344346362291694
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0114101597553352,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.3215678432156784,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_GAMMA_1",
+      "search_terms": [
+        "+0.0114"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.1513685994476091,
+        0.0199328906630745
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C5_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": -0.0652430602825521,
+      "execution_policy": "STRICT",
+      "holm_p": 0.6899310068993101,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.137986201379862,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C5_C4_ALPHA_1",
+      "search_terms": [
+        "-0.0652"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0338456498573947,
+        0.0326611058492381
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C5_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": -0.0007981189027952,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.9649035096490352,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C5_C4_BETA_1",
+      "search_terms": [
+        "-0.0008"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0548580689130501,
+        0.0166596818435356
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C5_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": -0.0185250162845019,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.3117688231176882,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C5_C4_GAMMA_1",
+      "search_terms": [
+        "-0.0185"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.091380150745271,
+        0.2009250485972086
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C4R_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.1448879457482113,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C4R_C4_ALPHA_1",
+      "search_terms": [
+        "+0.1449"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0140562770997067,
+        0.0513270615986305
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C4R_C4_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.0301911152468026,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C4R_C4_BETA_1",
+      "search_terms": [
+        "+0.0302"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0018515578093984,
+        0.0272297219195051
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C4R_C4_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.0122270227924374,
+      "execution_policy": "STRICT",
+      "holm_p": 0.475952404759524,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.0951904809519048,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C4R_C4_GAMMA_1",
+      "search_terms": [
+        "+0.0122"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0188174235038797,
+        0.105290116903302
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C4R_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0430853162824828,
+      "execution_policy": "STRICT",
+      "holm_p": 0.6899310068993101,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.1715828417158284,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C4R_ALPHA_1",
+      "search_terms": [
+        "+0.0431"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0156963708105532,
+        0.0388679600268372
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C4R_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0120003347734194,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.3857614238576142,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C4R_BETA_1",
+      "search_terms": [
+        "+0.0120"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.022063186667517,
+        0.0646478529416449
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C4R_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0427412929181628,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C4R_GAMMA_1",
+      "search_terms": [
+        "+0.0427"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0404950125066569,
+        0.072365774469249
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0153244899294307,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.6007399260073992,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_ALPHA_1",
+      "search_terms": [
+        "+0.0153"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0192187892251971,
+        0.0148784508940802
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_BETA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": -0.0002395902546702,
+      "execution_policy": "STRICT",
+      "holm_p": 1.0,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "beta",
+      "population": "ITT",
+      "raw_p": 0.9667033296670332,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_BETA_1",
+      "search_terms": [
+        "-0.0002"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0019192248999825,
+        0.0451840996642559
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "BINF",
+      "claim_id": "CLAIM_TB_02_PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_GAMMA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.0227744302086518,
+      "execution_policy": "STRICT",
+      "holm_p": 0.2225777422257774,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tb",
+      "manuscript_table": "TB_02",
+      "model": "GEMINI",
+      "oracle": "gamma",
+      "population": "ITT",
+      "raw_p": 0.0317968203179682,
+      "reasoning_regime": "HIGH",
+      "result_id": "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_GAMMA_1",
+      "search_terms": [
+        "+0.0228"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "artifact_ids": [
+        "artifact.distribution.v2_1_1_final"
+      ],
+      "claim_id": "TABLE_BINDING_TB_02",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contract_ids": [],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_B",
+      "manuscript_table": "TB_02",
+      "notes": "Table-aware binding; literature, interpretation, and limitation tables are not treated as empirical output tables.",
+      "result_ids": [
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C5_C4_BETA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C5_C4_GAMMA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C4R_C4_BETA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C4R_C4_GAMMA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C4R_BETA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C4R_GAMMA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_BETA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_GAMMA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C5_C4_ALPHA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C5_C4_BETA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C5_C4_GAMMA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C4R_C4_ALPHA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C4R_C4_BETA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C4R_C4_GAMMA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C4R_ALPHA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C4R_BETA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C4R_GAMMA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_ALPHA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_BETA_1",
+        "PRIMARY_GPT_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_GAMMA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C5_C4_BETA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C5_C4_GAMMA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C4R_C4_BETA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C4R_C4_GAMMA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C4R_BETA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C4R_GAMMA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_BETA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_B1_C6_E_C6_EX_GAMMA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C5_C4_ALPHA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C5_C4_BETA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C5_C4_GAMMA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C4R_C4_ALPHA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C4R_C4_BETA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C4R_C4_GAMMA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C4R_ALPHA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C4R_BETA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C4R_GAMMA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_ALPHA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_BETA_1",
+        "PRIMARY_GEMINI_HIGH_STRICT_FREE8_BINF_C6_E_C6_EX_GAMMA_1"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56"
+    },
+    {
+      "artifact_ids": [
+        "artifact.v13.frozen_capsule"
+      ],
+      "claim_id": "TABLE_BINDING_TC_01",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contract_ids": [],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_C",
+      "manuscript_table": "TC_01",
+      "notes": "Table-aware binding; literature, interpretation, and limitation tables are not treated as empirical output tables.",
+      "result_ids": [],
+      "source_sha256": null
+    },
+    {
+      "CI": [
+        0.1034595223751387,
+        0.2883677164684456
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TC_02_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C5-C4",
+      "display_rounding": 4,
+      "estimate": 0.1959945279330859,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tc",
+      "manuscript_table": "TC_02",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+      "search_terms": [
+        "+0.1960"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.1149640479613146,
+        0.2293257207025353
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TC_02_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C4R-C4",
+      "display_rounding": 4,
+      "estimate": 0.1692620467326202,
+      "execution_policy": "STRICT",
+      "holm_p": 0.0015998400159984,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tc",
+      "manuscript_table": "TC_02",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0001999800019998,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+      "search_terms": [
+        "+0.1693"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        -0.0548041311567897,
+        0.1272977337784623
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TC_02_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C4R",
+      "display_rounding": 4,
+      "estimate": 0.0375269883883852,
+      "execution_policy": "STRICT",
+      "holm_p": 0.4035596440355964,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tc",
+      "manuscript_table": "TC_02",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.4035596440355964,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+      "search_terms": [
+        "+0.0375"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "CI": [
+        0.0750886139920362,
+        0.2767238440848518
+      ],
+      "N": 575,
+      "action_space": "FREE8",
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "budget": "B1",
+      "claim_id": "CLAIM_TC_02_PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1_estimate",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contrast": "C6-E-C6-EX",
+      "display_rounding": 4,
+      "estimate": 0.174191590187809,
+      "execution_policy": "STRICT",
+      "holm_p": 0.001999800019998,
+      "information_condition": "IC-b",
+      "manuscript_section": "chapter_tc",
+      "manuscript_table": "TC_02",
+      "model": "GPT",
+      "oracle": "alpha",
+      "population": "ITT",
+      "raw_p": 0.0003999600039996,
+      "reasoning_regime": "BASELINE",
+      "result_id": "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1",
+      "search_terms": [
+        "+0.1742"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "statistical_path": ""
+    },
+    {
+      "artifact_ids": [
+        "artifact.distribution.v2_1_1_final"
+      ],
+      "claim_id": "TABLE_BINDING_TC_02",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "contract_ids": [],
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "chapter_C",
+      "manuscript_table": "TC_02",
+      "notes": "Table-aware binding; literature, interpretation, and limitation tables are not treated as empirical output tables.",
+      "result_ids": [
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C5_C4_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C4R_C4_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C4R_ALPHA_1",
+        "PRIMARY_GPT_BASELINE_STRICT_FREE8_B1_C6_E_C6_EX_ALPHA_1"
+      ],
+      "source_sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56"
+    },
+    {
+      "artifact_id": "artifact.v13.frozen_capsule",
+      "claim_id": "CLAIM_ORACLE_ALPHA_SPEARMAN",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "narrative_source",
+      "manuscript_table": "T04_01",
+      "search_terms": [
+        "0.678"
+      ]
+    },
+    {
+      "artifact_id": "artifact.v13.frozen_capsule",
+      "claim_id": "CLAIM_ORACLE_ALPHA_FORWARD_ALIGNMENT",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "narrative_source",
+      "manuscript_table": "T04_01",
+      "search_terms": [
+        "72.0%",
+        "0.500",
+        "0.803"
+      ]
+    },
+    {
+      "artifact_id": "artifact.v13.frozen_capsule",
+      "claim_id": "CLAIM_SIMULATOR_OOT_ALIGNMENT",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "narrative_source",
+      "manuscript_table": "T04_01",
+      "search_terms": [
+        "0.903",
+        "71.7%",
+        "10.7",
+        "10.8"
+      ]
+    },
+    {
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "claim_id": "CLAIM_C3E_ALPHA",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "narrative_source",
+      "manuscript_table": "T04_03",
+      "search_terms": [
+        "55.959960"
+      ]
+    },
+    {
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "claim_id": "CLAIM_C3E_DELTA_OE_ALPHA",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "narrative_source",
+      "manuscript_table": "T04_03",
+      "search_terms": [
+        "+0.157936"
+      ]
+    },
+    {
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "claim_id": "CLAIM_C3E_DELTA_C2_ALPHA",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "narrative_source",
+      "manuscript_table": "T04_03",
+      "search_terms": [
+        "+0.316358"
+      ]
+    },
+    {
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "claim_id": "CLAIM_C3E_ENTROPY",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "narrative_source",
+      "manuscript_table": "T04_03",
+      "search_terms": [
+        "1.594461",
+        "4.9257"
+      ]
+    },
+    {
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "claim_id": "CLAIM_C3E_ACTION_COUNTS",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "narrative_source",
+      "manuscript_table": "T04_03",
+      "search_terms": [
+        "OE 232",
+        "RF 155",
+        "WC1 54",
+        "CX 41",
+        "WC2 39",
+        "MX2 36",
+        "MX1 18"
+      ]
+    },
+    {
+      "artifact_id": "contract.llm.final_v43",
+      "claim_id": "CLAIM_DESIGN_GENERATIONS",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "narrative_source",
+      "manuscript_table": "T03_05",
+      "search_terms": [
+        "48,300"
+      ]
+    },
+    {
+      "artifact_id": "artifact.v13.frozen_capsule",
+      "claim_id": "CLAIM_DESIGN_STAGE8_ROWS",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "narrative_source",
+      "manuscript_table": "T03_05",
+      "search_terms": [
+        "96,600"
+      ]
+    },
+    {
+      "artifact_id": "artifact.v13.frozen_capsule",
+      "claim_id": "CLAIM_RESULT_CARDINALITIES",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "narrative_source",
+      "manuscript_table": "TC_01",
+      "search_terms": [
+        "96",
+        "722",
+        "914"
+      ]
+    },
+    {
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "claim_id": "CLAIM_C6EX_IDENTITY",
+      "claim_type": "NUMERIC_EMPIRICAL",
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "narrative_source",
+      "manuscript_table": "T04_03",
+      "search_terms": [
+        "575",
+        "0",
+        "141",
+        "28 actors"
+      ]
+    },
+    {
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "claim_id": "CLAIM_C3E_RELEASE_HASH",
+      "claim_type": "METHOD_PROVENANCE",
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "narrative_source",
+      "manuscript_table": "T04_03",
+      "search_terms": [
+        "1100b62b5523e6d96f6a6711f0f07c159d6d7e889600905d6021205ee437aefd"
+      ]
+    },
+    {
+      "artifact_id": "artifact.distribution.v2_1_1_final",
+      "claim_id": "CLAIM_C3E_DECISION_HASH",
+      "claim_type": "METHOD_PROVENANCE",
+      "coverage_status": "COMPLETE",
+      "manuscript_section": "narrative_source",
+      "manuscript_table": "T04_03",
+      "search_terms": [
+        "dfebafa6b50e55c2f5019766e0e540af9964b2a9ab7d4e49805d03e8011b792e"
+      ]
+    }
+  ],
+  "coverage_status": "COMPLETE",
+  "schema_version": "narrative_thesis_claim_registry_v2"
+}

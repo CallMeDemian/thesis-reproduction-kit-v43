@@ -1,0 +1,8 @@
+paragraphs=1143
+tables=88
+sections=4
+rendered_pages=142
+portrait_pages=140
+landscape_pages=2
+structural_status=PASS
+render_status=PASS

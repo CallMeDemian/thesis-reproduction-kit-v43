@@ -1,0 +1,17 @@
+{
+  "primary_contrasts": [
+    "C5-C4",
+    "C4R-C4",
+    "C6-E-C4R",
+    "C6-E-C6-EX"
+  ],
+  "budgets_analyzed_separately": [
+    "B1",
+    "BINF"
+  ],
+  "budget_interaction": "effect_B1 - effect_BINF at firm level, then average",
+  "bootstrap_replicates": 10000,
+  "bootstrap_rng": "numpy.random.Generator(PCG64)",
+  "bootstrap_seed": 20260912,
+  "models_analyzed_separately": true
+}

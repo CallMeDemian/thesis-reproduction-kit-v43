@@ -1,0 +1,32 @@
+{
+  "schema_version": "paper_analysis_profiles_v2_fresh_only",
+  "default_profile": "current_comprehensive",
+  "profiles": {
+    "current_comprehensive": {
+      "catalog_mode": "discover_current",
+      "n5m_required": true,
+      "n5m_paper_use": "fresh_confirmatory",
+      "manifest_task_order": [
+        "required-inputs",
+        "b2-gap",
+        "test3",
+        "structural-slice",
+        "postfreeze-ablation",
+        "postfreeze-holm",
+        "main-harness-backend-decomposition",
+        "reference-quality",
+        "n5-holm",
+        "n5-frontier-holm",
+        "fresh-action-intensity",
+        "n5-matched-frontier-holm",
+        "n5m-posthoc",
+        "n5m-adaptive-selection",
+        "signflip",
+        "frontier",
+        "winrate",
+        "icc-probe",
+        "final-contract"
+      ]
+    }
+  }
+}

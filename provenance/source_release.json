@@ -1,0 +1,13 @@
+{
+  "source_repository": "CallMeDemian/REPRO_KIT_semantic_repair",
+  "source_commit": "324b5fbb0ac9cf322ae20cf97793165227bf45ed",
+  "scientific_evidence_base_commit": "449c942cd1c02b17bcc1720f10ee8c96ee0a883a",
+  "source_release": "THESIS_V43_SUBMISSION_FINAL_20260917",
+  "certification_commit": "e2ad7fb731e3965b6be750c1057b7db04871b2a7",
+  "migration_policy": "curated clean-room product repository; frozen evidence retained by exact hash",
+  "local_verification": {
+    "source_commit_object": "UNAVAILABLE",
+    "scientific_evidence_base_commit_object": "AVAILABLE",
+    "certification_commit_object": "UNAVAILABLE"
+  }
+}

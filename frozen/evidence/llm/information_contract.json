@@ -1,0 +1,29 @@
+{
+  "conditions": {
+    "IC-a": {
+      "description": "anonymous financial information",
+      "incremental_fields": []
+    },
+    "IC-b": {
+      "description": "IC-a plus industry and fiscal year",
+      "incremental_fields": [
+        "industry_class"
+      ]
+    },
+    "IC-c": {
+      "description": "IC-b plus firm name",
+      "incremental_fields": [
+        "firm_name"
+      ]
+    }
+  },
+  "industry_binding_manifest": "archive/DEPLOYED_RELEASE/llm_inputs/fy2024_industry_binding/FY2024_INDUSTRY_BINDING_MANIFEST.json",
+  "industry_status": "INDUSTRY_BINDING_COMPLETE_LLM_NOT_STARTED",
+  "live_execution_blocked_until_frozen_binding": false,
+  "missing_representation": "UNKNOWN",
+  "schema_version": "llm_v43_final3_information_contract_v1",
+  "serving_panel_candidate_nonmissing": 9,
+  "valid_industry_coverage_rate": 1.0,
+  "valid_industry_missing": 0,
+  "valid_industry_nonmissing": 575
+}

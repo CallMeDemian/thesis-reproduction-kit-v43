@@ -1,0 +1,104 @@
+{
+  "schema_version": "llm_confirmatory_protocol_v1",
+  "protocol_name": "LLM Confirmatory Experiment V1",
+  "protocol_version": 1,
+  "paper_run_requires_batch": true,
+  "live_api_allowed_by_default": false,
+  "prompt_language": "English",
+  "models": {
+    "openai_gpt54mini": {
+      "provider": "openai",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "api": "responses_batch",
+      "reasoning_effort": "none",
+      "max_output_tokens": 1200,
+      "structured_output": "native_json_schema",
+      "sampling_parameters": [],
+      "tools": false,
+      "snapshot_required": true
+    },
+    "google_gemini37flash": {
+      "provider": "google",
+      "model": "gemini-3.7-flash",
+      "api": "generateContent_batch",
+      "thinking_level": "low",
+      "max_output_tokens": 1200,
+      "structured_output": "native_json_schema",
+      "sampling_parameters": [],
+      "tools": false,
+      "model_version_must_be_constant_within_protocol": true
+    },
+    "anthropic_haiku45": {
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5-20251001",
+      "api": "message_batches",
+      "manual_extended_thinking": "disabled",
+      "max_tokens": 1200,
+      "structured_output": "native_output_config_json_schema",
+      "sampling_parameters": [],
+      "tools": false,
+      "snapshot_required": true
+    }
+  },
+  "official_contract_verification_as_of": "2026-08-30",
+  "pricing": {
+    "currency": "USD",
+    "as_of": "2026-08-30",
+    "planning_input_tokens_per_request": 1800,
+    "planning_expected_output_tokens_per_request": 350,
+    "planning_max_output_tokens_per_request": 1200,
+    "openai_gpt54mini": {"standard_input_per_million": 0.75, "standard_output_per_million": 4.50, "batch_input_per_million": 0.375, "batch_output_per_million": 2.25},
+    "google_gemini37flash": {"batch_input_per_million": 0.375, "batch_output_per_million": 1.875, "introductory_price_end": "2026-12-31"},
+    "anthropic_haiku45": {"batch_input_per_million": 0.50, "batch_output_per_million": 2.50},
+    "human_reverification_required_before_submit": true
+  },
+  "action_contract": {
+    "mode": "free_form_managerial_9d",
+    "managerial_dimensions": ["ppe_pct", "inv_turnover_chg", "ar_turnover_chg", "ap_turnover_chg", "short_debt_pct", "long_debt_pct", "bond_pct", "cogs_ratio_chg", "sga_ratio_chg"],
+    "backend_injected": {"revenue_growth": 0.0},
+    "intensity_metric": "p50_normalized_action_intensity",
+    "budgets": {"LOW": 1.0, "MEDIUM": 2.0, "HIGH": 3.0, "UNCONSTRAINED": null},
+    "posthoc_global_rescale_forbidden": true
+  },
+  "information_contract": {
+    "IC-a": ["derived__debt_to_assets", "derived__equity_to_assets", "derived__current_ratio", "derived__cash_ratio", "derived__operating_margin", "derived__gross_margin", "derived__net_margin", "derived__roa_proxy", "derived__cogs_to_revenue", "derived__sga_to_revenue", "derived__financial_cost_to_revenue", "derived__capex_to_revenue", "derived__ppe_to_assets", "derived__short_debt_to_total_debt", "derived__long_debt_to_total_debt", "derived__bond_to_total_debt", "derived__inventory_to_revenue", "derived__receivables_to_revenue", "derived__payables_to_revenue", "delta_1y__derived__operating_margin", "delta_1y__derived__debt_to_assets", "delta_1y__derived__current_ratio", "delta_1y__derived__roa_proxy"],
+    "IC-b_additions": ["industry_class", "market", "fiscal_year", "log_assets"],
+    "IC-c_additions": ["firm_name"],
+    "never_expose": ["row_id", "firm_id", "corp_code", "company_id", "condition", "information_condition", "module", "replicate_id", "oracle_score", "rating", "reward", "q_value", "candidate_iql_performance"]
+  },
+  "matrix": {
+    "core": {"information": ["IC-b"], "action_modes": ["free_form_managerial_9d"], "budgets": ["LOW", "MEDIUM", "HIGH", "UNCONSTRAINED"], "conditions": ["C4", "C4R", "C6"], "replicate_ids": [1]},
+    "reference_source": {"information": "IC-b", "budget": "MEDIUM", "action_mode": "free_form_managerial_9d", "additional_conditions": ["C6X"]},
+    "diagnosis_scaffold": {"information": "IC-b", "budget": "MEDIUM", "action_mode": "free_form_managerial_9d", "conditions": ["C5", "C7"]},
+    "action_space": {"information": "IC-b", "budget": "MEDIUM", "action_mode": "candidate_selection", "conditions": ["C4", "C6"]},
+    "information": {"budget": "MEDIUM", "action_mode": "free_form_managerial_9d", "additional_information": ["IC-a", "IC-c"], "conditions": ["C4", "C6"]},
+    "replication": {"information": "IC-b", "budget": "MEDIUM", "action_mode": "free_form_managerial_9d", "conditions": ["C4", "C4R", "C6"], "replicate_id": 2},
+    "icc_probe": {"information": "IC-c", "action_mode": "icc_prior_knowledge_probe", "replicate_id": 1}
+  },
+  "request_count_formula_per_evaluation_row": {"core": 36, "C6X": 3, "C5_C7": 6, "candidate_action_space": 6, "ICa_ICc": 12, "replication": 9, "ICc_probe": 3, "total": 75},
+  "waves": {"wave1_conditions": ["C4", "C5", "PROBE"], "wave2_conditions": ["C4R", "C6", "C6X", "C7"], "branch_rule": "C4R/C6/C6X branch independently from the same raw C4; C7 branches from raw C5"},
+  "reference_draw_seed": 73019,
+  "retry_contract": {
+    "retryable": ["transport_failure", "http_429", "http_5xx", "provider_job_failure", "incomplete_max_tokens"],
+    "never_retry": ["refusal", "semantic_bad_recommendation", "budget_violation", "dimension_range_violation", "wrong_direction", "weak_rationale", "low_policy_value", "schema_invalid_completed_response"]
+  },
+  "upstream_required_contract": {"canonical_rl_profile_id": "v10_semantic_corrected_seed2_p50", "canonical_rl_contract": "configs/current/final_freeze/final_oracle_rl_contract.json"},
+  "output_root": "archive/DEPLOYED_RELEASE/stage7_llm_action_generation/confirmatory_v1",
+  "historical_input_roots_forbidden": ["archive/DEPLOYED_RELEASE/llm_runs", "artifacts/llm_runs", "tools/internal/original"],
+  "freeze_sources": {
+    "response_schema": "configs/current/final_freeze/llm_response_schema_v1.json",
+    "analysis_plan": "configs/current/final_freeze/llm_analysis_plan_v1.json",
+    "prompt_templates": "configs/current/final_freeze/llm_confirmatory_prompt_templates_v1.json",
+    "cohort_manifest": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/input_splits/canonical_evaluation_cohort_manifest.json",
+    "cohort_row_ids": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/input_splits/canonical_evaluation_row_ids.parquet",
+    "serving_panel": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/phase_eval_candidate.parquet",
+    "p50_scales": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/action_intensity_scales.json",
+    "candidate_library": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/final_candidate_library__P50.yaml",
+    "action_contract": "configs/current/final_freeze/final_action_contract.yaml",
+    "stage5_metadata": "archive/DEPLOYED_RELEASE/stage5_candidate_iql/production_v4_3/metadata.json",
+    "stage5_checkpoint": "archive/DEPLOYED_RELEASE/stage5_candidate_iql/production_v4_3/final_epoch.pt",
+    "stage6_metadata": "archive/DEPLOYED_RELEASE/stage6_candidate_selector_eval/production_v4_3/multi_oracle_metadata.json",
+    "stage6_policy_actions": "archive/DEPLOYED_RELEASE/stage6_candidate_selector_eval/production_v4_3/policy_actions.parquet",
+    "stage6_alpha_scores": "archive/DEPLOYED_RELEASE/stage6_candidate_selector_eval/production_v4_3/oracle_scores_alpha.parquet"
+  }
+}

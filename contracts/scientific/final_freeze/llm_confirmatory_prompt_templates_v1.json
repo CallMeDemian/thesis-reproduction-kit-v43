@@ -1,0 +1,13 @@
+{
+  "schema_version": "llm_confirmatory_prompt_templates_v1",
+  "language": "English",
+  "system": "You are a corporate financial manager proposing a one-year managerial recourse plan. Use only the supplied firm_state. Do not use tools, web search, external memory, code execution, or unprovided facts. Return only the requested structured JSON.",
+  "common": "Use one to three keys that appear verbatim in firm_state as evidence for your recommendation. Provide the required diagnosis and action fields for a bounded one-year managerial action. Oracle scores, rewards, ratings, Q-values, and policy performance are intentionally unavailable.",
+  "first_pass": "Produce an initial recommendation from the supplied firm information.",
+  "diagnosis_scaffold": "Before deciding on the action, first formulate a structured diagnosis of the primary weakness and its supporting feature keys in the diagnosis object.",
+  "self_review": "Review your exact original raw draft shown below without any outside reference. You may retain or revise it.",
+  "reference_review": "Review your exact original raw draft and the source-blind reference shown below. You may adopt, partially adopt, retain, or reject the reference.",
+  "candidate_mode": "Select exactly one candidate from the supplied candidate library.",
+  "free_form_mode": "Return all nine managerial action dimensions. revenue_growth is not a decision variable and will be injected as exactly zero by the backend.",
+  "probe": "This is a separate stateless prior-knowledge probe. State whether you recognize the named firm, your familiarity, and whether you recall a specific 2024 financial value without searching. Do not infer missing facts."
+}

@@ -1,0 +1,35 @@
+{
+  "models": {
+    "google_gemini31flashlite": {
+      "api": "Gemini Batch API",
+      "exact_model_id": "gemini-3.1-flash-lite",
+      "expected_returned_model_version": "gemini-3.1-flash-lite",
+      "max_output_tokens": 4096,
+      "native_structured_output": false,
+      "product": "Gemini 3.1 Flash-Lite",
+      "provider": "google",
+      "sampling_parameters": {},
+      "thinking": {
+        "thinkingLevel": "minimal"
+      },
+      "tools": false
+    },
+    "openai_gpt54mini": {
+      "api": "Responses Batch API",
+      "exact_model_id": "gpt-5.4-mini-2026-03-17",
+      "expected_returned_model_version": "gpt-5.4-mini-2026-03-17",
+      "max_output_tokens": 4096,
+      "native_structured_output": false,
+      "product": "GPT-5.4-mini",
+      "provider": "openai",
+      "reasoning": {
+        "effort": "none"
+      },
+      "sampling_parameters": {},
+      "tools": false
+    }
+  },
+  "schema_version": "llm_v43_final3_model_contract_v1",
+  "silent_model_fallback": false,
+  "status": "FROZEN_NO_FALLBACK"
+}

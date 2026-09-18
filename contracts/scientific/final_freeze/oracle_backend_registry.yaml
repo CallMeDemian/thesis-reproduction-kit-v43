@@ -1,0 +1,33 @@
+schema_version: oracle_backend_registry_v4_3_alpha_monotone_v1
+status: current_v4_3_contract_canonical
+final_result_allowed: true
+generated_by: tools.promote_v43_alpha_contract
+created_utc: '2026-05-19T21:59:12.235605+00:00'
+allowed_backend_types:
+  alpha: alpha_vanilla_isotonic_scorecard
+  beta: beta_ordered_logit
+  gamma: gamma_ml_tree_boosting
+backends:
+  alpha:
+    backend_type: alpha_vanilla_isotonic_scorecard
+    path: archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha
+    params: archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/oracle_alpha_params.json
+    output: archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/oracle_firm_year_output_alpha.parquet
+    metrics: archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/preliminary_dev_oot_metrics_alpha.csv
+  beta:
+    backend_type: beta_ordered_logit
+    path: archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta
+    params: archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/benchmark_beta_params.json
+    output: archive/DEPLOYED_RELEASE/stage1_oracle_backends/beta/benchmark_firm_year_output_beta.parquet
+  gamma:
+    backend_type: gamma_ml_tree_boosting
+    path: archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma
+    params: archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/benchmark_gamma_params.json
+    model: archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/benchmark_gamma_model.joblib
+    output: archive/DEPLOYED_RELEASE/stage1_oracle_backends/gamma/benchmark_firm_year_output_gamma.parquet
+no_placeholder_policy: hard_fail_unless_allow_unscored
+v4_3_contract_promotion:
+  alpha_contract_version: oracle_alpha_monotone_empty_bins_v1
+  alpha_params_sha256: 7ddc6ebea4fe8936332b323d07438c9ec82ffc19b030c9138ff85dc116c4694b
+  canonical_stage: stage1_oracle_backends/alpha
+  baseline_relock_required: false

@@ -1,0 +1,126 @@
+{
+  "C6EX_manifest": "configs/current/llm/C6EX_manifest.json",
+  "C6EX_materialized": "configs/current/llm/C6EX_materialized.parquet",
+  "C6EX_permutation": "configs/current/llm/C6EX_permutation.parquet",
+  "action_contract": {
+    "DL_RF_mutex": true,
+    "candidate9_B1": "A0 intensity 0; every non-A0 candidate nominal intensity 1",
+    "candidate_count": 9,
+    "candidate_order": [
+      "A0",
+      "DL",
+      "RF",
+      "CX",
+      "WC1",
+      "WC2",
+      "OE",
+      "MX1",
+      "MX2"
+    ],
+    "dimensions": 8,
+    "free8_B1": "normalized_intensity <= 1 + 1e-9",
+    "free8_BINF": "no total intensity cap; per-axis bounds remain",
+    "posthoc_repair": false,
+    "source": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_action_contract_v4_3.json",
+    "source_sha256": "f722e189a265e111c018341254a648ddb9cecc05aa8c12c3547a023ea4c458c0"
+  },
+  "active_reference_policy": {
+    "decision_sha256": "dfebafa6b50e55c2f5019766e0e540af9964b2a9ab7d4e49805d03e8011b792e",
+    "design_binding_hash": "2cf6d6d0e4250e66ce882ab95f9d641f2c73711ffbc6429e9a203dcc2ee680a2",
+    "encoder": "E2",
+    "id": "C3E_E2_7SEED_BALANCED_DFEBAFA6",
+    "release_hash": "1100b62b5523e6d96f6a6711f0f07c159d6d7e889600905d6021205ee437aefd",
+    "type": "C3-E"
+  },
+  "analysis": {
+    "bootstrap_replicates": 10000,
+    "bootstrap_rng": "numpy.random.Generator(PCG64)",
+    "bootstrap_seed": 20260912,
+    "budget_interaction": "effect_B1 - effect_BINF at firm level, then average",
+    "budgets_analyzed_separately": [
+      "B1",
+      "BINF"
+    ],
+    "models_analyzed_separately": true,
+    "primary_contrasts": [
+      "C5-C4",
+      "C4R-C4",
+      "C6-E-C4R",
+      "C6-E-C6-EX"
+    ]
+  },
+  "authority_document": "docs/contracts/LLM_EXPERIMENT_PLAN_3_FINAL_20260912.docx",
+  "authority_document_sha256": "80f3fc15d4b002f983fd7f0ab641e9534c819138d6b14a7274cdfaa274f356b1",
+  "branching": {
+    "C4R": "same-run C4",
+    "C5": null,
+    "C6-E": "same-run C4",
+    "C6-EX": "same-run C4",
+    "stability_run2_fresh_C4": true
+  },
+  "canonical_runner": "python -m credit_recourse.final_release",
+  "conditions": [
+    "C4",
+    "C5",
+    "C4R",
+    "C6-E",
+    "C6-EX"
+  ],
+  "counts": {
+    "cells_per_model": 21,
+    "firms": 575,
+    "main_cells_per_model": 15,
+    "main_requests_total": 17250,
+    "models": 2,
+    "requests_per_model": 12075,
+    "stability_cells_per_model": 6,
+    "stability_requests_total": 6900,
+    "total_api_calls": 24150,
+    "total_cells": 42
+  },
+  "design_release_hash": "2cf6d6d0e4250e66ce882ab95f9d641f2c73711ffbc6429e9a203dcc2ee680a2",
+  "experiment_matrix": "configs/current/llm/experiment_matrix.csv",
+  "generation_safeguard": "dry-run by default; live API requires --execute-api after doctor PASS and release-hash validation",
+  "information_contract": "configs/current/llm/information_contract.json",
+  "model_contract": "configs/current/llm/model_contract.json",
+  "model_products": {
+    "google_gemini31flashlite": "Gemini 3.1 Flash-Lite",
+    "openai_gpt54mini": "GPT-5.4-mini"
+  },
+  "models": [
+    "openai_gpt54mini",
+    "google_gemini31flashlite"
+  ],
+  "prompt_contract": "configs/current/llm/prompt_contract.json",
+  "proposed_to_applied": {
+    "no_clipping": true,
+    "no_projection": true,
+    "no_rescale": true,
+    "preserved_layers": [
+      "proposed",
+      "accepted",
+      "ITT",
+      "realized"
+    ],
+    "strict_bounds": true,
+    "strict_parse": true,
+    "terminal_completed_unusable_itt": "A0",
+    "unresolved_transport_or_provider_infrastructure": "UNRESOLVED_INFRA_RETRY_RESUME"
+  },
+  "reference_visibility": {
+    "action_content_only": true,
+    "forbidden": [
+      "actor name",
+      "ensemble name",
+      "component configs",
+      "confidence",
+      "Q",
+      "Oracle score",
+      "past performance",
+      "encoder identity"
+    ]
+  },
+  "retry_policy": "configs/current/llm/retry_policy.json",
+  "schema_version": "llm_v43_final_plan3_contract_v1",
+  "status": "PRELIVE_CONTRACT_FROZEN_READY"
+}

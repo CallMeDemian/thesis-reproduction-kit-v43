@@ -1,0 +1,92 @@
+{
+  "version": "V43RL/3",
+  "seed": 2,
+  "temporal": {
+    "eval_base_year": 2024,
+    "train_transition_year_max": 2022,
+    "train_outcome_year_max": 2023,
+    "evaluation_rollout_year": 2025,
+    "version": "V43OnePassTemporal/1"
+  },
+  "architecture": {
+    "d_model": 256,
+    "n_heads": 8,
+    "n_layers": 4,
+    "ff_mult": 4,
+    "actor_logits": 9,
+    "critic": "explicit state * action embedding interaction"
+  },
+  "execution": {
+    "precision": "float32",
+    "activation_checkpointing": true,
+    "preserve_dropout_rng": true,
+    "frozen_encoder_embedding_cache": true
+  },
+  "stages": {
+    "stage2": {
+      "rho": 0.0,
+      "merton_lambda": 0.2,
+      "fcff_lambda": 0.4,
+      "liquidity_lambda": 0.1
+    },
+    "stage3": {
+      "seed": 2,
+      "max_epochs": 30,
+      "batch_size": 512,
+      "learning_rate": 0.0003,
+      "weight_decay": 1e-05,
+      "masking_ratio": 0.15
+    },
+    "stage4": {
+      "seed": 2,
+      "max_epochs": 80,
+      "batch_size": 512,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "encoder_finetune": false,
+      "class_balanced": true,
+      "class_balance_beta": 0.999,
+      "class_weight_cap": 5.0,
+      "family_balanced": true,
+      "family_balance_power": 0.5,
+      "family_weight_cap": 3.0,
+      "combined_weight_cap": 5.0
+    },
+    "stage5": {
+      "seed": 2,
+      "max_epochs": 80,
+      "batch_size": 128,
+      "learning_rate": 0.0001,
+      "weight_decay": 0.002,
+      "encoder_finetune": false,
+      "gamma": 0.0,
+      "cql_alpha": 0.0,
+      "expectile_tau": 0.7,
+      "beta": 2.0,
+      "awr_weight_cap": 10.0,
+      "actor_distill_mode": "kl",
+      "actor_distill_lambda": 0.25,
+      "actor_distill_temperature": 2.0,
+      "actor_distill_margin_min": 0.05
+    }
+  },
+  "action_ids": [
+    "A0",
+    "DL",
+    "RF",
+    "CX",
+    "WC1",
+    "WC2",
+    "OE",
+    "MX1",
+    "MX2"
+  ],
+  "stage3_loss_weights": {
+    "MCM": 1.0,
+    "ACD": 0.5,
+    "same_firm_contrastive": 0.3
+  },
+  "action_support_rule": "all_nine_candidates_pass_frozen_simulator_invariants",
+  "reproducibility_boundary": "Verified frozen Stage2 inputs -> native factual projection, common support, populations, features and nine-action grids -> fresh Stage3-6",
+  "candidate_dividend_policy": "fixed_A0_cash_dividend_amount"
+}

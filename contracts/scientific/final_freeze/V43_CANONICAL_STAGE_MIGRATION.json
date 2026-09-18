@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "version": "V43CanonicalStageMigration/1",
+  "completed_utc": "2026-09-06T02:03:24.034425+00:00",
+  "schema_hash": "843257a1a423a44b279df6099c8758965c80135e916876385c4315d04cb4c431",
+  "statistics_hash": "987d586aa8d15d5ccfcf605f5409e4593539c2aba699d37600769663fe424c5d",
+  "config_hash": "7a8d40912344d0125ce7930f5d8e2b4f53dceef6ff96949b050efe699586c09a",
+  "evaluation_contract_hash": "d4b46e6dcad7095b9664cdbca54ec6e4e65f7fe15e3ecfc78f7c38aee128e0b4",
+  "stage3": {
+    "checkpoint_sha256_before": "fd8901c73838a61e787b1a1749271c83f9b5055ca5f1ff6cc3a91d7b2b89164a",
+    "checkpoint_sha256": "a45ea64594f493224ad6c3a5601289ef7d2c01916f3e70d06feed32b40cab627",
+    "parameter_tensor_sha256": "4d4302e37c238b26f6f023e994a2a997f5588122c2507480a605cc443d2c2fd1",
+    "optimizer_reexecuted": false
+  },
+  "stage4": {
+    "checkpoint_sha256_before": "bbd2bb0f20e5794ddd368e274620ac72a684a97a593c3297b796cfa7f4e3c208",
+    "checkpoint_sha256": "cd89d02cfd33651d283391517b8892b0863d95ad0dbcdfbd0e714afe43aead2d",
+    "parameter_tensor_sha256": "d43cbbad4cb310b582a613732fab32c06a8b3e5bcd08ef4f70a21d0e805729e5",
+    "optimizer_reexecuted": false
+  },
+  "scientific_tensor_changes": 0
+}

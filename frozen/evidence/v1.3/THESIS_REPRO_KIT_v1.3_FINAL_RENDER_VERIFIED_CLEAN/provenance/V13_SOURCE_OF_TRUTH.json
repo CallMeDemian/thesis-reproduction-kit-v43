@@ -1,0 +1,9 @@
+{
+  "source_parquet_sha256": "aedfadbf1728a14d3e4cb45bfa8a022d2c10313c52606e7bd1aee68899de8a0d",
+  "primary_statistics": "PRIMARY_PRODUCTION_STREAM",
+  "supplemental_statistics": "V13_SUPPLEMENTAL_SHA256_STREAM",
+  "historical_substream": "UNRECOVERABLE_SUPERSEDED",
+  "final_manuscript_docx_sha256": "0c66d0e344b69031a8577cfd6a86eff89700d1d0476a642da208568101bd2724",
+  "final_rendered_pdf_sha256": "7c09ff33f4ca8665289d3cfe9a6c32583767c84de442106845031064fa215d72",
+  "final_render_status": "PASS"
+}

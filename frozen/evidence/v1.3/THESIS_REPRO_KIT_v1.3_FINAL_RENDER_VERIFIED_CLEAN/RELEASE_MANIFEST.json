@@ -1,0 +1,42 @@
+{
+  "version": "1.3-final",
+  "tier": "C",
+  "primary_estimand": "ITT",
+  "source_sha256": "aedfadbf1728a14d3e4cb45bfa8a022d2c10313c52606e7bd1aee68899de8a0d",
+  "source_rows": 96600,
+  "primary_rows": 96,
+  "supplemental_inferential_rows": 722,
+  "parent_gate_descriptive_rows": 96,
+  "total_statistical_rows": 914,
+  "analysis_counts": {
+    "PP_CONTRAST": 336,
+    "SUPPLEMENTAL_HISTORICAL_ROW": 276,
+    "EXECUTION_SENSITIVITY": 48,
+    "REASONING_REGIME_INTERACTION": 24,
+    "RQ4_ACTION_SPACE": 18,
+    "RQ5_INFORMATION": 12,
+    "BUDGET_INTERACTION": 8
+  },
+  "parent_gate_status": "DESCRIPTIVE_SENSITIVITY",
+  "primary_contract": "PRIMARY_PRODUCTION_STREAM",
+  "supplemental_contract": "V13_SUPPLEMENTAL_SHA256_STREAM",
+  "release_name": "THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED",
+  "created_utc": "2026-09-14T18:45:12.802751+00:00",
+  "primary_verification": "FROZEN_PRODUCTION_STREAM_ARTIFACT_PLUS_ROW_LEVEL_N_MEAN_CHECK",
+  "clean_room_test": "PASS",
+  "pytest": "1 passed",
+  "docx_structural_validation": "PASS",
+  "docx_pagination_rendering": "PASS_LIBREOFFICE_25_2_3_2",
+  "docx_visual_qa": "PASS",
+  "rendered_pages": 142,
+  "portrait_pages": 140,
+  "landscape_pages": 2,
+  "final_docx_sha256": "0c66d0e344b69031a8577cfd6a86eff89700d1d0476a642da208568101bd2724",
+  "final_pdf_sha256": "7c09ff33f4ca8665289d3cfe9a6c32583767c84de442106845031064fa215d72",
+  "render_repair_notes": [
+    "V1.3 appendix table reformatted in landscape for readability",
+    "stale Baseline/Strict vs High/Repaired narrative conflation corrected",
+    "redundant blank page removed",
+    "printed pagination continued at 124"
+  ]
+}

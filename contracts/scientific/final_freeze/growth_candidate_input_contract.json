@@ -1,0 +1,41 @@
+{
+  "contract_version": "stage00_02_canonical_candidate_pool_to_stage00_04_v2",
+  "status": "PASS",
+  "selection_rule": "growth selected_eligible := main_eligible_v3_2 AND NOT denom_instability",
+  "quality_gate_scope": "full_available_panel_including_2024_retained_by_research_contract",
+  "firm_year_rows": 4903,
+  "candidate_count": 142,
+  "main_candidate_count": 132,
+  "growth_candidate_count": 14,
+  "growth_selected_eligible_count": 8,
+  "denominator_instability_blocked_ratio_ids": [
+    "R205"
+  ],
+  "input_artifacts": {
+    "legacy_ratio_panel": {
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\data\\final_freeze\\stage1_oracle_inputs\\stage00_04_variable_selection\\stage2\\engineered_financial_ratios.parquet",
+      "sha256": "5e0c8bb5f8104437c8e08ace13042cdfc7ceecf29980bf10e12ba7c4d117d186",
+      "size_bytes": 6891367
+    },
+    "expanded_ratio_panel": {
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\data\\final_freeze\\stage1_oracle_inputs\\stage00_04_variable_selection\\stage2\\engineered_financial_ratios_canonical.parquet",
+      "sha256": "1e3225d86b53a3f030872bc0dec64ebec0702604927f2897fe8ba28445bb2044",
+      "size_bytes": 6955047
+    },
+    "expanded_candidate_pool": {
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\data\\final_freeze\\stage1_oracle_inputs\\stage00_04_variable_selection\\stage2\\candidate_ratio_pool_canonical.csv",
+      "sha256": "2c908996617512c60da41ed030bc1519a1aebe46f12e868aea5fd3a0c250e5d5",
+      "size_bytes": 42500
+    },
+    "existing_growth_audit": {
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\data\\final_freeze\\stage1_oracle_inputs\\stage00_04_variable_selection\\stage2\\growth_audit\\growth_audit_existing.csv",
+      "sha256": "a5bc0e3fd882a9aafaedcbf6d4a227052a49fca1628e3f08c0c077945863a8d9",
+      "size_bytes": 1029
+    },
+    "new_growth_audit": {
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\data\\final_freeze\\stage1_oracle_inputs\\stage00_04_variable_selection\\stage2\\growth_audit\\growth_audit_new.csv",
+      "sha256": "505da5eea409f26f1b34b1a25b3372fdcf8e65f25e7b767ce281612ebbf4889e",
+      "size_bytes": 1163
+    }
+  }
+}

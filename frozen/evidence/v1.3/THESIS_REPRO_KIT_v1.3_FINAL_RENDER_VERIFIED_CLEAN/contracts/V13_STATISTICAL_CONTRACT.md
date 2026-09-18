@@ -1,0 +1,1 @@
+V1.3 supplemental contract: canonical JSON UTF-8 sort_keys true no whitespace; SHA256 first 8 bytes unsigned big-endian; independent PCG64 per key; B=10000 paired firm bootstrap; linear quantiles; plus-one two-sided sign-tail; standard Holm. Historical supplemental RNG lineage unrecoverable and superseded. PP strict usable intersection; primary stream unchanged.

@@ -1,0 +1,12 @@
+{
+  "schema_version": "capabilities_v1",
+  "FrozenReplay": "CERTIFIED_EXECUTED",
+  "OracleClean": "FOUNDATION_IMPLEMENTED_SMOKE_PENDING",
+  "OracleRLClean": "PLANNED",
+  "OracleRLLLMClean": "DRY_RUN_BLOCKED_BY_SOURCE_GAP",
+  "FullClean": "PLANNED",
+  "notes": [
+    "Frozen ZIP and 914-row registry are locally verifiable.",
+    "The historical live LLM source snapshot is unavailable; no live call is enabled by default."
+  ]
+}

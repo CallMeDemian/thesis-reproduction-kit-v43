@@ -1,0 +1,17 @@
+{
+  "delivered_terminal_unusable_itt": "A0",
+  "identity_rule": "Retries preserve the original logical request_id",
+  "max_attempts": 3,
+  "no_confirmed_completion": "UNRESOLVED_INFRA_RETRY_RESUME_NO_A0",
+  "retryable": [
+    "TRANSPORT_NO_COMPLETION",
+    "HTTP_429",
+    "HTTP_5XX",
+    "PROVIDER_JOB_FAILED",
+    "PROVIDER_JOB_EXPIRED",
+    "PROVIDER_REQUEST_TIMEOUT",
+    "PROVIDER_JOB_CANCELLED_UNINTENTIONAL"
+  ],
+  "schema_version": "llm_v43_final3_retry_policy_v1",
+  "selected_attempt": "lowest delivered attempt after all lower attempts resolve"
+}
