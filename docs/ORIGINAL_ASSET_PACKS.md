@@ -20,11 +20,10 @@ It writes:
 - `provenance/MIGRATION_MANIFEST.json`: every current product file with old/new
   path and hash where a source mapping is known.
 
-The first manifest records the large source trees as
-`INVENTORIED_NOT_COPIED`. The next migration gate may copy a selected pack to
-the planned `frozen/original_release/` path, verify every hash, and then track
-the resulting files with Git LFS or attach them to a versioned GitHub release.
-The source repository remains read-only throughout that operation.
+The manifest records the large source trees and their current migration state.
+The Oracle, RL, LLM, and Stage8/Stage9 packs below have now been copied to the
+planned `frozen/original_release/` paths and verified file-by-file. The source
+repository remains read-only throughout that operation.
 
 ## Pack policy
 
@@ -32,8 +31,8 @@ The source repository remains read-only throughout that operation.
 |---|---:|---|---|
 | Oracle stage0/stage1 | ~0.3 GB | `frozen/original_release/oracle/` | Copied, hash-verified, and uploaded through Git LFS |
 | RL C3-E final | ~0.48 GB | `frozen/original_release/rl/` | Copied, hash-verified, and uploaded through Git LFS |
-| LLM final_plan3 | ~3.0 GB | `frozen/original_release/llm/` | Inventoried; migration pending |
-| Stage8/Stage9 evaluation | ~0.5 GB | `frozen/original_release/evaluation/` | Inventoried; migration pending |
+| LLM final_plan3 | ~3.0 GB | `frozen/original_release/llm/` | Copied, hash-verified, and request-ID reconciled through Git LFS |
+| Stage8/Stage9 evaluation | ~0.5 GB | `frozen/original_release/evaluation/` | Copied and hash-verified through Git LFS |
 
 The frozen distribution and canonical V1.3 evidence remain the current
 certified replay lane. Original asset packs must pass hash reconciliation before

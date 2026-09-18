@@ -145,7 +145,7 @@ def build_asset_manifest(source_root: Path, previous: dict[str, object] | None =
         "audit_date": "2026-09-19",
         "source_repository": "CallMeDemian/REPRO_KIT_semantic_repair",
         "source_root_policy": "source_relative_paths_are_relative_to_the_original_repository_root",
-        "copy_policy": "source trees are read-only; INVENTORIED_NOT_COPIED entries require an explicit asset migration step",
+        "copy_policy": "source trees are read-only; each pack records whether it is hash-verified in the product repository",
         "packs": packs,
         "summary": {
             "pack_count": len(packs),

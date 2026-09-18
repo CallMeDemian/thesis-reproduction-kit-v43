@@ -26,6 +26,8 @@
       {"name": "baseline", "run_id": "2cf6d6d0e4250e66ce882ab95f9d641f2c73711ffbc6429e9a203dcc2ee680a2", "logical_requests": 24150},
       {"name": "high", "run_id": "d5d878bf50718bac65ede73df3fc88c16723870b6c90a790557ff35b063b7ba7", "logical_requests": 24150}
     ],
-    "status": "FOUND_IN_SOURCE_MIGRATION_PENDING"
+    "status": "MIGRATED_HASH_VERIFIED_REQUEST_ID_RECONCILED",
+    "migrated_target": "frozen/original_release/llm/final_plan3",
+    "verification_script": "scripts/verify_original_assets.py"
   }
 }

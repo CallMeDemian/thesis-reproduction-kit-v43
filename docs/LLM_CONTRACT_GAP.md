@@ -8,11 +8,13 @@ sources, and normalized raw responses for both executed regimes. See
 [`FORENSIC_ARTIFACT_INVENTORY.md`](../FORENSIC_ARTIFACT_INVENTORY.md) for the
 measured paths, counts, sizes, and hashes.
 
-The status is therefore **SOURCE_SNAPSHOT_FOUND_MIGRATION_PENDING**, not
+The status is therefore **SOURCE_SNAPSHOT_MIGRATED_RECONCILED**, not
 `SOURCE_SNAPSHOT_UNRECOVERED`. The deterministic 48,300 plan in
 `contracts/llm/final_as_executed_generation_contract.json` remains useful for a
 fresh product plan, but it must not be used as a substitute for the exact
-historical request registry once the source pack is migrated.
+historical request registry. The migrated pack has passed file-hash and
+request-ID reconciliation; live calls remain disabled by the fresh-replication
+gate.
 
 Consequences:
 

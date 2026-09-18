@@ -1,6 +1,6 @@
 {
   "schema_version": "final_as_executed_generation_contract_v1",
-  "status": "SOURCE_SNAPSHOT_FOUND_MIGRATION_PENDING",
+  "status": "SOURCE_SNAPSHOT_MIGRATED_RECONCILED",
   "authority_order": ["final frozen Stage8 evidence", "final V1.3 result contract", "submission release registry", "final as-executed manifests", "source code", "historical prose last"],
   "historical_evidence": {
     "raw_generation_count": 48300,
@@ -9,7 +9,7 @@
     "firms": 575,
     "cells_per_regime": 42,
     "source_snapshot": "archive/DEPLOYED_RELEASE/llm_runs/final_plan3",
-    "source_snapshot_status": "FOUND_IN_ORIGINAL_DEPLOYMENT_TREE",
+    "source_snapshot_status": "MIGRATED_AND_REQUEST_ID_RECONCILED",
     "source_snapshot_runs": {
       "baseline": {
         "run_id": "2cf6d6d0e4250e66ce882ab95f9d641f2c73711ffbc6429e9a203dcc2ee680a2",
@@ -46,5 +46,13 @@
   "execution_policies": ["Strict", "Repaired"],
   "retry_semantics": "retry only transport, throttling, provider-job, and incomplete-output failures; persist each attempt",
   "live_gate": "THESIS_REPRO_ENABLE_LIVE_LLM=I_APPROVE_FRESH_REPLICATION",
-  "certification_rule": "Do not call this contract historical-exact until the found provider request snapshot is migrated and independently reconciled byte-for-byte against its source manifest."
+  "migration_verification": {
+    "script": "scripts/verify_original_assets.py",
+    "hash_verified_files": 887,
+    "baseline_request_ids_reconciled": 24150,
+    "high_request_ids_reconciled": 24150,
+    "provider_input_output_cardinality_reconciled": true,
+    "rl_checkpoints_verified": 28
+  },
+  "certification_rule": "The source snapshot is byte-verified and request-ID reconciled. This does not authorize historical live calls; fresh replication remains explicitly gated by THESIS_REPRO_ENABLE_LIVE_LLM."
 }

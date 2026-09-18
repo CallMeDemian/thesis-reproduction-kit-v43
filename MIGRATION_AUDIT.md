@@ -18,7 +18,7 @@
 ## Intentionally excluded
 
 - raw empirical inputs and provider credentials
-- historical analysis/archive trees not needed by the product surface
+- unselected historical analysis/archive trees outside the inventoried release packs
 - manuscript binaries whose exact bytes were unavailable
 - live provider responses and the large historical request snapshot, which is
   now found in the source deployment tree and awaiting immutable asset
