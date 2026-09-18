@@ -3,6 +3,8 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import platform
+import sys
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
@@ -42,7 +44,7 @@ def _hash_object(value: Any) -> str:
 def plan(mode: str, run_id: str, profile: str) -> dict[str, Any]:
     if mode not in STAGES:
         raise ValueError(f"unknown mode: {mode}")
-    return {"run_id": run_id, "mode": mode, "profile": profile, "stages": STAGES[mode], "resources": {"profile": profile, "gpu_required": profile == "full" and mode in {"OracleRLClean", "OracleRLLLMClean", "FullClean"}, "live_api": False}, "expected_outputs": [f"{STAGE_DIRS[stage]}/stage_manifest.json" for stage in STAGES[mode]], "contract_hash": _contract_hash()}
+    return {"run_id": run_id, "mode": mode, "profile": profile, "stages": STAGES[mode], "resources": {"profile": profile, "gpu_required": profile == "full" and mode in {"OracleRLClean", "OracleRLLLMClean", "FullClean"}, "live_api": False}, "expected_outputs": [str(_stage_manifest(ROOT / "runs" / run_id, stage).relative_to(ROOT)) for stage in STAGES[mode]], "contract_hash": _contract_hash()}
 
 
 def _stage_manifest(run_dir: Path, stage: str) -> Path:
@@ -80,6 +82,8 @@ def execute(mode: str, run_id: str, profile: str = "smoke", resume: bool = False
         raise ValueError(f"unknown mode: {mode}")
     if execute_llm and os.environ.get("THESIS_REPRO_ENABLE_LIVE_LLM") != "I_APPROVE_FRESH_REPLICATION":
         raise PermissionError("live LLM requires THESIS_REPRO_ENABLE_LIVE_LLM=I_APPROVE_FRESH_REPLICATION")
+    if execute_llm and load_json(ROOT / "contracts/llm/final_as_executed_generation_contract.json").get("status") != "CERTIFIED":
+        raise ValueError("live LLM is blocked: final historical request contract has an unrecovered source snapshot gap")
     run_dir = ROOT / "runs" / run_id
     run_dir.mkdir(parents=True, exist_ok=True)
     stages = STAGES[mode]
@@ -89,11 +93,17 @@ def execute(mode: str, run_id: str, profile: str = "smoke", resume: bool = False
     if to_stage:
         selected = selected[: selected.index(to_stage) + 1]
     manifest_path = run_dir / "run_manifest.json"
-    manifest = load_json(manifest_path) if resume and manifest_path.is_file() else {"schema_version": "run_manifest_v1", "run_id": run_id, "created_at": datetime.now(timezone.utc).isoformat(), "git_commit": _git_commit(), "mode": mode, "profile": profile, "input_hashes": {}, "scientific_contract_hash": _contract_hash(), "random_seeds": {"inference": 73019}, "stage_status": {}, "stage_outputs": {}, "completion_state": "RUNNING"}
+    input_receipt = ROOT / "data/raw/input_receipt.json"
+    input_hashes = {"input_receipt": sha256_file(input_receipt)} if input_receipt.is_file() else {}
+    manifest = load_json(manifest_path) if resume and manifest_path.is_file() else {"schema_version": "run_manifest_v1", "run_id": run_id, "created_at": datetime.now(timezone.utc).isoformat(), "git_commit": _git_commit(), "mode": mode, "profile": profile, "environment": {"python": sys.version, "platform": platform.platform()}, "gpu_info": {"status": "not_probed"}, "input_hashes": input_hashes, "scientific_contract_hash": _contract_hash(), "random_seeds": {"inference": 73019}, "api_model_versions": {"contract": "contracts/llm/final_as_executed_generation_contract.json"}, "stage_status": {}, "stage_outputs": {}, "completion_state": "RUNNING"}
     if manifest.get("scientific_contract_hash") != _contract_hash():
         manifest["completion_state"] = "INCOMPLETE"
         write_json(manifest_path, manifest)
         raise ValueError("scientific contract hash changed; downstream stages invalidated")
+    if resume and manifest.get("input_hashes") != input_hashes:
+        manifest["completion_state"] = "INCOMPLETE"
+        write_json(manifest_path, manifest)
+        raise ValueError("input hashes changed; downstream stages invalidated")
     parent_hashes: list[str] = []
     for stage in selected:
         existing = _stage_manifest(run_dir, stage)
