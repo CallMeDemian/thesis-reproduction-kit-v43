@@ -1,9 +1,9 @@
 {
   "schema_version": "capabilities_v1",
   "FrozenReplay": "CERTIFIED_EXECUTED",
-  "OracleClean": "FOUNDATION_IMPLEMENTED_SMOKE_PENDING",
-  "OracleRLClean": "PLANNED",
-  "OracleRLLLMClean": "DRY_RUN_BLOCKED_BY_SOURCE_GAP",
+  "OracleClean": "CERTIFIED_SMOKE_HARNESS",
+  "OracleRLClean": "CERTIFIED_SMOKE_HARNESS",
+  "OracleRLLLMClean": "DRY_RUN_CARDINALITY_CERTIFIED_SOURCE_GAP",
   "FullClean": "PLANNED",
   "notes": [
     "Frozen ZIP and 914-row registry are locally verifiable.",
