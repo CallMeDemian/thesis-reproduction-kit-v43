@@ -1,0 +1,15 @@
+{
+  "schema_version": "narrative_thesis_claim_audit_v2",
+  "release_id": "THESIS_V43_SUBMISSION_FINAL_20260917",
+  "status": "COMPLETE",
+  "claims_checked": 176,
+  "empirical_claims": 167,
+  "tables_checked": 23,
+  "empirical_tables": 20,
+  "empirical_tables_complete": 20,
+  "unbound_empirical_claims": [],
+  "errors": [],
+  "source_sha256": "b67a6684f8e83428fb7ea6ad460c5e5825a1f436331124641d3f08b766a2b921",
+  "canonical_result_registry_rows": 914,
+  "certification_boundary": "structured evidence wins over manuscript prose; source-lineage gaps are disclosed rather than promoted to PASS"
+}

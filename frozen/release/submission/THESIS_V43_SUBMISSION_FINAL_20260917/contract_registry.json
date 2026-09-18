@@ -1,0 +1,35 @@
+{
+  "action_contract": {
+    "container": "dist/THESIS_REPRO_KIT_v2.1.1_FINAL.zip",
+    "member": "THESIS_REPRO_KIT_v2.1.1_FINAL/archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_action_contract_v4_3.json",
+    "sha256": "f722e189a265e111c018341254a648ddb9cecc05aa8c12c3547a023ea4c458c0"
+  },
+  "action_dimensions": 8,
+  "c3e_decision_hash": "dfebafa6b50e55c2f5019766e0e540af9964b2a9ab7d4e49805d03e8011b792e",
+  "c3e_release_hash": "1100b62b5523e6d96f6a6711f0f07c159d6d7e889600905d6021205ee437aefd",
+  "c3e_release_id": "C3E_E2_7SEED_BALANCED_DFEBAFA6",
+  "c6ex_manifest_sha256": "80115ade713fe54c9a0ed27d6220b6983b9584112a23953cf086b2d121bfdf7c",
+  "candidate_actions": [
+    "A0",
+    "DL",
+    "RF",
+    "CX",
+    "WC1",
+    "WC2",
+    "OE",
+    "MX1",
+    "MX2"
+  ],
+  "generated_requests": 48300,
+  "llm_conditions": [
+    "C4",
+    "C5",
+    "C4R",
+    "C6-E",
+    "C6-EX"
+  ],
+  "result_registry_rows": 914,
+  "schema_version": "submission_contract_registry_v1",
+  "scientific_contract_version": "V4.3_FINAL_20260912",
+  "stage8_rows": 96600
+}

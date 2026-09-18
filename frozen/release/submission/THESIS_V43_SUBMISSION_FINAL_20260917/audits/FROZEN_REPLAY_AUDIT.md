@@ -1,0 +1,36 @@
+# FROZEN_REPLAY_AUDIT
+
+Status: `PASS`
+
+```json
+{
+  "status": "PASS",
+  "release_id": "THESIS_V43_SUBMISSION_FINAL_20260917",
+  "replay": [
+    {
+      "mode": "VerifyPackage",
+      "returncode": 0,
+      "stdout": "V21_PACKAGE_VERIFY_PASS\nfirms=575 generations=48300 stage8=96600 thesis_rows=914 tools_runtime_imports=0\n",
+      "stderr": ""
+    },
+    {
+      "mode": "FrozenReplay",
+      "returncode": 0,
+      "stdout": "PRIMARY_REPRODUCTION_PASS\nSUPPLEMENTAL_REPRODUCTION_PASS\nPARENT_GATE_PASS (DESCRIPTIVE_SENSITIVITY)\nTHESIS_CONTRACT_PASS\nPACKAGE_INTEGRITY_PASS\nFROZEN_REPLAY_PASS\n",
+      "stderr": ""
+    },
+    {
+      "mode": "Analysis",
+      "returncode": 0,
+      "stdout": "{\"status\": \"PASS\", \"run_id\": \"CI_FROZEN_REVIEW\", \"profile\": \"MANUSCRIPT_FROZEN\", \"source\": \"C:\\\\Users\\\\Demian\\\\AppData\\\\Local\\\\Temp\\\\thesis-v43-fresh-package-nqcby3zu\\\\THESIS_REPRO_KIT_v2.1.1_FINAL\\\\frozen_replay\\\\v1.3\\\\frozen_inputs\\\\stage8\\\\canonical_itt_observations.parquet\", \"source_rows\": 96600, \"primary_rows\": 96, \"supplemental_rows\": 722, \"parent_rows\": 96, \"thesis_contract_rows\": 914, \"pairing_replicate_key\": true, \"primary_filters\": {\"reasoning_regime\": \"BASELINE thesis / HIGH supplemental\", \"execution_policy\": \"STRICT\", \"action_space\": \"FREE8\", \"replicate\": 1, \"information_condition\": \"IC-b\", \"population\": \"ITT\"}, \"primary_provenance\": {\"estimate\": \"firm_level_stage8_reconstructed\", \"ci\": \"FROZEN_PRODUCTION_STREAM\", \"raw_p\": \"FROZEN_PRODUCTION_STREAM\", \"holm\": \"FROZEN_PRODUCTION_STREAM\"}, \"supplemental_counts\": {\"PP_CONTRAST\": 336, \"SUPPLEMENTAL_HISTORICAL_ROW\": 276, \"EXECUTION_SENSITIVITY\": 48, \"REASONING_REGIME_INTERACTION\": 24, \"RQ4_ACTION_SPACE\": 18, \"RQ5_INFORMATION\": 12, \"BUDGET_INTERACTION\": 8}, \"parent_gate\": \"DESCRIPTIVE_SENSITIVITY_ONLY\"}\nFINAL_ANALYSIS_PASS\n",
+      "stderr": ""
+    },
+    {
+      "mode": "ResultRegistry",
+      "returncode": 0,
+      "rows": 914,
+      "unique_result_ids": 914
+    }
+  ]
+}
+```

@@ -1,0 +1,10 @@
+{
+  "architecture_source_commit": "1c383fe93f29331d4fd0203712c483697a65f3aa",
+  "evidence_base_commit": "449c942cd1c02b17bcc1720f10ee8c96ee0a883a",
+  "exact_historical_stage8_stage9_source_bytes": "UNRECOVERED_AND_NOT_CLAIMED",
+  "integration_policy": "evidence base authoritative; architecture selectively ported",
+  "narrative_source_commit": "42a6af7879d9434ab2761a59a3fa9867775864c4",
+  "schema_version": "submission_source_registry_v1",
+  "scientific_payload_recomputed": false,
+  "source_lineage": "PARTIAL_LINEAGE"
+}

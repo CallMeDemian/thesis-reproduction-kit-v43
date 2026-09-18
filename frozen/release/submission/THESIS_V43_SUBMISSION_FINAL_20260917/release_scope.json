@@ -1,0 +1,21 @@
+{
+  "certified": [
+    "frozen_evidence_integrity",
+    "frozen_result_replay",
+    "result_registry",
+    "manuscript_claim_binding",
+    "c3e_identity",
+    "c6ex_identity",
+    "package_cleanroom",
+    "current_method_contracts"
+  ],
+  "limitation": "Exact historical Stage8/Stage9 producer bytes are unrecovered. The certified reproducibility claim is frozen-evidence replay, not exact producer-source reconstruction.",
+  "not_certified": [
+    "exact_historical_stage8_stage9_source_bytes",
+    "raw_llm_regeneration",
+    "full_raw_data_rebuild",
+    "causal_real_world_credit_improvement"
+  ],
+  "scope": "FROZEN_EVIDENCE_REPRODUCTION_AND_REPORTING",
+  "source_lineage": "PARTIAL_LINEAGE"
+}

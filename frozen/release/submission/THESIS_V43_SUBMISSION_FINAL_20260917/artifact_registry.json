@@ -1,0 +1,126 @@
+{
+  "artifacts": [
+    {
+      "artifact_type": "frozen_evidence_capsule",
+      "availability": "AVAILABLE_REPOSITORY_TREE",
+      "counts": {
+        "parent": 96,
+        "primary": 96,
+        "stage8": 96600,
+        "supplemental": 722,
+        "total": 914
+      },
+      "logical_id": "artifact.v13.frozen_capsule",
+      "path": "repro_audit/FINAL_RELEASE/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN",
+      "semantic_role": "statistical_evidence_authority",
+      "sha256": "e887648864d55d8e2441647a3b4dc3c5f25d133c5314110f26ceb28315a555a2",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_type": "stage8_frozen_input",
+      "availability": "AVAILABLE_ZIP_MEMBER",
+      "container": "dist/THESIS_REPRO_KIT_v2.1.1_FINAL.zip",
+      "logical_id": "artifact.v13.stage8.canonical_parquet",
+      "member": "THESIS_REPRO_KIT_v2.1.1_FINAL/frozen_replay/v1.3/frozen_inputs/stage8/canonical_itt_observations.parquet",
+      "semantic_role": "stage8_source_authority",
+      "sha256": "aedfadbf1728a14d3e4cb45bfa8a022d2c10313c52606e7bd1aee68899de8a0d",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_type": "distribution_zip",
+      "availability": "AVAILABLE_REPOSITORY_FILE",
+      "expected_sha256": "931631d52541bb6dfdd5ed9fda767e2e48ccb8b7521f70ae771db68df2c1831d",
+      "logical_id": "artifact.distribution.v2_1_1_final",
+      "path": "dist/THESIS_REPRO_KIT_v2.1.1_FINAL.zip",
+      "semantic_role": "frozen_distribution_artifact",
+      "sha256": "931631d52541bb6dfdd5ed9fda767e2e48ccb8b7521f70ae771db68df2c1831d",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_type": "result_registry",
+      "availability": "AVAILABLE_ZIP_MEMBER",
+      "container": "dist/THESIS_REPRO_KIT_v2.1.1_FINAL.zip",
+      "logical_id": "artifact.result_registry.914",
+      "member": "THESIS_REPRO_KIT_v2.1.1_FINAL/evidence/RESULT_REGISTRY.csv",
+      "row_count": 914,
+      "semantic_role": "914_row_statistical_registry",
+      "sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_type": "rl_reference_definition",
+      "availability": "AVAILABLE_ZIP_MEMBER",
+      "container": "dist/THESIS_REPRO_KIT_v2.1.1_FINAL.zip",
+      "decision_hash": "dfebafa6b50e55c2f5019766e0e540af9964b2a9ab7d4e49805d03e8011b792e",
+      "logical_id": "artifact.c3e.definition",
+      "member": "THESIS_REPRO_KIT_v2.1.1_FINAL/archive/DEPLOYED_RELEASE/stage5_candidate_iql/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_definition.json",
+      "release_hash": "1100b62b5523e6d96f6a6711f0f07c159d6d7e889600905d6021205ee437aefd",
+      "release_id": "C3E_E2_7SEED_BALANCED_DFEBAFA6",
+      "semantic_role": "c3e_identity",
+      "sha256": "768ddb63544ab581a52836852c03debed408fb57f80c9781f2564fb5537c4e26",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_type": "rl_reference_metrics",
+      "availability": "AVAILABLE_ZIP_MEMBER",
+      "container": "dist/THESIS_REPRO_KIT_v2.1.1_FINAL.zip",
+      "logical_id": "artifact.c3e.metrics",
+      "member": "THESIS_REPRO_KIT_v2.1.1_FINAL/archive/DEPLOYED_RELEASE/stage5_candidate_iql/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_metrics.json",
+      "semantic_role": "c3e_headline_metrics",
+      "sha256": "9016eb5b4ae1620d1158d6f77360b0334306e2dc60bbd49bd025a52f1a14c2c3",
+      "verification_status": "PASS"
+    },
+    {
+      "action_label_collision_count": 141,
+      "artifact_type": "c6ex_mapping_manifest",
+      "availability": "AVAILABLE_ZIP_MEMBER",
+      "container": "dist/THESIS_REPRO_KIT_v2.1.1_FINAL.zip",
+      "distribution_preserved": true,
+      "firm_count": 575,
+      "logical_id": "artifact.c6ex.manifest",
+      "member": "THESIS_REPRO_KIT_v2.1.1_FINAL/configs/current/llm/C6EX_manifest.json",
+      "self_donor_collision_count": 0,
+      "semantic_role": "c6ex_identity",
+      "sha256": "c3c35323bc6b598439ced6d75ed138af01e8cc0df51199438df2d3b4435fc747",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_type": "scientific_contract",
+      "availability": "AVAILABLE_ZIP_MEMBER",
+      "container": "dist/THESIS_REPRO_KIT_v2.1.1_FINAL.zip",
+      "logical_id": "artifact.scientific.action_contract",
+      "member": "THESIS_REPRO_KIT_v2.1.1_FINAL/archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_action_contract_v4_3.json",
+      "semantic_role": "8d_action_contract",
+      "sha256": "f722e189a265e111c018341254a648ddb9cecc05aa8c12c3547a023ea4c458c0",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_type": "manuscript_source",
+      "availability": "AVAILABLE_REPOSITORY_TREE",
+      "logical_id": "artifact.manuscript.source",
+      "path": "docs/thesis_narrative_v43_20260917",
+      "semantic_role": "narrative_reporting_layer",
+      "sha256": "99cb6c9b86be8321cbad5866713ab77d5344347ae834c6e70e006c7b56c3cb1e",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_type": "rendered_manuscript_docx",
+      "availability": "MISSING_EXACT_BYTES",
+      "logical_id": "artifact.manuscript.docx",
+      "path": "docs/manuscript/final/석사학위논문_조종선_V43_서사중심_전면재작성본_20260917.docx",
+      "semantic_role": "narrative_binary",
+      "sha256": "cff1a5ee9d934e7220fa6dd7bf2406f1e797e81516a3da87707021c6b7320e0a",
+      "verification_status": "BLOCKED_MISSING_EXACT_RENDERED_BYTES"
+    },
+    {
+      "artifact_type": "rendered_manuscript_pdf",
+      "availability": "MISSING_EXACT_BYTES",
+      "logical_id": "artifact.manuscript.pdf",
+      "path": "docs/manuscript/final/석사학위논문_조종선_V43_서사중심_전면재작성본_20260917.pdf",
+      "semantic_role": "narrative_binary",
+      "sha256": "d52bf48bc25567539157d296aa20265f329fc477bb8fa971d5122e61184a3f8d",
+      "verification_status": "BLOCKED_MISSING_EXACT_RENDERED_BYTES"
+    }
+  ],
+  "schema_version": "submission_artifact_registry_v1"
+}

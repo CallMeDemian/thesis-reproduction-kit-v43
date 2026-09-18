@@ -1,0 +1,12 @@
+{
+  "api_calls": 0,
+  "fresh_clone": true,
+  "network": false,
+  "package_runner": "scripts/v21_runner.py",
+  "required_commands": [
+    "VerifyPackage",
+    "FrozenReplay",
+    "Analysis"
+  ],
+  "training_runs": 0
+}

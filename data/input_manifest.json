@@ -1,0 +1,6 @@
+{
+  "schema_version": "product_input_manifest_v1",
+  "inventory_contract": "contracts/scientific/input_inventory.json",
+  "archives": ["raw_all.zip", "raw_nonfinancial.zip", "rating_sample.zip"],
+  "raw_data_committed": false
+}

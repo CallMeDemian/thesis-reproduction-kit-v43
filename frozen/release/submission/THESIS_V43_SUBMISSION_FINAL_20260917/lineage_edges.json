@@ -1,0 +1,36 @@
+{
+  "edges": [
+    {
+      "from": [
+        "artifact.manuscript.source"
+      ],
+      "relation": "renders_to",
+      "status": "EXACT_BYTES_REQUIRED",
+      "to": [
+        "artifact.manuscript.docx",
+        "artifact.manuscript.pdf"
+      ]
+    },
+    {
+      "from": [
+        "artifact.v13.frozen_capsule"
+      ],
+      "relation": "statistical_authority",
+      "to": [
+        "artifact.result_registry.914"
+      ]
+    },
+    {
+      "from": [
+        "artifact.distribution.v2_1_1_final"
+      ],
+      "relation": "containerizes",
+      "to": [
+        "artifact.result_registry.914",
+        "artifact.c3e.definition",
+        "artifact.c6ex.manifest"
+      ]
+    }
+  ],
+  "schema_version": "lineage_edges_v1"
+}

@@ -1,0 +1,77 @@
+# RELEASE_CHECK
+
+Status: `UNKNOWN`
+
+```json
+{
+  "release_id": "THESIS_V43_SUBMISSION_FINAL_20260917",
+  "release_root": {
+    "status": "PASS",
+    "expected": "67660326740f091ff848ebd31e7dc725d87ebf5747821419a4bd237bab82ae67",
+    "actual": "67660326740f091ff848ebd31e7dc725d87ebf5747821419a4bd237bab82ae67",
+    "input_count": 23
+  },
+  "v13": {
+    "status": "PASS",
+    "capsule": "repro_audit\\FINAL_RELEASE\\THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN",
+    "stage8_sha256": "aedfadbf1728a14d3e4cb45bfa8a022d2c10313c52606e7bd1aee68899de8a0d",
+    "stage8_locator": "repro_audit\\FINAL_RELEASE\\THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN\\frozen_inputs\\stage8\\canonical_itt_observations.parquet",
+    "counts": {
+      "source_rows": 96600,
+      "primary_rows": 96,
+      "supplemental_inferential_rows": 722,
+      "parent_gate_descriptive_rows": 96,
+      "total_statistical_rows": 914
+    },
+    "errors": [],
+    "warnings": [
+      "audit/DOCX_RENDERING_VISUAL_QA_REPORT.md",
+      "audit/FINAL_RELEASE_GATE_REPORT.md",
+      "audit/V13_FINAL_REFREEZE_REPORT.md",
+      "audit/V13_RELEASE_GATE_REPORT.md",
+      "manuscript/RENDERING_STATUS.md",
+      "manuscript/STRUCTURAL_VALIDATION.txt",
+      "PROFESSOR_HANDOFF.md",
+      "provenance/V13_SOURCE_OF_TRUTH.json",
+      "README.md",
+      "RELEASE_MANIFEST.json",
+      "RELEASE_NOTES.md",
+      "REPRO_KIT_V13_CHATGPT_HANDOFF.md",
+      "tests/test_v13_contract.py"
+    ]
+  },
+  "artifacts": {
+    "status": "PASS",
+    "errors": [],
+    "checked": 9,
+    "count": 11
+  },
+  "registry": {
+    "status": "PASS",
+    "rows": 914,
+    "unique_result_ids": 914
+  },
+  "c3e": {
+    "status": "PASS",
+    "checks": {
+      "release_id": "C3E_E2_7SEED_BALANCED_DFEBAFA6",
+      "release_hash": "1100b62b5523e6d96f6a6711f0f07c159d6d7e889600905d6021205ee437aefd",
+      "decision_hash": "dfebafa6b50e55c2f5019766e0e540af9964b2a9ab7d4e49805d03e8011b792e",
+      "alpha": 55.95996019419848,
+      "delta_oe_alpha": 0.15793648032854626,
+      "entropy": 1.5944607638860084,
+      "member_count": 28
+    }
+  },
+  "c6ex": {
+    "status": "PASS",
+    "checks": {
+      "firm_count": 575,
+      "self_donor_collision_count": 0,
+      "action_label_collision_count": 141,
+      "distribution_preserved": true,
+      "materialized_sha256": "80115ade713fe54c9a0ed27d6220b6983b9584112a23953cf086b2d121bfdf7c"
+    }
+  }
+}
+```

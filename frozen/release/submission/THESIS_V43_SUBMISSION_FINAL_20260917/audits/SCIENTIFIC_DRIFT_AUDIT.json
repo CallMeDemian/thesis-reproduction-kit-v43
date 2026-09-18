@@ -1,0 +1,42 @@
+{
+  "status": "PASS_NO_DRIFT",
+  "evidence_base_commit": "449c942cd1c02b17bcc1720f10ee8c96ee0a883a",
+  "changed_frozen_paths": [],
+  "checks": {
+    "v13_capsule_tree_sha256": {
+      "path": "repro_audit\\FINAL_RELEASE\\THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN",
+      "expected": "e887648864d55d8e2441647a3b4dc3c5f25d133c5314110f26ceb28315a555a2",
+      "actual": "e887648864d55d8e2441647a3b4dc3c5f25d133c5314110f26ceb28315a555a2"
+    },
+    "stage8_canonical_sha256": {
+      "path": "repro_audit\\FINAL_RELEASE\\THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN\\frozen_inputs\\stage8\\canonical_itt_observations.parquet",
+      "expected": "aedfadbf1728a14d3e4cb45bfa8a022d2c10313c52606e7bd1aee68899de8a0d",
+      "actual": "aedfadbf1728a14d3e4cb45bfa8a022d2c10313c52606e7bd1aee68899de8a0d"
+    },
+    "distribution_zip_sha256": {
+      "path": "dist\\THESIS_REPRO_KIT_v2.1.1_FINAL.zip",
+      "expected": "931631d52541bb6dfdd5ed9fda767e2e48ccb8b7521f70ae771db68df2c1831d",
+      "actual": "931631d52541bb6dfdd5ed9fda767e2e48ccb8b7521f70ae771db68df2c1831d"
+    },
+    "c3e_definition_sha256": {
+      "member": "THESIS_REPRO_KIT_v2.1.1_FINAL/archive/DEPLOYED_RELEASE/stage5_candidate_iql/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_definition.json",
+      "actual": "768ddb63544ab581a52836852c03debed408fb57f80c9781f2564fb5537c4e26",
+      "status": "PASS"
+    },
+    "c3e_metrics_sha256": {
+      "member": "THESIS_REPRO_KIT_v2.1.1_FINAL/archive/DEPLOYED_RELEASE/stage5_candidate_iql/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_metrics.json",
+      "actual": "9016eb5b4ae1620d1158d6f77360b0334306e2dc60bbd49bd025a52f1a14c2c3",
+      "status": "PASS"
+    },
+    "c6ex_manifest_sha256": {
+      "member": "THESIS_REPRO_KIT_v2.1.1_FINAL/configs/current/llm/C6EX_manifest.json",
+      "actual": "c3c35323bc6b598439ced6d75ed138af01e8cc0df51199438df2d3b4435fc747",
+      "status": "PASS"
+    },
+    "result_registry_sha256": {
+      "member": "THESIS_REPRO_KIT_v2.1.1_FINAL/evidence/RESULT_REGISTRY.csv",
+      "actual": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "status": "PASS"
+    }
+  }
+}

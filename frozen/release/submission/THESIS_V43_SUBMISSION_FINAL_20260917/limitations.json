@@ -1,0 +1,20 @@
+{
+  "limitations": [
+    {
+      "code": "SOURCE_LINEAGE_PARTIAL",
+      "status": "DISCLOSED_NON_BLOCKING",
+      "text": "Exact historical Stage8/Stage9 producer bytes are unrecovered and are outside the certified scope."
+    },
+    {
+      "code": "RAW_REBUILD_NOT_CERTIFIED",
+      "status": "NOT_AVAILABLE",
+      "text": "Raw provider responses and full raw-data rebuild are not certified."
+    },
+    {
+      "code": "CASH_PLUG",
+      "numeric_claim_required": false,
+      "status": "DISCLOSED_NOT_CLAIMED",
+      "text": "Row-level production inputs for a cash-plug numeric robustness audit are unavailable; the manuscript retains this as a structural limitation only."
+    }
+  ]
+}
