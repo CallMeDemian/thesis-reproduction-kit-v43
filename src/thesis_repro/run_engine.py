@@ -47,10 +47,34 @@ def _git_commit() -> str:
         return "UNCOMMITTED"
 
 
+def _input_contract_hash() -> str:
+    path = ROOT / "data/raw/input_contract_report.json"
+    return sha256_file(path) if path.is_file() else "MISSING"
+
+
+def _scientific_fingerprint(input_contract_hash: str | None = None) -> str:
+    """Hash every source that can change fresh scientific execution semantics."""
+    paths = [
+        ROOT / "contracts/scientific/input_inventory.json",
+        ROOT / "contracts/scientific/v43_action_contract.json",
+        ROOT / "contracts/scientific/v43_alpha_contract.json",
+        ROOT / "contracts/scientific/final_freeze/final_oracle_rl_contract.json",
+        ROOT / "contracts/scientific/final_freeze/oracle_backend_registry.yaml",
+        ROOT / "contracts/llm/fresh_replication_contract.json",
+    ]
+    paths.extend(sorted((ROOT / "contracts/oracle_components").rglob("*")))
+    records = [{"path": str(path.relative_to(ROOT)).replace("\\", "/"), "sha256": sha256_file(path)} for path in paths if path.is_file()]
+    payload = {
+        "schema_version": "scientific_execution_fingerprint_v2",
+        "git_commit": _git_commit(),
+        "input_contract_hash": input_contract_hash if input_contract_hash is not None else _input_contract_hash(),
+        "sources": records,
+    }
+    return hashlib.sha256(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
 def _contract_hash() -> str:
-    paths = [ROOT / "contracts/llm/final_as_executed_generation_contract.json", ROOT / "contracts/llm/fresh_replication_contract.json"]
-    canonical = "\n".join(json.dumps(load_json(path), ensure_ascii=False, sort_keys=True, separators=(",", ":")) for path in paths if path.is_file())
-    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+    return _scientific_fingerprint()
 
 
 def _stage_manifest(run_dir: Path, stage: str) -> Path:
@@ -132,13 +156,18 @@ def execute(mode: str, run_id: str, profile: str = "smoke", resume: bool = False
     manifest_path = run_dir / "run_manifest.json"
     if resume and manifest_path.is_file():
         manifest = load_json(manifest_path)
-        if manifest.get("scientific_contract_hash") != _contract_hash() or manifest.get("input_contract_hash") != input_hash:
+        if (
+            manifest.get("git_commit") != _git_commit()
+            or manifest.get("scientific_contract_hash") != _scientific_fingerprint(input_hash)
+            or manifest.get("scientific_execution_fingerprint") != _scientific_fingerprint(input_hash)
+            or manifest.get("input_contract_hash") != input_hash
+        ):
             manifest["completion_state"] = "INVALIDATED"
             write_json(manifest_path, manifest)
             raise ValueError("contract or input hash changed; downstream stages invalidated")
     else:
         manifest = {
-            "schema_version": "run_manifest_v2", "run_id": run_id, "created_at": datetime.now(timezone.utc).isoformat(), "updated_at": datetime.now(timezone.utc).isoformat(), "git_commit": _git_commit(), "mode": mode, "profile": profile, "execution_class": "contract_smoke" if profile == "smoke" else "fresh_replication", "environment": {"python": sys.version, "platform": platform.platform(), "cwd": str(ROOT)}, "gpu_info": {"status": "not_probed"}, "input_contract_status": contract_report_now["status"], "input_contract_hash": input_hash, "scientific_contract_hash": _contract_hash(), "input_receipt": "data/raw/input_receipt.json" if (ROOT / "data/raw/input_receipt.json").is_file() else None, "random_seeds": {"oracle": 73019, "simulator": 73020, "rl": {"stage3": [1, 2, 3, 4, 5, 6, 7], "stage5": [1, 2, 3, 4, 5, 6, 7]}, "llm": None}, "provider_identities": {}, "stage_status": {}, "stage_manifests": {}, "artifacts": [], "completion_state": "RUNNING"
+            "schema_version": "run_manifest_v2", "run_id": run_id, "created_at": datetime.now(timezone.utc).isoformat(), "updated_at": datetime.now(timezone.utc).isoformat(), "git_commit": _git_commit(), "mode": mode, "profile": profile, "execution_class": "contract_smoke" if profile == "smoke" else "fresh_replication", "environment": {"python": sys.version, "platform": platform.platform(), "cwd": str(ROOT)}, "gpu_info": {"status": "not_probed"}, "input_contract_status": contract_report_now["status"], "input_contract_hash": input_hash, "scientific_contract_hash": _scientific_fingerprint(input_hash), "scientific_execution_fingerprint": _scientific_fingerprint(input_hash), "input_receipt": "data/raw/input_receipt.json" if (ROOT / "data/raw/input_receipt.json").is_file() else None, "random_seeds": {"oracle": 73019, "simulator": 73020, "rl": {"stage3": [1, 2, 3, 4, 5, 6, 7]}, "llm": None}, "provider_identities": {}, "stage_status": {}, "stage_manifests": {}, "artifacts": [], "completion_state": "RUNNING"
         }
     write_json(run_dir / "00_run/input_contract_snapshot.json", contract_report_now)
 
@@ -234,4 +263,18 @@ def trace_run(run_id: str) -> dict[str, Any]:
     artifacts: list[dict[str, Any]] = []
     for path in sorted(run_dir.rglob("stage_manifest_*.json")):
         artifacts.extend(load_json(path).get("artifacts", []))
-    return {"schema_version": "recursive_trace_v1", "run_id": run_id, "completion_state": manifest.get("completion_state"), "stages": manifest.get("stage_status", {}), "artifacts": artifacts, "external_parents": [a for a in artifacts if a.get("path", "").startswith("frozen/")]}
+    forbidden = ("data/final_freeze", "configs/current", "archive/DEPLOYED_RELEASE", "frozen/")
+    forbidden_legacy = [
+        artifact for artifact in artifacts
+        if any(token in str(artifact.get("path", "")).replace("\\", "/") for token in forbidden)
+    ]
+    return {
+        "schema_version": "recursive_trace_v2",
+        "run_id": run_id,
+        "completion_state": manifest.get("completion_state"),
+        "stages": manifest.get("stage_status", {}),
+        "artifacts": artifacts,
+        "external_parents": forbidden_legacy,
+        "forbidden_legacy_parents": forbidden_legacy,
+        "forbidden_legacy_parent_count": len(forbidden_legacy),
+    }

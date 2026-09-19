@@ -15,6 +15,8 @@ from thesis_repro.live_llm import gate_status, mock_responses
 from thesis_repro.runtime_paths import FreshRuntimePaths
 from thesis_repro.stages.base import StageResult
 from thesis_repro.stages.adapters import HEAVY_GATE, LIVE_GATE
+from thesis_repro.stages.oracle import _legacy_references, _require_stage1_success
+from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -127,6 +129,50 @@ def test_smoke_artifacts_are_marked_contract_smoke_only(tmp_path, monkeypatch):
     (tmp_path / "data/raw/input_contract_report.json").write_text("{}", encoding="utf-8")
     manifest = engine.execute("OracleClean", "test-smoke", "smoke")
     assert manifest["execution_class"] == "contract_smoke"
+
+
+def test_stage1_rc2_cannot_pass_with_existing_backend_params(tmp_path):
+    backend_root = tmp_path / "runs" / "fake" / "02_oracle" / "work" / "stage1_oracle_backends"
+    for backend, filename in {
+        "alpha": "oracle_alpha_params.json",
+        "beta": "benchmark_beta_params.json",
+        "gamma": "benchmark_gamma_params.json",
+    }.items():
+        path = backend_root / backend / filename
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("{}", encoding="utf-8")
+    ledger = tmp_path / "stage1_oracle_backends_full_development.json"
+    ledger.write_text(json.dumps({"status": "FAIL", "final_result_allowed": False}), encoding="utf-8")
+    with pytest.raises(RuntimeError, match="exact rc=0"):
+        _require_stage1_success(2, ledger)
+
+
+def test_fresh_runtime_resolves_environment_at_call_time(tmp_path, monkeypatch):
+    first = tmp_path / "runs" / "first" / "02_oracle" / "work"
+    second = tmp_path / "runs" / "second" / "02_oracle" / "work"
+    monkeypatch.setenv("THESIS_REPRO_ORACLE_WORK_ROOT", str(first))
+    assert resolve_fresh_oracle_runtime(tmp_path).work_root == first.resolve()
+    monkeypatch.setenv("THESIS_REPRO_ORACLE_WORK_ROOT", str(second))
+    assert resolve_fresh_oracle_runtime(tmp_path).work_root == second.resolve()
+
+
+def test_fresh_oracle_verifier_call_graph_has_no_legacy_parent_literals():
+    verifier_paths = [
+        ROOT / "src/credit_recourse/oracle/verification/verify_stage00_04_growth_eligibility_contract.py",
+        ROOT / "src/credit_recourse/oracle/verification/verify_alpha_contract.py",
+        ROOT / "src/credit_recourse/oracle/verification/verify_oracle_semantic_closure.py",
+        ROOT / "src/credit_recourse/oracle/verification/verify_stage1_substrate_validation.py",
+        ROOT / "src/credit_recourse/oracle/verification/verify_stage1_outputs.py",
+    ]
+    forbidden = ("data/final_freeze", "configs/current", "archive/DEPLOYED_RELEASE", "frozen/")
+    for path in verifier_paths:
+        source = path.read_text(encoding="utf-8").replace("\\", "/")
+        assert not any(token in source for token in forbidden), path
+
+
+def test_fresh_registry_lineage_detector_rejects_legacy_parent():
+    assert _legacy_references({"output": "runs/demo/02_oracle/work/x.parquet"}) == []
+    assert _legacy_references({"output": "data/final_freeze/stage1/x.parquet"})
 
 
 def test_mock_materialization_does_not_require_network(tmp_path):

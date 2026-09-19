@@ -16,6 +16,7 @@ from credit_recourse.simulator.oracle_variables import audit_formula_registry
 from credit_recourse.oracle.selected_variable_current_contract import (
     validate_dynamic_selected_variable_records,
 )
+from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime
 
 
 QUALITY_SCOPE = "full_available_panel_including_2024_retained_by_research_contract"
@@ -29,13 +30,13 @@ def _read_json(path: Path) -> dict[str, Any]:
 
 def verify(project_root: Path) -> dict[str, Any]:
     root = Path(project_root).resolve()
-    final = root / "data" / "final_freeze"
-    inputs = final / "stage1_oracle_inputs"
+    runtime = resolve_fresh_oracle_runtime(root)
+    inputs = runtime.inputs_root
     s1 = inputs / "stage00_01_rating_statement_integration"
     s2 = inputs / "stage00_02_financial_ratio_engineering"
     s3 = inputs / "stage00_03_nonfinancial_metadata"
     s4 = inputs / "stage00_04_variable_selection"
-    backends = final / "stage1_oracle_backends"
+    backends = runtime.backends_root
     checks: list[dict[str, Any]] = []
     errors: list[str] = []
 
@@ -79,7 +80,7 @@ def verify(project_root: Path) -> dict[str, Any]:
         nested = _read_json(s4 / "nested_development_contract.json")
         check("stage00_04_selection_inner_train", nested.get("selection_inner_train") == "2002-2016", nested)
         check("stage00_04_inner_validation_only", nested.get("inner_validation_evaluation_only") == "2017-2019", nested)
-        oracle_rl_contract = _read_json(root / "configs" / "current" / "final_freeze" / "final_oracle_rl_contract.json")
+        oracle_rl_contract = _read_json(runtime.config_root / "final_oracle_rl_contract.json")
         stage1_policy = oracle_rl_contract.get("stage1_policy") or {}
         expected_temporal_split = {
             "dev_start_year": 2002,
@@ -174,7 +175,7 @@ def verify(project_root: Path) -> dict[str, Any]:
         "checks": checks,
         "errors": errors,
     }
-    out = final / "ledgers" / "oracle_semantic_closure.json"
+    out = runtime.ledgers_root / "oracle_semantic_closure.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
     return report

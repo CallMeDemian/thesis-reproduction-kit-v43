@@ -6,9 +6,11 @@ import runpy
 from pathlib import Path
 
 from credit_recourse.oracle.backends.alpha.production_finalize import finalize_alpha_backend
+from credit_recourse.utils.io_contract import configure_utf8_stdio
 
 
 def main() -> int:
+    configure_utf8_stdio()
     # Fresh producer is singular and explicit. The legacy implementation file
     # remains only for historical artifact archaeology. Contract finalization
     # is part of this producer so a clean Stage1 run cannot emit the legacy
@@ -16,8 +18,8 @@ def main() -> int:
     impl = Path(__file__).with_name("_pipeline_impl_runtime.py")
     runpy.run_path(str(impl), run_name="__main__")
     default_output = (
-        Path(__file__).resolve().parents[5]
-        / "data" / "final_freeze" / "stage1_oracle_backends" / "alpha"
+        Path(os.environ.get("THESIS_REPRO_ORACLE_WORK_ROOT", Path.cwd()))
+        / "stage1_oracle_backends" / "alpha"
     )
     output_dir = Path(os.environ.get("ORACLE_OUTPUT_DIR", default_output))
     result = finalize_alpha_backend(output_dir)

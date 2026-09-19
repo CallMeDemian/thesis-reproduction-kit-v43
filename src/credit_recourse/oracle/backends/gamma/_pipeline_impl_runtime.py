@@ -39,6 +39,7 @@ from credit_recourse.oracle.contracts.rating_scale import (
     add_rating_scale_columns, fold_to_10, assign_grade_10, ensure_10_grade_contract, assert_grade_order_10,
 )
 from credit_recourse.oracle.selected_variable_current_contract import validate_dynamic_selected_variable_records
+from credit_recourse.oracle.fresh_runtime import CallTimePath
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.pipeline import Pipeline
@@ -49,12 +50,15 @@ warnings.filterwarnings("ignore")
 from sklearn.ensemble import GradientBoostingRegressor
 
 SCRIPT_DIR = Path(__file__).parent
-# Project root: <project>/src/credit_recourse/oracle/pipelines/stage01_oracle_construction/<backend>
-PROJECT_ROOT = SCRIPT_DIR.parents[5]
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "data" / "final_freeze" / "stage1_oracle_backends" / "gamma"
-INPUT_DIR = Path(os.environ.get("ORACLE_INPUT_DIR", SCRIPT_DIR / "inputs"))
-OUTPUT_DIR = Path(os.environ.get("ORACLE_OUTPUT_DIR", DEFAULT_OUTPUT_DIR))
-CONFIG_PATH = Path(os.environ.get("ORACLE_CONFIG", SCRIPT_DIR / "configs" / "stage4_gamma_config.yaml"))
+def _project_root():
+    return Path(os.environ.get("THESIS_REPRO_PROJECT_ROOT", SCRIPT_DIR.parents[5])).resolve()
+
+def _oracle_work_root():
+    return Path(os.environ.get("THESIS_REPRO_ORACLE_WORK_ROOT", _project_root() / "runs" / "unbound" / "oracle_work")).resolve()
+
+INPUT_DIR = CallTimePath("ORACLE_INPUT_DIR", lambda: _oracle_work_root() / "stage1_oracle_inputs" / "oracle_backend_input")
+OUTPUT_DIR = CallTimePath("ORACLE_OUTPUT_DIR", lambda: _oracle_work_root() / "stage1_oracle_backends" / "gamma")
+CONFIG_PATH = CallTimePath("ORACLE_CONFIG", lambda: _project_root() / "contracts" / "oracle_components" / "gamma" / "stage4_gamma_config.yaml")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 GRADE_ORDER = GRADE_ORDER_10

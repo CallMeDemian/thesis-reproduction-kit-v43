@@ -10,8 +10,9 @@ from credit_recourse.oracle.stage1.stage00_01_rating_statement.final_stage0_adap
     ensure_stage00_01_statement_coverage_contract,
 )
 from credit_recourse.oracle.stage0.rating_contract_repair import validate_stage0_contract, repair_stage0_canonical
-from credit_recourse.utils.io_contract import configure_utf8_stdio, write_json, read_json, read_csv_korean_safe, resolve_selected_variables, selected_variables_from_backend_params
+from credit_recourse.utils.io_contract import configure_utf8_stdio, write_json, read_json, read_csv_korean_safe, selected_variables_from_backend_params
 from credit_recourse.oracle.verification.diagnose_oracle_backends import diagnose_backend_dir
+from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime, run_relative_path
 
 @contextlib.contextmanager
 def pushd(path: Path):
@@ -37,17 +38,16 @@ def run_py(path: Path, argv: list[str]|None=None, cwd: Path|None=None, env: dict
 
 def stage_paths(root: Path):
     # Fresh runs bind all generated Stage1 artifacts to a run-local work root.
-    # The legacy data/final_freeze and configs/current trees are intentionally
-    # never consulted by the production fresh entrypoint.
-    work = Path(os.environ.get('THESIS_REPRO_ORACLE_WORK_ROOT', root / 'runs' / 'unbound' / 'oracle_work')).resolve()
-    config_root = Path(os.environ.get('THESIS_REPRO_ORACLE_CONFIG_ROOT', root / 'contracts' / 'oracle_components')).resolve()
-    return work, work/'stage1_oracle_inputs', work/'stage1_oracle_backends', work/'ledgers', config_root
+    # Historical release trees are intentionally never consulted by the
+    # production fresh entrypoint.
+    runtime = resolve_fresh_oracle_runtime(root)
+    return runtime.work_root, runtime.inputs_root, runtime.backends_root, runtime.ledgers_root, runtime.config_root
 
 def oracle_component_config_dir(root: Path) -> Path:
-    return Path(os.environ.get('THESIS_REPRO_ORACLE_CONFIG_ROOT', root / 'contracts' / 'oracle_components')).resolve()
+    return resolve_fresh_oracle_runtime(root).config_root
 
 def oracle_raw_root(root: Path) -> Path:
-    return Path(os.environ.get('THESIS_REPRO_ORACLE_RAW_ROOT', root / 'data' / 'raw')).resolve()
+    return resolve_fresh_oracle_runtime(root).raw_root
 
 def prepare_stage2_config(root, src_dir, s1_out, s2_out):
     cfg={
@@ -88,8 +88,8 @@ def prepare_variable_work(src_dir, s1_out, s2_out, s3_out, s4_out):
             shutil.copy2(src, growth_work/f)
     for f in ['nonfinancial_metadata_panel.parquet','nonfinancial_candidate_pool_by_item.csv','nonfinancial_variable_quality_report.csv']:
         if (s3_out/f).exists(): shutil.copy2(s3_out/f, s4_out/'stage1c'/f)
-    # Stage00-04 reads its config from configs/current/final_freeze/oracle_components via ORACLE_STAGE00_04_CONFIG.
-    # No src/**/configs runtime dependency is allowed in final entrypoint.
+    # Stage00-04 receives its active run-local config through
+    # ORACLE_STAGE00_04_CONFIG.  No source-tree config is used by the entrypoint.
 
 def prepare_oracle_input(input_root, s1_out, s2_out, s3_out, s4_out):
     # Alpha/Beta/Gamma expected folder names.
@@ -141,28 +141,48 @@ def _canonical_stage00_02_ratio_panel(stage2_output: Path) -> Path:
     return path
 
 def write_registry(config_dir, backend_dir):
-    """Validate, but never replace, the materialized production registry.
-
-    The registry is a configuration contract sourced from
-    ``configs/current/final_freeze``.  Stage1 previously overwrote it with a
-    timestamped legacy schema after every clean run, undoing the V4.3 Alpha
-    contract selection.  The producer now fails if the materialized registry
-    and freshly generated backend disagree.
-    """
+    """Materialize and validate a run-local registry from immutable metadata."""
     from credit_recourse.contracts.v43_alpha_contract import (
         ALPHA_CONTRACT_VERSION,
-        CANONICAL_ALPHA_CONTRACT_PATH,
+        canonical_alpha_contract_path,
         EXPECTED_ALPHA_CONTRACT_SHA256,
         file_sha256,
     )
 
     path = config_dir/'oracle_backend_registry.yaml'
     if not path.is_file():
-        raise FileNotFoundError(f'Materialized Oracle registry is missing: {path}')
+        root = Path(os.environ.get('THESIS_REPRO_PROJECT_ROOT', Path.cwd())).resolve()
+        source = root / 'contracts' / 'scientific' / 'final_freeze' / 'oracle_backend_registry.yaml'
+        if not source.is_file():
+            raise FileNotFoundError(f'Immutable Oracle registry metadata is missing: {source}')
+        source_sha = file_sha256(source)
+        reg = yaml.safe_load(source.read_text(encoding='utf-8')) or {}
+        for name in ('alpha', 'beta', 'gamma'):
+            backend = (reg.get('backends') or {}).get(name) or {}
+            out = (backend_dir / name).resolve()
+            backend['path'] = out.as_posix()
+            backend['params'] = (out / ({'alpha': 'oracle_alpha_params.json', 'beta': 'benchmark_beta_params.json', 'gamma': 'benchmark_gamma_params.json'}[name])).as_posix()
+            backend['output'] = (out / ({'alpha': 'oracle_firm_year_output_alpha.parquet', 'beta': 'benchmark_firm_year_output_beta.parquet', 'gamma': 'benchmark_firm_year_output_gamma.parquet'}[name])).as_posix()
+            metrics_name = f'preliminary_dev_oot_metrics_{name}.csv'
+            if 'metrics' in backend:
+                backend['metrics'] = (out / metrics_name).as_posix()
+            if name == 'gamma':
+                backend['model'] = (out / 'benchmark_gamma_model.joblib').as_posix()
+            reg.setdefault('backends', {})[name] = backend
+        reg['provenance'] = {
+            'source_contract_path': source.relative_to(root).as_posix(),
+            'source_contract_sha256': source_sha,
+            'materialized_run_id': os.environ.get('THESIS_REPRO_RUN_ID', 'unknown'),
+            'generated_path_bindings': 'run-local stage1_oracle_backends paths; no frozen parent',
+        }
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(yaml.safe_dump(reg, allow_unicode=True, sort_keys=False), encoding='utf-8')
     reg = yaml.safe_load(path.read_text(encoding='utf-8')) or {}
     alpha = (reg.get('backends') or {}).get('alpha') or {}
     promotion = reg.get('v4_3_contract_promotion') or {}
-    expected_path = CANONICAL_ALPHA_CONTRACT_PATH.as_posix()
+    expected_path = canonical_alpha_contract_path(
+        Path(os.environ.get('THESIS_REPRO_PROJECT_ROOT', Path.cwd()))
+    ).as_posix()
     actual_params = backend_dir/'alpha'/'oracle_alpha_params.json'
     errors = []
     if reg.get('schema_version') != 'oracle_backend_registry_v4_3_alpha_monotone_v1':
@@ -284,8 +304,12 @@ def build_stage1_to_stage2_bridge(root: Path, inputs: Path, backends: Path, cfgd
         rename = {c: f"alpha__{c}" for c in alpha_small.columns if c not in ["거래소코드", "year"] and c in joined.columns}
         alpha_small = alpha_small.rename(columns=rename)
         joined = joined.merge(alpha_small, on=["거래소코드", "year"], how="left")
-    contract = resolve_selected_variables(root / "data" / "final_freeze", alpha_params if alpha_params.exists() else None)
-    selected = contract["selected_variables"]
+    selected = selected_variables_from_backend_params(alpha_params) if alpha_params.exists() else []
+    if not selected:
+        master = inputs / "stage00_04_variable_selection" / "selected_variable_master.csv"
+        if master.exists():
+            selected = read_csv_korean_safe(master).get("variable_id", pd.Series(dtype=str)).dropna().astype(str).tolist()
+    contract = {"selected_variables": list(dict.fromkeys(selected)), "selected_variable_master_path": str(inputs / "stage00_04_variable_selection" / "selected_variable_master.csv")}
     if not selected:
         raise ValueError("Stage1→Stage2 bridge could not resolve dynamic selected variables from selected_variable_master/backend params")
     missing = [v for v in selected if v not in joined.columns]

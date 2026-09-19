@@ -1,8 +1,7 @@
 """Strict Stage1 verifier for the canonical V4.3 Alpha contract and output.
 
-Verifier code lives with the other Oracle verifiers and emits its report into
-``archive/DEPLOYED_RELEASE/ledgers``.  No verification artifact is written below a
-backend output directory.
+All paths are resolved at call time from the active fresh Oracle runtime. A
+verification report is never allowed to fall back to an archived release tree.
 """
 from __future__ import annotations
 
@@ -16,11 +15,11 @@ import pandas as pd
 import yaml
 
 from credit_recourse.contracts.v43_alpha_contract import (
-    ALPHA_CONTRACT_PROMOTION_MANIFEST_PATH,
     ALPHA_CONTRACT_VERSION,
-    ALPHA_STRICT_VERIFIER_PATH,
-    CANONICAL_ALPHA_CONTRACT_PATH,
-    CANONICAL_V43_ORACLE_REGISTRY_PATH,
+    alpha_contract_promotion_manifest_path,
+    alpha_strict_verifier_path,
+    canonical_alpha_contract_path,
+    canonical_v43_oracle_registry_path,
     EMPTY_BIN_REPAIR_RULE,
     EXPECTED_ALPHA_CONTENT_HASH,
     EXPECTED_ALPHA_CONTRACT_SHA256,
@@ -36,9 +35,8 @@ from credit_recourse.oracle.backends.alpha.modules.monotone_bins import (
 from credit_recourse.oracle.backends.alpha.modules.oracle_alpha_scorer import build_alpha_scorer
 
 
-ALPHA_OUTPUT_PATH = Path(
-    "archive/DEPLOYED_RELEASE/stage1_oracle_backends/alpha/oracle_firm_year_output_alpha.parquet"
-)
+def alpha_output_path(project_root: Path | None = None) -> Path:
+    return canonical_alpha_contract_path(project_root).parent / "oracle_firm_year_output_alpha.parquet"
 
 
 def _write_json(path: Path, value: dict[str, Any]) -> None:
@@ -154,13 +152,13 @@ def verify_alpha_contract(project_root: Path, *, check_output: bool = True) -> d
         errors.append(f"contract verification failed: {exc!r}")
         checks["canonical_contract_loads"] = False
 
-    registry_path = root / CANONICAL_V43_ORACLE_REGISTRY_PATH
+    registry_path = canonical_v43_oracle_registry_path(root)
     try:
         registry = yaml.safe_load(registry_path.read_text(encoding="utf-8")) or {}
         alpha = (registry.get("backends") or {}).get("alpha") or {}
         promotion = registry.get("v4_3_contract_promotion") or {}
         checks.update({
-            "registry_selects_canonical_alpha": alpha.get("params") == CANONICAL_ALPHA_CONTRACT_PATH.as_posix(),
+            "registry_selects_canonical_alpha": alpha.get("params") == canonical_alpha_contract_path(root).as_posix(),
             "registry_declares_v43_alpha": promotion.get("alpha_contract_version") == ALPHA_CONTRACT_VERSION,
             "registry_declares_canonical_sha256": promotion.get("alpha_params_sha256") == EXPECTED_ALPHA_CONTRACT_SHA256,
         })
@@ -168,7 +166,7 @@ def verify_alpha_contract(project_root: Path, *, check_output: bool = True) -> d
         errors.append(f"registry verification failed: {exc!r}")
         checks["registry_loads"] = False
 
-    output_path = root / ALPHA_OUTPUT_PATH
+    output_path = alpha_output_path(root)
     if check_output and contract is not None:
         try:
             output_checks, output_details = _output_checks(contract, output_path)
@@ -188,15 +186,15 @@ def verify_alpha_contract(project_root: Path, *, check_output: bool = True) -> d
         "checks": checks,
         "errors": errors,
         "contract": {
-            "path": CANONICAL_ALPHA_CONTRACT_PATH.as_posix(),
+            "path": canonical_alpha_contract_path(root).as_posix(),
             "sha256": digest,
             "content_hash": contract.get("oracle_alpha_contract_hash") if contract else None,
         },
         "registry": {
-            "path": CANONICAL_V43_ORACLE_REGISTRY_PATH.as_posix(),
+            "path": canonical_v43_oracle_registry_path(root).as_posix(),
             "sha256": file_sha256(registry_path) if registry_path.is_file() else None,
         },
-        "output": {"path": ALPHA_OUTPUT_PATH.as_posix(), **details.get("output", {})},
+        "output": {"path": output_path.as_posix(), **details.get("output", {})},
         "variables": details.get("variables", {}),
     }
 
@@ -204,8 +202,8 @@ def verify_alpha_contract(project_root: Path, *, check_output: bool = True) -> d
 def build_manifest(project_root: Path, report: dict[str, Any]) -> dict[str, Any]:
     root = Path(project_root).resolve()
     contract, digest = load_v43_alpha_contract(root)
-    verifier_path = root / ALPHA_STRICT_VERIFIER_PATH
-    registry_path = root / CANONICAL_V43_ORACLE_REGISTRY_PATH
+    verifier_path = alpha_strict_verifier_path(root)
+    registry_path = canonical_v43_oracle_registry_path(root)
     repair = contract["empty_bin_repair"]
     return {
         "schema_version": "stage1_alpha_contract_manifest_v3",
@@ -214,7 +212,7 @@ def build_manifest(project_root: Path, report: dict[str, Any]) -> dict[str, Any]
         "produced_by": "credit_recourse.oracle.backends.alpha.pipeline",
         "verified_by": "credit_recourse.oracle.verification.verify_alpha_contract",
         "canonical_role": "production_v4_3_oracle_alpha_scoring_contract",
-        "canonical_path": CANONICAL_ALPHA_CONTRACT_PATH.as_posix(),
+        "canonical_path": canonical_alpha_contract_path(root).as_posix(),
         "canonical_sha256": digest,
         "oracle_alpha_contract_hash": contract["oracle_alpha_contract_hash"],
         "oracle_alpha_contract_version": ALPHA_CONTRACT_VERSION,
@@ -223,9 +221,9 @@ def build_manifest(project_root: Path, report: dict[str, Any]) -> dict[str, Any]
         "fit_source": repair["fit_source"],
         "evaluation_data_used_for_rule_or_scores": False,
         "weights_or_grade_cutoffs_refit": False,
-        "strict_verifier_path": ALPHA_STRICT_VERIFIER_PATH.as_posix(),
+        "strict_verifier_path": alpha_strict_verifier_path(root).as_posix(),
         "strict_verifier_sha256": file_sha256(verifier_path),
-        "oracle_registry_path": CANONICAL_V43_ORACLE_REGISTRY_PATH.as_posix(),
+        "oracle_registry_path": canonical_v43_oracle_registry_path(root).as_posix(),
         "oracle_registry_sha256": file_sha256(registry_path),
         "runtime_uses_canonical_path": True,
         "legacy_compatibility_path_required": False,
@@ -239,11 +237,11 @@ def build_manifest(project_root: Path, report: dict[str, Any]) -> dict[str, Any]
 def verify_and_write(project_root: Path, *, check_output: bool = True) -> tuple[dict[str, Any], dict[str, Any] | None]:
     root = Path(project_root).resolve()
     report = verify_alpha_contract(root, check_output=check_output)
-    _write_json(root / ALPHA_STRICT_VERIFIER_PATH, report)
+    _write_json(alpha_strict_verifier_path(root), report)
     if report["status"] != "PASS":
         return report, None
     manifest = build_manifest(root, report)
-    _write_json(root / ALPHA_CONTRACT_PROMOTION_MANIFEST_PATH, manifest)
+    _write_json(alpha_contract_promotion_manifest_path(root), manifest)
     return report, manifest
 
 

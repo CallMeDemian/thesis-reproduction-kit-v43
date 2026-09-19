@@ -14,13 +14,14 @@ from credit_recourse.oracle.stage1.stage00_04_variable_selection.growth_candidat
     as_bool_series,
     load_canonical_financial_inputs,
 )
+from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime
 
 
 def verify_contract(project_root: Path, *, require_selection_output: bool = False) -> dict[str, Any]:
     root = Path(project_root).resolve()
-    final = root / "data" / "final_freeze"
-    stage2 = final / "stage1_oracle_inputs" / "stage00_02_financial_ratio_engineering"
-    stage4 = final / "stage1_oracle_inputs" / "stage00_04_variable_selection"
+    runtime = resolve_fresh_oracle_runtime(root)
+    stage2 = runtime.inputs_root / "stage00_02_financial_ratio_engineering"
+    stage4 = runtime.inputs_root / "stage00_04_variable_selection"
 
     _, candidates, canonical = load_canonical_financial_inputs(stage2)
     denom_mask = as_bool_series(candidates["growth_denom_instability"])
@@ -72,7 +73,7 @@ def verify_contract(project_root: Path, *, require_selection_output: bool = Fals
             if len(selected_growth) > 1:
                 errors.append(f"expected at most one selected growth representative, observed={len(selected_growth)}")
             elif len(selected_growth) == 0:
-                status_path = stage00_04_dir / "category_selection_status.json"
+                status_path = stage4 / "category_selection_status.json"
                 if not status_path.exists():
                     errors.append("growth has no selected representative but category_selection_status.json is missing")
                 else:

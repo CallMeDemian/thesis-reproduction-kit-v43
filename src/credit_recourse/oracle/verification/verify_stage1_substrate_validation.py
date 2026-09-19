@@ -24,6 +24,7 @@ import pandas as pd
 from scipy import stats
 
 from credit_recourse.rl.common.io import write_json
+from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime
 
 KEY = "거래소코드"
 
@@ -264,7 +265,7 @@ def load_stage1_backend_score_panel(
     if backend not in BACKENDS:
         raise KeyError(f"Unknown Stage1 backend for substrate validation: {backend}")
     root = Path(project_root).resolve()
-    backends_dir = root / "data" / "final_freeze" / "stage1_oracle_backends"
+    backends_dir = resolve_fresh_oracle_runtime(root).backends_root
     rating_map = _load_authoritative_rating_map(backends_dir, err_list)
     rel, score_col = BACKENDS[backend]
     backend_path = backends_dir / rel
@@ -306,8 +307,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--project-root", required=True)
     args = p.parse_args(argv)
     root = Path(args.project_root).resolve()
-    final = root / "data" / "final_freeze"
-    backends_dir = final / "stage1_oracle_backends"
+    runtime = resolve_fresh_oracle_runtime(root)
+    backends_dir = runtime.backends_root
     errors: list[str] = []
 
     # authoritative 10-grade rating map from the Alpha output
@@ -344,7 +345,7 @@ def main(argv: list[str] | None = None) -> int:
         "status": "PASS" if not errors else "FAIL",
         "errors": errors,
     }
-    out = final / "ledgers" / "stage1_substrate_validation_loopB1.json"
+    out = runtime.ledgers_root / "stage1_substrate_validation_loopB1.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     write_json(out, result)
     print(json.dumps(result, ensure_ascii=False, indent=2))

@@ -9,6 +9,7 @@ import pandas as pd
 
 from credit_recourse.oracle.contracts.rating_scale import GRADE_ORDER_10
 from credit_recourse.utils.io_contract import read_json, read_csv_korean_safe, flatten_selected_variables, selected_variables_from_backend_params, write_json
+from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime
 
 REQUIRED_SELECTION_FILES = [
     "selected_variables_v2.json",
@@ -96,11 +97,11 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--strict", action="store_true", help="Strict means dynamic consistency only; no fixed selected-variable list is enforced.")
     args = p.parse_args(argv)
     root = Path(args.project_root).resolve()
-    final = root / "data" / "final_freeze"
-    s4 = final / "stage1_oracle_inputs" / "stage00_04_variable_selection"
-    b = final / "stage1_oracle_backends"
-    cfg = root / "configs" / "current" / "final_freeze"
-    ledgers = final / "ledgers"
+    runtime = resolve_fresh_oracle_runtime(root)
+    s4 = runtime.inputs_root / "stage00_04_variable_selection"
+    b = runtime.backends_root
+    cfg = runtime.config_root
+    ledgers = runtime.ledgers_root
     errors: list[str] = []
     warnings: list[str] = []
     checks: dict[str, Any] = {}
@@ -142,8 +143,8 @@ def main(argv: list[str] | None = None) -> int:
         "beta": verify_backend("beta", b / "beta" / "benchmark_beta_params.json", b / "beta" / "benchmark_firm_year_output_beta.parquet", selected_master, errors, warnings),
         "gamma": verify_backend("gamma", b / "gamma" / "benchmark_gamma_params.json", b / "gamma" / "benchmark_firm_year_output_gamma.parquet", selected_master, errors, warnings),
     }
-    bridge = final / "stage1_oracle_inputs" / "alpha_vanilla_input_candidate.parquet"
-    bridge_meta = final / "stage1_oracle_inputs" / "alpha_vanilla_input_candidate_metadata.json"
+    bridge = runtime.inputs_root / "alpha_vanilla_input_candidate.parquet"
+    bridge_meta = runtime.inputs_root / "alpha_vanilla_input_candidate_metadata.json"
     if exists_nonempty(bridge, errors, "Stage1→Stage2 bridge"):
         df = pd.read_parquet(bridge)
         for c in ["firm_id", "fiscal_year", "거래소코드", "year", "rating_num_10", "rating_num", "split", "selected_variables_all_complete"]:
@@ -159,7 +160,7 @@ def main(argv: list[str] | None = None) -> int:
         checks["bridge_rows"] = int(len(df))
     exists_nonempty(bridge_meta, errors, "Stage1→Stage2 bridge metadata")
     result = {"stage": "verify_stage1_outputs", "status": "PASS" if not errors else "FAIL", "errors": errors, "warnings": warnings, "checks": checks}
-    out = final / "ledgers" / "stage1_contract_verification.json"
+    out = ledgers / "stage1_contract_verification.json"
     write_json(out, result)
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0 if not errors else 1

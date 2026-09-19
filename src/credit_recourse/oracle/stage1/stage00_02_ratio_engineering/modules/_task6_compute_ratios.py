@@ -55,7 +55,16 @@ def _ensure_positional_series(values, index, label):
 def _coalesce_code_columns(df: pd.DataFrame, code: str, lag: bool=False) -> pd.Series:
     suffix = '__lag1' if lag else ''
     primary = f'{code}{suffix}'
-    out = df[primary].copy() if primary in df.columns else pd.Series(np.nan, index=df.index, dtype='float64')
+    # The current/lag merge can suffix a code when the same account appears in
+    # both panels.  Preserve current values from _x and lag values from _y.
+    fallback_columns = [f'{code}_y', f'{code}_x'] if lag else [f'{code}_x', f'{code}_y']
+    if primary in df.columns:
+        out = df[primary].copy()
+    else:
+        out = pd.Series(np.nan, index=df.index, dtype='float64')
+        for candidate in fallback_columns:
+            if candidate in df.columns:
+                out = out.where(out.notna(), pd.to_numeric(df[candidate], errors='coerce'))
     for alias in ITEM_CODE_ALIASES.get(code, [code]):
         col = f'{alias}{suffix}'
         if col in df.columns:
@@ -182,12 +191,29 @@ def main() -> None:
                 curr=mat.get(f'_DERIVED_{t}',pd.Series(np.nan,index=mat.index)); prev=mat.get(f'_DERIVED_{t}__lag1',pd.Series(np.nan,index=mat.index)); return np.where(prev>0,(curr-prev)/prev,np.nan)
             return mat.get(f'_DERIVED_{t}',pd.Series(np.nan,index=mat.index))
         return None
+    def resolve_item_code(code, term, mat):
+        """Use the canonical U-code when a legacy workbook label is mojibake.
+
+        The scientific mapping is code-based.  This fallback prevents an
+        encoding artefact in a candidate workbook label from turning every
+        otherwise calculable ratio into an all-missing feature.
+        """
+        code = canonical_item_code_from_text(code)
+        if not code:
+            return None
+        text = str(term)
+        lag = 1 if text.endswith('_t-1') else 0
+        return safe_get(mat, code, lag)
     rating_cols=[c for c in ['rating_num','rating_num_10','grade_base_10','rating_num_7','grade_base_7','rating_num_notch','grade_base_notch'] if c in elig.columns]
     front=['거래소코드']+(['회사명'] if '회사명' in elig.columns else [])+['year','시장']+(['sector_7'] if 'sector_7' in elig.columns else [])+rating_cols+['split','eligible_for_stage2']
     result=elig[front].copy(); result=result.merge(mat[['거래소코드','year']],on=['거래소코드','year'],how='left')
     calc_log=[]; print("\n[Ratio 계산]")
     for _,row in calculable.iterrows():
         rid=row['ratio_id']; num_val=resolve_value(row['numerator_term_orig'],mat); den_val=resolve_value(row['denominator_term_orig'],mat)
+        if num_val is None or not pd.Series(num_val).notna().any():
+            num_val = resolve_item_code(row.get('numerator_item_code'), row.get('numerator_term_orig'), mat)
+        if den_val is None or not pd.Series(den_val).notna().any():
+            den_val = resolve_item_code(row.get('denominator_item_code'), row.get('denominator_term_orig'), mat)
         if num_val is None or den_val is None: calc_log.append({'ratio_id':rid,'status':'unresolved'}); continue
         num_val=_ensure_positional_series(num_val, mat.index, f'{rid}.numerator'); den_val=_ensure_positional_series(den_val, mat.index, f'{rid}.denominator')
         zero_mask=(den_val==0); neg_mask=(den_val<0); den_safe=den_val.copy(); den_safe[zero_mask]=np.nan

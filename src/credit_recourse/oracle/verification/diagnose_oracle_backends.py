@@ -218,7 +218,7 @@ def diagnose_backend_dir(backend_dir: Path) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--backend-dir", required=True, help="Path to archive/DEPLOYED_RELEASE/stage1_oracle_backends")
+    ap.add_argument("--backend-dir", required=True, help="Path to the active run-local stage1_oracle_backends directory")
     ap.add_argument("--output-json", default=None)
     ap.add_argument("--output-csv", default=None)
     ap.add_argument("--fail-on-required", action="store_true")

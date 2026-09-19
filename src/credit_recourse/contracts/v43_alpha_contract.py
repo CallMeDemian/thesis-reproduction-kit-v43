@@ -8,12 +8,25 @@ import os
 from pathlib import Path
 from typing import Any
 
-_ORACLE_WORK_ROOT = Path(os.environ.get("THESIS_REPRO_ORACLE_WORK_ROOT", "runs/unbound/oracle_work"))
-_ORACLE_CONFIG_ROOT = Path(os.environ.get("THESIS_REPRO_ORACLE_CONFIG_ROOT", "contracts/oracle_components"))
-CANONICAL_ALPHA_CONTRACT_PATH = _ORACLE_WORK_ROOT / "stage1_oracle_backends/alpha/oracle_alpha_params.json"
-ALPHA_CONTRACT_PROMOTION_MANIFEST_PATH = _ORACLE_WORK_ROOT / "ledgers/stage1_alpha_contract_manifest.json"
-ALPHA_STRICT_VERIFIER_PATH = _ORACLE_WORK_ROOT / "ledgers/stage1_alpha_contract_verification.json"
-CANONICAL_V43_ORACLE_REGISTRY_PATH = _ORACLE_CONFIG_ROOT / "oracle_backend_registry.yaml"
+def _runtime(project_root: Path | None = None):
+    from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime
+    return resolve_fresh_oracle_runtime(project_root or Path.cwd())
+
+
+def canonical_alpha_contract_path(project_root: Path | None = None) -> Path:
+    return _runtime(project_root).backends_root / "alpha/oracle_alpha_params.json"
+
+
+def alpha_contract_promotion_manifest_path(project_root: Path | None = None) -> Path:
+    return _runtime(project_root).ledgers_root / "stage1_alpha_contract_manifest.json"
+
+
+def alpha_strict_verifier_path(project_root: Path | None = None) -> Path:
+    return _runtime(project_root).ledgers_root / "stage1_alpha_contract_verification.json"
+
+
+def canonical_v43_oracle_registry_path(project_root: Path | None = None) -> Path:
+    return _runtime(project_root).registry_path
 EXPECTED_ALPHA_CONTRACT_SHA256 = (
     "7ddc6ebea4fe8936332b323d07438c9ec82ffc19b030c9138ff85dc116c4694b"
 )
@@ -38,7 +51,7 @@ def file_sha256(path: Path) -> str:
 
 def load_v43_alpha_contract(project_root: Path) -> tuple[dict[str, Any], str]:
     root = Path(project_root).resolve()
-    path = root / CANONICAL_ALPHA_CONTRACT_PATH
+    path = canonical_alpha_contract_path(root)
     if not path.is_file():
         raise FileNotFoundError(f"Canonical V4.3 Alpha contract is missing: {path}")
     digest = file_sha256(path)

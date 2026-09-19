@@ -722,10 +722,19 @@ if __name__ == "__main__":
     def calculate_spearman(df, var_col, target='rating_num_10'):
         """Calculate Spearman correlation"""
         df_clean = df[[var_col, target]].dropna()
-        if len(df_clean) < 10:
+        # The production panel can contain pandas extension/Arrow dtypes.  Pass
+        # plain one-dimensional numeric arrays to SciPy so a singleton or
+        # extension scalar cannot reach numpy.cov and trigger a false stage
+        # failure in the screening gate.
+        x = pd.to_numeric(df_clean[var_col], errors='coerce')
+        y = pd.to_numeric(df_clean[target], errors='coerce')
+        valid = x.notna() & y.notna()
+        x = x.loc[valid].to_numpy(dtype=float)
+        y = y.loc[valid].to_numpy(dtype=float)
+        if len(x) < 10 or np.unique(x).size < 2 or np.unique(y).size < 2:
             return np.nan, np.nan, True
     
-        rho, pval = spearmanr(df_clean[var_col], df_clean[target])
+        rho, pval = spearmanr(x, y)
         return rho, abs(rho), False
 
     def calculate_iv(df, var_col, target='rating_num_10', n_bins=10):
@@ -2110,7 +2119,10 @@ if __name__ == "__main__":
     with open(OUTPUT_BASE / "variable_selection_report.md", 'w', encoding='utf-8') as f:
         f.write("# Stage 3 Variable Selection Report\n\n")
         f.write("## Selected Variables\n\n")
-        f.write(initial_selected_df.to_markdown(index=False))
+        # pandas' markdown writer imports the optional ``tabulate`` package,
+        # which is not part of the pinned scientific runtime.  The report is
+        # diagnostic, so a fixed-width table keeps the stage self-contained.
+        f.write(initial_selected_df.to_string(index=False))
         f.write("\n\n## Methodology\n\n")
         f.write(f"- Dev sample: {DEV_YEAR_MIN}-{DEV_YEAR_MAX}\n")
         f.write(f"- OOT sample: {OOT_YEAR_MIN}-{OOT_YEAR_MAX}\n")
