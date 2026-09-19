@@ -5,7 +5,32 @@
   "artifact_count": 1035,
   "total_bytes": 4816672890,
   "dag_closure": "historical_selected_compute_parents_closed; restricted raw input and fresh execution remain external/open",
-  "remote_lfs_certification": "provenance/REMOTE_ASSET_CERTIFICATION.json (added after final remote run)",
+  "remote_lfs_certification": {
+    "schema_version": "remote_asset_certification_v1",
+    "commit": "5c1643a513391982ebe85cecb28a73ee2c20e56c",
+    "workflow": "full-asset-integrity",
+    "workflow_run_id": 35412145479,
+    "workflow_url": "https://github.com/CallMeDemian/thesis-reproduction-kit-v43/actions/runs/35412145479",
+    "verified_at": "2026-09-19T01:20:35Z",
+    "lfs_fsck": "PASS",
+    "asset_manifest_sha256": "c8299c42fad898932a6428b7d11d6ae63c61a565db426b78edffe7982d96b889",
+    "files_verified": 1024,
+    "bytes_verified": 4621660888,
+    "oracle_files": 234,
+    "simulator_files": 33,
+    "rl_files": 309,
+    "rl_c3e_files": 205,
+    "rl_parent_files": 104,
+    "llm_files": 287,
+    "evaluation_files": 161,
+    "llm_request_count": {
+      "baseline": 24150,
+      "high": 24150,
+      "total": 48300
+    },
+    "rl_checkpoint_count": 28,
+    "status": "PASS"
+  },
   "source_snapshot": "provenance.source_commit_verification",
   "frozen_replay_status": "CERTIFIED"
 }

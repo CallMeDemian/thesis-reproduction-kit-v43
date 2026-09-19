@@ -78,6 +78,8 @@ def main() -> int:
         parent_hashes = sorted(sha_by_id[p] for p in parents)
         canonical_rows.append(f"{item['logical_id']}\t{item['sha256']}\t{','.join(parents)}\t{','.join(parent_hashes)}")
     root_hash = hashlib.sha256(("\n".join(canonical_rows) + "\n").encode()).hexdigest()
+    certification_path = ROOT / "provenance/REMOTE_ASSET_CERTIFICATION.json"
+    remote_certification: object = json.loads(certification_path.read_text(encoding="utf-8")) if certification_path.is_file() else "provenance/REMOTE_ASSET_CERTIFICATION.json (pending final remote run)"
     manifest = {
         "schema_version": "original_scientific_release_manifest_v1",
         "release_id": "THESIS_V43_ORIGINAL_SCIENTIFIC_RELEASE",
@@ -101,7 +103,7 @@ def main() -> int:
         "artifact_count": len(records),
         "total_bytes": sum(int(item["byte_size"]) for item in records),
         "dag_closure": "historical_selected_compute_parents_closed; restricted raw input and fresh execution remain external/open",
-        "remote_lfs_certification": "provenance/REMOTE_ASSET_CERTIFICATION.json (added after final remote run)",
+        "remote_lfs_certification": remote_certification,
         "frozen_replay_status": "CERTIFIED",
     }
     (ROOT / "frozen/original_release/ORIGINAL_RELEASE_MANIFEST.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
