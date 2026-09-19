@@ -3,16 +3,18 @@
   "FrozenReplay": "FROZEN_CERTIFIED",
   "OriginalAssetVerification": "FROZEN_CERTIFIED",
   "OriginalC3ERebuild": "FROZEN_CERTIFIED",
-  "OracleClean": "SMOKE_CERTIFIED",
-  "OracleRLClean": "SMOKE_CERTIFIED",
-  "OracleRLLLMClean": "DRY_RUN_CERTIFIED",
+  "OracleClean": "FRESH_ADAPTER_INPUT_GATED",
+  "OracleRLClean": "FRESH_ADAPTER_HEAVY_RL_GATED",
+  "OracleRLLLMClean": "FRESH_ADAPTER_LIVE_LLM_GATED",
   "LLMDryRun48300": "DRY_RUN_CERTIFIED",
   "LLMLiveFresh": "GATED_ADAPTERS_MOCK_CERTIFIED",
-  "FullClean": "INPUT_REQUIRED_UNEXECUTED",
+  "FullClean": "INPUT_REQUIRED_UNEXECUTED_FRESH_ENGINE",
   "notes": [
     "Frozen ZIP and 914-row registry are locally verifiable.",
     "The selected original Simulator and RL parent packs are hash-verified; RL_PARENT_GRAPH reports 28/28 closed historical actor chains.",
     "The historical LLM source snapshot is migrated, hash-verified, and request-ID reconciled; fresh IDs use a run namespace and no live call is enabled by default.",
-    "Fresh smoke and the 48,300-request dry render are executable; FullClean remains INPUT_REQUIRED until restricted raw inputs are restored, and live provider execution is never launched automatically."
+    "Fresh runtime adapters are implemented under src/thesis_repro/stages and are namespaced under runs/<run_id>; full profile never dispatches the contract-smoke artifact helper.",
+    "FullClean acceptance was run with no raw inputs and correctly returned INPUT_REQUIRED at VerifyInputs. Heavy 28-actor RL requires THESIS_REPRO_ENABLE_HEAVY_RL=I_APPROVE_28_ACTOR_RETRAIN; live provider transport requires THESIS_REPRO_ENABLE_LIVE_LLM=I_APPROVE_FRESH_REPLICATION.",
+    "Runtime closure audit: runs/_runtime_audit; missing internal modules 0."
   ]
 }

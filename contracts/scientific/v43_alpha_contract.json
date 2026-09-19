@@ -1,0 +1,7 @@
+{
+  "schema_version": "fresh_v43_alpha_contract_v1",
+  "status": "INPUT_REQUIRED_UNMATERIALIZED",
+  "selected_variables": [],
+  "parameter_artifact": "fresh_run_required",
+  "frozen_parent_allowed": false
+}

@@ -19,6 +19,8 @@ from .contracts import (
 )
 from .data import verify_input_contract
 from .paths import ROOT, load_json, sha256_file, write_json
+from .runtime_paths import FreshRuntimePaths
+from .stages.adapters import run_heavy_gate, run_real_stage
 
 STAGES = {
     "OracleClean": ["VerifyInputs", "Oracle", "VerifyOracle"],
@@ -120,6 +122,7 @@ def execute(mode: str, run_id: str, profile: str = "smoke", resume: bool = False
         raise ValueError("live LLM is blocked: fresh replication contract is not ready")
 
     run_dir = ROOT / "runs" / run_id
+    paths = FreshRuntimePaths.from_run(ROOT, run_id, create=True)
     _prepare_run_dirs(run_dir)
     contract_report_now = verify_input_contract(write=True)
     input_report_path = ROOT / "data/raw/input_contract_report.json"
@@ -167,16 +170,42 @@ def execute(mode: str, run_id: str, profile: str = "smoke", resume: bool = False
             status = "INPUT_REQUIRED"
             details["reason"] = "full fresh stages are blocked until data/raw/input_contract_report.json is INPUT_CONTRACT_PASS"
         else:
-            artifacts.append(_smoke_stage_artifact(run_dir, stage, parent_hashes, profile))
-            if stage == "LLMGenerate" and (dry_render or profile == "full"):
-                details.update(render_dry_run(run_dir, full=True))
-                artifacts.append(_artifact(run_dir / "09_llm/logical_requests.jsonl", f"fresh:{run_id}:llm.logical_requests", "thesis_repro.run_engine"))
-            if stage == "LLMMaterialize" and not execute_llm:
-                status = "PASS_WITH_SKIPS"
-                details["reason"] = "provider transport not executed; dry render only"
-            if stage in {"Stage8", "Stage9", "ThesisOutputs", "CompareFrozen", "VerifyAll"} and not execute_llm:
-                status = "PASS_WITH_SKIPS"
-                details["reason"] = "requires fresh provider responses or completed fresh numerical chain"
+            if profile == "smoke":
+                artifacts.append(_smoke_stage_artifact(run_dir, stage, parent_hashes, profile))
+                if stage == "LLMGenerate" and dry_render:
+                    details.update(render_dry_run(run_dir, full=True))
+                    artifacts.append(_artifact(run_dir / "09_llm/logical_requests.jsonl", f"fresh:{run_id}:llm.logical_requests", "thesis_repro.run_engine"))
+            else:
+                result = run_real_stage(paths, stage, parent_hashes, execute_llm=execute_llm)
+                status = result.status
+                details.update(result.details)
+                details.update({"execution_class": result.execution_class, "implemented": result.implemented, "executed": result.executed})
+                artifacts.extend(result.artifacts)
+                if stage == "LLMPrepare" and mode in {"OracleRLLLMClean", "FullClean"} and not execute_llm:
+                    details.update(render_dry_run(run_dir, full=True))
+                    artifacts.append(_artifact(run_dir / "09_llm/logical_requests.jsonl", f"fresh:{run_id}:llm.logical_requests", "thesis_repro.run_engine"))
+                    status = "LIVE_LLM_APPROVAL_REQUIRED"
+                    details.update({"executed": False, "reason": "48,300 fresh logical requests rendered and validated; provider transport requires explicit live gate"})
+                    digest = _write_stage(run_dir, stage, status, parent_hashes, details, artifacts)
+                    parent_hashes = [digest]
+                    manifest["stage_status"][stage] = status
+                    manifest["stage_manifests"][stage] = str(_stage_manifest(run_dir, stage).relative_to(ROOT)).replace("\\", "/")
+                    manifest["artifacts"].extend(artifacts)
+                    manifest["completion_state"] = status
+                    break
+                if stage == "RLIQL" and mode in {"OracleRLClean", "OracleRLLLMClean", "FullClean"}:
+                    gate = run_heavy_gate(paths, parent_hashes)
+                    details["heavy_gate"] = gate.details
+                    if gate.status != "PASS":
+                        status = gate.status
+                        details["executed"] = False
+                        digest = _write_stage(run_dir, stage, status, parent_hashes, details, artifacts)
+                        parent_hashes = [digest]
+                        manifest["stage_status"][stage] = status
+                        manifest["stage_manifests"][stage] = str(_stage_manifest(run_dir, stage).relative_to(ROOT)).replace("\\", "/")
+                        manifest["artifacts"].extend(artifacts)
+                        manifest["completion_state"] = status
+                        break
 
         digest = _write_stage(run_dir, stage, status, parent_hashes, details, artifacts)
         parent_hashes = [digest]
