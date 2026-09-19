@@ -1,0 +1,30 @@
+{
+  "schema_version": "fresh_replication_contract_v1",
+  "status": "READY_FOR_DRY_RENDER",
+  "semantic_basis": {
+    "historical_contract": "contracts/llm/final_as_executed_generation_contract.json",
+    "experiment_matrix": "frozen/evidence/llm/experiment_matrix.csv",
+    "logical_requests": "frozen/original_release/llm/final_plan3/*/logical_requests.parquet",
+    "provider_inputs": "frozen/original_release/llm/final_plan3/*/provider_batches/**/*.jsonl",
+    "derivation_rule": "fresh semantic cells must equal the reconciled historical two-regime matrix; only run namespace, C3-E release, and provider execution metadata change"
+  },
+  "cardinality": {
+    "regimes": 2,
+    "matrix_cells": 42,
+    "firms": 575,
+    "expected_logical_requests": 48300,
+    "requests_per_regime": 24150,
+    "stage8_rows": 96600
+  },
+  "request_identity": {
+    "fresh_template": "fresh:{run_id}:{generation_regime}:{cell_id}:firm-{firm_ordinal:04d}",
+    "parent_rule": "same fresh run namespace, generation regime, and firm ordinal",
+    "historical_ids_are_never_reused": true,
+    "c3e_binding": "runs/{run_id}/08_c3e/release.json"
+  },
+  "actions": ["A0", "DL", "RF", "CX", "WC1", "WC2", "OE", "MX1", "MX2"],
+  "policies": ["Strict", "Repaired"],
+  "live_gate": "THESIS_REPRO_ENABLE_LIVE_LLM=I_APPROVE_FRESH_REPLICATION",
+  "provider_adapters": ["openai_batch", "gemini_batch", "mock"],
+  "fresh_outputs_must_be_namespaced": true
+}

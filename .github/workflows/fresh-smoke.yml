@@ -1,0 +1,40 @@
+name: fresh-smoke
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fresh-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install package and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+      - name: Run product tests
+        run: python -m pytest -q
+      - name: Execute namespaced fresh smoke and dry render
+        run: python -m thesis_repro fresh --mode OracleRLLLMClean --run-id ci-smoke --profile smoke --dry-render
+      - name: Assert smoke completion and request cardinality
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path("runs/ci-smoke")
+          manifest = json.loads((root / "run_manifest.json").read_text())
+          dry = json.loads((root / "09_llm/dry_run_manifest.json").read_text())
+          assert manifest["completion_state"] == "PASS_WITH_SKIPS"
+          assert dry["rendered_to_disk"] == 48300
+          assert dry["unique_ids"] == 48300
+          assert all(path.is_dir() for path in [root / "00_run", root / "09_llm", root / "15_release"])
+          PY

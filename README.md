@@ -25,7 +25,7 @@ python -m thesis_repro compare --run-id oracle_smoke
 
 `OracleClean`, `OracleRLClean`, `OracleRLLMClean`, and `FullClean` are explicit DAG targets. Use `--plan` to inspect stages and resources. Use `--resume`, `--from-stage`, and `--to-stage` for namespaced execution.
 
-The smoke profile exercises the run engine with deterministic stage manifests. The full Oracle/RL adapters are being wired from the curated source port. The exact historical LLM provider snapshot is now migrated and hash-verified; live use remains blocked until request-ID reconciliation and explicit fresh-replication approval, as documented in [docs/LLM_CONTRACT_GAP.md](docs/LLM_CONTRACT_GAP.md).
+The smoke profile exercises the namespaced DAG, artifact ledger, input gate, resume invalidation, and a complete 48,300-request fresh dry render. Full scientific execution is permitted only after `data doctor` returns `INPUT_CONTRACT_PASS`; it never silently uses `frozen/` artifacts as compute parents. Live provider transport is separately gated by `THESIS_REPRO_ENABLE_LIVE_LLM=I_APPROVE_FRESH_REPLICATION`.
 
 ## Frozen lane
 
@@ -42,11 +42,11 @@ python -m thesis_repro data restore `
   --ratings C:\path\rating_sample.zip
 ```
 
-The restore receipt records counts, sizes, and SHA-256 hashes under `data/raw/input_receipt.json`.
+The restore receipt and file-level contract report record counts, sizes, and SHA-256 hashes under `data/raw/input_receipt.json` and `data/raw/input_contract_report.json`. A full fresh run is blocked with `INPUT_REQUIRED` until every required inventory entry is present and size-matched.
 
 ## Run directory
 
-Every run is isolated under `runs/<run_id>/` with manifests, parent hashes, stage status, input metadata, and comparison outputs. `runs/` and `data/raw/` are ignored by Git.
+Every run is isolated under `runs/<run_id>/` with `00_run` through `15_release`, `logs`, a run manifest, recursive artifact hashes, parent hashes, stage status, input metadata, and comparison outputs. `runs/` and `data/raw/` are ignored by Git.
 
 ## Requirements
 

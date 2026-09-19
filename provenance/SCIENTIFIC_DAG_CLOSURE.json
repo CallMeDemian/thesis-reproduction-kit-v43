@@ -1,7 +1,7 @@
 {
   "schema_version": "scientific_dag_closure_v1",
   "audit_date": "2026-09-19",
-  "purpose": "Record the minimum scientific parent graph needed to distinguish closed historical evidence from source-available but not yet migrated computation parents.",
+  "purpose": "Record the minimum scientific parent graph needed to distinguish closed historical evidence from fresh computation that still requires restricted inputs.",
   "source_repository": "CallMeDemian/REPRO_KIT_semantic_repair",
   "target_repository": "CallMeDemian/thesis-reproduction-kit-v43",
   "source_release_bundle": {
@@ -98,34 +98,34 @@
       "logical_id": "rl.stage2.candidate_projection",
       "artifact": "RL Stage2 candidate projection parents",
       "parent_logical_ids": ["oracle.stage1.backends", "simulator.runtime.code"],
-      "parent_availability": "FOUND_IN_SOURCE_NOT_MIGRATED",
-      "parent_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection",
-      "parent_sha256": null,
+      "parent_availability": "TARGET_MIGRATED_HASH_VERIFIED",
+      "parent_path": "frozen/original_release/rl/stage2_candidate_projection",
+      "parent_sha256": "manifested_per_file_in_provenance/ASSET_PACK_MANIFEST.json",
       "closure_status": "CLOSED",
-      "evidence": "585 source files; 1,072,277,178 bytes; not included in selected target asset packs",
-      "reproducibility_level": "source_available_target_open"
+      "evidence": "Selected target pack is present and hash-verified; fresh recomputation still requires authorized raw inputs.",
+      "reproducibility_level": "historical_source_replay"
     },
     {
       "logical_id": "rl.stage3.e2.acd_ssl",
       "artifact": "RL Stage3 E2 ACD/SSL checkpoints and metadata",
       "parent_logical_ids": ["rl.stage2.candidate_projection"],
-      "parent_availability": "FOUND_IN_SOURCE_NOT_MIGRATED",
-      "parent_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl",
-      "parent_sha256": null,
+      "parent_availability": "TARGET_MIGRATED_HASH_VERIFIED",
+      "parent_path": "frozen/original_release/rl/stage3_e2",
+      "parent_sha256": "manifested_per_file_in_provenance/ASSET_PACK_MANIFEST.json",
       "closure_status": "CLOSED",
-      "evidence": "30 source files; 99,350,119 bytes; selected C3-E target pack references Stage3 hashes but does not include the full Stage3 tree",
-      "reproducibility_level": "source_available_target_open"
+      "evidence": "30 files; 99,350,119 bytes; copied and hash-verified in the selected target release.",
+      "reproducibility_level": "historical_source_replay"
     },
     {
       "logical_id": "rl.stage4.candidate_bc",
       "artifact": "RL Stage4 candidate behavior-cloning checkpoints and metadata",
       "parent_logical_ids": ["rl.stage3.e2.acd_ssl"],
-      "parent_availability": "FOUND_IN_SOURCE_NOT_MIGRATED",
-      "parent_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc",
-      "parent_sha256": null,
+      "parent_availability": "TARGET_MIGRATED_HASH_VERIFIED",
+      "parent_path": "frozen/original_release/rl/stage4_bc",
+      "parent_sha256": "manifested_per_file_in_provenance/ASSET_PACK_MANIFEST.json",
       "closure_status": "CLOSED",
-      "evidence": "44 source files; 116,564,160 bytes; selected C3-E target pack references Stage4 hashes but does not include the full Stage4 tree",
-      "reproducibility_level": "source_available_target_open"
+      "evidence": "44 files; 116,564,160 bytes; copied and hash-verified in the selected target release.",
+      "reproducibility_level": "historical_source_replay"
     },
     {
       "logical_id": "rl.stage5.c3e",
@@ -142,12 +142,12 @@
       "logical_id": "rl.stage6.selector_eval",
       "artifact": "RL Stage6 selector evaluation",
       "parent_logical_ids": ["rl.stage5.c3e"],
-      "parent_availability": "FOUND_IN_SOURCE_NOT_MIGRATED",
-      "parent_path": "archive/DEPLOYED_RELEASE/stage6_candidate_selector_eval",
-      "parent_sha256": null,
+      "parent_availability": "TARGET_MIGRATED_HASH_VERIFIED",
+      "parent_path": "frozen/original_release/rl/stage6_selector_eval",
+      "parent_sha256": "manifested_per_file_in_provenance/ASSET_PACK_MANIFEST.json",
       "closure_status": "CLOSED",
-      "evidence": "5 source files; 190,169 bytes; not included in selected target asset packs",
-      "reproducibility_level": "source_available_target_open"
+      "evidence": "5 files; 190,169 bytes; copied and hash-verified in the selected target release.",
+      "reproducibility_level": "historical_source_replay"
     },
     {
       "logical_id": "llm.historical.final_plan3",

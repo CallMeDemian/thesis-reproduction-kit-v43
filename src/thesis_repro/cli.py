@@ -14,7 +14,7 @@ from .data import data_doctor, restore_data
 from .frozen import verify_frozen
 from .original_release import verify_original_release
 from .paths import ROOT, load_json
-from .run_engine import STAGES, execute, plan
+from .run_engine import STAGES, execute, plan, trace_run
 
 
 def _print(value: object) -> None:
@@ -53,6 +53,8 @@ def _build_parser() -> argparse.ArgumentParser:
     inspect = sub.add_parser("inspect")
     inspect.add_argument("kind", choices=("claim", "result", "run"))
     inspect.add_argument("identifier")
+    trace = sub.add_parser("trace")
+    trace.add_argument("--run-id", required=True)
     return parser
 
 
@@ -112,6 +114,8 @@ def main(argv: list[str] | None = None) -> None:
             _print(compare_run(args.run_id))
         elif args.command == "inspect":
             _print(_inspect(args.kind, args.identifier))
+        elif args.command == "trace":
+            _print(trace_run(args.run_id))
     except (FileNotFoundError, ValueError, PermissionError) as exc:
         _print({"status": "FAIL", "error": str(exc)})
         raise SystemExit(2)

@@ -11434,8 +11434,8 @@
     {
       "logical_id": "provenance.scientific_dag_closure",
       "path": "provenance/SCIENTIFIC_DAG_CLOSURE.json",
-      "sha256": "e8b520b106d69b2f288577e4bf526e49b97a3b498f8975465c4bb4732f6fed61",
-      "byte_size": 11482,
+      "sha256": "612e1a56f99abe2d5379076ed012a7476f2ef79580c2900b8aef8f7e8aa704f4",
+      "byte_size": 11621,
       "semantic_role": "scientific_dag_closure",
       "parents": [],
       "reproducibility_level": "R0_PROVENANCE"
@@ -11514,9 +11514,9 @@
     }
   ],
   "root_hash_basis": "sorted logical_id + sha256 + sorted parent logical IDs + sorted parent SHA256 values; release metadata and root files excluded",
-  "release_root_sha256": "4f5e98c27c757fb4819bb25989e4943552631a22a2f1c20d45a7ffccc5379c78",
+  "release_root_sha256": "883ff836d07292a175b1885b8e143035d7969b4ef69a3aeb50be7214a78c5f40",
   "artifact_count": 1035,
-  "total_bytes": 4816672890,
+  "total_bytes": 4816673029,
   "dag_closure": "historical_selected_compute_parents_closed; restricted raw input and fresh execution remain external/open",
   "remote_lfs_certification": {
     "schema_version": "remote_asset_certification_v1",
