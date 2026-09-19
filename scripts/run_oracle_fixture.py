@@ -32,17 +32,23 @@ def run(root: Path, run_id: str, artifact_root: Path | None = None, run_stage1: 
     raw_rating = run_root / "work/rating_sample"
     raw_all.mkdir(parents=True, exist_ok=True)
     raw_rating.mkdir(parents=True, exist_ok=True)
-    ids = [1, 1, 2]
-    base = {"거래소코드": ids, "회계년도": [2019, 2020, 2020], "회사명": ["Fixture A", "Fixture A", "Fixture B"], "시장": ["KOSPI", "KOSPI", "KOSPI"]}
-    statement_names = ["재무상태표", "손익계산서", "현금흐름표", "자본변동표", "이익잉여금처분계산서"]
-    for index, name in enumerate(statement_names):
-        rows = dict(base)
-        if name != "재무상태표":
-            rows = {k: [v[0], v[1]] for k, v in base.items()}
-        rows[f"U01A{index+1:010d}"] = [100.0 + index + i for i in range(len(rows["거래소코드"]))]
+    ids = list(range(1, 11)) + list(range(1, 11))
+    years = [2019] * 10 + [2020] * 10
+    base = {"거래소코드": ids, "회계년도": years, "회사명": [f"Fixture {i}" for i in range(1, 11)] * 2, "시장": ["KOSPI"] * len(ids)}
+    statement_codes = {
+        "재무상태표": ["U01A100000000", "U01A110000000", "U01A111038600", "U01A111038700", "U01A111045400", "U01A111050000", "U01A600000000", "U01A611000000", "U01A615000000", "U01A800000000", "U01A810000000", "U01A811000000", "U01A811012800", "U01A811026000", "U01A811026700", "U01A811030700"],
+        "손익계산서": ["U01B100000000", "U01B200000000", "U01B201014400", "U01B350014100", "U01B350014300", "U01B430000000", "U01B550000000", "U01B700000000", "U01B800000000", "U01B840000000", "U01B900000000"],
+        "현금흐름표": ["U01D100000000", "U01D200000000", "U01D206012400", "U01D300000000"],
+        "자본변동표": ["U01A600000000"], "이익잉여금처분계산서": ["U01A615000000"],
+    }
+    for index, name in enumerate(statement_codes):
+        keep = len(ids) if name == "재무상태표" else len(ids) - 2
+        rows = {k: v[:keep] for k, v in base.items()}
+        for code_index, code in enumerate(statement_codes[name]):
+            rows[code] = [100.0 + index + code_index + i * 3.0 for i in range(keep)]
         pd.DataFrame(rows).to_excel(raw_all / f"{name}.xlsx", index=False)
-    pd.DataFrame({**base, "U01R00000001": [1.1, 1.2, 2.2]}).to_excel(raw_all / "코스피_재무비율.xlsx", index=False)
-    pd.DataFrame({"거래소코드": ids, "회계년도": [2019, 2020, 2020], "회사명": ["Fixture A", "Fixture A", "Fixture B"], "시장": ["KOSPI", "KOSPI", "KOSPI"], "신용등급": ["BBB", "BBB", "BB"], "증권구분": [40, 40, 40], "평가사구분": [10, 10, 10], "평가사명 및 등급": ["NICE BBB", "NICE BBB", "NICE BB"], "평가일": ["2019/06/30", "2020/06/30", "2020/06/30"]}).to_excel(raw_rating / "rating.xlsx", index=False)
+    pd.DataFrame({**base, "U01R00000001": [1.1 + i * 0.1 for i in range(len(ids))]}).to_excel(raw_all / "코스피_재무비율.xlsx", index=False)
+    pd.DataFrame({**base, "신용등급": ["BBB"] * len(ids), "증권구분": [40] * len(ids), "평가사구분": [10] * len(ids), "평가사명 및 등급": ["NICE BBB"] * len(ids), "평가일": [f"{year}/06/30" for year in years]}).to_excel(raw_rating / "rating.xlsx", index=False)
     raw_root = run_root / "work/raw"
     shutil.copytree(raw_all, raw_root / "raw_all", dirs_exist_ok=True)
     shutil.copytree(raw_rating, raw_root / "rating_sample", dirs_exist_ok=True)
