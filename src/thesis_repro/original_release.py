@@ -8,8 +8,6 @@ import zipfile
 from pathlib import Path
 from typing import Any
 
-import pyarrow.parquet as pq
-
 from .paths import ROOT
 
 
@@ -33,6 +31,7 @@ def _root_hash(manifest: dict[str, Any]) -> str:
 
 
 def verify_original_release() -> dict[str, Any]:
+    import pyarrow.parquet as pq
     manifest = json.loads((ROOT / "frozen/original_release/ORIGINAL_RELEASE_MANIFEST.json").read_text(encoding="utf-8"))
     expected_root = (ROOT / "frozen/original_release/RELEASE_ROOT.txt").read_text(encoding="utf-8").strip()
     checks: list[dict[str, Any]] = []
