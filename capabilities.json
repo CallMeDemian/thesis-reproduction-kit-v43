@@ -1,12 +1,18 @@
 {
   "schema_version": "capabilities_v1",
-  "FrozenReplay": "CERTIFIED_EXECUTED",
-  "OracleClean": "CERTIFIED_SMOKE_HARNESS",
-  "OracleRLClean": "CERTIFIED_SMOKE_HARNESS",
-  "OracleRLLLMClean": "DRY_RUN_CARDINALITY_CERTIFIED_SOURCE_MIGRATED_RECONCILED",
+  "FrozenReplay": "FROZEN_CERTIFIED",
+  "OriginalAssetVerification": "FROZEN_CERTIFIED",
+  "OriginalC3ERebuild": "FROZEN_CERTIFIED",
+  "OracleClean": "SMOKE_CERTIFIED",
+  "OracleRLClean": "SMOKE_CERTIFIED",
+  "OracleRLLLMClean": "DRY_RUN_CERTIFIED",
+  "LLMDryRun48300": "DRY_RUN_CERTIFIED",
+  "LLMLiveFresh": "NOT_IMPLEMENTED",
   "FullClean": "PLANNED",
   "notes": [
     "Frozen ZIP and 914-row registry are locally verifiable.",
-    "The historical LLM source snapshot is migrated, hash-verified, and request-ID reconciled; no live call is enabled by default."
+    "The selected original Simulator and RL parent packs are hash-verified; RL_PARENT_GRAPH reports 28/28 closed historical actor chains.",
+    "The historical LLM source snapshot is migrated, hash-verified, and request-ID reconciled; no live call is enabled by default.",
+    "FullClean remains unexecuted because restricted raw inputs, 28-actor training, and live provider execution are not launched automatically."
   ]
 }

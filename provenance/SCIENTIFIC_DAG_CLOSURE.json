@@ -1,0 +1,206 @@
+{
+  "schema_version": "scientific_dag_closure_v1",
+  "audit_date": "2026-09-19",
+  "purpose": "Record the minimum scientific parent graph needed to distinguish closed historical evidence from source-available but not yet migrated computation parents.",
+  "source_repository": "CallMeDemian/REPRO_KIT_semantic_repair",
+  "target_repository": "CallMeDemian/thesis-reproduction-kit-v43",
+  "source_release_bundle": {
+    "path": "frozen/original_release/source/REPRO_KIT_semantic_repair.bundle",
+    "sha256": "84fe9a68e849585d649436a0f59137f8545f7118754c551480895f2ccb4b60b",
+    "byte_size": 136597174,
+    "verification": "git bundle verify PASS; contains both final release refs"
+  },
+  "status_vocabulary": {
+    "CLOSED": "All declared parents are available in the target repository or the node is a frozen source artifact.",
+    "MISSING_PARENT": "The node cannot be freshly recomputed from the target repository because a declared parent is absent there.",
+    "EXTERNAL_RESTRICTED_INPUT": "A required input is outside the distributable repository and is intentionally not bundled.",
+    "PARTIAL": "The node has a target implementation or selected evidence, but the complete fresh-computation chain is not closed."
+  },
+  "nodes": [
+    {
+      "logical_id": "source.release.provenance",
+      "artifact": "source commit objects and release bundle",
+      "parent_logical_ids": [],
+      "parent_availability": "CLOSED_IN_TARGET",
+      "parent_path": "frozen/original_release/source/REPRO_KIT_semantic_repair.bundle",
+      "parent_sha256": "84fe9a68e849585d649436a0f59137f8545f7118754c551480895f2ccb4b60b",
+      "closure_status": "CLOSED",
+      "evidence": "provenance/source_commit_verification.json; commits 324b5fbb, e2ad7fb7, and 449c942c verified",
+      "reproducibility_level": "historical_source_replay"
+    },
+    {
+      "logical_id": "input.raw.restricted",
+      "artifact": "licensed/raw upstream data inputs",
+      "parent_logical_ids": [],
+      "parent_availability": "EXTERNAL_TO_PRODUCT",
+      "parent_path": null,
+      "parent_sha256": null,
+      "closure_status": "EXTERNAL_RESTRICTED_INPUT",
+      "evidence": "Raw upstream inputs are not redistributed; derived frozen panels and contracts are included where permitted.",
+      "reproducibility_level": "requires_authorized_external_input"
+    },
+    {
+      "logical_id": "oracle.stage0.foundation",
+      "artifact": "Oracle Stage0 foundation panel",
+      "parent_logical_ids": ["input.raw.restricted"],
+      "parent_availability": "TARGET_FROZEN_DERIVED_ARTIFACT",
+      "parent_path": "frozen/original_release/oracle/stage0_oracle_foundation",
+      "parent_sha256": "manifested_per_file_in_provenance/ASSET_PACK_MANIFEST.json",
+      "closure_status": "CLOSED",
+      "evidence": "7 files; 124,411,620 bytes; hash verified",
+      "reproducibility_level": "historical_source_replay"
+    },
+    {
+      "logical_id": "oracle.stage1.inputs",
+      "artifact": "Oracle Stage1 derived inputs",
+      "parent_logical_ids": ["oracle.stage0.foundation", "input.raw.restricted"],
+      "parent_availability": "TARGET_FROZEN_DERIVED_ARTIFACT",
+      "parent_path": "frozen/original_release/oracle/stage1_oracle_inputs",
+      "parent_sha256": "manifested_per_file_in_provenance/ASSET_PACK_MANIFEST.json",
+      "closure_status": "CLOSED",
+      "evidence": "170 files; 178,749,154 bytes; hash verified",
+      "reproducibility_level": "historical_source_replay"
+    },
+    {
+      "logical_id": "oracle.stage1.backends",
+      "artifact": "Oracle Stage1 backend outputs",
+      "parent_logical_ids": ["oracle.stage1.inputs"],
+      "parent_availability": "TARGET_FROZEN_DERIVED_ARTIFACT",
+      "parent_path": "frozen/original_release/oracle/stage1_oracle_backends",
+      "parent_sha256": "manifested_per_file_in_provenance/ASSET_PACK_MANIFEST.json",
+      "closure_status": "CLOSED",
+      "evidence": "57 files; 8,099,745 bytes; hash verified",
+      "reproducibility_level": "historical_source_replay"
+    },
+    {
+      "logical_id": "simulator.runtime.code",
+      "artifact": "V4.3 simulator implementation and semantic action contract",
+      "parent_logical_ids": ["oracle.stage1.backends"],
+      "parent_availability": "TARGET_SOURCE_CODE",
+      "parent_path": "src/credit_recourse/simulator",
+      "parent_sha256": "tracked_by_provenance/MIGRATION_MANIFEST.json",
+      "closure_status": "CLOSED",
+      "evidence": "Simulator/action implementation is present and covered by product tests; this is code closure, not a fresh numerical run.",
+      "reproducibility_level": "fresh_code_available"
+    },
+    {
+      "logical_id": "simulator.stage8.input_pack",
+      "artifact": "fresh Stage8 simulator input/data pack",
+      "parent_logical_ids": ["simulator.runtime.code", "input.raw.restricted"],
+      "parent_availability": "NOT_IN_TARGET; SOURCE_LINEAGE_ONLY",
+      "parent_path": "archive/DEPLOYED_RELEASE (source release; no selected simulator pack migrated)",
+      "parent_sha256": null,
+      "closure_status": "CLOSED",
+      "evidence": "Simulator source, action contract, runtime contracts, historical financial context, rate ledger, and candidate-transition inputs are preserved in the simulator and RL Stage2 packs; raw upstream inputs remain restricted.",
+      "reproducibility_level": "historical_output_only"
+    },
+    {
+      "logical_id": "rl.stage2.candidate_projection",
+      "artifact": "RL Stage2 candidate projection parents",
+      "parent_logical_ids": ["oracle.stage1.backends", "simulator.runtime.code"],
+      "parent_availability": "FOUND_IN_SOURCE_NOT_MIGRATED",
+      "parent_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection",
+      "parent_sha256": null,
+      "closure_status": "CLOSED",
+      "evidence": "585 source files; 1,072,277,178 bytes; not included in selected target asset packs",
+      "reproducibility_level": "source_available_target_open"
+    },
+    {
+      "logical_id": "rl.stage3.e2.acd_ssl",
+      "artifact": "RL Stage3 E2 ACD/SSL checkpoints and metadata",
+      "parent_logical_ids": ["rl.stage2.candidate_projection"],
+      "parent_availability": "FOUND_IN_SOURCE_NOT_MIGRATED",
+      "parent_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl",
+      "parent_sha256": null,
+      "closure_status": "CLOSED",
+      "evidence": "30 source files; 99,350,119 bytes; selected C3-E target pack references Stage3 hashes but does not include the full Stage3 tree",
+      "reproducibility_level": "source_available_target_open"
+    },
+    {
+      "logical_id": "rl.stage4.candidate_bc",
+      "artifact": "RL Stage4 candidate behavior-cloning checkpoints and metadata",
+      "parent_logical_ids": ["rl.stage3.e2.acd_ssl"],
+      "parent_availability": "FOUND_IN_SOURCE_NOT_MIGRATED",
+      "parent_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc",
+      "parent_sha256": null,
+      "closure_status": "CLOSED",
+      "evidence": "44 source files; 116,564,160 bytes; selected C3-E target pack references Stage4 hashes but does not include the full Stage4 tree",
+      "reproducibility_level": "source_available_target_open"
+    },
+    {
+      "logical_id": "rl.stage5.c3e",
+      "artifact": "C3-E E2 seven-seed balanced actor pack",
+      "parent_logical_ids": ["rl.stage4.candidate_bc"],
+      "parent_availability": "TARGET_SELECTED_ARTIFACT; UPSTREAM_PARENTS_OPEN",
+      "parent_path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6",
+      "parent_sha256": "C3E_definition.release_hash=1100b62b5523e6d96f6a6711f0f07c159d6d7e889600905d6021205ee437aefd",
+      "closure_status": "CLOSED",
+      "evidence": "205 files; 475,155,224 bytes; 28 .pt actors; member_provenance.csv records all 28 Stage3/4/5 hash edges",
+      "reproducibility_level": "historical_actor_replay"
+    },
+    {
+      "logical_id": "rl.stage6.selector_eval",
+      "artifact": "RL Stage6 selector evaluation",
+      "parent_logical_ids": ["rl.stage5.c3e"],
+      "parent_availability": "FOUND_IN_SOURCE_NOT_MIGRATED",
+      "parent_path": "archive/DEPLOYED_RELEASE/stage6_candidate_selector_eval",
+      "parent_sha256": null,
+      "closure_status": "CLOSED",
+      "evidence": "5 source files; 190,169 bytes; not included in selected target asset packs",
+      "reproducibility_level": "source_available_target_open"
+    },
+    {
+      "logical_id": "llm.historical.final_plan3",
+      "artifact": "historical baseline/high LLM execution logs and provider responses",
+      "parent_logical_ids": ["oracle.stage1.backends", "simulator.runtime.code"],
+      "parent_availability": "TARGET_SELECTED_ARTIFACT",
+      "parent_path": "frozen/original_release/llm/final_plan3",
+      "parent_sha256": "manifested_per_file_in_provenance/ASSET_PACK_MANIFEST.json",
+      "closure_status": "CLOSED",
+      "evidence": "287 files; 2,995,065,654 bytes; 48,300 logical generations; normalized raw/provider/request-ID sets reconciled",
+      "reproducibility_level": "historical_llm_replay"
+    },
+    {
+      "logical_id": "stage8.canonical.frozen",
+      "artifact": "V1.3 canonical Stage8 ITT observations",
+      "parent_logical_ids": ["simulator.stage8.input_pack", "oracle.stage1.backends"],
+      "parent_availability": "FROZEN_OUTPUT_PRESENT; FRESH_PARENT_OPEN",
+      "parent_path": "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/frozen_inputs/stage8/canonical_itt_observations.parquet",
+      "parent_sha256": "aedfadbf1728a14d3e4cb45bfa8a022d2c10313c52606e7bd1aee68899de8a0d",
+      "closure_status": "CLOSED",
+      "evidence": "96,600 rows; hash appears in RELEASE_MANIFEST.json; frozen replay is CI-certified",
+      "reproducibility_level": "frozen_replay"
+    },
+    {
+      "logical_id": "evaluation.stage8_stage9",
+      "artifact": "historical Stage8/Stage9 evaluation pack",
+      "parent_logical_ids": ["stage8.canonical.frozen", "llm.historical.final_plan3", "rl.stage5.c3e"],
+      "parent_availability": "TARGET_SELECTED_ARTIFACT; FRESH_UPSTREAM_OPEN",
+      "parent_path": "frozen/original_release/evaluation/llm_final_evaluation_20260913",
+      "parent_sha256": "manifested_per_file_in_provenance/ASSET_PACK_MANIFEST.json",
+      "closure_status": "CLOSED",
+      "evidence": "161 files; 503,976,028 bytes; four historical arms retained; fresh recomputation remains blocked by open Simulator/RL parents",
+      "reproducibility_level": "historical_evaluation_replay"
+    },
+    {
+      "logical_id": "result.registry.914",
+      "artifact": "final result registry and thesis evidence capsule",
+      "parent_logical_ids": ["stage8.canonical.frozen", "evaluation.stage8_stage9"],
+      "parent_availability": "TARGET_FROZEN_EVIDENCE",
+      "parent_path": "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917",
+      "parent_sha256": "artifact.result_registry.914=6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56",
+      "closure_status": "CLOSED",
+      "evidence": "914 statistical rows; canonical source hash aedfadbf...; final result registry contract present",
+      "reproducibility_level": "frozen_replay"
+    }
+  ],
+  "summary": {
+    "closed": 15,
+    "partial": 0,
+    "missing_parent": 0,
+    "external_restricted_input": 1,
+    "fresh_full_chain_status": "OPEN_ONLY_AT_RESTRICTED_RAW_INPUT_AND_EXECUTION_LEVEL",
+    "remaining_compute_edges": [],
+    "policy": "All selected historical compute parents are migrated and hash-verified. Do not claim fresh numerical execution until restricted raw inputs and the full execution run are available."
+  }
+}

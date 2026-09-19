@@ -8047,11 +8047,1294 @@
           "destination_relative_path": "frozen/original_release/evaluation/llm_final_evaluation_20260913/worktree/src/credit_recourse/eval/final_stage9_llm_rl_comparison/revision_metrics.py"
         }
       ]
+    },
+    {
+      "pack_id": "simulator_release",
+      "source_relative_root": "multiple_release_critical_paths",
+      "planned_target_root": "frozen/original_release/simulator/src/credit_recourse/simulator",
+      "status": "COPIED_AND_HASH_VERIFIED",
+      "file_count": 33,
+      "total_bytes": 514234,
+      "files": [
+        {
+          "source_relative_path": "src/credit_recourse/simulator/__init__.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/__init__.py",
+          "byte_size": 3505,
+          "sha256": "c4374a0ff82ab27d0838e291f9cccffb8137982a2929a727485015f9c4f2a708",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/__init__.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/action.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/action.py",
+          "byte_size": 4687,
+          "sha256": "e1aeb013d528034ef38e676be04d11b34def04936b9769eb24c4842c0c10f427",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/action.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/business_plan.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/business_plan.py",
+          "byte_size": 7838,
+          "sha256": "d0991ed618e4b8a2a103c30104f0efd4b9e32ed3bec15c30b373c79cb84b9e6b",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/business_plan.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/business_plan_factory.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/business_plan_factory.py",
+          "byte_size": 1752,
+          "sha256": "11abb9516d8d1465cbfa1b01df6a569ae88c2bbffe3e58a322a1656530bcaaec",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/business_plan_factory.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/business_plan_interest_rate_v2.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/business_plan_interest_rate_v2.py",
+          "byte_size": 3568,
+          "sha256": "a9f37e10357b74251483b6a99bda076b61426700d69370620e4daf9f1e62f05b",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/business_plan_interest_rate_v2.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/business_plan_interest_rate_v3.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/business_plan_interest_rate_v3.py",
+          "byte_size": 8338,
+          "sha256": "4a3bf8abe291ded677e86b5154cc608a574eceee2ffbb3fb42cfcd18ccda322c",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/business_plan_interest_rate_v3.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/business_plan_interest_rate_v3_1.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/business_plan_interest_rate_v3_1.py",
+          "byte_size": 3073,
+          "sha256": "bac8922f816b58b739b5131c07099af537e0de3bae37c7f588bf6e0764667341",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/business_plan_interest_rate_v3_1.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/business_plan_interest_rate_v4.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/business_plan_interest_rate_v4.py",
+          "byte_size": 10540,
+          "sha256": "6c65affff75547f3115dad916cbb9c136f67127c5899e152ed6f61dc29b7bda1",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/business_plan_interest_rate_v4.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/dl_interest_timing.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/dl_interest_timing.py",
+          "byte_size": 5103,
+          "sha256": "75574a755014bd2f2ec5ed8bb2a189a49013cd766904763b27fcc3dce49b0f34",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/dl_interest_timing.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/executed_primitives.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/executed_primitives.py",
+          "byte_size": 7991,
+          "sha256": "6ef591a42f1943ab7d7d9002319288a5bedbcddd57015c07d78042e3ce2aba7d",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/executed_primitives.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/execution_status.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/execution_status.py",
+          "byte_size": 624,
+          "sha256": "0938514bada029b223d8ac527fdaf34b3ad5e789c6b302bdfdfb8f8cb291dbaa",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/execution_status.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/financial_cost_v43.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/financial_cost_v43.py",
+          "byte_size": 4055,
+          "sha256": "24fe6f0bf0ff58db56edada5fd441e060d327d4948463349af10c53746e2e974",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/financial_cost_v43.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/financial_simulator.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/financial_simulator.py",
+          "byte_size": 37995,
+          "sha256": "77cd49f23dc8fc2502d3547d353d32ad076c7ea9bccdf2a7c65f724a46f41270",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/financial_simulator.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/firm_state.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/firm_state.py",
+          "byte_size": 6851,
+          "sha256": "1e10411137934580d32da021f10dc3494da00bbb6ab8b701d60f7d5bdb264b2e",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/firm_state.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/historical_primitives.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/historical_primitives.py",
+          "byte_size": 11580,
+          "sha256": "b5c4381111cc3bfd05a9503e509401f9938b65316c03fc72b911d166309c8d0d",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/historical_primitives.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/historical_source.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/historical_source.py",
+          "byte_size": 2838,
+          "sha256": "35d135a1ed012ca4d518ea17d161541e8134bf6b03bc80b563dd6fea31300003",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/historical_source.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/oracle_evaluator.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/oracle_evaluator.py",
+          "byte_size": 8230,
+          "sha256": "8fc7e833949b1ea0bf2d9e3ef7b91bfc67bd6b1497b74826f41d814103b8a218",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/oracle_evaluator.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/oracle_variable_contract.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/oracle_variable_contract.py",
+          "byte_size": 15735,
+          "sha256": "34d049e30e30b0b37175c784cfd864f5b2b2cd22870af83b7e4dedffe5222b71",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/oracle_variable_contract.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/oracle_variables.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/oracle_variables.py",
+          "byte_size": 16273,
+          "sha256": "b05a20fe0a62c8c4128e406ba47190c8778650b5d6347ec901d4af0503c96fc2",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/oracle_variables.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/ratio_alias.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/ratio_alias.py",
+          "byte_size": 4828,
+          "sha256": "082b1a1b241b4b2f526d3bcbaa1f366402a05c4825a8a8154e44b533d64ef5d8",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/ratio_alias.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/semantic_action_v4.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/semantic_action_v4.py",
+          "byte_size": 55838,
+          "sha256": "29d85e1101fab1c68fc68b33cb2d7305751cff3cc4163cf7c56139066c66a313",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/semantic_action_v4.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/synthetic.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/synthetic.py",
+          "byte_size": 3204,
+          "sha256": "782fc7a13817c1fc9b0ab4110b5fe2022ed3b484704b2d9bb7a2dfb4ba7d54ce",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/synthetic.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/v43_production_bundle.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/v43_production_bundle.py",
+          "byte_size": 12700,
+          "sha256": "36bb4262dc2e9f12582bd7035d152383faae6b0d286e275abca1e57215d5d483",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/v43_production_bundle.py"
+        },
+        {
+          "source_relative_path": "src/credit_recourse/simulator/v43_production_runners.py",
+          "planned_target_path": "frozen/original_release/simulator/src/credit_recourse/simulator/v43_production_runners.py",
+          "byte_size": 213,
+          "sha256": "405fce106da0e6d8599911a194b002bd1b086e4a054e29c443a53d40289917c2",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/src/credit_recourse/simulator/v43_production_runners.py"
+        },
+        {
+          "source_relative_path": "configs/current/contract_manifest.json",
+          "planned_target_path": "frozen/original_release/simulator/configs/current/contract_manifest.json",
+          "byte_size": 3902,
+          "sha256": "f81b937afc1588ae6a01a9574d43ba3df5802eadda8243ba66cd1c50f14234bf",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/configs/current/contract_manifest.json"
+        },
+        {
+          "source_relative_path": "configs/current/final_freeze/final_action_contract.yaml",
+          "planned_target_path": "frozen/original_release/simulator/configs/current/final_freeze/final_action_contract.yaml",
+          "byte_size": 1760,
+          "sha256": "1ed08da66344fcd895623fd1351ca1387b69b538f2b833cd417001ffddf271d6",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/configs/current/final_freeze/final_action_contract.yaml"
+        },
+        {
+          "source_relative_path": "configs/current/final_freeze/final_candidate_library.yaml",
+          "planned_target_path": "frozen/original_release/simulator/configs/current/final_freeze/final_candidate_library.yaml",
+          "byte_size": 16693,
+          "sha256": "29119195f0fbe0f31491dbdab011887acba38d377ec87a6c535931293a54ca1b",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/configs/current/final_freeze/final_candidate_library.yaml"
+        },
+        {
+          "source_relative_path": "configs/current/final_freeze/final_oracle_rl_contract.json",
+          "planned_target_path": "frozen/original_release/simulator/configs/current/final_freeze/final_oracle_rl_contract.json",
+          "byte_size": 9741,
+          "sha256": "ab457d80bf89de99670bc2a89513df115c0f58cd73517de68a0c967c54f99483",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/configs/current/final_freeze/final_oracle_rl_contract.json"
+        },
+        {
+          "source_relative_path": "configs/current/final_freeze/frozen_python_environment.json",
+          "planned_target_path": "frozen/original_release/simulator/configs/current/final_freeze/frozen_python_environment.json",
+          "byte_size": 1886,
+          "sha256": "7911fa6d85e42f0b93150c4a2bf452d86bee360b4bcc05a37f9557c3b959d6f6",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/configs/current/final_freeze/frozen_python_environment.json"
+        },
+        {
+          "source_relative_path": "configs/current/final_freeze/reproduction_input_inventory.json",
+          "planned_target_path": "frozen/original_release/simulator/configs/current/final_freeze/reproduction_input_inventory.json",
+          "byte_size": 239826,
+          "sha256": "f4da799876cadcb73da09de23c64c88aec9618192efce8dd8cba526ddd0062bf",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/configs/current/final_freeze/reproduction_input_inventory.json"
+        },
+        {
+          "source_relative_path": "configs/current/final_freeze/simulator_ratio_alias_map.json",
+          "planned_target_path": "frozen/original_release/simulator/configs/current/final_freeze/simulator_ratio_alias_map.json",
+          "byte_size": 364,
+          "sha256": "2b7fc0cc747442fe1b1ff7f06962bfd987a1fe3c6f047a8c540f227db49b6129",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/configs/current/final_freeze/simulator_ratio_alias_map.json"
+        },
+        {
+          "source_relative_path": "configs/current/final_freeze/stage2_action_source_map.json",
+          "planned_target_path": "frozen/original_release/simulator/configs/current/final_freeze/stage2_action_source_map.json",
+          "byte_size": 312,
+          "sha256": "7db180a6e12036db73c6135a8d9819be395ccd31ab6555261e02ca88274d7c59",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/configs/current/final_freeze/stage2_action_source_map.json"
+        },
+        {
+          "source_relative_path": "configs/current/final_freeze/v43_rl.json",
+          "planned_target_path": "frozen/original_release/simulator/configs/current/final_freeze/v43_rl.json",
+          "byte_size": 2391,
+          "sha256": "19a8829d40421301bf059f1d9cdbc63345c0f64be559c2d19a2a4532b65f9a2e",
+          "semantic_role": "simulator_release",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/simulator/configs/current/final_freeze/v43_rl.json"
+        }
+      ]
+    },
+    {
+      "pack_id": "rl_stage3_e2_parent",
+      "source_relative_root": "archive/DEPLOYED_RELEASE/stage3_acd_ssl",
+      "planned_target_root": "frozen/original_release/rl/stage3_e2",
+      "status": "COPIED_AND_HASH_VERIFIED",
+      "file_count": 30,
+      "total_bytes": 99350119,
+      "files": [
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/CURRENT_RELEASE.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/CURRENT_RELEASE.json",
+          "byte_size": 1043,
+          "sha256": "e5c349b9820ab86e9c4c7b6368d2220b6498d9bcf4f105f8cda6fd6a9fc90917",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/CURRENT_RELEASE.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/DEPLOYMENT_MANIFEST.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/DEPLOYMENT_MANIFEST.json",
+          "byte_size": 3378,
+          "sha256": "1ba496d505e61561ea65005fff780f810a16f0f07a61101adb80d85158340d1f",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/DEPLOYMENT_MANIFEST.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_11/execution.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_11/execution.json",
+          "byte_size": 696,
+          "sha256": "5195c632ce6535efe3f3abd36b62b48a4492fc6295ff70c33d86a05bbf319965",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_11/execution.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_11/final_epoch.pt",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_11/final_epoch.pt",
+          "byte_size": 14182894,
+          "sha256": "ee6c82a66bfb52e76e14af8b6b716f0a8884d06bf6678c41e2a5d7c688a8bcfd",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_11/final_epoch.pt"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_11/optimizer_audit.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_11/optimizer_audit.json",
+          "byte_size": 353,
+          "sha256": "d0bc5a1e9f93a5eeb9cc6c603869632edce5b42f22dda467033459fee2932dd7",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_11/optimizer_audit.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_11/training_log.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_11/training_log.json",
+          "byte_size": 8295,
+          "sha256": "81036cc46f12760c3b28e43a8688b09b0c3d78c034e52669cbe971af344ddc1a",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_11/training_log.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_12/execution.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_12/execution.json",
+          "byte_size": 695,
+          "sha256": "4ec56094cb3e5a3b0efd9a219afa3519d29396a0a71758a7a02e4d8a8f383e06",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_12/execution.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_12/final_epoch.pt",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_12/final_epoch.pt",
+          "byte_size": 14182894,
+          "sha256": "37031e713d6fb8d8231c5ba4331effb08641c8433c6b0d9020192f48c247d496",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_12/final_epoch.pt"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_12/optimizer_audit.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_12/optimizer_audit.json",
+          "byte_size": 353,
+          "sha256": "e32bdad8aad6d48dc87fe67452894443841c724f7ce9de95c1fd8a932a1a1ac1",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_12/optimizer_audit.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_12/training_log.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_12/training_log.json",
+          "byte_size": 8287,
+          "sha256": "ab3fc2d321e8027651391528d36f88d2f44a5366fdd9dd668a7877ce84e10e89",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_12/training_log.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_13/execution.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_13/execution.json",
+          "byte_size": 696,
+          "sha256": "2cc1b22d0791d7ddc0d4e596c5ee75cd3fd4340ea5220b7f7e742582a132a32a",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_13/execution.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_13/final_epoch.pt",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_13/final_epoch.pt",
+          "byte_size": 14182894,
+          "sha256": "de56bfd12bdf267b97b6310f3adb95a050bb7b08ac7862f55282d80ae6ef9b3e",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_13/final_epoch.pt"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_13/optimizer_audit.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_13/optimizer_audit.json",
+          "byte_size": 353,
+          "sha256": "a66a3d1b37c21b066aa7668335da2b06cf20ceda676b411141a86adb47888b6d",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_13/optimizer_audit.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_13/training_log.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_13/training_log.json",
+          "byte_size": 8296,
+          "sha256": "b3deb49245ce0a752bf0de3c291e5111cd57d7095a8a809ee4861dbb545fb777",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_13/training_log.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_14/execution.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_14/execution.json",
+          "byte_size": 696,
+          "sha256": "c18b3606cd40a18675e1945e60a6f06077d5d34bc1f4fc1ccbe0eba253272ad2",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_14/execution.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_14/final_epoch.pt",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_14/final_epoch.pt",
+          "byte_size": 14182894,
+          "sha256": "8049552b9548aa8b773eafbb271d976f3c50d43b6c525da22c591d0bc26b04c6",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_14/final_epoch.pt"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_14/optimizer_audit.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_14/optimizer_audit.json",
+          "byte_size": 353,
+          "sha256": "b4dc1b8b1193ba35095cc06b1bef01aada0c5e56bd0dce2f156f7a11ee35db19",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_14/optimizer_audit.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_14/training_log.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_14/training_log.json",
+          "byte_size": 8316,
+          "sha256": "8660efe56648d1d00fd7903305794413d0903e638af2d4e0efb7f43046e09346",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_14/training_log.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_15/execution.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_15/execution.json",
+          "byte_size": 696,
+          "sha256": "7f85c5e797c1a4d372fc6d53777212cd333c4d8466f8ac73b2b9da5efd035ace",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_15/execution.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_15/final_epoch.pt",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_15/final_epoch.pt",
+          "byte_size": 14182894,
+          "sha256": "e87beb0ef6b2886359e020cafff4b59f9446162dc5792aa8092db73e16cead24",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_15/final_epoch.pt"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_15/optimizer_audit.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_15/optimizer_audit.json",
+          "byte_size": 353,
+          "sha256": "765f9293cae5da4ae57b3925104be4aa02d314aa0662c258baa9eb929acf342d",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_15/optimizer_audit.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_15/training_log.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_15/training_log.json",
+          "byte_size": 8305,
+          "sha256": "c7e89d484b121d972a47cefb383f4e7cd33e49bb1a4af56c2c5a71ef1ea6a77e",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_15/training_log.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_16/execution.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_16/execution.json",
+          "byte_size": 696,
+          "sha256": "d2305b30c8147ccea031284771b99dbf8e63e0e0a6acf14e442bf4a65be34285",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_16/execution.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_16/final_epoch.pt",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_16/final_epoch.pt",
+          "byte_size": 14182894,
+          "sha256": "cf90b760c7cc0c769f3a0a7c9c4f0dde1ebf11ffc439b09d16e8527521e23bbb",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_16/final_epoch.pt"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_16/optimizer_audit.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_16/optimizer_audit.json",
+          "byte_size": 353,
+          "sha256": "c17294f209770afe442dc6a9c6c83b941367190537417484effb1c852dcf514f",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_16/optimizer_audit.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_16/training_log.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_16/training_log.json",
+          "byte_size": 8297,
+          "sha256": "fc88456e86f8bc828266005949b01c1d72161a6939993922dc1807ab25a6820e",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_16/training_log.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_2/execution.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_2/execution.json",
+          "byte_size": 694,
+          "sha256": "0f790b9d76797ed858f3be7b6328288b98b490ba1342795b66b948ae9bcd91f0",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_2/execution.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_2/final_epoch.pt",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_2/final_epoch.pt",
+          "byte_size": 14182894,
+          "sha256": "fd1164cd591896f16bf06d8130d2faefe59d20f24314c434fc896edf1fb43edf",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_2/final_epoch.pt"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_2/optimizer_audit.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_2/optimizer_audit.json",
+          "byte_size": 353,
+          "sha256": "451919ce22595fa6e0075c873adfd78acc4d571586969dd947e16d6655fd34b2",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_2/optimizer_audit.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage3_acd_ssl/deployed_ensemble_e2_7seed/seed_2/training_log.json",
+          "planned_target_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_2/training_log.json",
+          "byte_size": 8304,
+          "sha256": "5fb99e45415501542772799ae3a1c64ff42e5be463149a52cc8a8537290379f5",
+          "semantic_role": "rl_stage3_e2_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_2/training_log.json"
+        }
+      ]
+    },
+    {
+      "pack_id": "rl_stage4_bc_parent",
+      "source_relative_root": "archive/DEPLOYED_RELEASE/stage4_candidate_bc",
+      "planned_target_root": "frozen/original_release/rl/stage4_bc",
+      "status": "COPIED_AND_HASH_VERIFIED",
+      "file_count": 44,
+      "total_bytes": 116564160,
+      "files": [
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/CURRENT_RELEASE.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/CURRENT_RELEASE.json",
+          "byte_size": 1053,
+          "sha256": "9bc6e8f0fdbdca1a154444d9d0637e24a01ad0e703a3ca1f316a729a4e9c984d",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/CURRENT_RELEASE.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/DEPLOYMENT_MANIFEST.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/DEPLOYMENT_MANIFEST.json",
+          "byte_size": 3469,
+          "sha256": "ac822724f4b8d5013401e27d17c9168b8cf865b89e73140cbbe297b0b642cb3f",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/DEPLOYMENT_MANIFEST.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_11/action_diagnostics.csv",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/action_diagnostics.csv",
+          "byte_size": 1877,
+          "sha256": "ed84c31083955e1141da8e8bc464da1e4b6eb507733b610dd68f040fb081921c",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/action_diagnostics.csv"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_11/action_diagnostics.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/action_diagnostics.json",
+          "byte_size": 7243,
+          "sha256": "64fea957b73f4c09a49f92e8ca1e413fb2cca72762b08fa1a3abd57ceaab2e71",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/action_diagnostics.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_11/execution.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/execution.json",
+          "byte_size": 978,
+          "sha256": "eab50bca869cf913117a8a1c44647b4c44b026c7fdc241045adc7ca8d165a9da",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/execution.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_11/final_epoch.pt",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/final_epoch.pt",
+          "byte_size": 16633668,
+          "sha256": "29555efde0533eefa245be92bf72690acb74a922e50b698b0569db1f57d154a0",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/final_epoch.pt"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_11/optimizer_audit.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/optimizer_audit.json",
+          "byte_size": 381,
+          "sha256": "d7bd4fd9515bec8fb93a2205954cde6f3800bd666db5958f125db9dc182278c1",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/optimizer_audit.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_11/training_log.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/training_log.json",
+          "byte_size": 7225,
+          "sha256": "86f1c27daf810f15d45f70582946f890c2c3bfa78c195094b1e6b90722a97902",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/training_log.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_12/action_diagnostics.csv",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/action_diagnostics.csv",
+          "byte_size": 1885,
+          "sha256": "7f8fbe5d12f1527480fafff9084ce0a16c94d9e20e3d1aadc06764dc3ba2c6d4",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/action_diagnostics.csv"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_12/action_diagnostics.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/action_diagnostics.json",
+          "byte_size": 7254,
+          "sha256": "6d2dcd97d14e8458cab053ceb2cdfa2e16c321ed918c750ce953b345cb649c54",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/action_diagnostics.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_12/execution.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/execution.json",
+          "byte_size": 978,
+          "sha256": "ce3d149af53e2ee0b75b6cde35c0c79c35129defffc02a834f05bb7ed8542148",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/execution.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_12/final_epoch.pt",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/final_epoch.pt",
+          "byte_size": 16633668,
+          "sha256": "6c86baadb4138a966cd590424bc097eeba1ed737ea695e029d9d53ed19ef8bf4",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/final_epoch.pt"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_12/optimizer_audit.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/optimizer_audit.json",
+          "byte_size": 381,
+          "sha256": "bdb4054aa8c67cc03d42b594ab1594e3ee179171ec2ad3eac945714c05b04717",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/optimizer_audit.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_12/training_log.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/training_log.json",
+          "byte_size": 7239,
+          "sha256": "3a8917a793df1e66284f13796633c38764a78dbb69de7f5b1c678c96834c742f",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/training_log.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_13/action_diagnostics.csv",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/action_diagnostics.csv",
+          "byte_size": 1884,
+          "sha256": "42810f2b05b2be9f62f6a681f4f7ac8a405cb3c982be86795b210fdbb2c20d9b",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/action_diagnostics.csv"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_13/action_diagnostics.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/action_diagnostics.json",
+          "byte_size": 7248,
+          "sha256": "880ea95cf7c979e7031d9590676651c62e0b71350a1a24e6336bcad91867e1de",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/action_diagnostics.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_13/execution.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/execution.json",
+          "byte_size": 978,
+          "sha256": "81383f6f2835df074377cc4bb4e3e49c427b0e5d8258770f3ccc42978dc365d4",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/execution.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_13/final_epoch.pt",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/final_epoch.pt",
+          "byte_size": 16633668,
+          "sha256": "ee003af1a3a1cf5a86a60b64fc3ff8ee04abf703e586f00e30554ce28fbe4fda",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/final_epoch.pt"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_13/optimizer_audit.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/optimizer_audit.json",
+          "byte_size": 381,
+          "sha256": "be34347dca4931193ae1ac2d985de7f6c8940719cf5658c079e961334ced236b",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/optimizer_audit.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_13/training_log.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/training_log.json",
+          "byte_size": 7228,
+          "sha256": "2d2875087ae6a6f0a7758d018b69d8c9cd2fc8d59c564b54868f32598f9a7350",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/training_log.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_14/action_diagnostics.csv",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/action_diagnostics.csv",
+          "byte_size": 1879,
+          "sha256": "50dec030fedf547a5c380be08a593b80d62ba38137d331685e80dd8b00d6099f",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/action_diagnostics.csv"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_14/action_diagnostics.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/action_diagnostics.json",
+          "byte_size": 7248,
+          "sha256": "b54e79e9df25e0a89cfe86d77c5570e0d99da2e71d30686b446f79ee129bb440",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/action_diagnostics.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_14/execution.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/execution.json",
+          "byte_size": 976,
+          "sha256": "09660a5ed9dcef74a602766a82a8b7fb71ca1a805296ad276dd407089dee1455",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/execution.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_14/final_epoch.pt",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/final_epoch.pt",
+          "byte_size": 16633668,
+          "sha256": "a494becded267f2ccc27016e762ea47cbee44a1ca996858fa7a3b8584b5dc643",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/final_epoch.pt"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_14/optimizer_audit.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/optimizer_audit.json",
+          "byte_size": 381,
+          "sha256": "3485d7ef7d8eefff12f3d0b608b871e41c3cd165a4a8f138da98dd0cb0404196",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/optimizer_audit.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_14/training_log.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/training_log.json",
+          "byte_size": 7234,
+          "sha256": "bc679cd0fb257db9da70ef80253ad17929d0d3407d9efc9f07575c2404f79e5f",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/training_log.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_15/action_diagnostics.csv",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/action_diagnostics.csv",
+          "byte_size": 1883,
+          "sha256": "86f3ce91540a6bdadbcfe767d5e2d3f955ecded7c0442bd334c9f4562efe68c9",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/action_diagnostics.csv"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_15/action_diagnostics.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/action_diagnostics.json",
+          "byte_size": 7253,
+          "sha256": "3297a516995e511a4324c901bab43f6721d414f8217b5d3cdd20e9cb225cb849",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/action_diagnostics.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_15/execution.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/execution.json",
+          "byte_size": 977,
+          "sha256": "d5d366a6c186951992b63fcf768d6049180f6a4096946d79083b1dcc9793a80f",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/execution.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_15/final_epoch.pt",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/final_epoch.pt",
+          "byte_size": 16633668,
+          "sha256": "9e585088ef41aac94868b866c50788057fdecc550c4a86f66140c97765cc7b22",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/final_epoch.pt"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_15/optimizer_audit.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/optimizer_audit.json",
+          "byte_size": 381,
+          "sha256": "5dcceff2cdc2f8f87c7851e1e73c5cfee5ff8dcb9d703cbf356f80de5aa3af4e",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/optimizer_audit.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_15/training_log.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/training_log.json",
+          "byte_size": 7230,
+          "sha256": "5a64e74145838d8559e36f070f69dc02316f7fb10411c5823ac6ad7672b31bfd",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/training_log.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_16/action_diagnostics.csv",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/action_diagnostics.csv",
+          "byte_size": 1885,
+          "sha256": "97a6c8efd30d76041e962f63176a49bde7ba1a6924317cd0b02056f981e113e5",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/action_diagnostics.csv"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_16/action_diagnostics.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/action_diagnostics.json",
+          "byte_size": 7243,
+          "sha256": "fa49a5117ae8e94c1150315dcb594e6ea00b6edab41cefa27b1cf0cf9d29468d",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/action_diagnostics.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_16/execution.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/execution.json",
+          "byte_size": 976,
+          "sha256": "6f029169da8e510b61c79a56316c9c13ecbbd828853b5e39b832a42b494f3887",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/execution.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_16/final_epoch.pt",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/final_epoch.pt",
+          "byte_size": 16633668,
+          "sha256": "ff135a368d16582cce9230d3d2ae18b4880b56b04b6b99d0edf0ad437fa8ad7b",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/final_epoch.pt"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_16/optimizer_audit.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/optimizer_audit.json",
+          "byte_size": 381,
+          "sha256": "94296183a38e2c25265c7c88af579a4776064dddfa38fd4027c22dfc0613724b",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/optimizer_audit.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_16/training_log.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/training_log.json",
+          "byte_size": 7234,
+          "sha256": "51ae77d75e3868f36311e53ac4296e17659c6d831686838165d7475b4086b283",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/training_log.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_2/action_diagnostics.csv",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/action_diagnostics.csv",
+          "byte_size": 1844,
+          "sha256": "ea2c0f0e3801afc34d8f1f86ecff65791d3885a942c96405c703f7797060db19",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/action_diagnostics.csv"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_2/action_diagnostics.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/action_diagnostics.json",
+          "byte_size": 7222,
+          "sha256": "38fcb92d4076a6bf09844d398fa577f4f76d81fe3ee5d11496bce6dccda047c9",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/action_diagnostics.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_2/execution.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/execution.json",
+          "byte_size": 968,
+          "sha256": "bc9ca79402ef54f01f369e0b18c1757408e408ba031382fe38bf6284dc4edc01",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/execution.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_2/final_epoch.pt",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/final_epoch.pt",
+          "byte_size": 16633668,
+          "sha256": "855da469144e7755145c24a29b59053424804d29c7458ac2885c1ccf89effd90",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/final_epoch.pt"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_2/optimizer_audit.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/optimizer_audit.json",
+          "byte_size": 381,
+          "sha256": "672fb00c2058affe495c8c307a0053100787ff255d18c61055e275bbfc68a1a6",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/optimizer_audit.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage4_candidate_bc/deployed_ensemble_e2_7seed/seed_2/training_log.json",
+          "planned_target_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/training_log.json",
+          "byte_size": 7226,
+          "sha256": "4bd48d8b62364d7ea9222b19bb2e2108dd7676951e3955da9371fd9e3ea80e22",
+          "semantic_role": "rl_stage4_bc_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/training_log.json"
+        }
+      ]
+    },
+    {
+      "pack_id": "rl_stage6_selector_eval",
+      "source_relative_root": "archive/DEPLOYED_RELEASE/stage6_candidate_selector_eval",
+      "planned_target_root": "frozen/original_release/rl/stage6",
+      "status": "COPIED_AND_HASH_VERIFIED",
+      "file_count": 5,
+      "total_bytes": 190169,
+      "files": [
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage6_candidate_selector_eval/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_firm_actions_payoffs.parquet",
+          "planned_target_path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_firm_actions_payoffs.parquet",
+          "byte_size": 84535,
+          "sha256": "ced89c428deaab8eeaebbceece95ccd40c86eab194ce4d5c03d291198b3d975a",
+          "semantic_role": "rl_stage6_selector_eval",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_firm_actions_payoffs.parquet"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage6_candidate_selector_eval/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_metrics.json",
+          "planned_target_path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_metrics.json",
+          "byte_size": 2342,
+          "sha256": "9016eb5b4ae1620d1158d6f77360b0334306e2dc60bbd49bd025a52f1a14c2c3",
+          "semantic_role": "rl_stage6_selector_eval",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_metrics.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage6_candidate_selector_eval/C3E_E2_7SEED_BALANCED_DFEBAFA6/EVALUATION_MANIFEST.json",
+          "planned_target_path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/EVALUATION_MANIFEST.json",
+          "byte_size": 365,
+          "sha256": "47a131d7314bff08568aee67f235b47503edfe6e41cf77df51e6e57e40eec99e",
+          "semantic_role": "rl_stage6_selector_eval",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/EVALUATION_MANIFEST.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage6_candidate_selector_eval/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "planned_target_path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "byte_size": 101277,
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "semantic_role": "rl_stage6_selector_eval",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage6_candidate_selector_eval/CURRENT_RELEASE.json",
+          "planned_target_path": "frozen/original_release/rl/stage6/CURRENT_RELEASE.json",
+          "byte_size": 1650,
+          "sha256": "4d1a6f32d9fab3422bfdf2e7f3891a500c90688f192576a335e2cf279d7ddbf8",
+          "semantic_role": "rl_stage6_selector_eval",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage6/CURRENT_RELEASE.json"
+        }
+      ]
+    },
+    {
+      "pack_id": "rl_stage2_compute_parent",
+      "source_relative_root": "multiple_release_critical_paths",
+      "planned_target_root": "frozen/original_release/rl/stage2",
+      "status": "COPIED_AND_HASH_VERIFIED",
+      "file_count": 25,
+      "total_bytes": 119584781,
+      "files": [
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_action_contract_v4_3.json",
+          "planned_target_path": "frozen/original_release/rl/stage2/candidate_action_contract_v4_3.json",
+          "byte_size": 16083,
+          "sha256": "f722e189a265e111c018341254a648ddb9cecc05aa8c12c3547a023ea4c458c0",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/candidate_action_contract_v4_3.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_action_contract_v4_3_manifest.json",
+          "planned_target_path": "frozen/original_release/rl/stage2/candidate_action_contract_v4_3_manifest.json",
+          "byte_size": 1667,
+          "sha256": "d1b356a0415f82b5883e74ad1d81d18b2ffc188d5f28edff26de6ffd3b3abb1a",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/candidate_action_contract_v4_3_manifest.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_library_metadata.json",
+          "planned_target_path": "frozen/original_release/rl/stage2/candidate_library_metadata.json",
+          "byte_size": 1391,
+          "sha256": "31f026861ae2f3bdcdb9b377254f1032e41ca7c8c295056f768d4ea20273ac0d",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/candidate_library_metadata.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_projection_diagnostics.csv",
+          "planned_target_path": "frozen/original_release/rl/stage2/candidate_projection_diagnostics.csv",
+          "byte_size": 1628,
+          "sha256": "b473b4b01ec999c5b496491e0e15a0699e1479934a1d26aac23374abb684aeb1",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/candidate_projection_diagnostics.csv"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_projection_diagnostics.json",
+          "planned_target_path": "frozen/original_release/rl/stage2/candidate_projection_diagnostics.json",
+          "byte_size": 4428,
+          "sha256": "e9a6d004b67c41076ad0110c9a106290d332da028826ef08c16a44c87093c4e7",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/candidate_projection_diagnostics.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/counterfactual_transitions_metadata__P50.json",
+          "planned_target_path": "frozen/original_release/rl/stage2/counterfactual_transitions_metadata__P50.json",
+          "byte_size": 161753,
+          "sha256": "42d46cad0b0a7fab3ca6812f38729027d42dc21f8c706865e921e832abb9597c",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/counterfactual_transitions_metadata__P50.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/final_candidate_library__P50.yaml",
+          "planned_target_path": "frozen/original_release/rl/stage2/final_candidate_library__P50.yaml",
+          "byte_size": 12031,
+          "sha256": "c5f44780f2f47a77e667836d1499ec4b43c218796f26af597885685319f80190",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/final_candidate_library__P50.yaml"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/phase3_iql_candidate__P50.parquet",
+          "planned_target_path": "frozen/original_release/rl/stage2/phase3_iql_candidate__P50.parquet",
+          "byte_size": 22840779,
+          "sha256": "3f0268de32003a787a75a3b4cdf2ce2608b113da89638be6ca7e70717c6dc942",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/phase3_iql_candidate__P50.parquet"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/phase3_iql_candidate.parquet",
+          "planned_target_path": "frozen/original_release/rl/stage2/phase3_iql_candidate.parquet",
+          "byte_size": 22831789,
+          "sha256": "beafea220f2dd139782340dfb2ea3eb20c186ca25cec1362188343b84d7f130c",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/phase3_iql_candidate.parquet"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/phase3_iql_counterfactual_candidate__P50.parquet",
+          "planned_target_path": "frozen/original_release/rl/stage2/phase3_iql_counterfactual_candidate__P50.parquet",
+          "byte_size": 20215616,
+          "sha256": "04ff9b508d5e40e7cea257b4cbf556ceaf41c316725b681764abf8bb4a1c1e3d",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/phase3_iql_counterfactual_candidate__P50.parquet"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/phase3_iql_observed_factual__P50.parquet",
+          "planned_target_path": "frozen/original_release/rl/stage2/phase3_iql_observed_factual__P50.parquet",
+          "byte_size": 31444890,
+          "sha256": "a558f3b9c7d699a914dacf6edfc36ec8d6e8e2dee21723c453dd6ccb1bc49560",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/phase3_iql_observed_factual__P50.parquet"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/input_splits/canonical_transition_manifest.json",
+          "planned_target_path": "frozen/original_release/rl/stage2/input_splits/canonical_transition_manifest.json",
+          "byte_size": 492,
+          "sha256": "a95e57e09fe69f44a3347ad888ca98a5b368714f3ffae6a0815e93640dd73fb4",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/input_splits/canonical_transition_manifest.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/input_splits/canonical_transition_row_ids.parquet",
+          "planned_target_path": "frozen/original_release/rl/stage2/input_splits/canonical_transition_row_ids.parquet",
+          "byte_size": 40275,
+          "sha256": "5bdd2a57695c8a284112917c39a5928db5740fdef8212d098e5768004c339708",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/input_splits/canonical_transition_row_ids.parquet"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/input_splits/canonical_evaluation_cohort_manifest.json",
+          "planned_target_path": "frozen/original_release/rl/stage2/input_splits/canonical_evaluation_cohort_manifest.json",
+          "byte_size": 487,
+          "sha256": "1df956e43530b145f4d6cde449af9d410c4f4e85aa250f8622a315e3b6368718",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/input_splits/canonical_evaluation_cohort_manifest.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/input_splits/canonical_evaluation_row_ids.parquet",
+          "planned_target_path": "frozen/original_release/rl/stage2/input_splits/canonical_evaluation_row_ids.parquet",
+          "byte_size": 13917,
+          "sha256": "7b28c589ec462f1288a213193031455a797ff211e3a19d8235d66bb5db36b4b4",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/input_splits/canonical_evaluation_row_ids.parquet"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/runtime_inputs/business_plan_rate_v4/production/CANONICAL_INPUT_MANIFEST.json",
+          "planned_target_path": "frozen/original_release/rl/stage2/runtime_inputs/business_plan_rate_v4/production/CANONICAL_INPUT_MANIFEST.json",
+          "byte_size": 651,
+          "sha256": "29b5e78a29e10124e8a64c64ccc758caf30632dbfa1f09443e87f79130c8aea5",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/runtime_inputs/business_plan_rate_v4/production/CANONICAL_INPUT_MANIFEST.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/runtime_inputs/business_plan_rate_v4/production/production_selected_rate_ledger.parquet",
+          "planned_target_path": "frozen/original_release/rl/stage2/runtime_inputs/business_plan_rate_v4/production/production_selected_rate_ledger.parquet",
+          "byte_size": 528306,
+          "sha256": "a8bf256190f0d10353f508e54b745af8ea6ca3ea3010ad6deca3f14dddac06f8",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/runtime_inputs/business_plan_rate_v4/production/production_selected_rate_ledger.parquet"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/runtime_inputs/historical_financial_context_v4_3/preparation_manifest.json",
+          "planned_target_path": "frozen/original_release/rl/stage2/runtime_inputs/historical_financial_context_v4_3/preparation_manifest.json",
+          "byte_size": 127,
+          "sha256": "5bde63188bce445086b187a325d2ba3faed0a7ef61bc00cbbac56e9083f8af7c",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/runtime_inputs/historical_financial_context_v4_3/preparation_manifest.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/runtime_inputs/historical_financial_context_v4_3/actual_context.parquet",
+          "planned_target_path": "frozen/original_release/rl/stage2/runtime_inputs/historical_financial_context_v4_3/actual_context.parquet",
+          "byte_size": 183321,
+          "sha256": "25b99f6a0eadacbbd34fab94fb896be66d5100fe5fe9ef813a5f304ddd260147",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/runtime_inputs/historical_financial_context_v4_3/actual_context.parquet"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/runtime_inputs/historical_financial_context_v4_3/actual_financial_states.parquet",
+          "planned_target_path": "frozen/original_release/rl/stage2/runtime_inputs/historical_financial_context_v4_3/actual_financial_states.parquet",
+          "byte_size": 12531021,
+          "sha256": "97cb72a7a9e80784766b1727dddb264060863b40bffffb31759be0ba3164e1ce",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/runtime_inputs/historical_financial_context_v4_3/actual_financial_states.parquet"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/v4_3_runtime/01_contract/encoder_contract.json",
+          "planned_target_path": "frozen/original_release/rl/stage2/v4_3_runtime/01_contract/encoder_contract.json",
+          "byte_size": 82867,
+          "sha256": "8f0d04c4709b9c9c7dc8d2d31ec4d50f306d0ed1a671d48ec714386fe3b9c460",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/v4_3_runtime/01_contract/encoder_contract.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/v4_3_runtime/01_contract/resolved_run_config.json",
+          "planned_target_path": "frozen/original_release/rl/stage2/v4_3_runtime/01_contract/resolved_run_config.json",
+          "byte_size": 3626,
+          "sha256": "cf62711b61abb31bc1b4fea451e48d1a64011f5b7a5e3cf32f84cb545a1a213a",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/v4_3_runtime/01_contract/resolved_run_config.json"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/v4_3_runtime/02_data/stage3_rows.parquet",
+          "planned_target_path": "frozen/original_release/rl/stage2/v4_3_runtime/02_data/stage3_rows.parquet",
+          "byte_size": 3993019,
+          "sha256": "65376c04e933f2f700a226858dcb2a0f4014783b89dbd3e316792903e2b8e48c",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/v4_3_runtime/02_data/stage3_rows.parquet"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/v4_3_runtime/02_data/stage4_rows.parquet",
+          "planned_target_path": "frozen/original_release/rl/stage2/v4_3_runtime/02_data/stage4_rows.parquet",
+          "byte_size": 3993019,
+          "sha256": "65376c04e933f2f700a226858dcb2a0f4014783b89dbd3e316792903e2b8e48c",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/v4_3_runtime/02_data/stage4_rows.parquet"
+        },
+        {
+          "source_relative_path": "archive/DEPLOYED_RELEASE/stage2_candidate_projection/v4_3_runtime/02_data/stage5_rows.parquet",
+          "planned_target_path": "frozen/original_release/rl/stage2/v4_3_runtime/02_data/stage5_rows.parquet",
+          "byte_size": 681598,
+          "sha256": "ad46b346886af81643d0c3b4f05c19e7c41dedce9dbc9f59e0adb9a2f0fdbbdb",
+          "semantic_role": "rl_stage2_compute_parent",
+          "migration_status": "COPIED_AND_HASH_VERIFIED",
+          "destination_relative_path": "frozen/original_release/rl/stage2/v4_3_runtime/02_data/stage5_rows.parquet"
+        }
+      ]
     }
   ],
   "summary": {
-    "pack_count": 6,
-    "file_count": 887,
-    "total_bytes": 4285457425
+    "pack_count": 11,
+    "file_count": 1024,
+    "total_bytes": 4621660888
   }
 }

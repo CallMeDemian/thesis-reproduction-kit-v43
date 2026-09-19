@@ -8,9 +8,11 @@ import zipfile
 from pathlib import Path
 
 from .compare import compare_run
+from .c3e_rebuild import rebuild_original_c3e
 from .contracts import EXPECTED_REQUESTS, contract_report
 from .data import data_doctor, restore_data
 from .frozen import verify_frozen
+from .original_release import verify_original_release
 from .paths import ROOT, load_json
 from .run_engine import STAGES, execute, plan
 
@@ -25,6 +27,8 @@ def _build_parser() -> argparse.ArgumentParser:
     sub.add_parser("doctor")
     sub.add_parser("verify")
     sub.add_parser("frozen-replay")
+    sub.add_parser("verify-original")
+    sub.add_parser("rebuild-c3e").add_argument("--release", choices=("original",), required=True)
     data = sub.add_parser("data")
     data_sub = data.add_subparsers(dest="data_command", required=True)
     data_sub.add_parser("doctor")
@@ -85,6 +89,16 @@ def main(argv: list[str] | None = None) -> None:
             _print(result)
             if result["status"] != "PASS":
                 raise SystemExit(1)
+        elif args.command == "verify-original":
+            result = verify_original_release()
+            _print(result)
+            if result["status"] != "PASS":
+                raise SystemExit(1)
+        elif args.command == "rebuild-c3e":
+            result = rebuild_original_c3e()
+            _print(result)
+            if result["status"] != "PASS":
+                raise SystemExit(1)
         elif args.command == "data":
             _print(data_doctor() if args.data_command == "doctor" else restore_data(args.raw_all, args.raw_nonfinancial, args.ratings))
         elif args.command == "fresh":
@@ -101,4 +115,3 @@ def main(argv: list[str] | None = None) -> None:
     except (FileNotFoundError, ValueError, PermissionError) as exc:
         _print({"status": "FAIL", "error": str(exc)})
         raise SystemExit(2)
-

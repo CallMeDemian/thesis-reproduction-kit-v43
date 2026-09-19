@@ -8,9 +8,9 @@
   "audit_date": "2026-09-19",
   "migration_policy": "clean-room product repository; source release retained by exact hashes and immutable asset manifests",
   "local_verification": {
-    "source_commit_object": "UNAVAILABLE",
-    "scientific_evidence_base_commit_object": "AVAILABLE",
-    "certification_commit_object": "UNAVAILABLE"
+    "source_commit_object": "VERIFIED",
+    "scientific_evidence_base_commit_object": "VERIFIED",
+    "certification_commit_object": "VERIFIED"
   },
   "forensic_artifact_inventory": "FORENSIC_ARTIFACT_INVENTORY.md",
   "original_deployment_tree": {

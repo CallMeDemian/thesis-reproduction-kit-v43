@@ -2,3 +2,5 @@ frozen/original_release/rl/** filter=lfs diff=lfs merge=lfs -text
 frozen/original_release/oracle/** filter=lfs diff=lfs merge=lfs -text
 frozen/original_release/llm/** filter=lfs diff=lfs merge=lfs -text
 frozen/original_release/evaluation/** filter=lfs diff=lfs merge=lfs -text
+frozen/original_release/source/** filter=lfs diff=lfs merge=lfs -text
+frozen/original_release/simulator/** filter=lfs diff=lfs merge=lfs -text

@@ -83,6 +83,37 @@ def record_tree(
     }
 
 
+def record_file_list(
+    source_root: Path,
+    files: list[tuple[str, str]],
+    pack_id: str,
+) -> dict[str, object]:
+    entries = []
+    for source_rel, target_rel in files:
+        path = source_root / Path(source_rel)
+        if not path.is_file():
+            raise FileNotFoundError(f"missing source artifact for {pack_id}: {source_rel}")
+        entries.append(
+            {
+                "source_relative_path": source_rel.replace("\\", "/"),
+                "planned_target_path": target_rel.replace("\\", "/"),
+                "byte_size": path.stat().st_size,
+                "sha256": sha256(path),
+                "semantic_role": pack_id,
+                "migration_status": "INVENTORIED_NOT_COPIED",
+            }
+        )
+    return {
+        "pack_id": pack_id,
+        "source_relative_root": "multiple_release_critical_paths",
+        "planned_target_root": str(Path(files[0][1]).parent).replace("\\", "/") if files else "",
+        "status": "FOUND_IN_SOURCE_MIGRATION_PENDING",
+        "file_count": len(entries),
+        "total_bytes": sum(int(item["byte_size"]) for item in entries),
+        "files": entries,
+    }
+
+
 def build_asset_manifest(source_root: Path, previous: dict[str, object] | None = None) -> dict[str, object]:
     evaluation_selector = lambda rel: any(
         "stage8" in part.lower() or "stage9" in part.lower()
@@ -125,6 +156,86 @@ def build_asset_manifest(source_root: Path, previous: dict[str, object] | None =
             "frozen/original_release/evaluation/llm_final_evaluation_20260913",
             "stage8_stage9_evaluation",
             selector=evaluation_selector,
+        ),
+        record_file_list(
+            source_root,
+            [
+                (
+                    f"src/credit_recourse/simulator/{path}",
+                    f"frozen/original_release/simulator/src/credit_recourse/simulator/{path}",
+                )
+                for path in sorted(
+                    str(p.relative_to(source_root / "src/credit_recourse/simulator")).replace("\\", "/")
+                    for p in files_under(source_root / "src/credit_recourse/simulator")
+                )
+            ]
+            + [
+                (path, f"frozen/original_release/simulator/{path}")
+                for path in [
+                    "configs/current/contract_manifest.json",
+                    "configs/current/final_freeze/final_action_contract.yaml",
+                    "configs/current/final_freeze/final_candidate_library.yaml",
+                    "configs/current/final_freeze/final_oracle_rl_contract.json",
+                    "configs/current/final_freeze/frozen_python_environment.json",
+                    "configs/current/final_freeze/reproduction_input_inventory.json",
+                    "configs/current/final_freeze/simulator_ratio_alias_map.json",
+                    "configs/current/final_freeze/stage2_action_source_map.json",
+                    "configs/current/final_freeze/v43_rl.json",
+                ]
+            ],
+            "simulator_release",
+        ),
+        record_tree(
+            source_root,
+            "archive/DEPLOYED_RELEASE/stage3_acd_ssl",
+            "frozen/original_release/rl/stage3_e2",
+            "rl_stage3_e2_parent",
+        ),
+        record_tree(
+            source_root,
+            "archive/DEPLOYED_RELEASE/stage4_candidate_bc",
+            "frozen/original_release/rl/stage4_bc",
+            "rl_stage4_bc_parent",
+        ),
+        record_tree(
+            source_root,
+            "archive/DEPLOYED_RELEASE/stage6_candidate_selector_eval",
+            "frozen/original_release/rl/stage6",
+            "rl_stage6_selector_eval",
+        ),
+        record_file_list(
+            source_root,
+            [
+                (f"archive/DEPLOYED_RELEASE/stage2_candidate_projection/{path}", f"frozen/original_release/rl/stage2/{path}")
+                for path in [
+                    "candidate_action_contract_v4_3.json",
+                    "candidate_action_contract_v4_3_manifest.json",
+                    "candidate_library_metadata.json",
+                    "candidate_projection_diagnostics.csv",
+                    "candidate_projection_diagnostics.json",
+                    "counterfactual_transitions_metadata__P50.json",
+                    "final_candidate_library__P50.yaml",
+                    "phase3_iql_candidate__P50.parquet",
+                    "phase3_iql_candidate.parquet",
+                    "phase3_iql_counterfactual_candidate__P50.parquet",
+                    "phase3_iql_observed_factual__P50.parquet",
+                    "input_splits/canonical_transition_manifest.json",
+                    "input_splits/canonical_transition_row_ids.parquet",
+                    "input_splits/canonical_evaluation_cohort_manifest.json",
+                    "input_splits/canonical_evaluation_row_ids.parquet",
+                    "runtime_inputs/business_plan_rate_v4/production/CANONICAL_INPUT_MANIFEST.json",
+                    "runtime_inputs/business_plan_rate_v4/production/production_selected_rate_ledger.parquet",
+                    "runtime_inputs/historical_financial_context_v4_3/preparation_manifest.json",
+                    "runtime_inputs/historical_financial_context_v4_3/actual_context.parquet",
+                    "runtime_inputs/historical_financial_context_v4_3/actual_financial_states.parquet",
+                    "v4_3_runtime/01_contract/encoder_contract.json",
+                    "v4_3_runtime/01_contract/resolved_run_config.json",
+                    "v4_3_runtime/02_data/stage3_rows.parquet",
+                    "v4_3_runtime/02_data/stage4_rows.parquet",
+                    "v4_3_runtime/02_data/stage5_rows.parquet",
+                ]
+            ],
+            "rl_stage2_compute_parent",
         ),
     ]
     previous_files = {
@@ -237,6 +348,14 @@ def main() -> int:
     asset_manifest_path = target_root / "provenance/ASSET_PACK_MANIFEST.json"
     previous = json.loads(asset_manifest_path.read_text(encoding="utf-8")) if asset_manifest_path.exists() else None
     asset_manifest = build_asset_manifest(source_root, previous)
+    for pack in asset_manifest["packs"]:
+        for item in pack["files"]:
+            target = target_root / Path(str(item["planned_target_path"]))
+            if target.is_file() and sha256(target) == item["sha256"]:
+                item["migration_status"] = "COPIED_AND_HASH_VERIFIED"
+                item["destination_relative_path"] = item["planned_target_path"]
+        if pack["files"] and all(item["migration_status"] == "COPIED_AND_HASH_VERIFIED" for item in pack["files"]):
+            pack["status"] = "COPIED_AND_HASH_VERIFIED"
     write_json(asset_manifest_path, asset_manifest)
     write_json(target_root / "provenance/MIGRATION_MANIFEST.json", build_migration_manifest(source_root, target_root, asset_manifest))
     return 0

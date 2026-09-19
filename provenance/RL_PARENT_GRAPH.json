@@ -1,0 +1,1537 @@
+{
+  "schema_version": "rl_parent_graph_v1",
+  "audit_date": "2026-09-19",
+  "release_id": "C3E_E2_7SEED_BALANCED_DFEBAFA6",
+  "shared_parent_packs": {
+    "stage2": {
+      "path": "frozen/original_release/rl/stage2",
+      "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da"
+    },
+    "stage6": {
+      "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+      "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a"
+    }
+  },
+  "members": [
+    {
+      "logical_id": "rl.member.B27.seed2",
+      "configuration": "B27",
+      "seed": 2,
+      "actor_semantic_hash": "30cf7f26768d5c0a8322491380dd95d9e56398a4ca2403605a267682e34efd9a",
+      "decision_sha256": "4371bc627993baaa63dcaa36933c4d385af9031f30c17d776858553be856231c",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed2",
+        "rl.stage4.bc.seed2",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed2",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_2/final_epoch.pt",
+          "sha256": "fd1164cd591896f16bf06d8130d2faefe59d20f24314c434fc896edf1fb43edf",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed2",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/final_epoch.pt",
+          "sha256": "855da469144e7755145c24a29b59053424804d29c7458ac2885c1ccf89effd90",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.B27.seed2",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/B27/seed_2/final_epoch.pt",
+          "sha256": "6ea4cb707057497982464fed223e395f93ffa6d771f7cd661e8209bf7049f9f2",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.B27.seed11",
+      "configuration": "B27",
+      "seed": 11,
+      "actor_semantic_hash": "7d13a05ae975c416379963f29a4aa1f8519fef664b812971fd0b101208b04a80",
+      "decision_sha256": "aee3453aaae9b196cf41a524eff3c4e4804d855fe47fdc655e44a7656125c735",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed11",
+        "rl.stage4.bc.seed11",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed11",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_11/final_epoch.pt",
+          "sha256": "ee6c82a66bfb52e76e14af8b6b716f0a8884d06bf6678c41e2a5d7c688a8bcfd",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed11",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/final_epoch.pt",
+          "sha256": "29555efde0533eefa245be92bf72690acb74a922e50b698b0569db1f57d154a0",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.B27.seed11",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/B27/seed_11/final_epoch.pt",
+          "sha256": "38d12a3393b5404aa700a1cc55992c8c3f9de7763470289ba8560d574d568475",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.B27.seed12",
+      "configuration": "B27",
+      "seed": 12,
+      "actor_semantic_hash": "7d1cd2cd16e78cbab36237fbb7204046041180837ef8870db88103de31eee7e0",
+      "decision_sha256": "95ff88af985bea93910ed960dad34e6be417e335a13e49a739d9d12d35941603",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed12",
+        "rl.stage4.bc.seed12",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed12",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_12/final_epoch.pt",
+          "sha256": "37031e713d6fb8d8231c5ba4331effb08641c8433c6b0d9020192f48c247d496",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed12",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/final_epoch.pt",
+          "sha256": "6c86baadb4138a966cd590424bc097eeba1ed737ea695e029d9d53ed19ef8bf4",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.B27.seed12",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/B27/seed_12/final_epoch.pt",
+          "sha256": "141f9519d86c344bea188199abc496bf1ce534be6992830e5e0d8134d4cf28f3",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.B27.seed13",
+      "configuration": "B27",
+      "seed": 13,
+      "actor_semantic_hash": "828b94099fae16556bd0d519f6c7a5b7cf7c021de53ed66b5a82656e383e4c28",
+      "decision_sha256": "cd5b02bb2e2db9653977df033cbefd828600ab05f74e6a9a60cc449b4391c057",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed13",
+        "rl.stage4.bc.seed13",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed13",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_13/final_epoch.pt",
+          "sha256": "de56bfd12bdf267b97b6310f3adb95a050bb7b08ac7862f55282d80ae6ef9b3e",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed13",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/final_epoch.pt",
+          "sha256": "ee003af1a3a1cf5a86a60b64fc3ff8ee04abf703e586f00e30554ce28fbe4fda",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.B27.seed13",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/B27/seed_13/final_epoch.pt",
+          "sha256": "f64897cac612e7d1727ae34acd31a2edf6d5072b5b888a64b74767c45f38dfab",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.B27.seed14",
+      "configuration": "B27",
+      "seed": 14,
+      "actor_semantic_hash": "45bf592a9ee85ba1f326d31811f28a2b354673bdaefd11612003c07db9feb8a0",
+      "decision_sha256": "37d64455bae885465b42352b2c17901aea02204f09c3295dde5c432f7939c97e",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed14",
+        "rl.stage4.bc.seed14",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed14",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_14/final_epoch.pt",
+          "sha256": "8049552b9548aa8b773eafbb271d976f3c50d43b6c525da22c591d0bc26b04c6",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed14",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/final_epoch.pt",
+          "sha256": "a494becded267f2ccc27016e762ea47cbee44a1ca996858fa7a3b8584b5dc643",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.B27.seed14",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/B27/seed_14/final_epoch.pt",
+          "sha256": "972d6bc6b8a84819b42a7c4aeb12d1b147aa4742730d4c2475be2c98921c5aa7",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.B27.seed15",
+      "configuration": "B27",
+      "seed": 15,
+      "actor_semantic_hash": "dca524e9f25cfe3dca02bca6ec6cf60e2cfe5a5ca628da6fd3f85a5b24163858",
+      "decision_sha256": "fc5e8147b90272d567b319e331b2fe0b9b9c19e00581857fdd992e358870cf6e",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed15",
+        "rl.stage4.bc.seed15",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed15",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_15/final_epoch.pt",
+          "sha256": "e87beb0ef6b2886359e020cafff4b59f9446162dc5792aa8092db73e16cead24",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed15",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/final_epoch.pt",
+          "sha256": "9e585088ef41aac94868b866c50788057fdecc550c4a86f66140c97765cc7b22",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.B27.seed15",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/B27/seed_15/final_epoch.pt",
+          "sha256": "41277b216d59641640792a11581966b4c1cb3b42dff2ef3f92d7f71eb18df05a",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.B27.seed16",
+      "configuration": "B27",
+      "seed": 16,
+      "actor_semantic_hash": "fa82ad974be96d6c9eeabd40e45aca763a05abb6a08a1109568265c436ebd4cf",
+      "decision_sha256": "800e48f8fa5ed04e881518187e15b5e630608c5da728fa8437405229147446e1",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed16",
+        "rl.stage4.bc.seed16",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed16",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_16/final_epoch.pt",
+          "sha256": "cf90b760c7cc0c769f3a0a7c9c4f0dde1ebf11ffc439b09d16e8527521e23bbb",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed16",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/final_epoch.pt",
+          "sha256": "ff135a368d16582cce9230d3d2ae18b4880b56b04b6b99d0edf0ad437fa8ad7b",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.B27.seed16",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/B27/seed_16/final_epoch.pt",
+          "sha256": "d5f0bf77eed4e1dc735d1880f90a94a56bc627ac34ed9f311148ba9070d37837",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.DT06.seed2",
+      "configuration": "DT06",
+      "seed": 2,
+      "actor_semantic_hash": "332ab8eff7c3dfe3aa65916cda11cf4612dc1761924fd79d73a11215efb5500c",
+      "decision_sha256": "96cca8173d978779846a04a571a24a556cf483cd61519b4af7d7c142a8db90db",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed2",
+        "rl.stage4.bc.seed2",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed2",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_2/final_epoch.pt",
+          "sha256": "fd1164cd591896f16bf06d8130d2faefe59d20f24314c434fc896edf1fb43edf",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed2",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/final_epoch.pt",
+          "sha256": "855da469144e7755145c24a29b59053424804d29c7458ac2885c1ccf89effd90",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.DT06.seed2",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/DT06/seed_2/final_epoch.pt",
+          "sha256": "52064ba3ea7f820ba9c556351b4be005e54c31cac68e80d4bb10dc9994d23f0c",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.DT06.seed11",
+      "configuration": "DT06",
+      "seed": 11,
+      "actor_semantic_hash": "3e8cc465ef7865b3150916cade4fee4b11f4ad2aa8829211a28ccc7102e5d461",
+      "decision_sha256": "74b0444e0ab3f03d9d604989247d506e8a0be17a5c152b3a9896a6339ff87ddd",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed11",
+        "rl.stage4.bc.seed11",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed11",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_11/final_epoch.pt",
+          "sha256": "ee6c82a66bfb52e76e14af8b6b716f0a8884d06bf6678c41e2a5d7c688a8bcfd",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed11",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/final_epoch.pt",
+          "sha256": "29555efde0533eefa245be92bf72690acb74a922e50b698b0569db1f57d154a0",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.DT06.seed11",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/DT06/seed_11/final_epoch.pt",
+          "sha256": "89be19c952cd5ca3cebbe63119c25232e3e5ee42411c59afa4c371acc93bd55b",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.DT06.seed12",
+      "configuration": "DT06",
+      "seed": 12,
+      "actor_semantic_hash": "225b07eb23cdb2c3ed88a7130cf3265a0be9a3e503756edddd513b79b22b37ba",
+      "decision_sha256": "d97b31686f184bf3ecefe58f9338046ca46fe41139410f603113c9e1fc9f0524",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed12",
+        "rl.stage4.bc.seed12",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed12",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_12/final_epoch.pt",
+          "sha256": "37031e713d6fb8d8231c5ba4331effb08641c8433c6b0d9020192f48c247d496",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed12",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/final_epoch.pt",
+          "sha256": "6c86baadb4138a966cd590424bc097eeba1ed737ea695e029d9d53ed19ef8bf4",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.DT06.seed12",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/DT06/seed_12/final_epoch.pt",
+          "sha256": "d010a69d5b07aa26a7ac647e3704af6ec919500d63c077cebae8b0b49e025350",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.DT06.seed13",
+      "configuration": "DT06",
+      "seed": 13,
+      "actor_semantic_hash": "f9fe3b28097133d12c612a0535a0146398c189f05d466702dac4eb18e8a2321f",
+      "decision_sha256": "e31790a66c8285e331ffa3dd5e2b9a47e34f52672fe47f95f45a458f42094cd7",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed13",
+        "rl.stage4.bc.seed13",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed13",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_13/final_epoch.pt",
+          "sha256": "de56bfd12bdf267b97b6310f3adb95a050bb7b08ac7862f55282d80ae6ef9b3e",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed13",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/final_epoch.pt",
+          "sha256": "ee003af1a3a1cf5a86a60b64fc3ff8ee04abf703e586f00e30554ce28fbe4fda",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.DT06.seed13",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/DT06/seed_13/final_epoch.pt",
+          "sha256": "700009a85fcb08ac960f3bbbb6af3f1de7b6e9628b9a295926aefd70187e6a8a",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.DT06.seed14",
+      "configuration": "DT06",
+      "seed": 14,
+      "actor_semantic_hash": "76066102545444d94549fc6e48b5d7d2ef086b60254b3cc9837bc04228467065",
+      "decision_sha256": "ecceb871329c4d4fc99667b57a63ba773915c12b0f111e47c8fbc4d72803526f",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed14",
+        "rl.stage4.bc.seed14",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed14",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_14/final_epoch.pt",
+          "sha256": "8049552b9548aa8b773eafbb271d976f3c50d43b6c525da22c591d0bc26b04c6",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed14",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/final_epoch.pt",
+          "sha256": "a494becded267f2ccc27016e762ea47cbee44a1ca996858fa7a3b8584b5dc643",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.DT06.seed14",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/DT06/seed_14/final_epoch.pt",
+          "sha256": "a96d899eb900d4bdb573b0c11346f2788138e730b077bd7a41b15328494b2cc6",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.DT06.seed15",
+      "configuration": "DT06",
+      "seed": 15,
+      "actor_semantic_hash": "512dd278f3a4dfc1b3e4e5ee217f3e05e1e70f6efd4344d5c3720797457964d7",
+      "decision_sha256": "40dd06658c5c21c1b652dcfe87494a569b03a91be29908b4870da06a5e9423dc",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed15",
+        "rl.stage4.bc.seed15",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed15",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_15/final_epoch.pt",
+          "sha256": "e87beb0ef6b2886359e020cafff4b59f9446162dc5792aa8092db73e16cead24",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed15",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/final_epoch.pt",
+          "sha256": "9e585088ef41aac94868b866c50788057fdecc550c4a86f66140c97765cc7b22",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.DT06.seed15",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/DT06/seed_15/final_epoch.pt",
+          "sha256": "4461b4620be807212df2554642cce4d1342535fea653e0007f148dadb298e142",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.DT06.seed16",
+      "configuration": "DT06",
+      "seed": 16,
+      "actor_semantic_hash": "bde7135d4bfa6c5a52dc2ec35662be05e459da6144401ceeaadb04df81a13ce1",
+      "decision_sha256": "8bfed1d499e9c58e47a254e567a089955e94a9c90aa14c093cc365c57721a9f2",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed16",
+        "rl.stage4.bc.seed16",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed16",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_16/final_epoch.pt",
+          "sha256": "cf90b760c7cc0c769f3a0a7c9c4f0dde1ebf11ffc439b09d16e8527521e23bbb",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed16",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/final_epoch.pt",
+          "sha256": "ff135a368d16582cce9230d3d2ae18b4880b56b04b6b99d0edf0ad437fa8ad7b",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.DT06.seed16",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/DT06/seed_16/final_epoch.pt",
+          "sha256": "6ff7fec53bb7ad81fdbd6914ed25c81969d1b03a8d9a7bba1831bbc9dd0e4a39",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.M2_S0935.seed2",
+      "configuration": "M2_S0935",
+      "seed": 2,
+      "actor_semantic_hash": "a1d9b9ba5120e799557f2cec2b19045194278f1972c656155f059649d88d4b33",
+      "decision_sha256": "c489121bf312578c31eaf40a81804025ba0ee4b81705b623c48b22452e5671d7",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed2",
+        "rl.stage4.bc.seed2",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed2",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_2/final_epoch.pt",
+          "sha256": "fd1164cd591896f16bf06d8130d2faefe59d20f24314c434fc896edf1fb43edf",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed2",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/final_epoch.pt",
+          "sha256": "855da469144e7755145c24a29b59053424804d29c7458ac2885c1ccf89effd90",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.M2_S0935.seed2",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/M2_S0935/seed_2/final_epoch.pt",
+          "sha256": "5f98aadd2c86a72a836ce6e4c137db1ccb5823d411b498654a13ac6b35581c2e",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.M2_S0935.seed11",
+      "configuration": "M2_S0935",
+      "seed": 11,
+      "actor_semantic_hash": "aa30bcce40ff1eade06310385ad661076e21c632a8e4df9d8ee7b3c508c6060d",
+      "decision_sha256": "73119fae21b497d0bf2106acad7c842cc7b199edfff1ac34913682f18e73d906",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed11",
+        "rl.stage4.bc.seed11",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed11",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_11/final_epoch.pt",
+          "sha256": "ee6c82a66bfb52e76e14af8b6b716f0a8884d06bf6678c41e2a5d7c688a8bcfd",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed11",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/final_epoch.pt",
+          "sha256": "29555efde0533eefa245be92bf72690acb74a922e50b698b0569db1f57d154a0",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.M2_S0935.seed11",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/M2_S0935/seed_11/final_epoch.pt",
+          "sha256": "8e85e8c449589c4c0715a95268f2b75729aed81b7088b804b0ba2ad950e213f4",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.M2_S0935.seed12",
+      "configuration": "M2_S0935",
+      "seed": 12,
+      "actor_semantic_hash": "a548b7bfbe3987f46707ea9c1d87fde7b080ac6ca4831b464e2eae84969e75db",
+      "decision_sha256": "739154d85ed9da6397c33c49eb71f30aa920e0c989e663eb29daf1068d6f8f21",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed12",
+        "rl.stage4.bc.seed12",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed12",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_12/final_epoch.pt",
+          "sha256": "37031e713d6fb8d8231c5ba4331effb08641c8433c6b0d9020192f48c247d496",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed12",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/final_epoch.pt",
+          "sha256": "6c86baadb4138a966cd590424bc097eeba1ed737ea695e029d9d53ed19ef8bf4",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.M2_S0935.seed12",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/M2_S0935/seed_12/final_epoch.pt",
+          "sha256": "45b1b37db6e0d7858e50e0598266459a7f3b4508dc4f9af74cdfd7f389acac54",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.M2_S0935.seed13",
+      "configuration": "M2_S0935",
+      "seed": 13,
+      "actor_semantic_hash": "5a25442f46cd4a9b5fe007babf098aa1996131e77fdf84a133260f17b5d37ddd",
+      "decision_sha256": "0177363267de305bee7cc2aa565d397a995afede73a7204a24b0a11c31cd591d",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed13",
+        "rl.stage4.bc.seed13",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed13",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_13/final_epoch.pt",
+          "sha256": "de56bfd12bdf267b97b6310f3adb95a050bb7b08ac7862f55282d80ae6ef9b3e",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed13",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/final_epoch.pt",
+          "sha256": "ee003af1a3a1cf5a86a60b64fc3ff8ee04abf703e586f00e30554ce28fbe4fda",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.M2_S0935.seed13",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/M2_S0935/seed_13/final_epoch.pt",
+          "sha256": "40c462e3cf0b686779708208958365490639da494a598271982cdc6fd66e4f45",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.M2_S0935.seed14",
+      "configuration": "M2_S0935",
+      "seed": 14,
+      "actor_semantic_hash": "4bdccd450dc43cbb7d5cdf3a90eac33f9bea8e6a5e0288b30a25018a906a080d",
+      "decision_sha256": "9d2748d939a2e4ae6f1b1951f2f7e5091ec787168eab0bd4ef23ebd2994d3704",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed14",
+        "rl.stage4.bc.seed14",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed14",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_14/final_epoch.pt",
+          "sha256": "8049552b9548aa8b773eafbb271d976f3c50d43b6c525da22c591d0bc26b04c6",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed14",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/final_epoch.pt",
+          "sha256": "a494becded267f2ccc27016e762ea47cbee44a1ca996858fa7a3b8584b5dc643",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.M2_S0935.seed14",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/M2_S0935/seed_14/final_epoch.pt",
+          "sha256": "ab7334b20329b7f45b399e79543f18ad39c5e1bc9934cca802242ebec16eefe5",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.M2_S0935.seed15",
+      "configuration": "M2_S0935",
+      "seed": 15,
+      "actor_semantic_hash": "4b88f818c96b364d042515e0a9d283eddb82f2be4bb3f6597deb4c606df94678",
+      "decision_sha256": "323d9cfb3246d0408074fdc7c7490e99386a02effaf966637f3420b2d5355c4c",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed15",
+        "rl.stage4.bc.seed15",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed15",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_15/final_epoch.pt",
+          "sha256": "e87beb0ef6b2886359e020cafff4b59f9446162dc5792aa8092db73e16cead24",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed15",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/final_epoch.pt",
+          "sha256": "9e585088ef41aac94868b866c50788057fdecc550c4a86f66140c97765cc7b22",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.M2_S0935.seed15",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/M2_S0935/seed_15/final_epoch.pt",
+          "sha256": "b1ced2cbebf7c6002f1fadf600e150ec3423494d76265643326ba9d3cd0b5a2a",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.M2_S0935.seed16",
+      "configuration": "M2_S0935",
+      "seed": 16,
+      "actor_semantic_hash": "f18ca1a82766333db29a8a125e20282409e8133acb41281e2e07482974542945",
+      "decision_sha256": "995e60e65fcacae3192ee44f339f53457ffb2bdd8198fcf33b43cdb394b726e3",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed16",
+        "rl.stage4.bc.seed16",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed16",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_16/final_epoch.pt",
+          "sha256": "cf90b760c7cc0c769f3a0a7c9c4f0dde1ebf11ffc439b09d16e8527521e23bbb",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed16",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/final_epoch.pt",
+          "sha256": "ff135a368d16582cce9230d3d2ae18b4880b56b04b6b99d0edf0ad437fa8ad7b",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.M2_S0935.seed16",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/M2_S0935/seed_16/final_epoch.pt",
+          "sha256": "377c9b08c6978de8c678883eb58779b1ee74ceae573e8f255d091c051707a672",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.T15_REWARD_S088.seed2",
+      "configuration": "T15_REWARD_S088",
+      "seed": 2,
+      "actor_semantic_hash": "5f3f1747d0f6d584f903a338322c7099df76b282bf4003bec2124aa3bd50e963",
+      "decision_sha256": "f279c41a3b7fa1ff7278dbdc6bdd3c56aa15b80f6a00435e18b115fc9c8e731b",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed2",
+        "rl.stage4.bc.seed2",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed2",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_2/final_epoch.pt",
+          "sha256": "fd1164cd591896f16bf06d8130d2faefe59d20f24314c434fc896edf1fb43edf",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed2",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_2/final_epoch.pt",
+          "sha256": "855da469144e7755145c24a29b59053424804d29c7458ac2885c1ccf89effd90",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.T15_REWARD_S088.seed2",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/T15_REWARD_S088/seed_2/final_epoch.pt",
+          "sha256": "c879b27e2a3f8e338c6a7c15230a568d64269253d01a1d8a4eb69c70ba72e65d",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.T15_REWARD_S088.seed11",
+      "configuration": "T15_REWARD_S088",
+      "seed": 11,
+      "actor_semantic_hash": "28b4a8c665dd0ad126193db912b707a440104963a31592f1fdc1db9577382a71",
+      "decision_sha256": "c8c697204e476a66e13d2daa19e0a37774651e8c8581c9b9870beac1d4c91114",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed11",
+        "rl.stage4.bc.seed11",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed11",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_11/final_epoch.pt",
+          "sha256": "ee6c82a66bfb52e76e14af8b6b716f0a8884d06bf6678c41e2a5d7c688a8bcfd",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed11",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_11/final_epoch.pt",
+          "sha256": "29555efde0533eefa245be92bf72690acb74a922e50b698b0569db1f57d154a0",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.T15_REWARD_S088.seed11",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/T15_REWARD_S088/seed_11/final_epoch.pt",
+          "sha256": "eadc008f4e01dfa919a1c7876990275c8030064abf518dde323a1722daa98459",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.T15_REWARD_S088.seed12",
+      "configuration": "T15_REWARD_S088",
+      "seed": 12,
+      "actor_semantic_hash": "6e109392820ded4c68c86680daef50d2199038f88e30c248fcce3e7ccf0e05c2",
+      "decision_sha256": "bfb0dc390264f7144338699199353545e7dab3cc32d5cb0de7d7a15de81062ad",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed12",
+        "rl.stage4.bc.seed12",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed12",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_12/final_epoch.pt",
+          "sha256": "37031e713d6fb8d8231c5ba4331effb08641c8433c6b0d9020192f48c247d496",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed12",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_12/final_epoch.pt",
+          "sha256": "6c86baadb4138a966cd590424bc097eeba1ed737ea695e029d9d53ed19ef8bf4",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.T15_REWARD_S088.seed12",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/T15_REWARD_S088/seed_12/final_epoch.pt",
+          "sha256": "62c0908f30dd75dd7c87959c49841531c4651f3c465300cee969c8b919d044e7",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.T15_REWARD_S088.seed13",
+      "configuration": "T15_REWARD_S088",
+      "seed": 13,
+      "actor_semantic_hash": "a2cf46eb1dbcd65de4d2fc821b80ed78b1399d667cb7cd2e0f41e215bf476a13",
+      "decision_sha256": "22ce179e3c904b02e3197544915ea8587219015ed6db504cdfbbc996abff8ab5",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed13",
+        "rl.stage4.bc.seed13",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed13",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_13/final_epoch.pt",
+          "sha256": "de56bfd12bdf267b97b6310f3adb95a050bb7b08ac7862f55282d80ae6ef9b3e",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed13",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_13/final_epoch.pt",
+          "sha256": "ee003af1a3a1cf5a86a60b64fc3ff8ee04abf703e586f00e30554ce28fbe4fda",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.T15_REWARD_S088.seed13",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/T15_REWARD_S088/seed_13/final_epoch.pt",
+          "sha256": "cdc0246e1e9dd5f9dc684b17eaecdbfbeeae35b8a71fc860d57ecaf2d7d854fe",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.T15_REWARD_S088.seed14",
+      "configuration": "T15_REWARD_S088",
+      "seed": 14,
+      "actor_semantic_hash": "f2e77f1c3fa6a44f0b5c2c84416e0338764669364b8d21a3346a12e60f318a78",
+      "decision_sha256": "98c09e7a93ba7b4b74bfa3b2a5b3ed674317487fa9efb736b8787b32533ddf2f",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed14",
+        "rl.stage4.bc.seed14",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed14",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_14/final_epoch.pt",
+          "sha256": "8049552b9548aa8b773eafbb271d976f3c50d43b6c525da22c591d0bc26b04c6",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed14",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_14/final_epoch.pt",
+          "sha256": "a494becded267f2ccc27016e762ea47cbee44a1ca996858fa7a3b8584b5dc643",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.T15_REWARD_S088.seed14",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/T15_REWARD_S088/seed_14/final_epoch.pt",
+          "sha256": "694a686587b26f14b91be81fad4636383cd041b3b4d1fadaaec6509e49ed5726",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.T15_REWARD_S088.seed15",
+      "configuration": "T15_REWARD_S088",
+      "seed": 15,
+      "actor_semantic_hash": "ac49bcc5a4fa1fe14043a516c100f29c1e63593af3a744d04ee2f300b8431620",
+      "decision_sha256": "c15ee90825b12f5c33589558d30724293756e83a9ebcd25b8e3aeae8a3af4ca6",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed15",
+        "rl.stage4.bc.seed15",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed15",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_15/final_epoch.pt",
+          "sha256": "e87beb0ef6b2886359e020cafff4b59f9446162dc5792aa8092db73e16cead24",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed15",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_15/final_epoch.pt",
+          "sha256": "9e585088ef41aac94868b866c50788057fdecc550c4a86f66140c97765cc7b22",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.T15_REWARD_S088.seed15",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/T15_REWARD_S088/seed_15/final_epoch.pt",
+          "sha256": "4acf1f3e00dbf8555872d21d6480d8b5b04d55b4c7e4a7f8ce5bba87a163c563",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    },
+    {
+      "logical_id": "rl.member.T15_REWARD_S088.seed16",
+      "configuration": "T15_REWARD_S088",
+      "seed": 16,
+      "actor_semantic_hash": "002830b5c8d945e9ac89ed748faf613853229674e86d8c5a517d5330847cdcf2",
+      "decision_sha256": "c29603e5552d40dcf2fdd709e8af854718b90d7acc965de23660842a4475d341",
+      "parent_logical_ids": [
+        "rl.stage2.compute_parent",
+        "rl.stage3.e2.seed16",
+        "rl.stage4.bc.seed16",
+        "rl.stage6.selector_eval"
+      ],
+      "parents": [
+        {
+          "logical_id": "rl.stage2.compute_parent",
+          "path": "frozen/original_release/rl/stage2",
+          "sha256": "a12169ae9e0396e95e1b36ae553f07cb815c6426492f07bb67c84f22dfebf3da",
+          "role": "candidate_projection_and_counterfactual_inputs"
+        },
+        {
+          "logical_id": "rl.stage3.e2.seed16",
+          "path": "frozen/original_release/rl/stage3_e2/deployed_ensemble_e2_7seed/seed_16/final_epoch.pt",
+          "sha256": "cf90b760c7cc0c769f3a0a7c9c4f0dde1ebf11ffc439b09d16e8527521e23bbb",
+          "role": "E2_encoder_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage4.bc.seed16",
+          "path": "frozen/original_release/rl/stage4_bc/deployed_ensemble_e2_7seed/seed_16/final_epoch.pt",
+          "sha256": "ff135a368d16582cce9230d3d2ae18b4880b56b04b6b99d0edf0ad437fa8ad7b",
+          "role": "behavior_cloning_checkpoint"
+        },
+        {
+          "logical_id": "rl.stage5.c3e.T15_REWARD_S088.seed16",
+          "path": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/members/T15_REWARD_S088/seed_16/final_epoch.pt",
+          "sha256": "dc0fdd83e3a48fb5708ebed57966db654943a73a6e1bbaa7d8304aa29681b415",
+          "role": "preserved_final_actor"
+        },
+        {
+          "logical_id": "rl.stage6.selector_eval",
+          "path": "frozen/original_release/rl/stage6/C3E_E2_7SEED_BALANCED_DFEBAFA6/firm_action_oracle_payoffs.parquet",
+          "sha256": "2be6cc91f3b81a2640141d5dda995ea2f23d9158961b59bfd4549c8b3d39d70a",
+          "role": "C3-E selector/payoff evaluation"
+        }
+      ],
+      "checks": {
+        "stage2_parent_pack": true,
+        "stage3": true,
+        "stage4": true,
+        "stage5": true,
+        "stage6": true
+      },
+      "closure_status": "CLOSED",
+      "reproducibility_level": "R2_FROZEN_REPLAY"
+    }
+  ],
+  "summary": {
+    "member_count": 28,
+    "closed_member_count": 28,
+    "missing_parent_member_count": 0,
+    "actor_checkpoint_count": 28,
+    "decision_sha256": "dfebafa6b50e55c2f5019766e0e540af9964b2a9ab7d4e49805d03e8011b792e",
+    "status": "PASS"
+  }
+}

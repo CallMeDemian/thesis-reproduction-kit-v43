@@ -1,0 +1,35 @@
+{
+  "schema_version": "source_commit_verification_v1",
+  "repository": "CallMeDemian/REPRO_KIT_semantic_repair",
+  "remote": "https://github.com/CallMeDemian/REPRO_KIT_semantic_repair.git",
+  "verification_method": "git fetch by object id, git cat-file, git show",
+  "commits": [
+    {
+      "sha": "324b5fbb0ac9cf322ae20cf97793165227bf45ed",
+      "type": "commit",
+      "subject": "release(repro): certify final thesis submission release",
+      "status": "VERIFIED"
+    },
+    {
+      "sha": "e2ad7fb731e3965b6be750c1057b7db04871b2a7",
+      "type": "commit",
+      "subject": "docs(thesis): record external exact-byte manuscript delivery",
+      "status": "VERIFIED"
+    },
+    {
+      "sha": "449c942cd1c02b17bcc1720f10ee8c96ee0a883a",
+      "type": "commit",
+      "subject": "release(repro): close v43 scientific evidence boundary",
+      "status": "VERIFIED"
+    }
+  ],
+  "bundle": {
+    "relative_path": "frozen/original_release/source/REPRO_KIT_semantic_repair.bundle",
+    "included_release_refs": [
+      "refs/remotes/origin/final/repro-v43-v13-20260917",
+      "refs/remotes/origin/final/thesis-v43-submission-20260917"
+    ],
+    "byte_size": 136597174,
+    "sha256": "84fe9a68e849585d649436a0f59137f8545f7118754c551480895f2ccb4b60b"
+  }
+}

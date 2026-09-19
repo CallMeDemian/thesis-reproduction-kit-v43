@@ -1,0 +1,11 @@
+{
+  "schema_version": "original_scientific_release_manifest_v1",
+  "release_id": "THESIS_V43_ORIGINAL_SCIENTIFIC_RELEASE",
+  "release_root_sha256": "4f5e98c27c757fb4819bb25989e4943552631a22a2f1c20d45a7ffccc5379c78",
+  "artifact_count": 1035,
+  "total_bytes": 4816672890,
+  "dag_closure": "historical_selected_compute_parents_closed; restricted raw input and fresh execution remain external/open",
+  "remote_lfs_certification": "provenance/REMOTE_ASSET_CERTIFICATION.json (added after final remote run)",
+  "source_snapshot": "provenance.source_commit_verification",
+  "frozen_replay_status": "CERTIFIED"
+}
