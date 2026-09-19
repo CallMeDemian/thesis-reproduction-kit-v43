@@ -1,10 +1,10 @@
 {
   "schema_version": "remote_asset_certification_v1",
-  "commit": "5c1643a513391982ebe85cecb28a73ee2c20e56c",
+  "commit": "fbc0bf7d8756ece119e816721d5a920270d690ed",
   "workflow": "full-asset-integrity",
-  "workflow_run_id": 35412145479,
-  "workflow_url": "https://github.com/CallMeDemian/thesis-reproduction-kit-v43/actions/runs/35412145479",
-  "verified_at": "2026-09-19T01:20:35Z",
+  "workflow_run_id": 35424653689,
+  "workflow_url": "https://github.com/CallMeDemian/thesis-reproduction-kit-v43/actions/runs/35424653689",
+  "verified_at": "2026-09-19T05:45:06Z",
   "lfs_fsck": "PASS",
   "asset_manifest_sha256": "c8299c42fad898932a6428b7d11d6ae63c61a565db426b78edffe7982d96b889",
   "files_verified": 1024,
@@ -22,5 +22,12 @@
     "total": 48300
   },
   "rl_checkpoint_count": 28,
+  "original_release_root_sha256": "14a55906b6d8f2f83f8e49e84913e955516d0ca9ef74c311a0f029faefd9d2ba",
+  "original_release_artifact_count": 1035,
+  "original_release_verified_artifacts": 1035,
+  "original_release_total_bytes": 4816666286,
+  "original_release_verification": "PASS",
+  "original_c3e_rebuild": "PASS",
+  "original_c3e_decision_sha256": "dfebafa6b50e55c2f5019766e0e540af9964b2a9ab7d4e49805d03e8011b792e",
   "status": "PASS"
 }
