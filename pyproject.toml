@@ -11,11 +11,10 @@ dependencies = []
 
 [project.optional-dependencies]
 data = ["pandas>=2.0", "pyarrow>=12", "openpyxl>=3.1", "pyyaml>=6"]
-dev = ["pytest>=8"]
+dev = ["pytest>=8", "numpy>=1.24", "pandas>=2.0", "pyarrow>=12", "openpyxl>=3.1", "pyyaml>=6", "joblib>=1.2"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
-

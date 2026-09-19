@@ -1,0 +1,16 @@
+{
+  "schema_version": "restored_scientific_implementation_provenance_v1",
+  "provenance_repository": "CallMeDemian/REPRO_KIT_semantic_repair",
+  "provenance_commit": "449c942cd1c02b17bcc1720f10ee8c96ee0a883a",
+  "restored": [
+    {"path": "src/credit_recourse/eval/v43_oracle_backends.py", "source_sha256": "eacb8fe9d8d378aa4e561a154cf94c7963f4f36d0d54433e471085d0ae5820a3", "new_sha256": "eacb8fe9d8d378aa4e561a154cf94c7963f4f36d0d54433e471085d0ae5820a3", "intentional_modifications": []},
+    {"path": "src/credit_recourse/eval/v43_alpha_evaluation.py", "source_sha256": "a153740761b7b8e4f847179be8da4764001dc2007b3b6563177b651f596f554a", "new_sha256": "a153740761b7b8e4f847179be8da4764001dc2007b3b6563177b651f596f554a", "intentional_modifications": []},
+    {"path": "src/credit_recourse/verification/v43_r085.py", "source_sha256": "227f388b4e26a889ed709aae2779b4c7663e9781892406c905fd18532025d536", "new_sha256": "227f388b4e26a889ed709aae2779b4c7663e9781892406c905fd18532025d536", "intentional_modifications": []},
+    {"path": "src/credit_recourse/contracts/account_registry.py", "source_sha256": "59629c7fb43036cd758a52e63026d28d0bf4dac55fc5ac4e0b6f40e388c1f8f0", "new_sha256": "59629c7fb43036cd758a52e63026d28d0bf4dac55fc5ac4e0b6f40e388c1f8f0", "intentional_modifications": []},
+    {"path": "src/credit_recourse/contracts/v43_alpha_contract.py", "source_sha256": "09455d50d61fa97b30d117fbb229f4527705baf14fa9cee3042567106e800e5b", "new_sha256": "d9b943a7d35404907a636c904805bdc08156d37de31f947f779d189994a34066", "intentional_modifications": ["archive/config paths rebound to run-local environment-selected Oracle work and contract roots"]}
+  ],
+  "production_oracle_sources": [
+    {"path": "src/credit_recourse/oracle/stage0/build_stage0_foundation_from_raw.py", "provenance_commit": "449c942cd1c02b17bcc1720f10ee8c96ee0a883a", "source_git_blob": "ab70af69e1f078f7762d00d651c84c17e9a5af52", "intentional_modifications": ["fresh run adapter passes explicit raw and run-local output paths"]},
+    {"path": "src/credit_recourse/oracle/stage1/run_stage1_oracle_development.py", "provenance_commit": "449c942cd1c02b17bcc1720f10ee8c96ee0a883a", "source_git_blob": "ade18d5f396451beb47795f3d7aaed6a37a71823", "intentional_modifications": ["stage_paths and oracle config root re-bound to run-local work/contracts templates", "fresh branch stops after backend_gamma for this push"]}
+  ]
+}

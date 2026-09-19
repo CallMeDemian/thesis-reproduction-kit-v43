@@ -235,7 +235,10 @@
       "credit_recourse.rl.common.actions",
       "credit_recourse.rl.common.reward_contract"
     ],
-    "credit_recourse.verification.v43_r085": [],
+    "credit_recourse.verification.v43_r085": [
+      "credit_recourse.rl.contracts.v43_encoder",
+      "credit_recourse.rl.v43_one_pass_contract"
+    ],
     "credit_recourse.rl.v43_checkpoints": [
       "credit_recourse.rl.contracts.v43_encoder",
       "credit_recourse.rl.v43_actions",
@@ -282,8 +285,14 @@
       "credit_recourse.rl.common.io"
     ],
     "credit_recourse.analysis.final_v43.runner": [],
-    "credit_recourse.eval.v43_alpha_evaluation": [],
-    "credit_recourse.eval.v43_oracle_backends": [],
+    "credit_recourse.eval.v43_alpha_evaluation": [
+      "credit_recourse.simulator.firm_state",
+      "credit_recourse.simulator.historical_source",
+      "credit_recourse.simulator.oracle_variables"
+    ],
+    "credit_recourse.eval.v43_oracle_backends": [
+      "credit_recourse.oracle.backends.alpha.modules.oracle_alpha_scorer"
+    ],
     "credit_recourse.final_release.action_validation": [],
     "credit_recourse.oracle.artifact_io": [],
     "credit_recourse.rl.common.io": [],

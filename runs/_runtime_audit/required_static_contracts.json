@@ -3,6 +3,15 @@
   "contracts": [
     "contracts/llm/final_as_executed_generation_contract.json",
     "contracts/llm/fresh_replication_contract.json",
+    "contracts/oracle_components/alpha/stage4_alpha_config.yaml",
+    "contracts/oracle_components/beta/stage4_beta_config.yaml",
+    "contracts/oracle_components/gamma/stage4_gamma_config.yaml",
+    "contracts/oracle_components/stage00_02/duplicate_ratio_alias_master.csv",
+    "contracts/oracle_components/stage00_02/ratio_mapping.yaml",
+    "contracts/oracle_components/stage00_02/stage_config.yaml",
+    "contracts/oracle_components/stage00_03/stage_config.yaml",
+    "contracts/oracle_components/stage00_03/variable_mapping.yaml",
+    "contracts/oracle_components/stage00_04/stage3_config.yaml",
     "contracts/scientific/final_freeze/V43_CANONICAL_STAGE_MIGRATION.json",
     "contracts/scientific/final_freeze/c4r_action_intensity_prereg_v1.json",
     "contracts/scientific/final_freeze/c4r_journal_extension_prereg_v1.json",
@@ -62,5 +71,5 @@
     "contracts/scientific/v43_action_contract.json",
     "contracts/scientific/v43_alpha_contract.json"
   ],
-  "count": 60
+  "count": 69
 }

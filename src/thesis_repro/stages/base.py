@@ -18,6 +18,10 @@ class StageResult:
     parent_hashes: list[str] = field(default_factory=list)
     details: dict[str, Any] = field(default_factory=dict)
 
+    def __post_init__(self) -> None:
+        if self.status == "PASS" and self.execution_class == "REAL_COMPUTE" and self.executed is not True:
+            raise ValueError(f"scientific invariant violated: {self.stage} PASS/REAL_COMPUTE requires executed=True")
+
 
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()

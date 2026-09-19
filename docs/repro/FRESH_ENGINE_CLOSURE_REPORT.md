@@ -1,14 +1,14 @@
 # V4.3 Fresh Scientific Engine Closure
 
-Status: implementation closed at the adapter-and-gate boundary. No raw input restoration, 28-actor retraining, or live provider call was performed.
+Status: IMPLEMENTED for the fresh Oracle entrypoint and explicit downstream unexecuted states. Numerical FullClean has not been claimed.
 
 ## Acceptance evidence
 
 - `FullClean`, profile `full`, no-input run: `INPUT_REQUIRED` at `VerifyInputs`.
-- Full Oracle branch proof: `PASS`; smoke artifact helper was monkeypatched to fail and was not called.
-- Full RL branch proof: stops at `RLIQL` with `HEAVY_EXECUTION_APPROVAL_REQUIRED` unless `THESIS_REPRO_ENABLE_HEAVY_RL=I_APPROVE_28_ACTOR_RETRAIN` is set.
-- Full LLM branch proof: after the heavy gate, renders and validates 48,300 fresh logical requests, then stops with `LIVE_LLM_APPROVAL_REQUIRED` unless the live execution option and `THESIS_REPRO_ENABLE_LIVE_LLM=I_APPROVE_FRESH_REPLICATION` are explicitly supplied.
-- Test suite: `28 passed`.
+- Oracle production path is IMPLEMENTED: it dispatches Stage0 and Stage1 production functions into `runs/<run_id>/02_oracle/work`; numerical EXECUTED/VERIFIED evidence requires raw inputs.
+- RL stages are IMPLEMENTED_UNEXECUTED. The heavy gate does not claim execution and does not train an actor.
+- LLM stages are IMPLEMENTED_UNEXECUTED. No live provider submission is claimed without an actual `submit_wave` receipt.
+- Local regression suite: `30 passed`; CI status must be checked for the pushed commit before certification.
 - Runtime closure audit: `runs/_runtime_audit`; reachable modules `71`, missing internal modules `0`, legacy references recorded `159` for review. Legacy references are retained in historical/compatibility source and are not used by the fresh adapter dispatch.
 
 ## Canonical fresh topology
@@ -22,7 +22,8 @@ The fresh action contract is `contracts/scientific/v43_action_contract.json` and
 ## Implemented seams
 
 - Runtime paths and parent lineage: `src/thesis_repro/runtime_paths.py`, `src/thesis_repro/stages/base.py`.
-- Oracle, simulator, RL, C3E, LLM, materialization, Stage8, and Stage9 adapter entry points: `src/thesis_repro/stages/`.
+- Oracle production adapter and verification entry points: `src/thesis_repro/stages/oracle.py` and `src/thesis_repro/stages/adapters.py`.
+- Downstream stage declarations remain explicit IMPLEMENTED_UNEXECUTED states; they do not emit scientific PASS artifacts.
 - Provider-native batch rendering delegates to the production provider builder; network submission delegates to the production live batch runner only after the live gate.
 - Import closure bridges for the canonical V4.3 action, account, Alpha, financial-input, oracle-backend, R085, and rate-helper seams.
 - Static forensic audit: `scripts/audit_runtime_closure.py`.
@@ -31,7 +32,7 @@ The fresh action contract is `contracts/scientific/v43_action_contract.json` and
 ## Not executed
 
 - Restricted raw financial/non-financial input restoration: required before numerical FullClean.
-- 28 actor RL retraining: intentionally gated.
+- 28 actor RL retraining: not wired and not executed.
 - 48,300 live provider calls: intentionally gated and not executed.
 - Fresh Stage8 numerical materialization and Stage9 scientific comparison: require those upstream inputs and provider receipts.
 
@@ -45,4 +46,4 @@ python scripts/audit_runtime_closure.py
 python -m pytest -q
 ```
 
-The frozen/original release remains a provenance and verification source only; it is not a runtime parent of fresh artifacts.
+The frozen/original release remains a provenance source only; it is not a runtime parent of fresh artifacts. Restored scientific source provenance is recorded in the implementation commit and the source manifests.

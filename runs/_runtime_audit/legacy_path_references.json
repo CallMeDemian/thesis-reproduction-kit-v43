@@ -269,14 +269,28 @@
     },
     {
       "path": "src/credit_recourse/oracle/stage1/run_stage1_oracle_development.py",
-      "line": 84,
+      "line": 40,
+      "token": "configs/current",
+      "classification": "D_OBSOLETE_LEGACY_PATH_TO_REMOVE",
+      "text": "# The legacy data/final_freeze and configs/current trees are intentionally"
+    },
+    {
+      "path": "src/credit_recourse/oracle/stage1/run_stage1_oracle_development.py",
+      "line": 40,
+      "token": "data/final_freeze",
+      "classification": "D_OBSOLETE_LEGACY_PATH_TO_REMOVE",
+      "text": "# The legacy data/final_freeze and configs/current trees are intentionally"
+    },
+    {
+      "path": "src/credit_recourse/oracle/stage1/run_stage1_oracle_development.py",
+      "line": 88,
       "token": "configs/current",
       "classification": "D_OBSOLETE_LEGACY_PATH_TO_REMOVE",
       "text": "# Stage00-04 reads its config from configs/current/final_freeze/oracle_components via ORACLE_STAGE00_04_CONFIG."
     },
     {
       "path": "src/credit_recourse/oracle/stage1/run_stage1_oracle_development.py",
-      "line": 140,
+      "line": 144,
       "token": "configs/current",
       "classification": "D_OBSOLETE_LEGACY_PATH_TO_REMOVE",
       "text": "``configs/current/final_freeze``.  Stage1 previously overwrote it with a"
@@ -1118,7 +1132,7 @@
   "counts_by_classification": {
     "A_LEGITIMATE_FROZEN_REFERENCE": 12,
     "B_IMMUTABLE_CONTRACT_TO_PROMOTE_OR_REBIND": 26,
-    "D_OBSOLETE_LEGACY_PATH_TO_REMOVE": 111,
+    "D_OBSOLETE_LEGACY_PATH_TO_REMOVE": 113,
     "E_HISTORICAL_ONLY_IMPLEMENTATION": 10
   }
 }

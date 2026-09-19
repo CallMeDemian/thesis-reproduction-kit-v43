@@ -36,11 +36,15 @@ def run_py(path: Path, argv: list[str]|None=None, cwd: Path|None=None, env: dict
         sys.argv=old_argv; os.environ.clear(); os.environ.update(old_env)
 
 def stage_paths(root: Path):
-    final=root/'data'/'final_freeze'
-    return final, final/'stage1_oracle_inputs', final/'stage1_oracle_backends', final/'ledgers', root/'configs'/'current'/'final_freeze'
+    # Fresh runs bind all generated Stage1 artifacts to a run-local work root.
+    # The legacy data/final_freeze and configs/current trees are intentionally
+    # never consulted by the production fresh entrypoint.
+    work = Path(os.environ.get('THESIS_REPRO_ORACLE_WORK_ROOT', root / 'runs' / 'unbound' / 'oracle_work')).resolve()
+    config_root = Path(os.environ.get('THESIS_REPRO_ORACLE_CONFIG_ROOT', root / 'contracts' / 'oracle_components')).resolve()
+    return work, work/'stage1_oracle_inputs', work/'stage1_oracle_backends', work/'ledgers', config_root
 
 def oracle_component_config_dir(root: Path) -> Path:
-    return root/'configs'/'current'/'final_freeze'/'oracle_components'
+    return Path(os.environ.get('THESIS_REPRO_ORACLE_CONFIG_ROOT', root / 'contracts' / 'oracle_components')).resolve()
 
 def prepare_stage2_config(root, src_dir, s1_out, s2_out):
     cfg={

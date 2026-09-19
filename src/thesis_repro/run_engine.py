@@ -68,6 +68,8 @@ def _write_artifact(run_dir: Path, relative: str, payload: Any, logical_id: str,
 
 
 def _write_stage(run_dir: Path, stage: str, status: str, parent_hashes: list[str], details: dict[str, Any] | None = None, artifacts: list[dict[str, Any]] | None = None) -> str:
+    if status == "PASS" and (details or {}).get("execution_class") == "REAL_COMPUTE" and (details or {}).get("executed") is not True:
+        raise ValueError(f"scientific invariant violated: {stage} PASS/REAL_COMPUTE requires executed=True")
     payload = {"schema_version": "stage_manifest_v2", "stage": stage, "status": status, "run_id": run_dir.name, "created_at": datetime.now(timezone.utc).isoformat(), "contract_hash": _contract_hash(), "parent_hashes": parent_hashes, "artifacts": artifacts or [], "details": details or {}}
     path = _stage_manifest(run_dir, stage)
     write_json(path, payload)
