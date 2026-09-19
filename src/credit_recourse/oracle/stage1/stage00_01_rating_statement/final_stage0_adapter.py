@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import json
+import os
 import re
 import gc
 import shutil
@@ -151,6 +152,9 @@ def _read_excel_with_fallback(fp: Path, **kwargs) -> pd.DataFrame:
 
 
 def _find_project_root_for_raw(stage0_dir: Path) -> Path:
+    configured = os.environ.get("THESIS_REPRO_ORACLE_RAW_ROOT")
+    if configured:
+        return Path(configured).resolve().parent
     for cand in [stage0_dir, *stage0_dir.parents, Path.cwd(), *Path.cwd().parents]:
         if (cand / "data" / "raw").exists():
             return cand
@@ -164,7 +168,8 @@ def _scan_stage00_01_raw_context(stage0_dir: Path) -> tuple[pd.DataFrame, pd.Dat
     ``code_year`` and is never copied into ``code_static``.
     """
     project_root = _find_project_root_for_raw(stage0_dir)
-    raw_roots = [project_root / "data" / "raw" / "raw_all", project_root / "data" / "raw" / "raw_nonfinancial"]
+    raw_root = Path(os.environ.get("THESIS_REPRO_ORACLE_RAW_ROOT", project_root / "data" / "raw")).resolve()
+    raw_roots = [raw_root / "raw_all", raw_root / "raw_nonfinancial"]
     rows = []
     static_rows = []
     for raw_root in raw_roots:
@@ -435,7 +440,10 @@ def _materialize_precomputed_ratio_from_raw_excel(stage0_dir: Path, clean_dir: P
     """
     out_p = clean_dir / f"{K_RATIO}_clean.parquet"
 
+    configured_raw_root = os.environ.get("THESIS_REPRO_ORACLE_RAW_ROOT")
     project_root = None
+    if configured_raw_root:
+        raw_dir = Path(configured_raw_root).resolve() / "raw_all"
     for cand in [stage0_dir, *stage0_dir.parents, Path.cwd(), *Path.cwd().parents]:
         if (cand / "data" / "raw" / "raw_all").exists():
             project_root = cand
@@ -445,7 +453,8 @@ def _materialize_precomputed_ratio_from_raw_excel(stage0_dir: Path, clean_dir: P
         # <root>/archive/DEPLOYED_RELEASE/stage0_oracle_foundation
         project_root = stage0_dir.parents[2] if len(stage0_dir.parents) >= 3 else Path.cwd()
 
-    raw_dir = project_root / "data" / "raw" / "raw_all"
+    if project_root is not None and not configured_raw_root:
+        raw_dir = project_root / "data" / "raw" / "raw_all"
     files = sorted([
         f for f in raw_dir.glob("*재무비율*.xlsx")
         if ("코스피" in f.name or "코스닥" in f.name or "코넥스" in f.name)

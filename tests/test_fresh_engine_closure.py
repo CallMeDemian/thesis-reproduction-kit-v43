@@ -129,9 +129,9 @@ def test_smoke_artifacts_are_marked_contract_smoke_only(tmp_path, monkeypatch):
     assert manifest["execution_class"] == "contract_smoke"
 
 
-def test_mock_materialization_does_not_require_network():
+def test_mock_materialization_does_not_require_network(tmp_path):
     rows = render_requests(limit=2, run_id="mock-closure")
-    assert mock_responses(rows, ROOT / "runs/mock-closure-responses.jsonl")["execution_class"] == "mock_only"
+    assert mock_responses(rows, tmp_path / "mock-closure-responses.jsonl")["execution_class"] == "mock_only"
 
 
 def test_capabilities_do_not_claim_full_execution():

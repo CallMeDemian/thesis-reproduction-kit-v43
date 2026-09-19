@@ -46,23 +46,26 @@ def stage_paths(root: Path):
 def oracle_component_config_dir(root: Path) -> Path:
     return Path(os.environ.get('THESIS_REPRO_ORACLE_CONFIG_ROOT', root / 'contracts' / 'oracle_components')).resolve()
 
+def oracle_raw_root(root: Path) -> Path:
+    return Path(os.environ.get('THESIS_REPRO_ORACLE_RAW_ROOT', root / 'data' / 'raw')).resolve()
+
 def prepare_stage2_config(root, src_dir, s1_out, s2_out):
     cfg={
       'inputs':{'stage1b':{'panel':str(s1_out/'firm_year_panel_v1.parquet'),'cleaned_dir':str(s1_out/'cleaned_statement_panels'),'raw_long':str(s1_out/'financial_statement_items_raw.parquet')},
                 'reference':{'candidates_xlsx':str(src_dir/'candidate_ratio_master.xlsx'),'candidates_sheet':'후보_재무비율'},
-                'raw':{'dir':str(root/'data'/'raw'/'raw_all'),'patterns':{'재무상태표':'*재무상태표*.xlsx','손익계산서':'*손익계산서*.xlsx','현금흐름표':'*현금흐름표*.xlsx','자본변동표':'*자본변동표*.xlsx','이익잉여금처분계산서':'*이익잉여금*.xlsx','재무비율':'*재무비율*.xlsx'}}},
-      'outputs':{'results':str(s2_out),'run_log':str(root/'runs'/'final_freeze'/'stage00_02_financial_ratio_engineering')},
+                'raw':{'dir':str(oracle_raw_root(root)/'raw_all'),'patterns':{'재무상태표':'*재무상태표*.xlsx','손익계산서':'*손익계산서*.xlsx','현금흐름표':'*현금흐름표*.xlsx','자본변동표':'*자본변동표*.xlsx','이익잉여금처분계산서':'*이익잉여금*.xlsx','재무비율':'*재무비율*.xlsx'}}},
+      'outputs':{'results':str(s2_out),'run_log':str(s2_out/'run_log')},
       'acceptance':{'ratios_calculated_min':150,'quality_pass_min':100,'candidates_total_draft_min':150},
       'growth_ratio':{'base_year_offset':1,'positive_base_only':True,'cap_extreme':100.0}}
-    p=root/'configs'/'current'/'final_freeze'/'oracle_components'/'stage00_02'/'paths.final_freeze.generated.yaml'; write_yaml(p,cfg); return p
+    p=oracle_component_config_dir(root)/'stage00_02'/'paths.generated.yaml'; write_yaml(p,cfg); return p
 
 def prepare_stage3_config(root, src_dir, s1_out, s2_out, s3_out):
     cfg={
       'inputs':{'stage1b':{'panel':str(s1_out/'firm_year_panel_v1.parquet'), 'statements':{k:str(s1_out/'cleaned_statement_panels'/f'{k}_clean.parquet') for k in ['재무상태표','손익계산서','현금흐름표','자본변동표','이익잉여금처분계산서','재무비율']}},
                 'stage2':{'engineered_ratios':str(s2_out/'engineered_financial_ratios_canonical.parquet'),'candidate_pool':str(s2_out/'candidate_ratio_pool_canonical.csv'),'lag_support_income':str(s2_out/'lag_support'/'손익계산서_lag_support.parquet')},
-                'raw_nonfinancial':{'general_info':{'kospi':str(root/'data/raw/raw_nonfinancial/kospi_kosdaq/코스피_전업종_폐지사 포함_일반사항.xlsx'),'kosdaq':str(root/'data/raw/raw_nonfinancial/kospi_kosdaq/코스닥_전업종_폐지사 포함_일반사항.xlsx'),'konex':str(root/'data/raw/raw_nonfinancial/konex_optional/코넥스_전업종_일반사항.xlsx')},'capital_change':{'kospi':str(root/'data/raw/raw_nonfinancial/kospi_kosdaq/코스피_전업종_폐지사 포함_자본금 변동사항.xlsx'),'kosdaq':str(root/'data/raw/raw_nonfinancial/kospi_kosdaq/코스닥_전업종_폐지사 포함_자본금 변동사항.xlsx'),'konex':str(root/'data/raw/raw_nonfinancial/konex_optional/코넥스_전업종_자본금 변동사항.xlsx')},'ma_events':{},'lawsuit':{}}},
-      'outputs_v3_2':{'results':str(s3_out),'run_log':str(root/'runs/final_freeze/stage00_03_nonfinancial_metadata')},'outputs':{'results':str(s3_out),'run_log':str(root/'runs/final_freeze/stage00_03_nonfinancial_metadata')}}
-    p=root/'configs'/'current'/'final_freeze'/'oracle_components'/'stage00_03'/'paths.final_freeze.generated.yaml'; write_yaml(p,cfg); return p
+                'raw_nonfinancial':{'general_info':{'kospi':str(oracle_raw_root(root)/'raw_nonfinancial/kospi_kosdaq/코스피_전업종_폐지사 포함_일반사항.xlsx'),'kosdaq':str(oracle_raw_root(root)/'raw_nonfinancial/kospi_kosdaq/코스닥_전업종_폐지사 포함_일반사항.xlsx'),'konex':str(oracle_raw_root(root)/'raw_nonfinancial/konex_optional/코넥스_전업종_일반사항.xlsx')},'capital_change':{'kospi':str(oracle_raw_root(root)/'raw_nonfinancial/kospi_kosdaq/코스피_전업종_폐지사 포함_자본금 변동사항.xlsx'),'kosdaq':str(oracle_raw_root(root)/'raw_nonfinancial/kospi_kosdaq/코스닥_전업종_폐지사 포함_자본금 변동사항.xlsx'),'konex':str(oracle_raw_root(root)/'raw_nonfinancial/konex_optional/코넥스_전업종_자본금 변동사항.xlsx')},'ma_events':{},'lawsuit':{}}},
+      'outputs_v3_2':{'results':str(s3_out),'run_log':str(s3_out/'run_log')},'outputs':{'results':str(s3_out),'run_log':str(s3_out/'run_log')}}
+    p=oracle_component_config_dir(root)/'stage00_03'/'paths.generated.yaml'; write_yaml(p,cfg); return p
 
 def prepare_variable_work(src_dir, s1_out, s2_out, s3_out, s4_out):
     s4_out.mkdir(parents=True, exist_ok=True)
