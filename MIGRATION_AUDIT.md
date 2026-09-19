@@ -36,3 +36,7 @@
 The public CLI imports only `thesis_repro` and resolves paths from the product root. It does not import the old repository or use author-specific absolute paths. The curated legacy compatibility modules are not on the public CLI execution path; their remaining historical relative path strings are tracked for the next adapter pass.
 
 Runtime dependency on the old repository: **0**.
+
+## Current executable closure
+
+The repository now records separate historical, code, execution, and verified-execution closure views. The fresh runtime has an explicit status contract, same-run recursive lineage checks, cryptographic resume invalidation, canonical fresh RL/C3-E membership checks, run-namespaced LLM reconciliation, and a deterministic `SYNTHETIC_E2E_ACCEPTANCE` command. The fixture is an architecture acceptance receipt, not thesis replication and not certification. Full scientific downstream execution remains blocked until the authorized input and execution gates are genuinely satisfied.

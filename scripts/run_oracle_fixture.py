@@ -155,33 +155,11 @@ def run(root: Path, run_id: str, artifact_root: Path | None = None, run_stage1: 
         from credit_recourse.oracle.stage1.run_stage1_oracle_development import main as stage1_main
         from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime
         from thesis_repro.stages.oracle import _verify_production_oracle
-        # The frozen Alpha contract is a byte-level scientific contract.  A
-        # small arbitrary synthetic panel can exercise Stage0, but it cannot
-        # honestly claim to reproduce that contract.  For the deterministic
-        # production E2E, reuse only the immutable *Stage1 input* snapshot;
-        # backend params/models/outputs are never copied.  Stage1 still runs
-        # the real Alpha/Beta/Gamma producers and writes every backend artifact
-        # into this run-local namespace.  Restricted raw-data execution remains
-        # explicitly input-gated.
-        canonical_input_fixture = root / "frozen" / "original_release" / "oracle" / "stage1_oracle_inputs"
-        input_subtrees = [
-            "stage00_01_rating_statement_integration",
-            "stage00_02_financial_ratio_engineering",
-            "stage00_03_nonfinancial_metadata",
-            "stage00_04_variable_selection",
-        ]
-        if all((canonical_input_fixture / subtree).is_dir() for subtree in input_subtrees):
-            input_root = work_root / "stage1_oracle_inputs"
-            for subtree in input_subtrees:
-                shutil.copytree(canonical_input_fixture / subtree, input_root / subtree, dirs_exist_ok=True)
-            stage1_input_mode = "immutable_production_stage1_input_replay"
-            stage1_args = [
-                "--project-root", str(root), "--raw-rating-dir", str(raw_rating),
-                "--clean", "--reuse-stage1-inputs", "--start-step", "backend_alpha",
-            ]
-        else:
-            stage1_input_mode = "fresh_synthetic_raw_stage1"
-            stage1_args = ["--project-root", str(root), "--raw-rating-dir", str(raw_rating), "--clean"]
+        # This fixture always runs Stage1 from the generated run-local raw
+        # inputs.  Frozen Stage1 input trees are evidence-only and must never
+        # become a silent parent of a fresh CI computation.
+        stage1_input_mode = "fresh_synthetic_raw_stage1"
+        stage1_args = ["--project-root", str(root), "--raw-rating-dir", str(raw_rating), "--clean"]
         stage1_rc = stage1_main(stage1_args)
         if stage1_rc != 0:
             raise RuntimeError(f"production Stage1 returned {stage1_rc}")

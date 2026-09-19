@@ -340,9 +340,16 @@ def main(argv: list[str] | None = None) -> int:
         "per_backend": per_backend,
         "backend_verdicts": verdicts,
         "gate_verdict": gate_verdict,
+        "scientific_gate_verdict": gate_verdict,
         "gate_verdict_basis": "alpha_main_backend",
+        "verdict_basis": {
+            "primary_backend": "alpha",
+            "policy": "alpha_main_backend_verdict_is_authoritative",
+            "per_backend_verdicts": verdicts,
+        },
         "note": "Loops A and B2 (simulator-mediated) are a Stage 2 extension and are not part of this gate.",
-        "status": "PASS" if not errors else "FAIL",
+        "verification_execution_status": "PASS" if not errors else "FAILED",
+        "status": "PASS" if not errors else "FAILED",
         "errors": errors,
     }
     out = runtime.ledgers_root / "stage1_substrate_validation_loopB1.json"

@@ -17,3 +17,13 @@ Frozen artifacts are addressed by SHA-256 in
 `frozen/release/frozen_manifest.json`. Fresh outputs live only under
 `runs/<run_id>/` and never replace frozen objects.
 
+## Closure state
+
+- historical evidence closure: `CLOSED`
+- fresh code closure: `PARTIAL` (Oracle and the canonical semantic simulator are wired; RL/Stage8/Stage9 full production dispatch remains explicitly typed as not implemented)
+- fresh execution closure: `NOT_EXECUTED` unless a run manifest records actual execution
+- fresh verified execution closure: `NOT_EXECUTED` unless every same-run verifier and certification check accepts
+
+`python -m thesis_repro acceptance-e2e --run-id ci-e2e` is a separate
+`SYNTHETIC_E2E_ACCEPTANCE` architecture receipt. It does not use licensed raw
+data or paid APIs and is never eligible for fresh replication certification.

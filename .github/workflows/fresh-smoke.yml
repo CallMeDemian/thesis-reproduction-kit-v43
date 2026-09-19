@@ -33,8 +33,21 @@ jobs:
           root = Path("runs/ci-smoke")
           manifest = json.loads((root / "run_manifest.json").read_text())
           dry = json.loads((root / "09_llm/dry_run_manifest.json").read_text())
-          assert manifest["completion_state"] == "PASS_WITH_SKIPS"
+          assert manifest["completion_state"] == "SMOKE_PASS_WITH_SKIPS"
           assert dry["rendered_to_disk"] == 48300
           assert dry["unique_ids"] == 48300
           assert all(path.is_dir() for path in [root / "00_run", root / "09_llm", root / "15_release"])
+          PY
+      - name: Run synthetic end-to-end architecture acceptance
+        run: python -m thesis_repro acceptance-e2e --run-id ci-e2e
+      - name: Assert synthetic acceptance is complete but not certification
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          receipt = json.loads(Path("runs/ci-e2e/acceptance_manifest.json").read_text())
+          assert receipt["status"] == "SYNTHETIC_E2E_PASS"
+          assert receipt["lineage_closed"] is True
+          assert receipt["certifiable"] is False
+          assert receipt["provider_contacted"] is False
           PY

@@ -6,8 +6,8 @@ Status: IMPLEMENTED for the fresh Oracle entrypoint and explicit downstream unex
 
 - `FullClean`, profile `full`, no-input run: `INPUT_REQUIRED` at `VerifyInputs`.
 - Oracle production path is IMPLEMENTED: it dispatches Stage0 and Stage1 production functions into `runs/<run_id>/02_oracle/work`; numerical EXECUTED/VERIFIED evidence requires raw inputs.
-- RL stages are IMPLEMENTED_UNEXECUTED. The heavy gate does not claim execution and does not train an actor.
-- LLM stages are IMPLEMENTED_UNEXECUTED. No live provider submission is claimed without an actual `submit_wave` receipt.
+- RL production stages are `NOT_IMPLEMENTED` until their fresh producers and independent verifier are wired. The heavy gate is checked before any training and does not claim execution.
+- LLM stages use explicit `APPROVAL_REQUIRED`, `CREDENTIALS_REQUIRED`, `NOT_EXECUTED`, or `EXECUTED_UNVERIFIED` states; no live provider submission is claimed without a provider receipt.
 - Local regression suite: `30 passed`; CI status must be checked for the pushed commit before certification.
 - Runtime closure audit: `runs/_runtime_audit`; reachable modules `71`, missing internal modules `0`, legacy references recorded `159` for review. Legacy references are retained in historical/compatibility source and are not used by the fresh adapter dispatch.
 
@@ -23,7 +23,7 @@ The fresh action contract is `contracts/scientific/v43_action_contract.json` and
 
 - Runtime paths and parent lineage: `src/thesis_repro/runtime_paths.py`, `src/thesis_repro/stages/base.py`.
 - Oracle production adapter and verification entry points: `src/thesis_repro/stages/oracle.py` and `src/thesis_repro/stages/adapters.py`.
-- Downstream stage declarations remain explicit IMPLEMENTED_UNEXECUTED states; they do not emit scientific PASS artifacts.
+- Downstream declarations remain explicit typed non-PASS states; they do not emit scientific PASS artifacts.
 - Provider-native batch rendering delegates to the production provider builder; network submission delegates to the production live batch runner only after the live gate.
 - Import closure bridges for the canonical V4.3 action, account, Alpha, financial-input, oracle-backend, R085, and rate-helper seams.
 - Static forensic audit: `scripts/audit_runtime_closure.py`.

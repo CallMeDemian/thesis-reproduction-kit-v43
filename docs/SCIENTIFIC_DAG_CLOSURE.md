@@ -18,6 +18,10 @@ The product repository now contains the selected compute-parent artifacts for RL
 
 The simulator release pack contains the 24 simulator implementation files plus the release-critical action, financial, runtime, and input contracts. The full historical archive remains intentionally excluded; the selected runtime pack is the closure boundary for the preserved Stage8 lineage.
 
+The closure views are intentionally separate: historical evidence is CLOSED; fresh code is PARTIAL because downstream producers are not all wired; fresh execution is NOT_EXECUTED; and fresh verified execution is NOT_EXECUTED. A run is authoritative only through its run manifest and certification receipt.
+
 Fresh numerical execution still requires the authorized restricted raw inputs and has not been run automatically.
+
+The architecture can be exercised without those inputs with `python -m thesis_repro acceptance-e2e --run-id ci-e2e`. Its receipt is explicitly `SYNTHETIC_E2E_ACCEPTANCE`; it uses the production semantic simulator and formula registry, canonical actor/C3-E membership, and mock LLM transport, but cannot become a fresh replication certification.
 
 No full RL training or live LLM call is run by default. Those operations require explicit approval after the remaining parent edges are migrated and verified.

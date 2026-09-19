@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 import joblib
+import numpy as np
 import pandas as pd
 import pytest
 
@@ -15,8 +16,16 @@ from thesis_repro.live_llm import gate_status, mock_responses
 from thesis_repro.runtime_paths import FreshRuntimePaths
 from thesis_repro.stages.base import StageResult
 from thesis_repro.stages.adapters import HEAVY_GATE, LIVE_GATE
+from thesis_repro.status import aggregate_completion
+from thesis_repro.run_engine import STAGES
+from thesis_repro.c3e import aggregate_hierarchical, load_fresh_rl_contract
+from thesis_repro.fresh_rl import verify_actor_graph
+from thesis_repro.fresh_llm import prepare_requests, generate_mock, materialize_responses
+from thesis_repro.stage8_runtime import verify_stage8
+from thesis_repro.stage9_runtime import run_stage9
 from thesis_repro.stages.oracle import _legacy_references, _require_stage1_success
 from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime
+from credit_recourse.oracle.verification.verify_stage1_substrate_validation import _verdict
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -98,6 +107,7 @@ def test_full_no_input_acceptance_receipt(tmp_path, monkeypatch):
     report = {"status": "INPUT_REQUIRED", "present_file_count": 0}
     monkeypatch.setattr(engine, "ROOT", tmp_path)
     monkeypatch.setattr(data, "ROOT", tmp_path)
+    monkeypatch.setattr(engine, "verify_input_contract", lambda write=True: {"status": "INPUT_CONTRACT_PASS", "present_file_count": 1})
     monkeypatch.setattr(engine, "verify_input_contract", lambda write=True: report)
     (tmp_path / "data/raw").mkdir(parents=True)
     (tmp_path / "data/raw/input_contract_report.json").write_text(json.dumps(report), encoding="utf-8")
@@ -183,6 +193,151 @@ def test_mock_materialization_does_not_require_network(tmp_path):
 def test_capabilities_do_not_claim_full_execution():
     payload = json.loads((ROOT / "capabilities.json").read_text(encoding="utf-8"))
     assert "UNEXECUTED" in payload["FullClean"]
+
+
+@pytest.mark.parametrize("status", ["FAILED", "INPUT_REQUIRED", "APPROVAL_REQUIRED", "NOT_IMPLEMENTED", "NOT_EXECUTED", "EXECUTED_UNVERIFIED"])
+def test_full_terminal_failure_never_becomes_pass_with_skips(status):
+    assert aggregate_completion([status], profile="full") == status
+
+
+def test_smoke_status_is_never_scientific_pass():
+    assert aggregate_completion(["SMOKE_PASS"], profile="smoke") == "SMOKE_PASS"
+    assert aggregate_completion(["SMOKE_PASS_WITH_SKIPS"], profile="smoke") == "SMOKE_PASS_WITH_SKIPS"
+    assert aggregate_completion(["FAILED"], profile="smoke") == "SMOKE_PASS_WITH_SKIPS"
+
+
+def test_verify_oracle_precedes_every_oracle_consumer():
+    for mode, stages in STAGES.items():
+        if "Oracle" in stages and len(stages) > stages.index("Oracle") + 1:
+            assert stages[stages.index("Oracle") + 1] == "VerifyOracle", mode
+
+
+def test_heavy_gate_is_before_first_rl_training_stage():
+    for mode in ("OracleRLClean", "OracleRLLLMClean", "FullClean"):
+        stages = STAGES[mode]
+        assert stages.index("RLExecutionGate") < stages.index("RLEncoder") < stages.index("RLIQL")
+
+
+def test_rq1_verdict_has_three_distinct_branches():
+    assert _verdict({"status": "insufficient_movers"}) == "fail"
+    assert _verdict({"status": "ok", "level_validity_spearman_oriented": 0.80, "lead_direction_agreement": 0.60, "lead_direction_agreement_ci95": [0.51, 0.70]}) == "partial_pass"
+    assert _verdict({"status": "ok", "level_validity_spearman_oriented": 0.80, "lead_direction_agreement": 0.80, "lead_direction_agreement_ci95": [0.70, 0.88]}) == "strong_pass"
+
+
+def test_resume_invalidates_tampered_stage_artifact(tmp_path, monkeypatch):
+    import thesis_repro.data as data
+    import thesis_repro.run_engine as engine
+    monkeypatch.setattr(engine, "ROOT", tmp_path)
+    monkeypatch.setattr(data, "ROOT", tmp_path)
+    monkeypatch.setattr(engine, "verify_input_contract", lambda write=True: {"status": "INPUT_CONTRACT_PASS", "present_file_count": 1})
+    raw = tmp_path / "data/raw"
+    raw.mkdir(parents=True)
+    report = {"status": "INPUT_CONTRACT_PASS", "present_file_count": 1}
+    (raw / "input_contract_report.json").write_text(json.dumps(report), encoding="utf-8")
+    first = engine.execute("OracleClean", "tamper-test", "smoke")
+    oracle_manifest = tmp_path / "runs/tamper-test/02_oracle/stage_manifest_Oracle.json"
+    oracle_artifact = tmp_path / json.loads(oracle_manifest.read_text(encoding="utf-8"))["artifacts"][0]["path"]
+    oracle_artifact.write_text(oracle_artifact.read_text(encoding="utf-8") + "tampered", encoding="utf-8")
+    second = engine.execute("OracleClean", "tamper-test", "smoke", resume=True)
+    assert second["invalidations"]
+    assert second["invalidations"][-1]["from_stage"] == "Oracle"
+    assert second["stage_status"]["Oracle"] == "SMOKE_PASS"
+
+
+def test_trace_detects_nested_forbidden_parent_and_unresolved_hash(tmp_path, monkeypatch):
+    import thesis_repro.data as data
+    import thesis_repro.run_engine as engine
+    monkeypatch.setattr(engine, "ROOT", tmp_path)
+    monkeypatch.setattr(data, "ROOT", tmp_path)
+    monkeypatch.setattr(engine, "verify_input_contract", lambda write=True: {"status": "INPUT_CONTRACT_PASS", "present_file_count": 1})
+    (tmp_path / "data/raw").mkdir(parents=True)
+    (tmp_path / "data/raw/input_contract_report.json").write_text("{}", encoding="utf-8")
+    engine.execute("OracleClean", "trace-nested", "smoke")
+    artifact = tmp_path / "runs/trace-nested/02_oracle/oracle_contract.json"
+    artifact.write_text(json.dumps({"nested": {"parent": "frozen/hidden"}}), encoding="utf-8")
+    stage_manifest = tmp_path / "runs/trace-nested/02_oracle/stage_manifest_Oracle.json"
+    payload = json.loads(stage_manifest.read_text(encoding="utf-8"))
+    payload["parent_hashes"] = ["not-a-real-parent"]
+    stage_manifest.write_text(json.dumps(payload), encoding="utf-8")
+    trace = engine.trace_run("trace-nested")
+    assert trace["nested_forbidden_parent_references"]
+    assert trace["lineage_errors"]
+    assert trace["lineage_closed"] is False
+
+
+def test_fresh_rl_contract_uses_canonical_seed_labels_and_actor_count():
+    contract = load_fresh_rl_contract(ROOT)
+    assert contract["seeds"] == [2, 11, 12, 13, 14, 15, 16]
+    assert contract["expected_actor_count"] == 28
+
+
+def test_c3e_hierarchical_weights_are_not_flat_actor_average():
+    contract = load_fresh_rl_contract(ROOT)
+    contract["aggregation"]["outer_configuration_weights"] = {
+        "B27": 0.1, "M2_S0935": 0.2, "DT06": 0.3, "T15_REWARD_S088": 0.4,
+    }
+    actors = {}
+    for index, config in enumerate(contract["selected_configurations"]):
+        actors[config] = {}
+        for seed in contract["seeds"]:
+            first = float(index + 1)
+            values = np.array([[first, 1.0, 0, 0, 0, 0, 0, 0, 0]], dtype=float)
+            values /= values.sum(axis=1, keepdims=True)
+            actors[config][seed] = values
+    final, detail = aggregate_hierarchical(actors, contract)
+    expected = sum(
+        actors[config][contract["seeds"][0]] * weight
+        for config, weight in contract["aggregation"]["outer_configuration_weights"].items()
+    )
+    flat = np.mean(np.concatenate([actors[c][s] for c in actors for s in contract["seeds"]], axis=0), axis=0, keepdims=True)
+    assert np.allclose(final, expected)
+    assert not np.allclose(final, flat)
+    assert detail["actor_count"] == 28
+
+
+def test_rl_actor_graph_rejects_missing_and_duplicate_actor(tmp_path):
+    contract = load_fresh_rl_contract(ROOT)
+    records = []
+    for config in contract["selected_configurations"]:
+        for seed in contract["seeds"]:
+            path = tmp_path / config / f"{seed}.pt"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(f"{config}:{seed}".encode())
+            import hashlib
+            records.append({"configuration": config, "seed": seed, "checkpoint_path": str(path), "checkpoint_sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "evaluation_base_year": 2024, "evaluation_firm_count": 575, "trained_on_evaluation_cohort": False, "oracle_output_in_reward": False})
+    records.pop()
+    records.append(dict(records[0]))
+    report = verify_actor_graph(records, contract, root=tmp_path)
+    assert report["status"] == "FAILED"
+    assert any("missing_actor" in error for error in report["errors"])
+    assert any("duplicate_actor" in error for error in report["errors"])
+
+
+def test_llm_materialization_blocks_incomplete_response_set(tmp_path):
+    report = prepare_requests(tmp_path / "llm-run", limit=3)
+    assert report["status"] == "PASS"
+    generate_mock(tmp_path / "llm-run")
+    response_path = tmp_path / "llm-run/09_llm/raw_mock_responses.jsonl"
+    response_path.write_text(response_path.read_text(encoding="utf-8").splitlines()[0] + "\n", encoding="utf-8")
+    result = materialize_responses(tmp_path / "llm-run", expected_count=3)
+    assert result["status"] == "FAILED"
+    assert result["missing_request_ids"]
+
+
+def test_stage8_requires_exact_strict_repaired_pairing(tmp_path):
+    stage8 = tmp_path / "10_stage8"
+    stage8.mkdir(parents=True)
+    (stage8 / "stage8_rows.jsonl").write_text(json.dumps({"semantic_key": "r:Strict", "request_id": "r", "policy": "Strict", "lineage": {"same_run": True}}) + "\n", encoding="utf-8")
+    report = verify_stage8(tmp_path, expected_rows=2)
+    assert report["status"] == "FAILED"
+    assert "strict_repaired_pairing_incomplete" in report["errors"]
+
+
+def test_stage9_cannot_run_on_incomplete_stage8(tmp_path):
+    (tmp_path / "10_stage8").mkdir(parents=True)
+    (tmp_path / "10_stage8/stage8_validation_report.json").write_text(json.dumps({"status": "FAILED"}), encoding="utf-8")
+    result = run_stage9(tmp_path)
+    assert result["status"] == "FAILED"
 
 
 class _TinyGamma:

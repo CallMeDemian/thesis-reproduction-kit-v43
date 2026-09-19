@@ -2,19 +2,20 @@
 
 An end-to-end product for frozen replay, fresh Oracle/RL/LLM replication, and explicit fresh-vs-frozen comparison for the V4.3 corporate credit recourse thesis.
 
-## What you can do
+## Four reviewer workflows
 
-- **Frozen Replay** — verify the published distribution, Stage8 identity, and 914-row result registry.
-- **Fresh Replication** — run clean namespaced plans and smoke execution from restored inputs.
-- **Comparison** — write a comparison report that distinguishes unavailable fresh values from frozen evidence.
+1. **Verify frozen thesis evidence** — `python -m thesis_repro verify` and `python -m thesis_repro verify-original` check the published artifacts only.
+2. **Run synthetic acceptance** — `python -m thesis_repro acceptance-e2e --run-id ci-e2e` traverses the complete architecture with deterministic fixture data and a mock LLM; it is never certification.
+3. **Restore authorized raw inputs** — `python -m thesis_repro data restore ...` records the private-input receipt and contract hash.
+4. **Run or continue fresh replication** — use `fresh --mode ... --profile full`; missing licensed inputs, GPU approval, and live-provider approval remain typed blockers.
 
 ## Quick start
 
 ```powershell
-python -m pip install -e .
+python -m pip install -e ".[full,dev]"
 python -m thesis_repro doctor
 python -m thesis_repro verify
-python -m thesis_repro frozen-replay
+python -m thesis_repro acceptance-e2e --run-id ci-e2e
 python -m thesis_repro data doctor
 python -m thesis_repro fresh --mode OracleClean --run-id oracle_smoke --profile smoke
 python -m thesis_repro fresh --mode FullClean --run-id full_001 --plan
@@ -25,7 +26,7 @@ python -m thesis_repro compare --run-id oracle_smoke
 
 `OracleClean`, `OracleRLClean`, `OracleRLLMClean`, and `FullClean` are explicit DAG targets. Use `--plan` to inspect stages and resources. Use `--resume`, `--from-stage`, and `--to-stage` for namespaced execution.
 
-The smoke profile exercises the namespaced DAG, artifact ledger, input gate, resume invalidation, and a complete 48,300-request fresh dry render. Full scientific execution is permitted only after `data doctor` returns `INPUT_CONTRACT_PASS`; it never silently uses `frozen/` artifacts as compute parents. Live provider transport is separately gated by `THESIS_REPRO_ENABLE_LIVE_LLM=I_APPROVE_FRESH_REPLICATION`.
+The smoke profile exercises the namespaced DAG, artifact ledger, input gate, resume invalidation, and a complete 48,300-request fresh dry render. Full scientific execution is permitted only after `data doctor` returns `INPUT_CONTRACT_PASS`; it never silently uses `frozen/` artifacts as compute parents. Live provider transport is separately gated by `THESIS_REPRO_ENABLE_LIVE_LLM=I_APPROVE_FRESH_REPLICATION`, and 28-actor retraining by `THESIS_REPRO_ENABLE_HEAVY_RL=I_APPROVE_28_ACTOR_RETRAIN`.
 
 ## Frozen lane
 
@@ -50,11 +51,15 @@ Every run is isolated under `runs/<run_id>/` with `00_run` through `15_release`,
 
 ## Requirements
 
-Python 3.11+. Full RL execution targets Torch 2.6.0 with CUDA 12.4 and records GPU/environment metadata in the run manifest. Provider credentials are supplied through environment variables and live execution requires an explicit gate.
+Python 3.11+. `.[data]`, `.[oracle]`, `.[rl]`, `.[llm]`, `.[full]`, and `.[dev]` separate optional dependencies. Full RL execution targets Torch 2.6.0 with CUDA 12.4 and records GPU/environment metadata in the run manifest. Provider credentials are supplied through environment variables and live execution requires an explicit gate.
 
 ## Scientific contract
 
 The active scientific identity is V4.3: 9 candidate actions, 8 managerial dimensions, E2 encoder, four RL configurations, seven seeds, and a 575-firm cohort. Historical 24,150 and 34,500 design traces remain evidence only; the final evidence count is 48,300 raw generations and 96,600 Strict/Repaired Stage8 observations.
+
+## Execution-state truth table
+
+`PASS` means all required scientific verifiers accepted. `PASS_WITH_QUALIFICATION` records a canonical qualified result. `FAILED`, `INPUT_REQUIRED`, `APPROVAL_REQUIRED`, `CREDENTIALS_REQUIRED`, `RESOURCE_REQUIRED`, `NOT_IMPLEMENTED`, `NOT_EXECUTED`, and `EXECUTED_UNVERIFIED` are never collapsed into `PASS_WITH_SKIPS`; that label is smoke-only. Synthetic acceptance is reported as `SYNTHETIC_E2E_PASS` and cannot be certified.
 
 ## Scope
 

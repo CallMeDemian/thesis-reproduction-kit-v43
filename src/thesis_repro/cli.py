@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
+import os
 import platform
 import sys
 import zipfile
 from pathlib import Path
 
 from .compare import compare_run
+from .certify import certify_run
+from .acceptance import run_acceptance
 from .c3e_rebuild import rebuild_original_c3e
 from .contracts import EXPECTED_REQUESTS, contract_report
 from .data import data_doctor, restore_data
@@ -55,12 +59,35 @@ def _build_parser() -> argparse.ArgumentParser:
     inspect.add_argument("identifier")
     trace = sub.add_parser("trace")
     trace.add_argument("--run-id", required=True)
+    certify = sub.add_parser("certify")
+    certify.add_argument("--run-id", required=True)
+    acceptance = sub.add_parser("acceptance-e2e")
+    acceptance.add_argument("--run-id", default="ci-e2e")
     return parser
 
 
 def _doctor() -> dict[str, object]:
+    def module_available(name: str) -> bool:
+        try:
+            return importlib.util.find_spec(name) is not None
+        except (ImportError, ModuleNotFoundError, ValueError):
+            return False
+
     required = [ROOT / "PROVENANCE.md", ROOT / "provenance/source_release.json", ROOT / "frozen/release/frozen_manifest.json", ROOT / "contracts/llm/final_as_executed_generation_contract.json"]
-    result = {"status": "PASS" if all(path.is_file() for path in required) else "FAIL", "python": sys.version.split()[0], "platform": platform.platform(), "root": str(ROOT), "required_files": {str(path.relative_to(ROOT)): path.is_file() for path in required}, "runtime_old_repository_dependency": 0}
+    required_modules = {name: module_available(name) for name in ("pandas", "pyarrow", "openpyxl", "yaml")}
+    optional_modules = {name: module_available(name) for name in ("scipy", "sklearn", "statsmodels", "torch", "openai", "google.genai")}
+    heavy_requested = os.environ.get("THESIS_REPRO_ENABLE_HEAVY_RL") == "I_APPROVE_28_ACTOR_RETRAIN"
+    live_llm_requested = os.environ.get("THESIS_REPRO_ENABLE_LIVE_LLM") == "I_APPROVE_FRESH_REPLICATION"
+    if heavy_requested:
+        optional_modules["cuda"] = bool(module_available("torch") and __import__("torch").cuda.is_available())
+    result = {
+        "status": "PASS" if all(path.is_file() for path in required) and all(required_modules.values()) else "FAIL",
+        "python": sys.version.split()[0], "platform": platform.platform(), "root": str(ROOT),
+        "required_now": {"files": {str(path.relative_to(ROOT)): path.is_file() for path in required}, "modules": required_modules},
+        "optional_for_oracle_rl_llm": optional_modules,
+        "requested_gates": {"heavy_rl": heavy_requested, "live_llm": live_llm_requested},
+        "runtime_old_repository_dependency": 0,
+    }
     return result
 
 
@@ -116,6 +143,13 @@ def main(argv: list[str] | None = None) -> None:
             _print(_inspect(args.kind, args.identifier))
         elif args.command == "trace":
             _print(trace_run(args.run_id))
+        elif args.command == "certify":
+            result = certify_run(args.run_id)
+            _print(result)
+            if result["state"] == "NOT_CERTIFIABLE":
+                raise SystemExit(1)
+        elif args.command == "acceptance-e2e":
+            _print(run_acceptance(args.run_id))
     except (FileNotFoundError, ValueError, PermissionError) as exc:
         _print({"status": "FAIL", "error": str(exc)})
         raise SystemExit(2)

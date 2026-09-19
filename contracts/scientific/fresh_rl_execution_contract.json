@@ -1,0 +1,25 @@
+{
+  "schema_version": "fresh_rl_execution_contract_v1",
+  "status": "READY_FOR_FRESH_REPLICATION_WITH_APPROVAL",
+  "source_release_definition": "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_definition.json",
+  "source_release_hash": "1100b62b5523e6d96f6a6711f0f07c159d6d7e889600905d6021205ee437aefd",
+  "encoder": "E2",
+  "candidate_actions": ["A0", "DL", "RF", "CX", "WC1", "WC2", "OE", "MX1", "MX2"],
+  "selected_configurations": ["B27", "M2_S0935", "DT06", "T15_REWARD_S088"],
+  "seeds": [2, 11, 12, 13, 14, 15, 16],
+  "expected_actor_count": 28,
+  "evaluation_cohort": {"evaluation_base_year": 2024, "firm_count": 575, "training_transition_year_max": 2022, "training_outcome_year_max": 2023},
+  "aggregation": {
+    "inner": "equal_arithmetic_mean_probability_within_configuration",
+    "inner_seed_weight": 0.14285714285714285,
+    "outer": "equal_arithmetic_mean_of_four_configuration_consensuses",
+    "outer_configuration_weights": {"B27": 0.25, "M2_S0935": 0.25, "DT06": 0.25, "T15_REWARD_S088": 0.25},
+    "final_action": "argmax_in_canonical_action_order"
+  },
+  "training": {
+    "no_hyperparameter_search": true,
+    "heavy_gate": "THESIS_REPRO_ENABLE_HEAVY_RL=I_APPROVE_28_ACTOR_RETRAIN",
+    "reward_oracle_output_leak_forbidden": true,
+    "evaluation_cohort_training_leak_forbidden": true
+  }
+}

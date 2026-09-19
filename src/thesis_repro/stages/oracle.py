@@ -139,8 +139,14 @@ def _verify_production_oracle(root: Path, runtime, *, write_validation_report: b
         errors.append("Oracle semantic closure verifier failed")
     substrate_rc = verify_stage1_substrate_validation.main(["--project-root", str(root)])
     substrate = _read_json(runtime.ledgers_root / "stage1_substrate_validation_loopB1.json")
-    if substrate_rc != 0 or substrate.get("status") != "PASS":
+    substrate_execution_status = substrate.get("verification_execution_status", substrate.get("status"))
+    rq1_gate_verdict = substrate.get("scientific_gate_verdict", substrate.get("gate_verdict", "fail"))
+    if substrate_rc != 0 or substrate_execution_status != "PASS":
         errors.append("Stage1 substrate validation infrastructure did not PASS")
+    if rq1_gate_verdict == "fail":
+        errors.append("Stage1 RQ1 scientific gate rejected the Oracle")
+    elif rq1_gate_verdict not in {"partial_pass", "strong_pass"}:
+        errors.append(f"Stage1 RQ1 scientific gate returned unknown verdict: {rq1_gate_verdict!r}")
 
     import yaml
     registry_path = runtime.registry_path
@@ -184,9 +190,10 @@ def _verify_production_oracle(root: Path, runtime, *, write_validation_report: b
     if lineage:
         errors.append("fresh Oracle verification artifacts contain forbidden legacy/frozen parent references")
 
+    overall_status = "FAILED" if errors else ("PASS_WITH_QUALIFICATION" if rq1_gate_verdict == "partial_pass" else "PASS")
     evidence = {
         "schema_version": "fresh_oracle_production_verification_v2",
-        "status": "PASS" if not errors else "FAIL",
+        "status": overall_status,
         "final_result_allowed": not errors,
         "stage1_report": {"status": stage1_report.get("status"), "final_result_allowed": stage1_report.get("final_result_allowed")},
         "verifiers": {
@@ -194,7 +201,15 @@ def _verify_production_oracle(root: Path, runtime, *, write_validation_report: b
             "alpha_strict": alpha.get("status"),
             "stage1_outputs": outputs.get("status"),
             "semantic_closure": semantic.get("status"),
-            "substrate_validation": substrate.get("status"),
+            "substrate_validation": substrate_execution_status,
+        },
+        "rq1": {
+            "gate_verdict": rq1_gate_verdict,
+            "verdict_basis": substrate.get("verdict_basis", substrate.get("gate_verdict_basis")),
+            "thresholds": substrate.get("thresholds", {}),
+            "observed_metrics": substrate.get("per_backend", {}),
+            "verification_execution_status": substrate_execution_status,
+            "verifier_artifact_sha256": sha256_file(runtime.ledgers_root / "stage1_substrate_validation_loopB1.json") if (runtime.ledgers_root / "stage1_substrate_validation_loopB1.json").is_file() else None,
         },
         "numerical_outputs": numerical,
         "registry": {"path": registry_path.as_posix(), "provenance": provenance},
@@ -235,10 +250,10 @@ def run_oracle_stage(paths, project_root: Path, parent_hashes: list[str]) -> Sta
             ])
             _require_stage1_success(rc, runtime.ledgers_root / "stage1_oracle_backends_full_development.json")
             evidence = _verify_production_oracle(root, runtime, write_validation_report=True)
-            if evidence.get("status") != "PASS" or evidence.get("final_result_allowed") is not True:
+            if evidence.get("status") not in {"PASS", "PASS_WITH_QUALIFICATION"} or evidence.get("final_result_allowed") is not True:
                 raise RuntimeError("production Oracle verification failed: " + json.dumps(evidence.get("errors", []), ensure_ascii=False))
     except Exception as exc:
-        return StageResult("Oracle", "ORACLE_EXECUTION_FAILED", "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"error": repr(exc), "work_root": str(work)})
+        return StageResult("Oracle", "FAILED", "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"error": repr(exc), "failure_class": "ORACLE_EXECUTION_FAILED", "work_root": str(work)})
 
     generated = sorted(p for p in work.rglob("*") if p.is_file() and p.suffix.lower() in {".parquet", ".json", ".joblib", ".pkl", ".yaml"})
     required_names = {
@@ -251,14 +266,14 @@ def run_oracle_stage(paths, project_root: Path, parent_hashes: list[str]) -> Sta
     found_names = {p.name for p in generated}
     missing = sorted(required_names - found_names)
     if missing:
-        return StageResult("Oracle", "ORACLE_ARTIFACTS_INCOMPLETE", "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"missing_artifacts": missing, "generated_count": len(generated), "verification": evidence})
+        return StageResult("Oracle", "FAILED", "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"missing_artifacts": missing, "failure_class": "ORACLE_ARTIFACTS_INCOMPLETE", "generated_count": len(generated), "verification": evidence})
 
     receipt = {"schema_version": "fresh_oracle_execution_receipt_v2", "stage": "Oracle", "execution_class": "REAL_COMPUTE", "executed": True, "production_functions": ["credit_recourse.oracle.stage0.build_stage0_foundation", "credit_recourse.oracle.stage1.run_stage1_oracle_development"], "stage0": stage0_meta, "verification": evidence, "generated_artifact_count": len(generated), "generated_artifacts": [str(p.relative_to(paths.root)).replace("\\", "/") for p in generated], "parent_hashes": parent_hashes}
     receipt_path = paths.oracle_root / "oracle_execution_receipt.json"
     receipt_path.write_text(json.dumps(receipt, ensure_ascii=False, indent=2, default=str) + "\n", encoding="utf-8")
     artifacts = [write_stage_artifact(paths, "02_oracle/oracle_execution_receipt.json", receipt, "fresh:oracle:execution_receipt", ({"sha256": h} for h in parent_hashes))]
     artifacts.extend(_file_artifact(paths.root, p, f"fresh:oracle:{p.name}", ({"sha256": h} for h in parent_hashes)) for p in generated)
-    return StageResult("Oracle", "PASS", "REAL_COMPUTE", executed=True, artifacts=artifacts, parent_hashes=parent_hashes, details={"production_execution": True, "generated_artifact_count": len(generated), "work_root": str(work.relative_to(paths.root)).replace("\\", "/"), "stage1_report_status": evidence["stage1_report"]["status"], "verifier_statuses": evidence["verifiers"]})
+    return StageResult("Oracle", evidence.get("status", "FAILED"), "REAL_COMPUTE", executed=True, artifacts=artifacts, parent_hashes=parent_hashes, details={"production_execution": True, "generated_artifact_count": len(generated), "work_root": str(work.relative_to(paths.root)).replace("\\", "/"), "stage1_report_status": evidence["stage1_report"]["status"], "verifier_statuses": evidence["verifiers"], "rq1": evidence.get("rq1", {})})
 
 
 class OracleAdapter:
@@ -282,8 +297,8 @@ def verify_oracle_stage(paths, parent_hashes: list[str]) -> StageResult:
         ) as runtime:
             evidence = _verify_production_oracle(root, runtime, write_validation_report=True)
     except Exception as exc:
-        evidence = {"schema_version": "fresh_oracle_validation_v2", "status": "FAIL", "final_result_allowed": False, "errors": [repr(exc)]}
+        evidence = {"schema_version": "fresh_oracle_validation_v2", "status": "FAILED", "final_result_allowed": False, "errors": [repr(exc)]}
     report = {**evidence, "parent_hashes": parent_hashes, "executed": True}
     artifact = write_stage_artifact(paths, "02_oracle/oracle_validation_report.json", report, "fresh:oracle:validation", ({"sha256": h} for h in parent_hashes))
-    passed = report.get("status") == "PASS" and report.get("final_result_allowed") is True
-    return StageResult("VerifyOracle", "PASS" if passed else "ORACLE_VERIFICATION_FAILED", "REAL_COMPUTE", executed=passed, artifacts=[artifact], parent_hashes=parent_hashes, details={"production_verifiers": report.get("verifiers", {}), "stage1_report": report.get("stage1_report"), "errors": report.get("errors", [])})
+    passed = report.get("status") in {"PASS", "PASS_WITH_QUALIFICATION"} and report.get("final_result_allowed") is True
+    return StageResult("VerifyOracle", report.get("status") if passed else "FAILED", "REAL_COMPUTE", executed=passed, artifacts=[artifact], parent_hashes=parent_hashes, details={"production_verifiers": report.get("verifiers", {}), "stage1_report": report.get("stage1_report"), "rq1": report.get("rq1", {}), "errors": report.get("errors", [])})
