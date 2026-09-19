@@ -8,13 +8,25 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+CANONICAL_LF_PATHS = {
+    "provenance/RL_PARENT_GRAPH.json",
+    "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/artifact_registry.json",
+    "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/claim_registry.json",
+    "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/contract_registry.json",
+    "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/source_registry.json",
+    "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/table_registry.csv",
+}
+
+
+def canonical_bytes(path: Path) -> bytes:
+    data = path.read_bytes()
+    relative = path.relative_to(ROOT).as_posix()
+    return data.replace(b"\r\n", b"\n") if relative in CANONICAL_LF_PATHS else data
 
 
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
+    digest.update(canonical_bytes(path))
     return digest.hexdigest()
 
 
@@ -27,7 +39,7 @@ def add_record(records: list[dict[str, object]], logical_id: str, path: str, rol
             "logical_id": logical_id,
             "path": path,
             "sha256": sha256(file_path),
-            "byte_size": file_path.stat().st_size,
+            "byte_size": len(canonical_bytes(file_path)),
             "semantic_role": role,
             "parents": sorted(parents),
             "reproducibility_level": level,

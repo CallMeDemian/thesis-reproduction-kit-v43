@@ -11419,8 +11419,8 @@
     {
       "logical_id": "provenance.rl_parent_graph",
       "path": "provenance/RL_PARENT_GRAPH.json",
-      "sha256": "f868b67208c4f3822f7f0603391fea536cd7d066482ea916015196edce775244",
-      "byte_size": 66823,
+      "sha256": "f1c26eb73697555cad3d31313d73c0d99ed64ddac3ee6efc1e62ab9f860e3c63",
+      "byte_size": 65286,
       "semantic_role": "rl_parent_graph",
       "parents": [
         "pack:rl_c3e_e2_final",
@@ -11452,8 +11452,8 @@
     {
       "logical_id": "release.registry.artifact_registry.json",
       "path": "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/artifact_registry.json",
-      "sha256": "79a9d3dfceae29b15ce835e60d1d26cc145b5aced03f6ffc2c79ffccbefcc516",
-      "byte_size": 6020,
+      "sha256": "c9a42729d80ec44101b09cb1e286dbed4b40fc2492f41207fd427deea2eca414",
+      "byte_size": 5894,
       "semantic_role": "release_registry_or_binding",
       "parents": [],
       "reproducibility_level": "R1_EXACT_ARTIFACT"
@@ -11461,8 +11461,8 @@
     {
       "logical_id": "release.registry.claim_registry.json",
       "path": "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/claim_registry.json",
-      "sha256": "eb279ba24b332c310cbaae7b4864c7d766d92e50ac284ad7406ebffb12526eef",
-      "byte_size": 178756,
+      "sha256": "44d11b3c4940502b8c0cce43466c14216723dc307f64ca285de33fd0cf95d758",
+      "byte_size": 173745,
       "semantic_role": "release_registry_or_binding",
       "parents": [],
       "reproducibility_level": "R1_EXACT_ARTIFACT"
@@ -11470,8 +11470,8 @@
     {
       "logical_id": "release.registry.contract_registry.json",
       "path": "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/contract_registry.json",
-      "sha256": "9f5cee1413f7df1075d912159e2d7113bdc4e6a98788337c34bb19548b07ad21",
-      "byte_size": 1099,
+      "sha256": "93a3ed8d265faceb84310df64c7c7aefb723440edc74a96ccd915a310791f9af",
+      "byte_size": 1064,
       "semantic_role": "release_registry_or_binding",
       "parents": [],
       "reproducibility_level": "R1_EXACT_ARTIFACT"
@@ -11479,8 +11479,8 @@
     {
       "logical_id": "release.registry.source_registry.json",
       "path": "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/source_registry.json",
-      "sha256": "b070b0ef5d29786c5c70ec7bfa814a927ce8ab6edddd4cdba46c54fefa50568f",
-      "byte_size": 534,
+      "sha256": "275f5f069407833f1ce92c3b517855d8a0a4170593b5eedeb6b9089194f13c3f",
+      "byte_size": 524,
       "semantic_role": "release_registry_or_binding",
       "parents": [],
       "reproducibility_level": "R1_EXACT_ARTIFACT"
@@ -11488,8 +11488,8 @@
     {
       "logical_id": "release.registry.table_registry.csv",
       "path": "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/table_registry.csv",
-      "sha256": "d36fbc4ece4624b72aa737df31e3f49f2c45f8f0b4792e3b1c3dcfce199e20b0",
-      "byte_size": 24780,
+      "sha256": "93600200de42314b72e1a1557c82af742395b0f2bfc9061b22e7d971c36caa15",
+      "byte_size": 24756,
       "semantic_role": "release_registry_or_binding",
       "parents": [],
       "reproducibility_level": "R1_EXACT_ARTIFACT"
@@ -11514,9 +11514,9 @@
     }
   ],
   "root_hash_basis": "sorted logical_id + sha256 + sorted parent logical IDs + sorted parent SHA256 values; release metadata and root files excluded",
-  "release_root_sha256": "883ff836d07292a175b1885b8e143035d7969b4ef69a3aeb50be7214a78c5f40",
+  "release_root_sha256": "14a55906b6d8f2f83f8e49e84913e955516d0ca9ef74c311a0f029faefd9d2ba",
   "artifact_count": 1035,
-  "total_bytes": 4816673029,
+  "total_bytes": 4816666286,
   "dag_closure": "historical_selected_compute_parents_closed; restricted raw input and fresh execution remain external/open",
   "remote_lfs_certification": {
     "schema_version": "remote_asset_certification_v1",

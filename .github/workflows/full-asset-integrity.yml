@@ -32,13 +32,13 @@ jobs:
         run: git lfs fsck
 
       - name: Verify migrated original asset packs
-        run: python scripts/verify_original_assets.py | tee original_asset_pack_verification.json
+        run: set -o pipefail; python scripts/verify_original_assets.py | tee original_asset_pack_verification.json
 
       - name: Verify original scientific release root
-        run: python -m thesis_repro verify-original | tee original_release_verification.json
+        run: set -o pipefail; python -m thesis_repro verify-original | tee original_release_verification.json
 
       - name: Rebuild original C3-E from migrated release
-        run: python -m thesis_repro rebuild-c3e --release original | tee original_c3e_rebuild.json
+        run: set -o pipefail; python -m thesis_repro rebuild-c3e --release original | tee original_c3e_rebuild.json
 
       - name: Upload machine-readable certification outputs
         uses: actions/upload-artifact@v4

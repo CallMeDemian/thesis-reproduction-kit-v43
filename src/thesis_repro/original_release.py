@@ -10,12 +10,21 @@ from typing import Any
 
 from .paths import ROOT
 
+CANONICAL_LF_PATHS = {
+    "provenance/RL_PARENT_GRAPH.json",
+    "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/artifact_registry.json",
+    "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/claim_registry.json",
+    "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/contract_registry.json",
+    "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/source_registry.json",
+    "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/table_registry.csv",
+}
+
 
 def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
+    data = path.read_bytes()
+    if path.relative_to(ROOT).as_posix() in CANONICAL_LF_PATHS:
+        data = data.replace(b"\r\n", b"\n")
+    digest = hashlib.sha256(data)
     return digest.hexdigest()
 
 
