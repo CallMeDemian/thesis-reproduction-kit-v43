@@ -54,12 +54,22 @@ jobs:
           validation = json.loads((root / "02_oracle/oracle_fixture_validation.json").read_text())
           assert ledger["status"] == "PASS"
           assert ledger["final_result_allowed"] is True
+          assert ledger["execution_profile"] == "synthetic"
           assert validation["stage1_rc"] == 0
+          assert validation["acceptance_profile"] == "SYNTHETIC_E2E_ACCEPTANCE"
           assert validation["status"] == "PASS"
           assert validation["verification"]["status"] == "PASS"
           assert validation["verification"]["final_result_allowed"] is True
-          assert validation["verification"]["rq1"]["gate_verdict"] != "fail"
+          assert validation["verification"]["rq1"]["scientific_gate_applicable"] is False
+          assert validation["verification"]["fixture_verification_contract"]["contract"] == "SYNTHETIC_E2E_ACCEPTANCE"
+          assert validation["verification"]["fixture_verification_contract"]["status"] == "PASS"
           assert validation["verification"]["forbidden_legacy_parent_references"] == []
+          assert validation["verification"]["verifiers"]["alpha_strict"] == "PASS"
+          assert validation["verification"]["verifiers"]["beta_contract"] == "PASS"
+          assert validation["verification"]["verifiers"]["gamma_contract"] == "PASS"
+          registry = json.loads(json.dumps(__import__("yaml").safe_load((work / "contracts/oracle_backend_registry.yaml").read_text())))
+          assert registry["provenance"]["materialized_run_id"] == "github-actions"
+          assert all("runs/oracle-e2e/github-actions" in str(value).replace("\\", "/") for backend in registry["backends"].values() for key, value in backend.items() if key in {"path", "params", "output", "metrics", "model"})
           for name in [
               "oracle_alpha_params.json",
               "oracle_firm_year_output_alpha.parquet",

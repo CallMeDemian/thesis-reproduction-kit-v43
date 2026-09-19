@@ -7,9 +7,22 @@ run or silently fall back to a frozen release tree.
 from __future__ import annotations
 
 from dataclasses import dataclass
+import copy
+import hashlib
+import json
 import os
 from pathlib import Path
 from typing import Callable
+
+import yaml
+
+
+FORBIDDEN_FRESH_ROOTS = (
+    "data/final_freeze",
+    "configs/current",
+    "archive/DEPLOYED_RELEASE",
+    "frozen/",
+)
 
 
 class CallTimePath:
@@ -75,6 +88,19 @@ def resolve_fresh_oracle_runtime(project_root: Path) -> FreshOracleRuntime:
     return FreshOracleRuntime(root, work, config, raw)
 
 
+def oracle_execution_profile() -> str:
+    """Return the explicit Oracle acceptance profile for this process.
+
+    Production fresh replication is the default.  The synthetic profile is
+    reserved for the deterministic architecture fixture and never authorizes
+    a licensed-data run to accept a non-canonical fitted Alpha contract.
+    """
+    profile = str(os.environ.get("THESIS_REPRO_ORACLE_PROFILE", "production")).strip().lower()
+    if profile not in {"production", "synthetic"}:
+        raise ValueError(f"unknown Oracle execution profile: {profile!r}")
+    return profile
+
+
 def run_relative_path(project_root: Path, path: Path) -> str:
     return path.resolve().relative_to(Path(project_root).resolve()).as_posix()
 
@@ -82,11 +108,82 @@ def run_relative_path(project_root: Path, path: Path) -> str:
 def assert_fresh_path(project_root: Path, path: Path, *, label: str) -> None:
     resolved = path.resolve()
     root = Path(project_root).resolve()
-    forbidden = ("data/final_freeze", "configs/current", "archive/DEPLOYED_RELEASE", "frozen/")
     text = resolved.as_posix()
-    if any(token in text for token in forbidden):
+    if any(token in text for token in FORBIDDEN_FRESH_ROOTS):
         raise ValueError(f"{label} resolves to forbidden legacy/frozen root: {resolved}")
     try:
         resolved.relative_to(root)
     except ValueError as exc:
         raise ValueError(f"{label} escapes project root: {resolved}") from exc
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def _backend_binding(runtime: FreshOracleRuntime, name: str) -> dict[str, str]:
+    output_root = (runtime.backends_root / name).resolve()
+    params = {
+        "alpha": "oracle_alpha_params.json",
+        "beta": "benchmark_beta_params.json",
+        "gamma": "benchmark_gamma_params.json",
+    }[name]
+    output = {
+        "alpha": "oracle_firm_year_output_alpha.parquet",
+        "beta": "benchmark_firm_year_output_beta.parquet",
+        "gamma": "benchmark_firm_year_output_gamma.parquet",
+    }[name]
+    binding = {
+        "path": output_root.as_posix(),
+        "params": (output_root / params).as_posix(),
+        "output": (output_root / output).as_posix(),
+    }
+    if name == "alpha":
+        binding["metrics"] = (output_root / "preliminary_dev_oot_metrics_alpha.csv").as_posix()
+    if name == "gamma":
+        binding["model"] = (output_root / "benchmark_gamma_model.joblib").as_posix()
+    return binding
+
+
+def materialize_fresh_oracle_registry(project_root: Path, runtime: FreshOracleRuntime | None = None) -> Path:
+    """Create the run-local Oracle registry from immutable semantic metadata.
+
+    The frozen registry is used only as a contract metadata source.  Every
+    artifact binding in the materialized registry is rewritten to the active
+    run namespace before it is written.  This function is intentionally
+    callable at Stage1 startup, before any backend output exists.
+    """
+    root = Path(project_root).resolve()
+    runtime = runtime or resolve_fresh_oracle_runtime(root)
+    source = root / "contracts" / "scientific" / "final_freeze" / "oracle_backend_registry.yaml"
+    if not source.is_file() or source.stat().st_size <= 0:
+        raise FileNotFoundError(f"immutable Oracle registry metadata is missing: {source}")
+    source_sha = file_sha256(source)
+    payload = yaml.safe_load(source.read_text(encoding="utf-8")) or {}
+    registry = copy.deepcopy(payload)
+    backends = registry.setdefault("backends", {})
+    bindings: dict[str, dict[str, str]] = {}
+    for name in ("alpha", "beta", "gamma"):
+        if name not in backends:
+            raise ValueError(f"immutable Oracle registry is missing backend metadata: {name}")
+        binding = _backend_binding(runtime, name)
+        bindings[name] = binding
+        backends[name] = {**backends[name], **binding}
+        for label, value in binding.items():
+            assert_fresh_path(root, Path(value), label=f"fresh Oracle registry {name}.{label}")
+    registry["provenance"] = {
+        "source_contract_path": source.relative_to(root).as_posix(),
+        "source_contract_sha256": source_sha,
+        "materialized_run_id": runtime.work_root.parent.parent.name,
+        "generated_path_bindings": bindings,
+        "frozen_registry_used_as": "immutable_contract_metadata_only",
+        "fresh_compute_parent_policy": "same_run_artifacts_only",
+    }
+    path = runtime.registry_path
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(yaml.safe_dump(registry, allow_unicode=True, sort_keys=False), encoding="utf-8")
+    return path

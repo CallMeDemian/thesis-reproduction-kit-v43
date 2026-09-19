@@ -5,6 +5,8 @@ from pathlib import Path
 import sys
 import pandas as pd
 
+from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime
+
 GRADE_ORDER = ["AAA","AA","A","BBB","BB","B","CCC","CC","C","D"]
 
 def main(argv=None):
@@ -12,8 +14,9 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--project-root", required=True)
     args = ap.parse_args(argv)
-    root = Path(args.project_root)
-    beta_dir = root / "data" / "final_freeze" / "stage1_oracle_backends" / "beta"
+    root = Path(args.project_root).resolve()
+    runtime = resolve_fresh_oracle_runtime(root)
+    beta_dir = runtime.backends_root / "beta"
     params_path = beta_dir / "benchmark_beta_params.json"
     out_path = beta_dir / "benchmark_firm_year_output_beta.parquet"
     if not params_path.exists():
@@ -47,7 +50,7 @@ def main(argv=None):
         "posterior_map_mismatch_count": mismatch,
         "forbidden_columns_present": forbidden_cols,
     }
-    out = root / "data" / "final_freeze" / "ledgers" / "beta_10grade_orderedlogit_contract_verification.json"
+    out = runtime.ledgers_root / "beta_10grade_orderedlogit_contract_verification.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
     print(json.dumps(report, ensure_ascii=False, indent=2, default=str))

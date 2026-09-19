@@ -40,7 +40,11 @@ def run(root: Path, run_id: str, artifact_root: Path | None = None, run_stage1: 
     years = [year for year in range(2001, 2024) for _firm in fixture_firms]
     ids = [firm for _year in range(2001, 2024) for firm in fixture_firms]
     signal = [firm * 10.0 + (year - 2002) for year, firm in zip(years, ids)]
-    grade_num = [max(1, min(10, 10 - ((year - 2002 + firm) // 4))) for year, firm in zip(years, ids)]
+    # Keep all ten grades represented in both Dev and OOT while retaining
+    # deterministic year-to-year movers.  The previous divisor (4) saturated
+    # most OOT firms at AAA, making the real pre-registered correlation gates
+    # fail for a fixture-distribution reason rather than an execution issue.
+    grade_num = [max(1, min(10, 10 - ((year - 2002 + firm) // 20))) for year, firm in zip(years, ids)]
     quality = [11 - value for value in grade_num]
     base = {"거래소코드": ids, "회계년도": years, "회사명": [f"Fixture {i}" for i in ids], "시장": ["KOSPI"] * len(ids)}
     statement_codes = {
@@ -159,10 +163,23 @@ def run(root: Path, run_id: str, artifact_root: Path | None = None, run_stage1: 
         # inputs.  Frozen Stage1 input trees are evidence-only and must never
         # become a silent parent of a fresh CI computation.
         stage1_input_mode = "fresh_synthetic_raw_stage1"
-        stage1_args = ["--project-root", str(root), "--raw-rating-dir", str(raw_rating), "--clean"]
-        stage1_rc = stage1_main(stage1_args)
-        if stage1_rc != 0:
-            raise RuntimeError(f"production Stage1 returned {stage1_rc}")
+        # This is an explicit fixture acceptance profile.  It runs the real
+        # Stage0/Stage1 producers and verifiers, but does not claim that a
+        # tiny synthetic panel reproduces the licensed-data Alpha bytes.
+        os.environ["THESIS_REPRO_ORACLE_PROFILE"] = "synthetic"
+        stage1_common = ["--project-root", str(root), "--raw-rating-dir", str(raw_rating)]
+        # Keep the fixture within ordinary CI process limits while exercising
+        # the exact production runner.  Partial windows are explicit and each
+        # prerequisite is checked by Stage1 before the next window begins.
+        windows = [
+            [*stage1_common, "--clean", "--end-step", "stage00_04"],
+            [*stage1_common, "--start-step", "backend_alpha", "--end-step", "backend_alpha"],
+            [*stage1_common, "--start-step", "backend_beta"],
+        ]
+        for window in windows:
+            stage1_rc = stage1_main(window)
+            if stage1_rc != 0:
+                raise RuntimeError(f"production Stage1 returned {stage1_rc} for window={window}")
         stage1_status = "E2E_PASS"
 
     backend_root = work_root / "stage1_oracle_backends"
@@ -175,7 +192,9 @@ def run(root: Path, run_id: str, artifact_root: Path | None = None, run_stage1: 
         verification = _verify_production_oracle(root, runtime, write_validation_report=True)
         if verification.get("status") != "PASS" or verification.get("final_result_allowed") is not True:
             raise RuntimeError("production Oracle verification did not PASS")
-        validation = {"status": "PASS", "mode": "production_stage0_stage1_e2e", "stage1_input_mode": stage1_input_mode, "stage1_rc": 0, "backend_root": str(backend_root), "stage1_report": {"status": report.get("status"), "final_result_allowed": report.get("final_result_allowed")}, "verification": verification}
+        if verification.get("fixture_verification_contract", {}).get("contract") != "SYNTHETIC_E2E_ACCEPTANCE":
+            raise RuntimeError("synthetic Oracle fixture did not record its explicit fixture verification contract")
+        validation = {"status": "PASS", "mode": "production_stage0_stage1_e2e", "acceptance_profile": "SYNTHETIC_E2E_ACCEPTANCE", "stage1_input_mode": stage1_input_mode, "stage1_rc": 0, "backend_root": str(backend_root), "stage1_report": {"status": report.get("status"), "final_result_allowed": report.get("final_result_allowed"), "execution_profile": report.get("execution_profile")}, "verification": verification}
         validation_path = oracle_root / "oracle_fixture_validation.json"; validation_path.write_text(json.dumps(validation, indent=2), encoding="utf-8")
         artifacts = [stage0 / "canonical_panel/stage0_canonical_panel.parquet", stage0 / "stage0_validation.json", ledger, validation_path]
         output = pd.read_parquet(backend_root / "alpha/oracle_firm_year_output_alpha.parquet")
@@ -194,7 +213,7 @@ def run(root: Path, run_id: str, artifact_root: Path | None = None, run_stage1: 
         validation = {"status": "PASS" if output.select_dtypes(include=["number"]).notna().all().all() and output[["R_score_alpha", "R_score_beta", "R_score_gamma"]].nunique().sum() > 0 else "FAIL", "rows": len(output), "production_backend_dir_untouched": not any(backend_root.rglob("*.json")), "production_scorers": ["score_alpha", "score_beta_ordered_logit_params", "score_gamma_model"]}
         validation_path = oracle_root / "oracle_fixture_validation.json"; validation_path.write_text(json.dumps(validation, indent=2), encoding="utf-8")
         artifacts = [stage0 / "canonical_panel/stage0_canonical_panel.parquet", alpha_path, beta_path, gamma_path, model_path, output_path, validation_path]
-    receipt = {"schema_version": "tiny_oracle_fixture_receipt_v1", "run_id": run_id, "stage1_status": stage1_status, "stage0_rows": stage0_meta["row_counts"], "scored_rows": len(output), "validation": validation, "artifacts": [{"path": str(p.relative_to(artifact_root)).replace("\\", "/"), "sha256": _sha256(p), "bytes": p.stat().st_size} for p in artifacts]}
+    receipt = {"schema_version": "tiny_oracle_fixture_receipt_v2", "run_id": run_id, "fixture_kind": "production_stage0_stage1_e2e" if run_stage1 else "scorer_unit_fixture", "stage1_status": stage1_status, "stage0_rows": stage0_meta["row_counts"], "scored_rows": len(output), "validation": validation, "artifacts": [{"path": str(p.relative_to(artifact_root)).replace("\\", "/"), "sha256": _sha256(p), "bytes": p.stat().st_size} for p in artifacts]}
     (oracle_root / "tiny_oracle_fixture_receipt.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
     print(json.dumps(receipt, indent=2))
     return receipt

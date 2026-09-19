@@ -92,7 +92,9 @@ def selected_variable_ids_from_master(path: Path) -> list[str]:
 def resolve_stage1_selected_variable_master(project_root: Path) -> Path:
     """Resolve the authoritative fresh-run Stage1 selected-variable artifact."""
     root = Path(project_root).resolve()
-    s4 = root / "data" / "final_freeze" / "stage1_oracle_inputs" / "stage00_04_variable_selection"
+    from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime
+
+    s4 = resolve_fresh_oracle_runtime(root).inputs_root / "stage00_04_variable_selection"
     candidates = [s4 / "selected_variable_master.csv", s4 / "outputs" / "selected_variable_master.csv"]
     for path in candidates:
         if path.exists():
@@ -159,7 +161,9 @@ def verify_package_selected_variable_masters(
     # There is deliberately one runtime configuration owner.  Historical
     # package snapshots are archived and must not be treated as alternate
     # authorities during a live verification.
-    paths = [root / "configs" / "current" / "final_freeze" / "selected_variable_master.csv"]
+    from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime
+
+    paths = [resolve_fresh_oracle_runtime(root).config_root / "selected_variable_master.csv"]
     checks = [
         verify_current_selected_variable_master(
             p,

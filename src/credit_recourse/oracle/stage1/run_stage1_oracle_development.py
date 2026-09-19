@@ -12,7 +12,12 @@ from credit_recourse.oracle.stage1.stage00_01_rating_statement.final_stage0_adap
 from credit_recourse.oracle.stage0.rating_contract_repair import validate_stage0_contract, repair_stage0_canonical
 from credit_recourse.utils.io_contract import configure_utf8_stdio, write_json, read_json, read_csv_korean_safe, selected_variables_from_backend_params
 from credit_recourse.oracle.verification.diagnose_oracle_backends import diagnose_backend_dir
-from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime, run_relative_path
+from credit_recourse.oracle.fresh_runtime import (
+    materialize_fresh_oracle_registry,
+    oracle_execution_profile,
+    resolve_fresh_oracle_runtime,
+    run_relative_path,
+)
 
 @contextlib.contextmanager
 def pushd(path: Path):
@@ -149,41 +154,28 @@ def write_registry(config_dir, backend_dir):
         file_sha256,
     )
 
-    path = config_dir/'oracle_backend_registry.yaml'
-    if not path.is_file():
-        root = Path(os.environ.get('THESIS_REPRO_PROJECT_ROOT', Path.cwd())).resolve()
-        source = root / 'contracts' / 'scientific' / 'final_freeze' / 'oracle_backend_registry.yaml'
-        if not source.is_file():
-            raise FileNotFoundError(f'Immutable Oracle registry metadata is missing: {source}')
-        source_sha = file_sha256(source)
-        reg = yaml.safe_load(source.read_text(encoding='utf-8')) or {}
-        for name in ('alpha', 'beta', 'gamma'):
-            backend = (reg.get('backends') or {}).get(name) or {}
-            out = (backend_dir / name).resolve()
-            backend['path'] = out.as_posix()
-            backend['params'] = (out / ({'alpha': 'oracle_alpha_params.json', 'beta': 'benchmark_beta_params.json', 'gamma': 'benchmark_gamma_params.json'}[name])).as_posix()
-            backend['output'] = (out / ({'alpha': 'oracle_firm_year_output_alpha.parquet', 'beta': 'benchmark_firm_year_output_beta.parquet', 'gamma': 'benchmark_firm_year_output_gamma.parquet'}[name])).as_posix()
-            metrics_name = f'preliminary_dev_oot_metrics_{name}.csv'
-            if 'metrics' in backend:
-                backend['metrics'] = (out / metrics_name).as_posix()
-            if name == 'gamma':
-                backend['model'] = (out / 'benchmark_gamma_model.joblib').as_posix()
-            reg.setdefault('backends', {})[name] = backend
-        reg['provenance'] = {
-            'source_contract_path': source.relative_to(root).as_posix(),
-            'source_contract_sha256': source_sha,
-            'materialized_run_id': os.environ.get('THESIS_REPRO_RUN_ID', 'unknown'),
-            'generated_path_bindings': 'run-local stage1_oracle_backends paths; no frozen parent',
-        }
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(yaml.safe_dump(reg, allow_unicode=True, sort_keys=False), encoding='utf-8')
+    root = Path(os.environ.get('THESIS_REPRO_PROJECT_ROOT', Path.cwd())).resolve()
+    runtime = resolve_fresh_oracle_runtime(root)
+    if runtime.config_root.resolve() != Path(config_dir).resolve():
+        raise ValueError(
+            f'Oracle registry config root mismatch: runtime={runtime.config_root} supplied={Path(config_dir)}'
+        )
+    if runtime.backends_root.resolve() != Path(backend_dir).resolve():
+        raise ValueError(
+            f'Oracle registry backend root mismatch: runtime={runtime.backends_root} supplied={Path(backend_dir)}'
+        )
+    path = materialize_fresh_oracle_registry(root, runtime)
     reg = yaml.safe_load(path.read_text(encoding='utf-8')) or {}
     alpha = (reg.get('backends') or {}).get('alpha') or {}
     promotion = reg.get('v4_3_contract_promotion') or {}
-    expected_path = canonical_alpha_contract_path(
-        Path(os.environ.get('THESIS_REPRO_PROJECT_ROOT', Path.cwd()))
-    ).as_posix()
+    expected_path = canonical_alpha_contract_path(root).as_posix()
     actual_params = backend_dir/'alpha'/'oracle_alpha_params.json'
+    if oracle_execution_profile() == 'synthetic' and actual_params.is_file():
+        promotion = reg.setdefault('v4_3_contract_promotion', {})
+        promotion['alpha_params_sha256'] = file_sha256(actual_params)
+        promotion['execution_profile'] = 'synthetic'
+        promotion['canonical_release_sha256'] = EXPECTED_ALPHA_CONTRACT_SHA256
+        path.write_text(yaml.safe_dump(reg, allow_unicode=True, sort_keys=False), encoding='utf-8')
     errors = []
     if reg.get('schema_version') != 'oracle_backend_registry_v4_3_alpha_monotone_v1':
         errors.append(f"schema_version={reg.get('schema_version')!r}")
@@ -191,10 +183,11 @@ def write_registry(config_dir, backend_dir):
         errors.append(f"alpha.params={alpha.get('params')!r}")
     if promotion.get('alpha_contract_version') != ALPHA_CONTRACT_VERSION:
         errors.append(f"alpha_contract_version={promotion.get('alpha_contract_version')!r}")
-    if promotion.get('alpha_params_sha256') != EXPECTED_ALPHA_CONTRACT_SHA256:
+    expected_alpha_sha = file_sha256(actual_params) if oracle_execution_profile() == 'synthetic' and actual_params.is_file() else EXPECTED_ALPHA_CONTRACT_SHA256
+    if promotion.get('alpha_params_sha256') != expected_alpha_sha:
         errors.append(f"registry alpha_params_sha256={promotion.get('alpha_params_sha256')!r}")
-    if not actual_params.is_file() or file_sha256(actual_params) != EXPECTED_ALPHA_CONTRACT_SHA256:
-        errors.append('fresh Alpha params do not match the canonical V4.3 SHA-256')
+    if not actual_params.is_file() or (oracle_execution_profile() == 'production' and file_sha256(actual_params) != EXPECTED_ALPHA_CONTRACT_SHA256):
+        errors.append('fresh Alpha params do not match the required V4.3 SHA-256 for the active execution profile')
     if errors:
         raise ValueError('Oracle registry/Stage1 backend mismatch: ' + '; '.join(errors))
     return reg
@@ -555,8 +548,14 @@ def main(argv=None):
         for d in clean_dirs:
             if d.exists(): shutil.rmtree(d)
     ledgers.mkdir(parents=True,exist_ok=True); inputs.mkdir(parents=True,exist_ok=True); backends.mkdir(parents=True,exist_ok=True); cfgdir.mkdir(parents=True,exist_ok=True)
-    report={'stage':'stage1_oracle_development','created_utc':datetime.now(timezone.utc).isoformat(),'final_result_allowed':False,'steps':[],'methodology':'ported_old_oracle_core_in_final_package','split_policy':_stage1_split_policy(args),'step_window':{'start_step':start_step,'end_step':end_step,'only_step':args.only_step}}
+    report={'stage':'stage1_oracle_development','created_utc':datetime.now(timezone.utc).isoformat(),'final_result_allowed':False,'steps':[],'methodology':'ported_old_oracle_core_in_final_package','execution_profile':oracle_execution_profile(),'split_policy':_stage1_split_policy(args),'step_window':{'start_step':start_step,'end_step':end_step,'only_step':args.only_step}}
     try:
+        # Materialize the run-local registry before any Stage1 computation.  The
+        # immutable release registry is semantic metadata only; its artifact
+        # paths are never copied into a fresh execution namespace.
+        runtime = resolve_fresh_oracle_runtime(root)
+        report['registry_path'] = str(materialize_fresh_oracle_registry(root, runtime))
+
         # Stage0 rating sampling contract is a prerequisite for every Oracle backend.
         # Validate first; if the protected Stage0 panel is stale/contaminated, rebuild
         # it explicitly from raw rating workbooks before Stage00-01 consumes it.

@@ -18,6 +18,8 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime
+
 GRADE_ORDER_10 = ["AAA", "AA", "A", "BBB", "BB", "B", "CCC", "CC", "C", "D"]
 NUM2GRADE_10 = {i + 1: g for i, g in enumerate(GRADE_ORDER_10)}
 
@@ -46,7 +48,9 @@ def _round_clip(x: pd.Series) -> np.ndarray:
 
 
 def verify(project_root: Path) -> dict[str, Any]:
-    gamma_dir = project_root / "data" / "final_freeze" / "stage1_oracle_backends" / "gamma"
+    root = Path(project_root).resolve()
+    runtime = resolve_fresh_oracle_runtime(root)
+    gamma_dir = runtime.backends_root / "gamma"
     params_path = gamma_dir / "benchmark_gamma_params.json"
     if not params_path.exists():
         raise FileNotFoundError(params_path)
@@ -103,7 +107,7 @@ def verify(project_root: Path) -> dict[str, Any]:
         "gamma_dir": str(gamma_dir),
         "checks": checks,
     }
-    ledger_dir = project_root / "data" / "final_freeze" / "ledgers"
+    ledger_dir = runtime.ledgers_root
     ledger_dir.mkdir(parents=True, exist_ok=True)
     with (ledger_dir / "gamma_10grade_ml_contract_verification.json").open("w", encoding="utf-8") as f:
         json.dump(report, f, indent=2, ensure_ascii=False, default=str)

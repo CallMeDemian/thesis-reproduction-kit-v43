@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 from pathlib import Path
 
 import joblib
@@ -24,7 +25,7 @@ from thesis_repro.fresh_llm import prepare_requests, generate_mock, materialize_
 from thesis_repro.stage8_runtime import verify_stage8
 from thesis_repro.stage9_runtime import run_stage9
 from thesis_repro.stages.oracle import _legacy_references, _require_stage1_success
-from credit_recourse.oracle.fresh_runtime import resolve_fresh_oracle_runtime
+from credit_recourse.oracle.fresh_runtime import materialize_fresh_oracle_registry, resolve_fresh_oracle_runtime
 from credit_recourse.oracle.verification.verify_stage1_substrate_validation import _verdict
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -164,6 +165,26 @@ def test_fresh_runtime_resolves_environment_at_call_time(tmp_path, monkeypatch):
     assert resolve_fresh_oracle_runtime(tmp_path).work_root == first.resolve()
     monkeypatch.setenv("THESIS_REPRO_ORACLE_WORK_ROOT", str(second))
     assert resolve_fresh_oracle_runtime(tmp_path).work_root == second.resolve()
+
+
+def test_fresh_registry_materializes_run_local_bindings(tmp_path, monkeypatch):
+    source = tmp_path / "contracts/scientific/final_freeze"
+    source.mkdir(parents=True)
+    shutil.copy2(ROOT / "contracts/scientific/final_freeze/oracle_backend_registry.yaml", source / "oracle_backend_registry.yaml")
+    work = tmp_path / "runs/registry-test/02_oracle/work"
+    config = work / "contracts/oracle_components"
+    monkeypatch.setenv("THESIS_REPRO_ORACLE_WORK_ROOT", str(work))
+    monkeypatch.setenv("THESIS_REPRO_ORACLE_CONFIG_ROOT", str(config))
+    registry_path = materialize_fresh_oracle_registry(tmp_path)
+    import yaml
+    registry = yaml.safe_load(registry_path.read_text(encoding="utf-8"))
+    assert registry["provenance"]["materialized_run_id"] == "registry-test"
+    assert registry["provenance"]["source_contract_sha256"]
+    for backend in registry["backends"].values():
+        for key in ("path", "params", "output", "metrics", "model"):
+            if key in backend:
+                assert str(backend[key]).replace("\\", "/").startswith(str(work / "stage1_oracle_backends").replace("\\", "/"))
+                assert not any(token in str(backend[key]).replace("\\", "/") for token in ("data/final_freeze", "configs/current", "archive/DEPLOYED_RELEASE", "frozen/"))
 
 
 def test_fresh_oracle_verifier_call_graph_has_no_legacy_parent_literals():
