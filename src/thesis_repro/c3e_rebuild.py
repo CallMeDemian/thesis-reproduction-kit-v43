@@ -3,9 +3,6 @@ from __future__ import annotations
 import hashlib
 from typing import Any
 
-import numpy as np
-import pandas as pd
-
 from .paths import ROOT, write_json
 
 
@@ -15,6 +12,8 @@ SEEDS = (2, 11, 12, 13, 14, 15, 16)
 
 
 def rebuild_original_c3e() -> dict[str, Any]:
+    import numpy as np
+    import pandas as pd
     import pyarrow.parquet as pq
 
     source = ROOT / "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6"
