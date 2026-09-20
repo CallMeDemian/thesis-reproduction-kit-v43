@@ -1,0 +1,149 @@
+{
+  "schema_version": "final_implementation_map_v1",
+  "generated_at": "2026-09-20",
+  "scientific_changes": [],
+  "policy": "Frozen computed artifacts are comparison/reference inputs only; every fresh producer below binds to the active run namespace or terminates truthfully.",
+  "components": [
+    {
+      "component": "E2 encoder pretraining",
+      "authoritative_source": "src/credit_recourse/rl/v43_runtime.py::train_fresh_stage3",
+      "source_sha256": "d8d521470839f9f7383450334ef9f34b01d8f8f307fa49830da8c201ecd2acd0",
+      "new_runtime_entrypoint": "thesis_repro.fresh_rl_runtime.run_training_stage(RLEncoder) -> credit_recourse.rl.v43_runtime.stage_main(3, --train)",
+      "scientific_changes": [],
+      "engineering_changes": ["run-local path binding", "explicit pre-training input gate", "checkpoint receipt lineage"],
+      "execution_state": "WIRED_INPUT_GATED"
+    },
+    {
+      "component": "Balanced behavior cloning",
+      "authoritative_source": "src/credit_recourse/rl/v43_training.py::train_policy",
+      "source_sha256": "ed58f9073d9152f699e49ca522eeecc66f6d172c3a901e965dcac6ecace94edb",
+      "new_runtime_entrypoint": "thesis_repro.fresh_rl_runtime.run_training_stage(RLBehaviorClone) -> credit_recourse.rl.v43_runtime.stage_main(4, --train)",
+      "scientific_changes": [],
+      "engineering_changes": ["same-run encoder checkpoint binding", "run-local output binding", "fixed final-epoch receipt"],
+      "execution_state": "WIRED_INPUT_GATED"
+    },
+    {
+      "component": "Terminal IQL",
+      "authoritative_source": "src/credit_recourse/rl/v43_training.py::train_policy",
+      "source_sha256": "ed58f9073d9152f699e49ca522eeecc66f6d172c3a901e965dcac6ecace94edb",
+      "new_runtime_entrypoint": "thesis_repro.fresh_rl_runtime.run_training_stage(RLIQL) -> credit_recourse.rl.v43_runtime.stage_main(5, --train)",
+      "scientific_changes": [],
+      "engineering_changes": ["same-run BC checkpoint binding", "same-run counterfactual transition binding", "fixed final-epoch receipt"],
+      "execution_state": "WIRED_INPUT_GATED"
+    },
+    {
+      "component": "E2 encoder/model contract",
+      "authoritative_source": "src/credit_recourse/rl/v43_model.py and contracts/scientific/final_freeze/v43_rl.json",
+      "source_sha256": "eab046df7f772887ca712a6d7968fb1c4d28e49c5fefadcaed391c2ee23e67c6",
+      "new_runtime_entrypoint": "credit_recourse.rl.v43_runtime.V43StageConsumer",
+      "scientific_changes": [],
+      "engineering_changes": ["canonical config path fallback to contracts/scientific/final_freeze"],
+      "execution_state": "IMPLEMENTED"
+    },
+    {
+      "component": "C3-E hierarchical ensemble",
+      "authoritative_source": "src/thesis_repro/c3e.py::aggregate_hierarchical and src/thesis_repro/fresh_rl.py",
+      "source_sha256": "a7a1f4c053a3a7990e0a3e209d6a2c3d6523d1ccd0f62eee41f15da7e47a85aa",
+      "new_runtime_entrypoint": "thesis_repro.fresh_rl_runtime.run_c3e",
+      "scientific_changes": [],
+      "engineering_changes": ["same-run actor graph/probability input binding", "release and pointer receipts", "hierarchical aggregation verification"],
+      "execution_state": "WIRED_INPUT_GATED"
+    },
+    {
+      "component": "RL actor graph verification",
+      "authoritative_source": "src/thesis_repro/fresh_rl.py::verify_actor_graph",
+      "source_sha256": "a8c4a082239e07d4cefbc0a03466d308ccc53af72e61bee34493ac4b32218fcb",
+      "new_runtime_entrypoint": "thesis_repro.fresh_rl_runtime.run_verify_rl",
+      "scientific_changes": [],
+      "engineering_changes": ["same-run graph and release resolution"],
+      "execution_state": "WIRED_INPUT_GATED"
+    },
+    {
+      "component": "Offline-RL dataset assembly and temporal eligibility",
+      "authoritative_source": "src/credit_recourse/rl/v43_one_pass_data.py and src/credit_recourse/rl/v43_one_pass_contract.py",
+      "source_sha256": "3489ba3d649997b7431004cf98c3aaed5501d2dbf899ba20e978957b04d4f92a",
+      "new_runtime_entrypoint": "thesis_repro.fresh_rl_dataset.run_fresh_rl_dataset for the verified prefix; v43_one_pass_data remains the full authorized-input constructor",
+      "scientific_changes": [],
+      "engineering_changes": ["same-run Simulator binding in the prefix adapter", "explicit no-Oracle-reward audit", "run-local manifests"],
+      "execution_state": "PREFIX_EXECUTED_FULL_CONSTRUCTOR_INPUT_GATED",
+      "known_blocker": "the full constructor requires an authorized fresh Stage2 input pack; frozen Stage2 tables are not accepted as a substitute"
+    },
+    {
+      "component": "LLM logical request preparation",
+      "authoritative_source": "src/thesis_repro/fresh_llm.py::prepare_requests and contracts/llm/fresh_replication_contract.json",
+      "source_sha256": "8f1dfea06cb0e4263c4c9d93aa36a4c98746b31614b2ba2c13a66f4b254c3636",
+      "new_runtime_entrypoint": "thesis_repro.stages.adapters.run_real_stage(LLMPrepare)",
+      "scientific_changes": [],
+      "engineering_changes": ["same-run C3-E prerequisite gate", "run-local request/receipt artifacts"],
+      "execution_state": "WIRED_APPROVAL_GATED"
+    },
+    {
+      "component": "LLM provider transports",
+      "authoritative_source": "src/credit_recourse/final_release/final_release/providers.py and live_batch.py",
+      "source_sha256": "6cb96065e7e553b9575c2c09b0491ffd672da7235171d001341a368541a35d6e",
+      "new_runtime_entrypoint": "src/thesis_repro/live_llm.py::submit_live_batch (called only after explicit provider gate)",
+      "scientific_changes": [],
+      "engineering_changes": ["DAG gate reports approval/credentials before submission"],
+      "execution_state": "WIRED_CREDENTIALS_AND_APPROVAL_GATED"
+    },
+    {
+      "component": "LLM response materialization",
+      "authoritative_source": "src/thesis_repro/fresh_llm.py::materialize_responses",
+      "source_sha256": "8f1dfea06cb0e4263c4c9d93aa36a4c98746b31614b2ba2c13a66f4b254c3636",
+      "new_runtime_entrypoint": "thesis_repro.stages.adapters.run_real_stage(LLMMaterialize)",
+      "scientific_changes": [],
+      "engineering_changes": ["exact request reconciliation", "mock-only class cannot satisfy fresh certification"],
+      "execution_state": "WIRED_INPUT_GATED"
+    },
+    {
+      "component": "Final Stage8 multi-Oracle evaluation",
+      "authoritative_source": "src/credit_recourse/eval/final_stage8_llm_multi_oracle_eval/pipeline.py::run_stage8",
+      "source_sha256": "f2a9843f2d9cf2cbf5edd0fcbe2604f786b62b99c4e67ef6d2bfa8d152220c77",
+      "new_runtime_entrypoint": "thesis_repro.stages.adapters.run_real_stage(Stage8)",
+      "scientific_changes": [],
+      "engineering_changes": ["run namespace binding through stage paths"],
+      "execution_state": "WIRED_INPUT_GATED",
+      "known_blocker": "final source still expects a same-run Stage7 action table and Stage6 payoff release"
+    },
+    {
+      "component": "Final Stage9 LLM/RL comparison",
+      "authoritative_source": "src/credit_recourse/eval/final_stage9_llm_rl_comparison/pipeline.py::run_stage9",
+      "source_sha256": "94a4544f6dfb9f8daa61add498ec4f4c7f50fef078e46ad25407f2374f8261d3",
+      "new_runtime_entrypoint": "thesis_repro.stages.adapters.run_real_stage(Stage9)",
+      "scientific_changes": [],
+      "engineering_changes": ["run namespace binding through stage paths"],
+      "execution_state": "WIRED_INPUT_GATED",
+      "known_blocker": "requires a complete same-run Stage8 score table and Stage6 release"
+    },
+    {
+      "component": "Stage2 RL input-pack producer",
+      "authoritative_source": null,
+      "source_sha256": null,
+      "new_runtime_entrypoint": null,
+      "scientific_changes": [],
+      "engineering_changes": [],
+      "execution_state": "MISSING_AUTHORITATIVE_SOURCE",
+      "known_blocker": "only frozen Stage2 outputs and downstream consumers are present; no migrated fresh producer for input_splits/candidate projection/counterfactual transition construction was found"
+    },
+    {
+      "component": "Fresh Stage6 payoff-surface producer",
+      "authoritative_source": null,
+      "source_sha256": null,
+      "new_runtime_entrypoint": null,
+      "scientific_changes": [],
+      "engineering_changes": [],
+      "execution_state": "MISSING_AUTHORITATIVE_SOURCE",
+      "known_blocker": "frozen Stage6 payoff surface is reference-only and cannot be used as a fresh compute parent"
+    },
+    {
+      "component": "Thesis outputs / CompareFrozen / VerifyAll producers",
+      "authoritative_source": null,
+      "source_sha256": null,
+      "new_runtime_entrypoint": null,
+      "scientific_changes": [],
+      "engineering_changes": [],
+      "execution_state": "MISSING_AUTHORITATIVE_SOURCE",
+      "known_blocker": "no migrated final producer was found; historical registries remain comparison-only"
+    }
+  ]
+}

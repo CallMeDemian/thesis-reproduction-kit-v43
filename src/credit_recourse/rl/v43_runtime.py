@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from dataclasses import dataclass
 import json
+import os
 from pathlib import Path
 
 import numpy as np
@@ -28,7 +29,9 @@ class V43StageConsumer:
     def __init__(self, project_root):
         self.root = Path(project_root).resolve()
         self.contract = V43EncoderContract.from_project_root(self.root)
-        self.folder = self.root / PREPARATION
+        configured_run = os.environ.get("CREDIT_REPRO_RUN_PATH") or os.environ.get("THESIS_REPRO_RUN_ROOT")
+        self.run_root = Path(configured_run).resolve() if configured_run else self.root / PREPARATION
+        self.folder = self.run_root / PREPARATION if self.run_root.name != "03_simulator" else self.run_root
         frozen = _read_json(self.folder / "01_contract/encoder_contract.json")
         if frozen["schema_hash"] != self.contract.schema_hash:
             raise ValueError("V43 frozen contract identity changed")
@@ -61,10 +64,10 @@ class V43StageConsumer:
 
     def rows(self, stage):
         if stage == 6:
-            path = self.root / "archive/DEPLOYED_RELEASE/stage2_candidate_projection/phase_eval_candidate.parquet"
+            path = self.folder / "02_data/stage6_rows.parquet"
             rows = pd.read_parquet(path, columns=list(KEYS))
-            if len(rows) != 575:
-                raise ValueError("Frozen Stage6 sample changed")
+            if rows.empty:
+                raise ValueError("Fresh Stage6 cohort is empty")
             return canonical_keys(rows)
         if stage not in STAGE_DATA:
             raise ValueError("Expected Stage3,4,5 or 6")
@@ -103,8 +106,7 @@ class V43StageConsumer:
     def _verify_final_checkpoint(self, path, payload, stage):
         from credit_recourse.rl.contracts.v43_encoder import file_sha256
         from credit_recourse.contracts.stage_paths import stage_dir
-        expected = (stage_dir(self.root, f"stage{stage}") / "final_epoch.pt"
-                    if stage in (3, 4) else self.folder / f"stage{stage}/final_epoch.pt")
+        expected = stage_dir(self.root, f"stage{stage}") / "final_epoch.pt"
         if Path(path).resolve()!=expected.resolve():raise ValueError('Only the fixed final epoch checkpoint is accepted')
         run=_read_json(expected.parent/'execution.json')
         epochs=self.config['stages'][f'stage{stage}']['max_epochs']

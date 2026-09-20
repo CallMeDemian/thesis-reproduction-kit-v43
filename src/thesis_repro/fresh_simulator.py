@@ -225,7 +225,7 @@ def run_fresh_simulator(paths, parent_hashes: list[str], *, context=None) -> Sta
                 row = financial_record(state, candidate_id, result)
                 row["state__total_debt"] = state.total_debt
                 row["sim__total_debt"] = result[0].state_t1.total_debt
-                row.update({"decision_year": int(state.year), "parent_verify_oracle_manifest_sha256": parent_hashes[-1], "simulator_source_panel_sha256": sha256_file(source_panel), "simulator_code_fingerprint": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()})
+                row.update({"decision_year": int(state.year), "action_contract_sha256": bundle.action_contract_sha256, "parent_verify_oracle_manifest_sha256": parent_hashes[-1], "simulator_source_panel_sha256": sha256_file(source_panel), "simulator_code_fingerprint": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()})
                 rows.append(row)
         output = pd.DataFrame(rows)
         report = _validate(output, bundle.action_contract, parent_hashes=parent_hashes, synthetic=synthetic, source_panel=source_panel, expected_eval_firms=None if synthetic else 575)

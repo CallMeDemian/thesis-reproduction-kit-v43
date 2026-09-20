@@ -4,11 +4,11 @@ import json
 import numpy as np
 import pandas as pd
 from credit_recourse.rl.contracts.v43_encoder import RATE_PATH, RATE_CONTRACT_PATH, file_sha256
-from credit_recourse.rl.v43_one_pass_contract import RUN_PATH, assert_training_rows, write_json
+from credit_recourse.rl.v43_one_pass_contract import RUN_PATH, assert_training_rows, write_json, run_path
 from credit_recourse.simulator.business_plan_interest_rate_v4 import BusinessPlanRateResolverV4
 
 def prepare_rate_extension(root):
-    root=Path(root);folder=root/RUN_PATH/'01_contract'
+    root=Path(root);folder=root/run_path(root)/'01_contract'
     folder.mkdir(parents=True,exist_ok=True)
     destination=folder/'extended_bp_rate_ledger.parquet'
     if destination.exists():raise FileExistsError('Rate extension already frozen')
@@ -61,7 +61,7 @@ def prepare_rate_extension(root):
     print(json.dumps({k:v for k,v in report.items() if k not in ('unavailable_rate_keys','source_hashes')}),flush=True)
 
 def read_extended_rates(root):
-    root=Path(root);folder=root/RUN_PATH/'01_contract'
+    root=Path(root);folder=root/run_path(root)/'01_contract'
     report=json.loads((folder/'extended_bp_rate_preflight.json').read_text(encoding='utf-8'))
     path=folder/'extended_bp_rate_ledger.parquet'
     if report['status']!='PASS' or report['ledger_sha256']!=file_sha256(path) or report['base_ledger_sha256']!=file_sha256(root/RATE_PATH):

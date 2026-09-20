@@ -15,6 +15,22 @@ from credit_recourse.contracts.stage_paths import V43_STAGE2_RUNTIME_PATH
 RUN_PATH = V43_STAGE2_RUNTIME_PATH.as_posix()
 
 
+def canonical_rl_config_path(root: Path) -> Path:
+    """Resolve the immutable V4.3 config without reviving the old archive root."""
+    root = Path(root)
+    candidates = (
+        root / "contracts/scientific/final_freeze/v43_rl.json",
+        root / "configs/current/final_freeze/v43_rl.json",
+    )
+    for candidate in candidates:
+        if candidate.is_file():
+            return candidate
+    raise FileNotFoundError(
+        "V4.3 RL config is unavailable; restore the authorized scientific contract "
+        "under contracts/scientific/final_freeze/v43_rl.json"
+    )
+
+
 def run_path(project_root=None, run_id=None) -> str:
     """Resolve the producer namespace without breaking legacy callers.
 
@@ -76,7 +92,7 @@ def write_json(path, value):
 
 def freeze_run_config(root, encoder_contract):
     root = Path(root)
-    source = root/'configs/current/final_freeze/v43_rl.json'
+    source = canonical_rl_config_path(root)
     canonical = json.loads(source.read_text(encoding='utf-8'))
     stages = canonical['stages']
     from credit_recourse.simulator.v43_production_bundle import CANDIDATE_DIVIDEND_POLICY, BUNDLE_VERSION
@@ -124,7 +140,7 @@ def load_run_config(root):
         raise ValueError('Frozen one-pass configuration changed')
     if file_sha256(path) != json.loads(path.with_suffix('.sha256.json').read_text(encoding='utf-8'))['sha256']:
         raise ValueError('Physical run-config hash changed')
-    if file_sha256(Path(root)/'configs/current/final_freeze/v43_rl.json') != payload['canonical_config_sha256']:
+    if file_sha256(canonical_rl_config_path(root)) != payload['canonical_config_sha256']:
         raise ValueError('Canonical V43 config changed after freeze')
     return {**payload,'config_hash':digest}
 
@@ -166,8 +182,7 @@ def begin_training(consumer, stage, destination, rows):
     from datetime import datetime, timezone
     destination=Path(destination).resolve()
     from credit_recourse.contracts.stage_paths import stage_dir
-    expected = ((stage_dir(consumer.root, f"stage{stage}") / "final_epoch.pt")
-                if stage in (3, 4) else (consumer.folder / f"stage{stage}/final_epoch.pt"))
+    expected = stage_dir(consumer.root, f"stage{stage}") / "final_epoch.pt"
     expected = expected.resolve()
     if destination!=expected:
         raise ValueError("Production training output must be the single final-epoch checkpoint")
@@ -178,10 +193,11 @@ def begin_training(consumer, stage, destination, rows):
         if file_sha256(consumer.root/name)!=digest:
             raise ValueError('Production source changed after passing the training gate: '+name)
     if stage>3:
-        previous=json.loads((consumer.folder/f'stage{stage-1}/execution.json').read_text(encoding='utf-8'))
+        previous_dir = stage_dir(consumer.root, f"stage{stage-1}")
+        previous=json.loads((previous_dir/'execution.json').read_text(encoding='utf-8'))
         if previous['status']!='PASS' or previous['final_epoch']!=consumer.config['stages'][f'stage{stage-1}']['max_epochs']:
             raise ValueError('Predecessor did not complete its fixed final epoch')
-        if previous['checkpoint_sha256']!=file_sha256(consumer.folder/f'stage{stage-1}/final_epoch.pt'):
+        if previous['checkpoint_sha256']!=file_sha256(previous_dir/'final_epoch.pt'):
             raise ValueError('Predecessor final checkpoint changed')
     destination.parent.mkdir(parents=True,exist_ok=True)
     execution={'status':'RUNNING','stage':stage,'pid':os.getpid(),'started_utc':datetime.now(timezone.utc).isoformat(),

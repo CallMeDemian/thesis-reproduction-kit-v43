@@ -5,7 +5,7 @@ import json
 import numpy as np
 import pandas as pd
 import pyarrow.parquet as pq
-from credit_recourse.rl.v43_one_pass_contract import RUN_PATH, TEMPORAL, write_json
+from credit_recourse.rl.v43_one_pass_contract import RUN_PATH, TEMPORAL, write_json, run_path
 from credit_recourse.rl.contracts.v43_encoder import ACTION_IDS, KEYS, file_sha256, content_hash
 from credit_recourse.rl.v43_features import canonical_keys, key_hash
 from credit_recourse.simulator.historical_source import read_financial_panel, state_from_record
@@ -49,7 +49,7 @@ def collapse_candidate_support(candidates):
 
 
 def read_action_support(root):
-    folder = Path(root) / RUN_PATH / '02_data'
+    folder = Path(root) / run_path(root) / '02_data'
     metadata = json.loads((folder / 'action_support_metadata.json').read_text(encoding='utf-8'))
     path = folder / 'action_support.parquet'
     if metadata['status'] != 'PASS' or metadata['support_rule'] != SUPPORT_RULE or file_sha256(path) != metadata['support_sha256']:
@@ -67,7 +67,7 @@ def read_action_support(root):
 
 def prepare_action_support(root):
     root = Path(root)
-    folder = root / RUN_PATH / '02_data'
+    folder = root / run_path(root) / '02_data'
     folder.mkdir(parents=True, exist_ok=True)
     if (folder / 'action_support_metadata.json').exists():
         raise FileExistsError('Action support already frozen')

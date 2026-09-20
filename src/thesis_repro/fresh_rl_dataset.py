@@ -128,6 +128,8 @@ def _reward_frame(frame: pd.DataFrame, panel: pd.DataFrame, *, synthetic: bool) 
     aux["phi_t"] = 0.0; aux["phi_tplusH"] = 0.0; aux["delta_phi"] = 0.0; aux["lambda_phi"] = 0.0; aux["reward_aux_phi"] = 0.0
     aux["reward_total_raw"] = compose_reward(merton_component=aux["delta_merton_badness_scaled"], fcff_component=aux["delta_fcff_capacity_scaled"], liquidity_component=aux["delta_liquid_capacity_scaled"], profitability_component=0.0, merton_lambda=0.2, fcff_lambda=0.4, liquidity_lambda=0.1, sector_phi_component=0.0, sector_phi_lambda=0.0, base_component=aux["reward_raw"])
     eligible = rl_fit_allowed(aux, action_support=np.ones(len(aux), dtype=bool), reward_support=np.ones(len(aux), dtype=bool), outcome_available=aux["outcome_available"].to_numpy(dtype=bool))
+    aux["candidate_action_support_valid"] = True
+    aux["factual_action_support_valid"] = aux.get("state__rating_num", pd.Series(np.nan, index=aux.index)).notna()
     aux["action_support_valid"] = True; aux["reward_support_valid"] = True; aux["rl_fit_allowed"] = eligible
     aux["support_basis"] = "same-run Simulator nine-action grid plus V43 temporal/outcome contract"
     train = aux.loc[aux["rl_fit_allowed"]].copy()

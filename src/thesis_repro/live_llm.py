@@ -39,7 +39,7 @@ def render_provider_batch(requests: Iterable[dict[str, Any]], provider: Provider
     with destination.open("w", encoding="utf-8") as handle:
         for request in requests:
             if provider.name in {"openai", "google"}:
-                from credit_recourse.final_release.final_release.providers import build_batch_record
+                from credit_recourse.final_release.providers import build_batch_record
                 body = build_batch_record(
                     provider=provider.name,
                     exact_model_id=provider.model,
@@ -80,5 +80,5 @@ def submit_live_batch(*args, **kwargs):
     or create network clients.
     """
     require_live_gate()
-    from credit_recourse.final_release.final_release.live_batch import submit_wave
+    from credit_recourse.final_release.live_batch import submit_wave
     return submit_wave(*args, **kwargs)

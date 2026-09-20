@@ -18,7 +18,7 @@ The product repository now contains the selected compute-parent artifacts for RL
 
 The simulator release pack contains the 24 simulator implementation files plus the release-critical action, financial, runtime, and input contracts. The full historical archive remains intentionally excluded; the selected runtime pack is the closure boundary for the preserved Stage8 lineage.
 
-The closure views are intentionally separate: historical evidence is CLOSED; complete fresh code is PARTIAL because RL training and downstream LLM/Stage8/Stage9 producers are not all wired; the five-stage production prefix is code-closed; complete fresh execution is NOT_EXECUTED; and complete fresh verified execution is NOT_EXECUTED. A run is authoritative only through its run manifest and validation receipts.
+The closure views are intentionally separate: historical evidence is CLOSED; complete fresh code is PARTIAL because the preserved Stage3/Stage4/Stage5, C3-E, LLM preparation/materialization, and final Stage8/Stage9 callers are wired but no authoritative fresh Stage2 input-pack producer, Stage6 payoff producer, or final thesis-output producer was found; the five-stage production prefix is code-closed; complete fresh execution is NOT_EXECUTED; and complete fresh verified execution is NOT_EXECUTED. A run is authoritative only through its run manifest and validation receipts.
 
 Fresh numerical execution still requires the authorized restricted raw inputs and has not been run automatically.
 

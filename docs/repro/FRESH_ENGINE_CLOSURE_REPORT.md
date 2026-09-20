@@ -32,9 +32,9 @@ The fresh action contract is `contracts/scientific/v43_action_contract.json` and
 ## Not executed
 
 - Restricted raw financial/non-financial input restoration: required before numerical FullClean.
-- 28 actor RL retraining: not wired and not executed.
+- 28 actor RL retraining: the preserved Stage3/Stage4/Stage5 entry points are wired behind the pre-compute approval gate, but no fresh Stage2 input pack is present and no actor retraining was executed.
 - 48,300 live provider calls: intentionally gated and not executed.
-- Fresh Stage8 numerical materialization and Stage9 scientific comparison: require those upstream inputs and provider receipts.
+- Fresh C3-E, Stage6, Stage8 numerical materialization, and Stage9 scientific comparison: require same-run actor/payoff inputs; frozen outputs remain comparison-only.
 
 ## Reproduction commands
 

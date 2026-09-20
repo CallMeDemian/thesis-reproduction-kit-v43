@@ -2,6 +2,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 import hashlib
+import os
 from pathlib import Path
 import warnings
 
@@ -108,14 +109,15 @@ class V43FeatureProducer:
         from credit_recourse.simulator.historical_source import read_financial_panel
         from credit_recourse.rl.contracts.v43_encoder import RATE_PATH, PURE_INTEREST_PATH, file_sha256
         root = Path(root)
+        external = os.environ.get("THESIS_REPRO_RL_INPUT_ROOT")
+        input_root = Path(external).resolve() if external else root / "archive/DEPLOYED_RELEASE/stage2_candidate_projection"
         paths = {
-            "canonical": "stage2_candidate_projection/input_splits/canonical_business_plan_history.parquet",
-            "historical": "stage2_candidate_projection/runtime_inputs/historical_financial_context_v4_3/actual_financial_states.parquet",
+            "canonical": input_root / "input_splits/canonical_business_plan_history.parquet",
+            "historical": input_root / "runtime_inputs/historical_financial_context_v4_3/actual_financial_states.parquet",
         }
         if source_kind not in paths:
             raise ValueError("Unregistered V43 financial source")
-        folder = root / "archive/DEPLOYED_RELEASE"
-        accounts, lineage = read_financial_panel(folder / paths[source_kind])
+        accounts, lineage = read_financial_panel(paths[source_kind])
         if source_year_max is not None:
             accounts = accounts.loc[accounts.fiscal_year <= source_year_max].reset_index(drop=True)
         if target_accounts is not None:
@@ -126,7 +128,7 @@ class V43FeatureProducer:
             accounts["source__target_only"] = False
             accounts = pd.concat([accounts,target_accounts],ignore_index=True)
             canonical_keys(accounts)
-        interest_path = root / PURE_INTEREST_PATH
+        interest_path = (input_root / "v4_3_runtime/01_contract/financial_cost_sources_r2/history_financial_cost_sources.parquet") if external else root / PURE_INTEREST_PATH
         interest = pd.read_parquet(interest_path, columns=[*KEYS, "U01B550010000", "interest_source_conflict"])
         interest[list(KEYS)] = canonical_keys(interest)
         values = pd.to_numeric(interest["U01B550010000"], errors="raise")
@@ -141,7 +143,7 @@ class V43FeatureProducer:
             "selected_column_counts": {"U01B550010000": int(accounts.pure_interest_expense.notna().sum())},
             "unobserved_count": int(accounts.pure_interest_expense.isna().sum()), "broad_cost_fallback": False}
 
-        context = pd.read_parquet(folder / "stage2_candidate_projection/runtime_inputs/historical_financial_context_v4_3/actual_context.parquet",
+        context = pd.read_parquet(input_root / "runtime_inputs/historical_financial_context_v4_3/actual_context.parquet",
                                   columns=[*KEYS, "sector_7"]).rename(columns={"sector_7": "sector"})
         rates = pd.read_parquet(root / RATE_PATH) if rate_rows_override is None else rate_rows_override.copy()
         if source_year_max is not None:
