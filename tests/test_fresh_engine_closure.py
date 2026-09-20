@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
 from pathlib import Path
 
@@ -19,6 +20,7 @@ from thesis_repro.stages.base import StageResult
 from thesis_repro.stages.adapters import HEAVY_GATE, LIVE_GATE
 from thesis_repro.status import aggregate_completion
 from thesis_repro.run_engine import STAGES
+from thesis_repro.execution_context import ExecutionContext, FRESH_REPLICATION, SYNTHETIC_E2E_ACCEPTANCE, scoped_oracle_compatibility, receipt_context
 from thesis_repro.c3e import aggregate_hierarchical, load_fresh_rl_contract
 from thesis_repro.fresh_rl import verify_actor_graph
 from thesis_repro.fresh_llm import prepare_requests, generate_mock, materialize_responses
@@ -27,6 +29,8 @@ from thesis_repro.stage9_runtime import run_stage9
 from thesis_repro.stages.oracle import _legacy_references, _require_stage1_success
 from credit_recourse.oracle.fresh_runtime import materialize_fresh_oracle_registry, resolve_fresh_oracle_runtime
 from credit_recourse.oracle.verification.verify_stage1_substrate_validation import _verdict
+from thesis_repro.fresh_simulator import _validate as validate_simulator_panel
+from thesis_repro.fresh_rl_dataset import verify_fresh_rl_dataset
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -45,6 +49,74 @@ def test_action_ids_are_canonical():
 
 def test_action_dimensions_are_canonical():
     assert "revenue_growth" not in ACTION_DIMENSIONS
+
+
+def _minimal_simulator_panel(contract, *, total_debt_delta_by_action=None, accounting_check="ok"):
+    deltas = total_debt_delta_by_action or {}
+    rows = []
+    for candidate_id in ACTION_IDS:
+        row = {
+            "firm_id": "000001",
+            "base_year": 2022,
+            "candidate_id": candidate_id,
+            "state__total_debt": 100.0,
+            "sim__total_debt": 100.0 + float(deltas.get(candidate_id, 0.0)),
+            "accounting_check_json": json.dumps({"check": accounting_check}),
+        }
+        row.update({column: 0.0 for column in contract["action_columns"]})
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def _validate_minimal_simulator_panel(tmp_path, frame):
+    source = tmp_path / "source.parquet"
+    source.write_bytes(b"fixture")
+    return validate_simulator_panel(
+        frame,
+        load_action_contract(ROOT),
+        parent_hashes=["same-run-verify-oracle"],
+        synthetic=True,
+        source_panel=source,
+    )
+
+
+def test_simulator_duplicate_firm_year_action_is_rejected(tmp_path):
+    frame = _minimal_simulator_panel(load_action_contract(ROOT))
+    with pytest.raises(ValueError, match="duplicate firm/year/action"):
+        _validate_minimal_simulator_panel(tmp_path, pd.concat([frame, frame.iloc[[0]]], ignore_index=True))
+
+
+def test_simulator_broken_accounting_identity_is_rejected(tmp_path):
+    frame = _minimal_simulator_panel(load_action_contract(ROOT), accounting_check="mismatch")
+    with pytest.raises(ValueError, match="accounting identity"):
+        _validate_minimal_simulator_panel(tmp_path, frame)
+
+
+def test_simulator_rf_principal_change_is_rejected(tmp_path):
+    frame = _minimal_simulator_panel(load_action_contract(ROOT), total_debt_delta_by_action={"RF": 1.0})
+    with pytest.raises(ValueError, match="RF candidate changed total principal"):
+        _validate_minimal_simulator_panel(tmp_path, frame)
+
+
+def test_simulator_dl_principal_increase_is_rejected(tmp_path):
+    frame = _minimal_simulator_panel(load_action_contract(ROOT), total_debt_delta_by_action={"DL": 1.0})
+    with pytest.raises(ValueError, match="DL candidate increased principal"):
+        _validate_minimal_simulator_panel(tmp_path, frame)
+
+
+def test_rl_dataset_training_temporal_cutoff_is_rejected(tmp_path):
+    rows = []
+    for candidate_id in ACTION_IDS:
+        rows.append({
+            "firm_id": "000001", "fiscal_year": 2024, "outcome_year": 2025,
+            "candidate_id": candidate_id, "reward_train": 0.0,
+            "rl_fit_allowed": True, "outcome_available": True,
+            "action_contract_sha256": "contract",
+        })
+    path = tmp_path / "rl_dataset.parquet"
+    pd.DataFrame(rows).to_parquet(path, index=False)
+    with pytest.raises(ValueError, match="cutoff|leaked"):
+        verify_fresh_rl_dataset(path, parent_hashes=["same-run-simulator"])
 
 
 def test_fresh_contract_has_no_policy_revenue_growth_column():
@@ -126,7 +198,7 @@ def test_full_no_input_does_not_claim_scientific_execution(tmp_path, monkeypatch
     (tmp_path / "data/raw").mkdir(parents=True)
     (tmp_path / "data/raw/input_contract_report.json").write_text("{}", encoding="utf-8")
     manifest = engine.execute("FullClean", "test-full-no-input", "full")
-    assert manifest["execution_class"] == "fresh_replication"
+    assert manifest["execution_class"] == "FRESH_REPLICATION"
     assert list(manifest["stage_status"]) == ["VerifyInputs"]
 
 
@@ -139,7 +211,7 @@ def test_smoke_artifacts_are_marked_contract_smoke_only(tmp_path, monkeypatch):
     (tmp_path / "data/raw").mkdir(parents=True)
     (tmp_path / "data/raw/input_contract_report.json").write_text("{}", encoding="utf-8")
     manifest = engine.execute("OracleClean", "test-smoke", "smoke")
-    assert manifest["execution_class"] == "contract_smoke"
+    assert manifest["execution_class"] == "CONTRACT_SMOKE"
 
 
 def test_stage1_rc2_cannot_pass_with_existing_backend_params(tmp_path):
@@ -213,7 +285,8 @@ def test_mock_materialization_does_not_require_network(tmp_path):
 
 def test_capabilities_do_not_claim_full_execution():
     payload = json.loads((ROOT / "capabilities.json").read_text(encoding="utf-8"))
-    assert "UNEXECUTED" in payload["FullClean"]
+    assert "PARTIAL_EXECUTION" in payload["FullClean"]
+    assert "INPUT_GATED" in payload["FullClean"]
 
 
 @pytest.mark.parametrize("status", ["FAILED", "INPUT_REQUIRED", "APPROVAL_REQUIRED", "NOT_IMPLEMENTED", "NOT_EXECUTED", "EXECUTED_UNVERIFIED"])
@@ -224,7 +297,85 @@ def test_full_terminal_failure_never_becomes_pass_with_skips(status):
 def test_smoke_status_is_never_scientific_pass():
     assert aggregate_completion(["SMOKE_PASS"], profile="smoke") == "SMOKE_PASS"
     assert aggregate_completion(["SMOKE_PASS_WITH_SKIPS"], profile="smoke") == "SMOKE_PASS_WITH_SKIPS"
-    assert aggregate_completion(["FAILED"], profile="smoke") == "SMOKE_PASS_WITH_SKIPS"
+    assert aggregate_completion(["FAILED"], profile="smoke") == "SMOKE_FAILED"
+
+
+def test_fullclean_prefix_is_explicitly_partial(tmp_path, monkeypatch):
+    import thesis_repro.data as data
+    import thesis_repro.run_engine as engine
+    monkeypatch.setattr(engine, "ROOT", tmp_path)
+    monkeypatch.setattr(data, "ROOT", tmp_path)
+    monkeypatch.setattr(engine, "verify_input_contract", lambda write=True: {"status": "INPUT_CONTRACT_PASS", "present_file_count": 1})
+    (tmp_path / "data/raw").mkdir(parents=True)
+    (tmp_path / "data/raw/input_contract_report.json").write_text(json.dumps({"status": "INPUT_CONTRACT_PASS"}), encoding="utf-8")
+    manifest = engine.execute("FullClean", "partial-prefix", "smoke", to_stage="VerifyOracle")
+    assert manifest["completion_state"] == "PARTIAL_EXECUTION"
+    assert manifest["dag_complete"] is False
+    assert manifest["certifiable"] is False
+    assert manifest["missing_required_stages"]
+
+
+def test_new_run_cannot_begin_from_downstream_stage(tmp_path, monkeypatch):
+    import thesis_repro.data as data
+    import thesis_repro.run_engine as engine
+    monkeypatch.setattr(engine, "ROOT", tmp_path)
+    monkeypatch.setattr(data, "ROOT", tmp_path)
+    monkeypatch.setattr(engine, "verify_input_contract", lambda write=True: {"status": "INPUT_REQUIRED", "present_file_count": 0})
+    with pytest.raises(ValueError, match="may not begin from a downstream stage"):
+        engine.execute("FullClean", "new-downstream", "full", from_stage="Simulator")
+
+
+def test_ambient_synthetic_profile_cannot_downgrade_full_run(tmp_path, monkeypatch):
+    import thesis_repro.data as data
+    import thesis_repro.run_engine as engine
+    monkeypatch.setattr(engine, "ROOT", tmp_path)
+    monkeypatch.setattr(data, "ROOT", tmp_path)
+    monkeypatch.setenv("THESIS_REPRO_ORACLE_PROFILE", "synthetic")
+    monkeypatch.setattr(engine, "verify_input_contract", lambda write=True: {"status": "INPUT_REQUIRED", "present_file_count": 0})
+    (tmp_path / "data/raw").mkdir(parents=True)
+    (tmp_path / "data/raw/input_contract_report.json").write_text(json.dumps({"status": "INPUT_REQUIRED"}), encoding="utf-8")
+    manifest = engine.execute("FullClean", "ambient-profile", "full")
+    assert manifest["execution_class"] == FRESH_REPLICATION
+    assert manifest["scientific_gate_applicable"] is True
+    assert manifest["stage_status"]["VerifyInputs"] == "INPUT_REQUIRED"
+    assert manifest["completion_state"] == "INPUT_REQUIRED"
+    assert os.environ["THESIS_REPRO_ORACLE_PROFILE"] == "synthetic"
+
+
+def test_full_context_scoped_compatibility_restores_ambient_environment(monkeypatch):
+    context = ExecutionContext.from_profile("full", "restore-env", "FullClean")
+    monkeypatch.setenv("THESIS_REPRO_ORACLE_PROFILE", "synthetic")
+    with scoped_oracle_compatibility(context):
+        assert os.environ["THESIS_REPRO_ORACLE_PROFILE"] == "production"
+    assert os.environ["THESIS_REPRO_ORACLE_PROFILE"] == "synthetic"
+
+
+def test_stage_receipts_carry_authoritative_execution_context():
+    synthetic = ExecutionContext.from_profile("synthetic", "receipt-synthetic", "FullClean")
+    full = ExecutionContext.from_profile("full", "receipt-full", "FullClean")
+    assert receipt_context(synthetic) == {"execution_class": SYNTHETIC_E2E_ACCEPTANCE, "execution_profile": "synthetic", "scientific_gate_applicable": False}
+    assert receipt_context(full) == {"execution_class": FRESH_REPLICATION, "execution_profile": "full", "scientific_gate_applicable": True}
+
+
+def test_full_run_rejects_non_scientific_stage_result(tmp_path, monkeypatch):
+    import thesis_repro.data as data
+    import thesis_repro.run_engine as engine
+    monkeypatch.setattr(engine, "ROOT", tmp_path)
+    monkeypatch.setattr(data, "ROOT", tmp_path)
+    monkeypatch.setattr(engine, "verify_input_contract", lambda write=True: {"status": "INPUT_CONTRACT_PASS", "present_file_count": 1})
+    (tmp_path / "data/raw").mkdir(parents=True)
+    (tmp_path / "data/raw/input_contract_report.json").write_text(json.dumps({"status": "INPUT_CONTRACT_PASS"}), encoding="utf-8")
+    monkeypatch.setattr(engine, "run_real_stage", lambda *args, **kwargs: StageResult("Oracle", "PASS", "REAL_COMPUTE", executed=True, details={"scientific_gate_applicable": False}))
+    manifest = engine.execute("OracleClean", "scientific-gate", "full")
+    assert manifest["stage_status"]["Oracle"] == "FAILED"
+    assert manifest["completion_state"] == "FAILED"
+
+
+def test_acceptance_uses_canonical_dag_and_real_dispatch():
+    import thesis_repro.acceptance as acceptance
+    from thesis_repro import dag
+    assert not hasattr(acceptance, "STAGES")
+    assert tuple(dag.stages_for("FullClean")[:5]) == ("VerifyInputs", "Oracle", "VerifyOracle", "Simulator", "RLDataset")
 
 
 def test_verify_oracle_precedes_every_oracle_consumer():

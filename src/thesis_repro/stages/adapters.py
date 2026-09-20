@@ -21,14 +21,17 @@ def _unimplemented(stage: str, parents: list[str], reason: str) -> StageResult:
     return StageResult(stage, NOT_IMPLEMENTED, "NOT_IMPLEMENTED", implemented=False, executed=False, parent_hashes=parents, details={"reason": reason})
 
 
-def run_real_stage(paths: FreshRuntimePaths, stage: str, parent_hashes: list[str], *, execute_llm=False) -> StageResult:
+def run_real_stage(paths: FreshRuntimePaths, stage: str, parent_hashes: list[str], *, execute_llm=False, context=None) -> StageResult:
     if stage == "Oracle":
-        return OracleAdapter().run(paths, paths.root, parent_hashes)
+        return OracleAdapter().run(paths, paths.root, parent_hashes, context=context)
     if stage == "VerifyOracle":
-        return verify_oracle_stage(paths, parent_hashes)
+        return verify_oracle_stage(paths, parent_hashes, context=context)
     if stage == "Simulator":
-        return run_fresh_simulator(paths, parent_hashes)
-    if stage in {"RLDataset", "RLEncoder", "RLBehaviorClone", "RLIQL", "C3E", "Stage6", "VerifyRL"}:
+        return run_fresh_simulator(paths, parent_hashes, context=context)
+    if stage == "RLDataset":
+        from thesis_repro.fresh_rl_dataset import run_fresh_rl_dataset
+        return run_fresh_rl_dataset(paths, parent_hashes, context=context)
+    if stage in {"RLEncoder", "RLBehaviorClone", "RLIQL", "C3E", "Stage6", "VerifyRL"}:
         return _unimplemented(stage, parent_hashes, "production downstream scientific implementation is not wired into the fresh DAG")
     if stage == "LLMPrepare":
         return _unimplemented(stage, parent_hashes, f"fresh logical request preparation is implemented separately but not wired into full DAG dispatch; expected_requests={EXPECTED_REQUESTS}")
@@ -41,7 +44,7 @@ def run_real_stage(paths: FreshRuntimePaths, stage: str, parent_hashes: list[str
     return _unimplemented(stage, parent_hashes, "stage adapter is declared but not wired")
 
 
-def run_heavy_gate(paths: FreshRuntimePaths, parent_hashes: list[str]) -> StageResult:
+def run_heavy_gate(paths: FreshRuntimePaths, parent_hashes: list[str], *, context=None) -> StageResult:
     authorized = os.environ.get("THESIS_REPRO_ENABLE_HEAVY_RL") == HEAVY_GATE
     if not authorized:
         return _unexecuted("RLExecutionGate", parent_hashes, "28-actor fresh RL training requires explicit approval before any heavy compute", status=APPROVAL_REQUIRED)

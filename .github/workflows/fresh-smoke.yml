@@ -40,14 +40,45 @@ jobs:
           PY
       - name: Run synthetic end-to-end architecture acceptance
         run: python -m thesis_repro acceptance-e2e --run-id ci-e2e
+        env:
+          PYTHONPATH: src
       - name: Assert synthetic acceptance is complete but not certification
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          receipt = json.loads(Path("runs/ci-e2e/acceptance_manifest.json").read_text())
-          assert receipt["status"] == "SYNTHETIC_E2E_PASS"
-          assert receipt["lineage_closed"] is True
-          assert receipt["certifiable"] is False
-          assert receipt["provider_contacted"] is False
+          manifest = json.loads(Path("runs/ci-e2e/run_manifest.json").read_text())
+          assert manifest["execution_class"] == "SYNTHETIC_E2E_ACCEPTANCE"
+          assert manifest["completion_state"] == "PARTIAL_EXECUTION"
+          assert manifest["acceptance_segment_status"] == "PASS"
+          assert manifest["certifiable"] is False
+          assert manifest["stage_status"] == {
+              "VerifyInputs": "PASS",
+              "Oracle": "PASS",
+              "VerifyOracle": "PASS",
+              "Simulator": "PASS",
+              "RLDataset": "PASS",
+          }
+          assert manifest["execution_context"]["scientific_gate_applicable"] is False
+          assert manifest["acceptance_architecture"]["run_engine_used"] is True
+          assert manifest["acceptance_architecture"]["canonical_adapters_used"] is True
+          sim = json.loads(Path("runs/ci-e2e/03_simulator/simulator_validation_report.json").read_text())
+          dataset = json.loads(Path("runs/ci-e2e/04_rl_dataset/dataset_validation_report.json").read_text())
+          for receipt_path in [
+              Path("runs/ci-e2e/02_oracle/oracle_execution_receipt.json"),
+              Path("runs/ci-e2e/03_simulator/simulator_execution_receipt.json"),
+              Path("runs/ci-e2e/04_rl_dataset/dataset_execution_receipt.json"),
+          ]:
+              receipt = json.loads(receipt_path.read_text())
+              assert receipt["execution_class"] == "SYNTHETIC_E2E_ACCEPTANCE"
+              assert receipt["execution_profile"] == "synthetic"
+              assert receipt["scientific_gate_applicable"] is False
+          assert sim["status"] == "PASS" and sim["candidate_action_count"] == 9 and sim["row_count"] > 1
+          assert dataset["status"] == "PASS" and dataset["row_count"] > 1
+          assert dataset["oracle_score_reward_leak"] is False
           PY
+      - name: Upload synthetic production-segment evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-production-segment-evidence
+          path: runs/ci-e2e/

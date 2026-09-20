@@ -21,9 +21,11 @@ NOT_EXECUTED: Final = "NOT_EXECUTED"
 EXECUTED_UNVERIFIED: Final = "EXECUTED_UNVERIFIED"
 SMOKE_PASS: Final = "SMOKE_PASS"
 SMOKE_PASS_WITH_SKIPS: Final = "SMOKE_PASS_WITH_SKIPS"
+SMOKE_FAILED: Final = "SMOKE_FAILED"
+PARTIAL_EXECUTION: Final = "PARTIAL_EXECUTION"
 
 SCIENTIFIC_ACCEPTED: Final = frozenset({PASS, PASS_WITH_QUALIFICATION})
-SMOKE_TERMINAL: Final = frozenset({SMOKE_PASS, SMOKE_PASS_WITH_SKIPS})
+SMOKE_TERMINAL: Final = frozenset({SMOKE_PASS, SMOKE_PASS_WITH_SKIPS, SMOKE_FAILED})
 BLOCKING: Final = frozenset({
     FAILED,
     INPUT_REQUIRED,
@@ -33,6 +35,7 @@ BLOCKING: Final = frozenset({
     NOT_IMPLEMENTED,
     NOT_EXECUTED,
     EXECUTED_UNVERIFIED,
+    SMOKE_FAILED,
 })
 
 
@@ -65,7 +68,13 @@ def aggregate_completion(statuses: list[str], *, profile: str) -> str:
     """Produce a truthful run terminal state; never downgrade failure to smoke."""
     normalized = [normalize_legacy_status(value) for value in statuses]
     if profile == "smoke":
-        return SMOKE_PASS if normalized and all(value == SMOKE_PASS for value in normalized) else SMOKE_PASS_WITH_SKIPS
+        if any(value in BLOCKING or value == SMOKE_FAILED for value in normalized):
+            return SMOKE_FAILED
+        if normalized and all(value == SMOKE_PASS for value in normalized):
+            return SMOKE_PASS
+        if normalized and all(value in {SMOKE_PASS, SMOKE_PASS_WITH_SKIPS} for value in normalized):
+            return SMOKE_PASS_WITH_SKIPS
+        return SMOKE_FAILED
     for candidate in (
         FAILED,
         INPUT_REQUIRED,

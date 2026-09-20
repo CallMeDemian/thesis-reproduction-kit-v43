@@ -7,7 +7,7 @@ from typing import Any
 
 from .paths import ROOT, load_json, sha256_file, write_json
 from .run_engine import STAGES, _stage_manifest, trace_run
-from .status import PASS, PASS_WITH_QUALIFICATION, SCIENTIFIC_ACCEPTED
+from .status import PASS, PASS_WITH_QUALIFICATION, SCIENTIFIC_ACCEPTED, PARTIAL_EXECUTION
 
 
 FORBIDDEN = ("data/final_freeze", "configs/current", "archive/DEPLOYED_RELEASE", "frozen/")
@@ -20,8 +20,12 @@ def certify_run(run_id: str) -> dict[str, Any]:
     manifest = load_json(manifest_path) if manifest_path.is_file() else {}
     if not manifest:
         errors.append("run_manifest_missing")
-    if manifest.get("execution_class") != "fresh_replication":
+    if manifest.get("execution_class") != "FRESH_REPLICATION":
         errors.append("smoke_or_non_fresh_execution")
+    if manifest.get("scientific_gate_applicable") is False or (manifest.get("execution_context") or {}).get("scientific_gate_applicable") is not True:
+        errors.append("scientific_gate_not_applicable")
+    if manifest.get("completion_state") == PARTIAL_EXECUTION or manifest.get("dag_complete") is not True:
+        errors.append("partial_execution_not_certifiable")
     if manifest.get("completion_state") not in SCIENTIFIC_ACCEPTED:
         errors.append(f"run_completion_not_accepted:{manifest.get('completion_state')}")
     if (manifest.get("source_state") or {}).get("git_tree_clean") is not True:
@@ -30,6 +34,16 @@ def certify_run(run_id: str) -> dict[str, Any]:
     required = STAGES.get("FullClean", []) if mode == "FullClean" else STAGES.get(mode, [])
     if mode != "FullClean":
         errors.append("certification_requires_FullClean_mode")
+    for stage in ("Simulator", "RLDataset"):
+        validation = run_dir / ("03_simulator/simulator_validation_report.json" if stage == "Simulator" else "04_rl_dataset/dataset_validation_report.json")
+        if not validation.is_file():
+            errors.append(f"{stage.lower()}_validation_missing")
+        else:
+            try:
+                if load_json(validation).get("status") != "PASS":
+                    errors.append(f"{stage.lower()}_validation_not_pass")
+            except Exception:
+                errors.append(f"{stage.lower()}_validation_unreadable")
     if run_dir.is_dir() and manifest:
         trace = trace_run(run_id)
         if trace.get("lineage_closed") is not True:

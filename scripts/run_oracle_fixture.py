@@ -23,7 +23,7 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def run(root: Path, run_id: str, artifact_root: Path | None = None, run_stage1: bool = False) -> dict:
+def run(root: Path, run_id: str, artifact_root: Path | None = None, run_stage1: bool = False, prepare_only: bool = False) -> dict:
     artifact_root = (artifact_root or (root / "runs")).resolve()
     run_root = artifact_root / run_id
     oracle_root = run_root / "02_oracle"
@@ -143,6 +143,10 @@ def run(root: Path, run_id: str, artifact_root: Path | None = None, run_stage1: 
         capital.to_excel(raw_root / f"raw_nonfinancial/kospi_kosdaq/{market}_전업종_폐지사 포함_자본금 변동사항.xlsx", index=False)
     general.to_excel(raw_root / "raw_nonfinancial/konex_optional/코넥스_전업종_일반사항.xlsx", index=False)
     capital.to_excel(raw_root / "raw_nonfinancial/konex_optional/코넥스_전업종_자본금 변동사항.xlsx", index=False)
+    if prepare_only:
+        receipt = {"schema_version": "tiny_oracle_fixture_raw_inputs_v1", "run_id": run_id, "fixture_kind": "raw_inputs_only", "raw_root": str(raw_root), "raw_all": str(raw_all), "raw_rating": str(raw_rating), "raw_file_count": len(list(raw_root.rglob("*.xlsx")))}
+        print(json.dumps(receipt, indent=2))
+        return receipt
     config_root = run_root / "work/contracts"
     shutil.copytree(root / "contracts/oracle_components", config_root, dirs_exist_ok=True)
     shutil.copy2(
@@ -224,6 +228,7 @@ if __name__ == "__main__":
     parser.add_argument("--root", type=Path, default=Path.cwd())
     parser.add_argument("--artifact-root", type=Path)
     parser.add_argument("--run-stage1", action="store_true")
+    parser.add_argument("--prepare-only", action="store_true")
     parser.add_argument("--run-id", default="oracle-fixture")
     args = parser.parse_args()
-    run(args.root.resolve(), args.run_id, args.artifact_root, args.run_stage1)
+    run(args.root.resolve(), args.run_id, args.artifact_root, args.run_stage1, args.prepare_only)

@@ -6,9 +6,11 @@ import os
 import shutil
 from pathlib import Path
 from contextlib import contextmanager
+import contextlib
 from typing import Any
 
 from .base import StageResult, sha256_file, write_stage_artifact
+from thesis_repro.execution_context import scoped_oracle_compatibility, SYNTHETIC_E2E_ACCEPTANCE, receipt_context
 from credit_recourse.oracle.fresh_runtime import (
     assert_fresh_path,
     oracle_execution_profile,
@@ -124,7 +126,7 @@ def _legacy_references(value: Any, *, key: str = "") -> list[str]:
     return [text] if any(token in text for token in forbidden) else []
 
 
-def _verify_production_oracle(root: Path, runtime, *, write_validation_report: bool = False) -> dict[str, Any]:
+def _verify_production_oracle(root: Path, runtime, *, write_validation_report: bool = False, context=None) -> dict[str, Any]:
     """Run and check the real Stage1 verifiers against this run's artifacts."""
     import numpy as np
     import pandas as pd
@@ -190,7 +192,7 @@ def _verify_production_oracle(root: Path, runtime, *, write_validation_report: b
         errors.append("Stage1 substrate validation infrastructure did not PASS")
     fixture_verification_contract = None
     if rq1_gate_verdict == "fail":
-        if oracle_execution_profile() == "synthetic":
+        if context is not None and context.scientific_gate_applicable is False:
             fixture_verification_contract = {
                 "status": "PASS",
                 "contract": "SYNTHETIC_E2E_ACCEPTANCE",
@@ -302,7 +304,7 @@ def _verify_production_oracle(root: Path, runtime, *, write_validation_report: b
         },
         "rq1": {
             "gate_verdict": rq1_gate_verdict,
-            "scientific_gate_applicable": oracle_execution_profile() != "synthetic",
+            "scientific_gate_applicable": bool(context.scientific_gate_applicable) if context is not None else oracle_execution_profile() != "synthetic",
             "verdict_basis": substrate.get("verdict_basis", substrate.get("gate_verdict_basis")),
             "thresholds": substrate.get("thresholds", {}),
             "observed_metrics": substrate.get("per_backend", {}),
@@ -322,11 +324,13 @@ def _verify_production_oracle(root: Path, runtime, *, write_validation_report: b
     return evidence
 
 
-def run_oracle_stage(paths, project_root: Path, parent_hashes: list[str]) -> StageResult:
+def run_oracle_stage(paths, project_root: Path, parent_hashes: list[str], *, context=None) -> StageResult:
     """Execute the production Stage0 and Stage1 Oracle code in a run namespace."""
     root = Path(project_root).resolve()
-    raw_all = root / "data" / "raw" / "raw_all"
-    raw_rating = root / "data" / "raw" / "rating_sample"
+    synthetic = context is not None and context.execution_class == SYNTHETIC_E2E_ACCEPTANCE
+    raw_base = paths.raw_root if synthetic else root / "data" / "raw"
+    raw_all = raw_base / "raw_all"
+    raw_rating = raw_base / "rating_sample"
     if not raw_all.is_dir() or not raw_rating.is_dir() or not any(raw_all.rglob("*.xlsx")) or not any(raw_rating.rglob("*.xlsx")):
         return StageResult("Oracle", "INPUT_REQUIRED", "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"reason": "production Stage0 requires data/raw/raw_all and data/raw/rating_sample Excel inputs", "raw_all": str(raw_all), "raw_rating": str(raw_rating)})
 
@@ -335,23 +339,24 @@ def run_oracle_stage(paths, project_root: Path, parent_hashes: list[str]) -> Sta
     config_root = _copy_contract_templates(root, work)
     stage0_dir = work / "stage0_oracle_foundation"
     try:
-        with _oracle_environment(
-            root,
-            work_root=work,
-            config_root=config_root,
-            raw_root=root / "data" / "raw",
-        ) as runtime:
-            from credit_recourse.oracle.stage0.build_stage0_foundation_from_raw import build_stage0_foundation
-            from credit_recourse.oracle.stage1.run_stage1_oracle_development import main as stage1_main
+        with scoped_oracle_compatibility(context) if context is not None else contextlib.nullcontext():
+            with _oracle_environment(
+                root,
+                work_root=work,
+                config_root=config_root,
+                raw_root=raw_base,
+            ) as runtime:
+                from credit_recourse.oracle.stage0.build_stage0_foundation_from_raw import build_stage0_foundation
+                from credit_recourse.oracle.stage1.run_stage1_oracle_development import main as stage1_main
 
-            stage0_meta = build_stage0_foundation(root, raw_all, raw_rating, stage0_dir, clean=True)
-            rc = stage1_main([
-                "--project-root", str(root), "--raw-rating-dir", str(raw_rating), "--clean",
-            ])
-            _require_stage1_success(rc, runtime.ledgers_root / "stage1_oracle_backends_full_development.json")
-            evidence = _verify_production_oracle(root, runtime, write_validation_report=True)
-            if evidence.get("status") not in {"PASS", "PASS_WITH_QUALIFICATION"} or evidence.get("final_result_allowed") is not True:
-                raise RuntimeError("production Oracle verification failed: " + json.dumps(evidence.get("errors", []), ensure_ascii=False))
+                stage0_meta = build_stage0_foundation(root, raw_all, raw_rating, stage0_dir, clean=True)
+                rc = stage1_main([
+                    "--project-root", str(root), "--raw-rating-dir", str(raw_rating), "--clean",
+                ])
+                _require_stage1_success(rc, runtime.ledgers_root / "stage1_oracle_backends_full_development.json")
+                evidence = _verify_production_oracle(root, runtime, write_validation_report=True, context=context)
+                if evidence.get("status") not in {"PASS", "PASS_WITH_QUALIFICATION"} or evidence.get("final_result_allowed") is not True:
+                    raise RuntimeError("production Oracle verification failed: " + json.dumps(evidence.get("errors", []), ensure_ascii=False))
     except Exception as exc:
         return StageResult("Oracle", "FAILED", "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"error": repr(exc), "failure_class": "ORACLE_EXECUTION_FAILED", "work_root": str(work)})
 
@@ -368,37 +373,39 @@ def run_oracle_stage(paths, project_root: Path, parent_hashes: list[str]) -> Sta
     if missing:
         return StageResult("Oracle", "FAILED", "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"missing_artifacts": missing, "failure_class": "ORACLE_ARTIFACTS_INCOMPLETE", "generated_count": len(generated), "verification": evidence})
 
-    receipt = {"schema_version": "fresh_oracle_execution_receipt_v2", "stage": "Oracle", "execution_class": "REAL_COMPUTE", "executed": True, "production_functions": ["credit_recourse.oracle.stage0.build_stage0_foundation", "credit_recourse.oracle.stage1.run_stage1_oracle_development"], "stage0": stage0_meta, "verification": evidence, "generated_artifact_count": len(generated), "generated_artifacts": [str(p.relative_to(paths.root)).replace("\\", "/") for p in generated], "parent_hashes": parent_hashes}
+    receipt = {"schema_version": "fresh_oracle_execution_receipt_v2", "stage": "Oracle", **receipt_context(context), "stage_execution_kind": "REAL_COMPUTE", "executed": True, "production_functions": ["credit_recourse.oracle.stage0.build_stage0_foundation", "credit_recourse.oracle.stage1.run_stage1_oracle_development"], "stage0": stage0_meta, "verification": evidence, "generated_artifact_count": len(generated), "generated_artifacts": [str(p.relative_to(paths.root)).replace("\\", "/") for p in generated], "parent_hashes": parent_hashes}
     receipt_path = paths.oracle_root / "oracle_execution_receipt.json"
     receipt_path.write_text(json.dumps(receipt, ensure_ascii=False, indent=2, default=str) + "\n", encoding="utf-8")
     artifacts = [write_stage_artifact(paths, "02_oracle/oracle_execution_receipt.json", receipt, "fresh:oracle:execution_receipt", ({"sha256": h} for h in parent_hashes))]
     artifacts.extend(_file_artifact(paths.root, p, f"fresh:oracle:{p.name}", ({"sha256": h} for h in parent_hashes)) for p in generated)
-    return StageResult("Oracle", evidence.get("status", "FAILED"), "REAL_COMPUTE", executed=True, artifacts=artifacts, parent_hashes=parent_hashes, details={"production_execution": True, "generated_artifact_count": len(generated), "work_root": str(work.relative_to(paths.root)).replace("\\", "/"), "stage1_report_status": evidence["stage1_report"]["status"], "verifier_statuses": evidence["verifiers"], "rq1": evidence.get("rq1", {})})
+    return StageResult("Oracle", evidence.get("status", "FAILED"), "REAL_COMPUTE", executed=True, artifacts=artifacts, parent_hashes=parent_hashes, details={"production_execution": True, "generated_artifact_count": len(generated), "work_root": str(work.relative_to(paths.root)).replace("\\", "/"), "stage1_report_status": evidence["stage1_report"]["status"], "verifier_statuses": evidence["verifiers"], "rq1": evidence.get("rq1", {}), "scientific_gate_applicable": evidence.get("rq1", {}).get("scientific_gate_applicable")})
 
 
 class OracleAdapter:
     name = "Oracle"
 
-    def run(self, paths, project_root, parents):
-        return run_oracle_stage(paths, project_root, parents)
+    def run(self, paths, project_root, parents, *, context=None):
+        return run_oracle_stage(paths, project_root, parents, context=context)
 
 
-def verify_oracle_stage(paths, parent_hashes: list[str]) -> StageResult:
+def verify_oracle_stage(paths, parent_hashes: list[str], *, context=None) -> StageResult:
     """Re-run the production verifiers; finite Parquet values alone are insufficient."""
     root = Path(paths.root).resolve()
     try:
         work = paths.oracle_root / "work"
         config_root = work / "contracts" / "oracle_components"
-        with _oracle_environment(
-            root,
-            work_root=work,
-            config_root=config_root,
-            raw_root=root / "data" / "raw",
-        ) as runtime:
-            evidence = _verify_production_oracle(root, runtime, write_validation_report=True)
+        synthetic = context is not None and context.execution_class == SYNTHETIC_E2E_ACCEPTANCE
+        with scoped_oracle_compatibility(context) if context is not None else contextlib.nullcontext():
+            with _oracle_environment(
+                root,
+                work_root=work,
+                config_root=config_root,
+                raw_root=paths.raw_root if synthetic else root / "data" / "raw",
+            ) as runtime:
+                evidence = _verify_production_oracle(root, runtime, write_validation_report=True, context=context)
     except Exception as exc:
         evidence = {"schema_version": "fresh_oracle_validation_v2", "status": "FAILED", "final_result_allowed": False, "errors": [repr(exc)]}
     report = {**evidence, "parent_hashes": parent_hashes, "executed": True}
     artifact = write_stage_artifact(paths, "02_oracle/oracle_validation_report.json", report, "fresh:oracle:validation", ({"sha256": h} for h in parent_hashes))
     passed = report.get("status") in {"PASS", "PASS_WITH_QUALIFICATION"} and report.get("final_result_allowed") is True
-    return StageResult("VerifyOracle", report.get("status") if passed else "FAILED", "REAL_COMPUTE", executed=passed, artifacts=[artifact], parent_hashes=parent_hashes, details={"production_verifiers": report.get("verifiers", {}), "stage1_report": report.get("stage1_report"), "rq1": report.get("rq1", {}), "errors": report.get("errors", [])})
+    return StageResult("VerifyOracle", report.get("status") if passed else "FAILED", "REAL_COMPUTE", executed=passed, artifacts=[artifact], parent_hashes=parent_hashes, details={"production_verifiers": report.get("verifiers", {}), "stage1_report": report.get("stage1_report"), "rq1": report.get("rq1", {}), "scientific_gate_applicable": report.get("rq1", {}).get("scientific_gate_applicable"), "errors": report.get("errors", [])})

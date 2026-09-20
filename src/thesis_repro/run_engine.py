@@ -20,6 +20,8 @@ from .contracts import (
 from .data import verify_input_contract
 from .paths import ROOT, load_json, sha256_file, write_json
 from .runtime_paths import FreshRuntimePaths
+from .dag import RUN_DIRS, STAGE_DIRS, STAGES, stages_for
+from .execution_context import ExecutionContext
 from .stages.adapters import run_heavy_gate, run_real_stage
 from .status import (
     APPROVAL_REQUIRED,
@@ -30,28 +32,12 @@ from .status import (
     SCIENTIFIC_ACCEPTED,
     SMOKE_PASS,
     SMOKE_PASS_WITH_SKIPS,
+    PARTIAL_EXECUTION,
     aggregate_completion,
     is_scientific_accepted,
     normalize_legacy_status,
 )
 
-STAGES = {
-    "OracleClean": ["VerifyInputs", "Oracle", "VerifyOracle"],
-    "OracleRLClean": ["VerifyInputs", "Oracle", "VerifyOracle", "Simulator", "RLDataset", "RLExecutionGate", "RLEncoder", "RLBehaviorClone", "RLIQL", "C3E", "Stage6", "VerifyRL"],
-    "OracleRLLLMClean": ["VerifyInputs", "Oracle", "VerifyOracle", "Simulator", "RLDataset", "RLExecutionGate", "RLEncoder", "RLBehaviorClone", "RLIQL", "C3E", "Stage6", "VerifyRL", "LLMPrepare", "LLMGenerate", "LLMMaterialize", "Stage8", "Stage9", "VerifyResults"],
-    "FullClean": ["VerifyInputs", "Oracle", "VerifyOracle", "Simulator", "RLDataset", "RLExecutionGate", "RLEncoder", "RLBehaviorClone", "RLIQL", "C3E", "Stage6", "VerifyRL", "LLMPrepare", "LLMGenerate", "LLMMaterialize", "Stage8", "Stage9", "VerifyResults", "ThesisOutputs", "CompareFrozen", "VerifyAll"],
-}
-STAGE_DIRS = {
-    "VerifyInputs": "01_inputs", "Oracle": "02_oracle", "VerifyOracle": "02_oracle",
-    "Simulator": "03_simulator", "RLDataset": "04_rl_dataset", "RLEncoder": "05_rl_encoder",
-    "RLExecutionGate": "05_rl_encoder",
-    "RLBehaviorClone": "06_rl_bc", "RLIQL": "07_rl_iql", "C3E": "08_c3e", "Stage6": "08_c3e",
-    "VerifyRL": "08_c3e", "LLMPrepare": "09_llm", "LLMGenerate": "09_llm",
-    "LLMMaterialize": "09_llm", "Stage8": "10_stage8", "Stage9": "11_stage9",
-    "VerifyResults": "12_results", "ThesisOutputs": "13_thesis_outputs",
-    "CompareFrozen": "14_comparison", "VerifyAll": "15_release",
-}
-RUN_DIRS = ["00_run", *[f"{i:02d}_{name}" for i, name in enumerate(("inputs", "oracle", "simulator", "rl_dataset", "rl_encoder", "rl_bc", "rl_iql", "c3e", "llm", "stage8", "stage9", "results", "thesis_outputs", "comparison", "release"), start=1)], "logs"]
 
 
 def _git_commit() -> str:
@@ -231,20 +217,31 @@ def _smoke_stage_artifact(run_dir: Path, stage: str, parent_hashes: list[str], p
 
 
 def execute(mode: str, run_id: str, profile: str = "smoke", resume: bool = False, from_stage: str | None = None, to_stage: str | None = None, execute_llm: bool = False, dry_render: bool = False) -> dict[str, Any]:
-    if mode not in STAGES:
-        raise ValueError(f"unknown mode: {mode}")
+    stages = stages_for(mode)
     if not run_id or "/" in run_id or "\\" in run_id or run_id in {".", ".."}:
         raise ValueError("run_id must be a single safe namespace component")
+    context = ExecutionContext.from_profile(profile, run_id, mode)
     if execute_llm and (not live_execution_authorized() or not live_runner_ready()):
         raise PermissionError("live LLM requires the explicit gate and an installed provider runner")
     if execute_llm and not fresh_contract_ready():
         raise ValueError("live LLM is blocked: fresh replication contract is not ready")
+    if from_stage is not None and from_stage not in stages:
+        raise ValueError(f"unknown from-stage {from_stage!r} for mode {mode!r}")
+    if to_stage is not None and to_stage not in stages:
+        raise ValueError(f"unknown to-stage {to_stage!r} for mode {mode!r}")
+    if from_stage and to_stage and stages.index(from_stage) > stages.index(to_stage):
+        raise ValueError("from-stage must not be after to-stage")
 
     run_dir = ROOT / "runs" / run_id
     paths = FreshRuntimePaths.from_run(ROOT, run_id, create=True)
     _prepare_run_dirs(run_dir)
     contract_report_now = verify_input_contract(write=True)
+    fixture_report_path = run_dir / "01_inputs" / "synthetic_input_contract.json"
+    if context.execution_class == "SYNTHETIC_E2E_ACCEPTANCE" and fixture_report_path.is_file():
+        contract_report_now = load_json(fixture_report_path)
     input_report_path = ROOT / "data/raw/input_contract_report.json"
+    if context.execution_class == "SYNTHETIC_E2E_ACCEPTANCE" and fixture_report_path.is_file():
+        input_report_path = fixture_report_path
     input_hash = sha256_file(input_report_path) if input_report_path.is_file() else "MISSING"
     fingerprint_now = _scientific_fingerprint(input_hash)
     source_state_now = _git_source_state()
@@ -252,40 +249,58 @@ def execute(mode: str, run_id: str, profile: str = "smoke", resume: bool = False
     if resume and manifest_path.is_file():
         manifest = load_json(manifest_path)
         global_reasons = []
-        if manifest.get("scientific_contract_hash") != fingerprint_now:
+        if manifest.get("scientific_contract_hash") != fingerprint_now or manifest.get("scientific_execution_fingerprint") != fingerprint_now:
             global_reasons.append("scientific_fingerprint_changed")
-        if manifest.get("scientific_execution_fingerprint") != fingerprint_now:
-            global_reasons.append("execution_fingerprint_changed")
         if manifest.get("input_contract_hash") != input_hash:
             global_reasons.append("input_contract_changed")
         if manifest.get("source_state") != source_state_now:
             global_reasons.append("source_state_changed")
-        if manifest.get("mode") != mode or manifest.get("profile") != profile:
+        if manifest.get("mode") != mode or manifest.get("profile") != profile or manifest.get("execution_class") != context.execution_class:
             global_reasons.append("run_mode_or_profile_changed")
         if global_reasons:
-            _invalidate_from(run_dir, manifest, STAGES.get(manifest.get("mode"), STAGES[mode]), 0, ";".join(global_reasons))
-            manifest.update({
-                "git_commit": source_state_now["git_commit"],
-                "source_state": source_state_now,
-                "mode": mode,
-                "profile": profile,
-                "input_contract_hash": input_hash,
-                "scientific_contract_hash": fingerprint_now,
-                "scientific_execution_fingerprint": fingerprint_now,
-            })
+            _invalidate_from(run_dir, manifest, stages, 0, ";".join(global_reasons))
+            manifest.update({"git_commit": source_state_now["git_commit"], "source_state": source_state_now, "mode": mode, "profile": profile, "execution_class": context.execution_class, "input_contract_hash": input_hash, "scientific_contract_hash": fingerprint_now, "scientific_execution_fingerprint": fingerprint_now})
     else:
+        if from_stage and stages.index(from_stage) > 0:
+            raise ValueError("a new run may not begin from a downstream stage; use --resume with the same run")
         manifest = {
-            "schema_version": "run_manifest_v3", "run_id": run_id, "created_at": datetime.now(timezone.utc).isoformat(), "updated_at": datetime.now(timezone.utc).isoformat(), "git_commit": source_state_now["git_commit"], "source_state": source_state_now, "mode": mode, "profile": profile, "execution_class": "contract_smoke" if profile == "smoke" else "fresh_replication", "environment": {"python": sys.version, "platform": platform.platform(), "cwd": str(ROOT)}, "gpu_info": {"status": "not_probed"}, "input_contract_status": contract_report_now["status"], "input_contract_hash": input_hash, "scientific_contract_hash": fingerprint_now, "scientific_execution_fingerprint": fingerprint_now, "input_receipt": "data/raw/input_receipt.json" if (ROOT / "data/raw/input_receipt.json").is_file() else None, "random_seeds": {"oracle": 73019, "simulator": 73020, "rl": {"contract": "contracts/scientific/fresh_rl_execution_contract.json", "selected_configurations": ["B27", "M2_S0935", "DT06", "T15_REWARD_S088"], "seeds": [2, 11, 12, 13, 14, 15, 16], "actor_count": 28}, "llm": None}, "provider_identities": {}, "stage_status": {}, "stage_manifests": {}, "stage_manifest_hashes": {}, "artifacts": [], "invalidations": [], "completion_state": "RUNNING"
+            "schema_version": "run_manifest_v4", "run_id": run_id, "created_at": datetime.now(timezone.utc).isoformat(), "updated_at": datetime.now(timezone.utc).isoformat(),
+            "git_commit": source_state_now["git_commit"], "source_state": source_state_now, "mode": mode, "profile": profile,
+            "execution_class": context.execution_class, "execution_context": context.to_dict(), "requested_mode": mode,
+            "required_stages": stages, "environment": {"python": sys.version, "platform": platform.platform(), "cwd": str(ROOT)}, "gpu_info": {"status": "not_probed"},
+            "input_contract_status": contract_report_now["status"], "input_contract_hash": input_hash, "scientific_contract_hash": fingerprint_now, "scientific_execution_fingerprint": fingerprint_now,
+            "input_receipt": "data/raw/input_receipt.json" if (ROOT / "data/raw/input_receipt.json").is_file() else None,
+            "random_seeds": {"oracle": 73019, "simulator": 73020, "rl": {"contract": "contracts/scientific/fresh_rl_execution_contract.json", "selected_configurations": ["B27", "M2_S0935", "DT06", "T15_REWARD_S088"], "seeds": [2, 11, 12, 13, 14, 15, 16], "actor_count": 28}, "llm": None},
+            "provider_identities": {}, "stage_status": {}, "stage_manifests": {}, "stage_manifest_hashes": {}, "artifacts": [], "invalidations": [], "completion_state": "RUNNING",
         }
+    manifest["execution_context"] = context.to_dict()
+    manifest["execution_class"] = context.execution_class
+    manifest["execution_profile"] = context.profile
+    manifest["scientific_gate_applicable"] = context.scientific_gate_applicable
+    manifest["certification_allowed"] = context.certification_allowed
     write_json(run_dir / "00_run/input_contract_snapshot.json", contract_report_now)
 
-    stages = STAGES[mode]
-    selected = stages[:]
-    if from_stage:
-        selected = selected[selected.index(from_stage):]
-    if to_stage:
-        selected = selected[: selected.index(to_stage) + 1]
-    parent_hashes: list[str] = []
+    start_index = stages.index(from_stage) if from_stage else 0
+    end_index = stages.index(to_stage) if to_stage else len(stages) - 1
+    selected = stages[start_index:end_index + 1]
+    manifest["selected_stage_range"] = {"from_stage": selected[0], "to_stage": selected[-1]}
+    manifest["required_stages"] = stages
+    manifest["partial_execution_reason"] = None
+    if start_index > 0:
+        if not resume or not manifest_path.is_file():
+            raise ValueError("downstream --from-stage requires a resumable existing run")
+        for prior in stages[:start_index]:
+            prior_path = _stage_manifest(run_dir, prior)
+            if not prior_path.is_file():
+                raise ValueError(f"same-run accepted prerequisite is missing: {prior}")
+            old = load_json(prior_path)
+            reusable, reason = _manifest_is_reusable(run_dir, prior, old, manifest, profile=profile, fingerprint=fingerprint_now)
+            if not reusable or not is_scientific_accepted(normalize_legacy_status(old.get("status", ""))):
+                raise ValueError(f"same-run prerequisite {prior} is not reusable: {reason}")
+        parent_hashes = [sha256_file(_stage_manifest(run_dir, stages[start_index - 1]))]
+    else:
+        parent_hashes = []
+
     for stage_index, stage in enumerate(selected):
         existing = _stage_manifest(run_dir, stage)
         if resume and existing.is_file():
@@ -297,55 +312,44 @@ def execute(mode: str, run_id: str, profile: str = "smoke", resume: bool = False
                 manifest["stage_status"][stage] = normalize_legacy_status(old["status"])
                 manifest["stage_manifests"][stage] = str(existing.relative_to(ROOT)).replace("\\", "/")
                 manifest.setdefault("stage_manifest_hashes", {})[stage] = digest
-                manifest["artifacts"].extend(old.get("artifacts", []))
                 continue
-            _invalidate_from(run_dir, manifest, selected, stage_index, reason)
+            _invalidate_from(run_dir, manifest, stages, stages.index(stage), reason)
 
         status = PASS
-        details: dict[str, Any] = {"profile": profile, "execution_class": manifest["execution_class"], "same_run_compute_parent": True}
+        details: dict[str, Any] = {"profile": profile, "execution_class": context.execution_class, "scientific_gate_applicable": context.scientific_gate_applicable, "same_run_compute_parent": True}
         artifacts: list[dict[str, Any]] = []
         if stage == "VerifyInputs":
-            details.update({"input_contract_status": contract_report_now["status"], "raw_data_present": contract_report_now["present_file_count"] > 0})
+            details.update({"input_contract_status": contract_report_now["status"], "raw_data_present": contract_report_now.get("present_file_count", 0) > 0})
             status = (SMOKE_PASS if contract_report_now["status"] == "INPUT_CONTRACT_PASS" else SMOKE_PASS_WITH_SKIPS) if profile == "smoke" else (PASS if contract_report_now["status"] == "INPUT_CONTRACT_PASS" else INPUT_REQUIRED)
             artifacts.append(_artifact(input_report_path, "input.contract.report", "thesis_repro.data") if input_report_path.is_file() else _write_artifact(run_dir, "01_inputs/input_contract_report.json", contract_report_now, "input.contract.report", "thesis_repro.data"))
         elif profile == "full" and contract_report_now["status"] != "INPUT_CONTRACT_PASS":
             status = INPUT_REQUIRED
             details["reason"] = "full fresh stages are blocked until data/raw/input_contract_report.json is INPUT_CONTRACT_PASS"
+        elif profile == "smoke":
+            status = SMOKE_PASS
+            artifacts.append(_smoke_stage_artifact(run_dir, stage, parent_hashes, profile))
+            if stage == "LLMGenerate" and dry_render:
+                details.update(render_dry_run(run_dir, full=True))
+                artifacts.append(_artifact(run_dir / "09_llm/logical_requests.jsonl", f"fresh:{run_id}:llm.logical_requests", "thesis_repro.run_engine"))
         else:
-            if profile == "smoke":
-                status = SMOKE_PASS
-                artifacts.append(_smoke_stage_artifact(run_dir, stage, parent_hashes, profile))
-                if stage == "LLMGenerate" and dry_render:
-                    details.update(render_dry_run(run_dir, full=True))
-                    artifacts.append(_artifact(run_dir / "09_llm/logical_requests.jsonl", f"fresh:{run_id}:llm.logical_requests", "thesis_repro.run_engine"))
+            if stage == "RLExecutionGate":
+                result = run_heavy_gate(paths, parent_hashes, context=context)
             else:
-                if stage == "RLExecutionGate":
-                    result = run_heavy_gate(paths, parent_hashes)
-                    status = normalize_legacy_status(result.status)
-                    details.update(result.details)
-                    details.update({"execution_class": result.execution_class, "implemented": result.implemented, "executed": result.executed, "gate_checked_before_heavy_stage": True})
-                    artifacts.extend(result.artifacts)
-                else:
-                    result = run_real_stage(paths, stage, parent_hashes, execute_llm=execute_llm)
-                    status = normalize_legacy_status(result.status)
-                    details.update(result.details)
-                    details.update({"execution_class": result.execution_class, "implemented": result.implemented, "executed": result.executed})
-                    artifacts.extend(result.artifacts)
-                    if stage in {"Oracle", "VerifyOracle"} and details.get("rq1"):
-                        manifest["oracle"] = {"rq1": details["rq1"]}
-                if stage == "LLMPrepare" and mode in {"OracleRLLLMClean", "FullClean"} and not execute_llm:
-                    details.update(render_dry_run(run_dir, full=True))
-                    artifacts.append(_artifact(run_dir / "09_llm/logical_requests.jsonl", f"fresh:{run_id}:llm.logical_requests", "thesis_repro.run_engine"))
-                    status = APPROVAL_REQUIRED
-                    details.update({"executed": False, "reason": "48,300 fresh logical requests rendered and validated; provider transport requires explicit live gate"})
-                    digest = _write_stage(run_dir, stage, status, parent_hashes, details, artifacts)
-                    parent_hashes = [digest]
-                    manifest["stage_status"][stage] = status
-                    manifest["stage_manifests"][stage] = str(_stage_manifest(run_dir, stage).relative_to(ROOT)).replace("\\", "/")
-                    manifest.setdefault("stage_manifest_hashes", {})[stage] = digest
-                    manifest["artifacts"].extend(artifacts)
-                    manifest["completion_state"] = status
-                    break
+                result = run_real_stage(paths, stage, parent_hashes, execute_llm=execute_llm, context=context)
+            status = normalize_legacy_status(result.status)
+            details.update(result.details)
+            details.update({"execution_class": result.execution_class, "implemented": result.implemented, "executed": result.executed})
+            artifacts.extend(result.artifacts)
+            if context.execution_class == "FRESH_REPLICATION" and details.get("scientific_gate_applicable") is False:
+                status = FAILED
+                details["reason"] = "full fresh execution cannot accept a non-scientific verification policy"
+            if stage in {"Oracle", "VerifyOracle"} and details.get("rq1"):
+                manifest["oracle"] = {"rq1": details["rq1"]}
+            if stage == "LLMPrepare" and mode in {"OracleRLLLMClean", "FullClean"} and not execute_llm:
+                details.update(render_dry_run(run_dir, full=True))
+                artifacts.append(_artifact(run_dir / "09_llm/logical_requests.jsonl", f"fresh:{run_id}:llm.logical_requests", "thesis_repro.run_engine"))
+                status = APPROVAL_REQUIRED
+                details.update({"executed": False, "reason": "fresh logical requests rendered; provider transport requires explicit live gate"})
         digest = _write_stage(run_dir, stage, status, parent_hashes, details, artifacts)
         parent_hashes = [digest]
         manifest["stage_status"][stage] = status
@@ -356,8 +360,20 @@ def execute(mode: str, run_id: str, profile: str = "smoke", resume: bool = False
             manifest["completion_state"] = status
             break
 
+    executed_stages = [stage for stage in stages if stage in manifest.get("stage_status", {})]
+    missing_required = [stage for stage in stages if stage not in manifest.get("stage_status", {})]
+    manifest["executed_stages"] = executed_stages
+    manifest["missing_required_stages"] = missing_required
+    all_required_selected_ok = all(is_scientific_accepted(manifest["stage_status"].get(stage, "")) for stage in selected) if profile != "smoke" else all(manifest["stage_status"].get(stage) in {SMOKE_PASS, SMOKE_PASS_WITH_SKIPS} for stage in selected)
     if manifest.get("completion_state") == "RUNNING":
-        manifest["completion_state"] = aggregate_completion(list(manifest["stage_status"].values()), profile=profile)
+        if end_index < len(stages) - 1 and all_required_selected_ok:
+            manifest["completion_state"] = PARTIAL_EXECUTION
+            manifest["partial_execution_reason"] = "selected stage range ended before the requested mode DAG"
+            manifest["acceptance_segment_status"] = PASS if all_required_selected_ok else FAILED
+        else:
+            manifest["completion_state"] = aggregate_completion(list(manifest["stage_status"].values()), profile=profile)
+    manifest["dag_complete"] = not missing_required and end_index == len(stages) - 1
+    manifest["certifiable"] = bool(manifest["dag_complete"] and context.certification_allowed and manifest.get("completion_state") in SCIENTIFIC_ACCEPTED)
     manifest["updated_at"] = datetime.now(timezone.utc).isoformat()
     write_json(manifest_path, manifest)
     return manifest

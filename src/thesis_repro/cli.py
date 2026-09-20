@@ -149,7 +149,10 @@ def main(argv: list[str] | None = None) -> None:
             if result["state"] == "NOT_CERTIFIABLE":
                 raise SystemExit(1)
         elif args.command == "acceptance-e2e":
-            _print(run_acceptance(args.run_id))
+            result = run_acceptance(args.run_id)
+            _print(result)
+            if result.get("acceptance_segment_status") != "PASS":
+                raise SystemExit(1)
     except (FileNotFoundError, ValueError, PermissionError) as exc:
         _print({"status": "FAIL", "error": str(exc)})
         raise SystemExit(2)
