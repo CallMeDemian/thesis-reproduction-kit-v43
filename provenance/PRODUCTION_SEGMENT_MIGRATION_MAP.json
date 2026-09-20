@@ -1,39 +1,70 @@
 {
   "schema_version": "production_segment_migration_map_v1",
-  "source_repository": "CallMeDemian/REPRO_KIT_semantic_repair",
-  "source_commit": "324b5fbb0ac9cf322ae20cf97793165227bf45ed",
-  "components": [
+  "scientific_changes": "NONE",
+  "records": [
     {
-      "component": "Stage2 population and feature preparation",
-      "authoritative_source": "src/credit_recourse/rl/v43_one_pass_data.py",
-      "source_sha256": "3489ba3d649997b7431004cf98c3aaed5501d2dbf899ba20e978957b04d4f92a",
-      "new_runtime_entrypoint": "thesis_repro.stage2.run_stage2",
+      "component": "V4.3 simulator cohort and action expansion",
+      "authoritative_source": "src/credit_recourse/simulator/v43_production_bundle.py",
+      "source_sha256": "36bb4262dc2e9f12582bd7035d152383faae6b0d286e275abca1e57215d5d483",
+      "new_runtime_entrypoint": "thesis_repro.stage2._synthetic_stage2 / credit_recourse.rl.v43_one_pass_grid.generate_grid",
       "scientific_changes": [],
-      "engineering_changes": ["run-local input root", "run namespace binding", "execution receipt", "hash lineage"]
+      "engineering_changes": ["same-run namespace injection", "receipts", "artifact hashes", "fixture profile"]
     },
     {
-      "component": "Stage2 financial/action grid",
+      "component": "Business-plan and interest-rate construction",
+      "authoritative_source": "src/credit_recourse/simulator/business_plan_interest_rate_v4.py",
+      "source_sha256": "6c65affff75547f3115dad916cbb9c136f67127c5899e152ed6f61dc29b7bda1",
+      "new_runtime_entrypoint": "credit_recourse.simulator.business_plan_interest_rate_v4",
+      "scientific_changes": [],
+      "engineering_changes": ["same-run input binding", "execution receipt"]
+    },
+    {
+      "component": "Canonical 8D action contract and nine-action projection",
+      "authoritative_source": "contracts/scientific/v43_action_contract.json",
+      "source_sha256": "5fd8ff5825fbee64e781fac8ce7302d36aa9c6ca7fe56f21ec8bea7a8fc101cc",
+      "new_runtime_entrypoint": "credit_recourse.contracts.v43_action_contract.load_action_contract",
+      "scientific_changes": [],
+      "engineering_changes": ["fresh contract materialization", "lineage metadata"]
+    },
+    {
+      "component": "Factual and counterfactual transition construction",
       "authoritative_source": "src/credit_recourse/rl/v43_one_pass_grid.py",
-      "source_sha256": "ef8ce1f0149c9db5a5c0de4d64a35277e95b9742ce56f4b17447e39ab2a08613",
+      "source_sha256": "0dd78ce9f75826f19ccd1e0e4a5d720f7bfce452d6e7fbfac6adee7d500d4faa",
       "new_runtime_entrypoint": "thesis_repro.stage2.run_stage2",
       "scientific_changes": [],
-      "engineering_changes": ["run-local output root", "evaluation/training separation", "validation receipt"]
+      "engineering_changes": ["run-local output binding", "temporal validation", "parent hashes"]
     },
     {
-      "component": "Stage6 final OOT evaluation",
-      "authoritative_source": "src/credit_recourse/eval/v43_one_pass_evaluation.py",
-      "source_sha256": "8359cced60ced24627047ac58b75798651a04813d69fa377b5f08055025bfaee",
-      "new_runtime_entrypoint": "thesis_repro.stage6.run_stage6",
+      "component": "Offline RL dataset assembly",
+      "authoritative_source": "src/credit_recourse/rl/v43_one_pass_data.py",
+      "source_sha256": "484380305559708bea221360e939ab47f40f888249a9339833df57c7a887b43c",
+      "new_runtime_entrypoint": "thesis_repro.stage2.run_stage2",
       "scientific_changes": [],
-      "engineering_changes": ["run-local Stage2/Stage5/Stage6 roots", "same-run Oracle registry binding", "execution receipt"]
+      "engineering_changes": ["fresh dataset receipt", "train/evaluation manifests", "same-run lineage"]
     },
     {
-      "component": "Original RL search",
-      "authoritative_source": "src/credit_recourse/rl/v43_stage5_search.py",
-      "source_sha256": "195147df756fb92f5aeec55ddac587f3d96dba4a29f606a7b654a9ca04e50a19",
-      "new_runtime_entrypoint": "thesis_repro.search.reproduce_search",
+      "component": "Temporal eligibility and leakage policy",
+      "authoritative_source": "contracts/scientific/final_freeze/temporal_split.yaml",
+      "source_sha256": "9dd1da319bff0aa881c896f5b75c642f507c4a5a5458b3a6627646801fb27272",
+      "new_runtime_entrypoint": "thesis_repro.stage2.verify_fresh_rl_dataset",
       "scientific_changes": [],
-      "engineering_changes": ["catalog snapshot", "run namespace", "selection comparison"]
+      "engineering_changes": ["independent verifier", "explicit cutoff receipt"]
+    },
+    {
+      "component": "State and action feature construction",
+      "authoritative_source": "src/credit_recourse/rl/v43_features.py",
+      "source_sha256": "7af02e184ce7f4f871ed26f20b63aab9556a98782f062e721e0fdf70d616bea5",
+      "new_runtime_entrypoint": "credit_recourse.rl.v43_features",
+      "scientific_changes": [],
+      "engineering_changes": ["same-run source binding", "input hash recording"]
+    },
+    {
+      "component": "Fresh Stage2 coordinator and boundary verifier",
+      "authoritative_source": "src/thesis_repro/stage2.py",
+      "source_sha256": "7acab79daade91098b6a1bdf58c44d033adee1f65d8c28077abd868405e6d0ff",
+      "new_runtime_entrypoint": "thesis_repro.stage2.run_stage2",
+      "scientific_changes": [],
+      "engineering_changes": ["adapter dispatch", "external-input fail-closed gate", "receipts", "lineage"]
     }
   ]
 }

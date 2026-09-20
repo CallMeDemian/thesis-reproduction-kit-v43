@@ -370,6 +370,7 @@ def load_user_action_map(root: Path) -> dict[str, dict[str, Any]]:
     active, and missing 10D source coverage is still enforced later.
     """
     candidates = [
+        root / "contracts/scientific/final_freeze/stage2_action_source_map.json",
         root / "configs/current/final_freeze/stage2_action_source_map.json",
         root / "configs/current/final_freeze/stage2_raw_action_source_map.json",
     ]
@@ -528,7 +529,8 @@ def _load_stage1_cleaned_state_substrate(
     Stage1 cleaned statement panels, keyed by the same firm and fiscal year, so
     an available accounting value is never represented as an observed zero.
     """
-    cleaned_dir = (
+    configured = os.environ.get("THESIS_REPRO_STAGE1_CLEANED_STATE_DIR")
+    cleaned_dir = Path(configured) if configured else (
         root
         / "data/final_freeze/stage1_oracle_inputs"
         / "stage00_01_rating_statement_integration"

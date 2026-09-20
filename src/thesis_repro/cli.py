@@ -15,7 +15,8 @@ from .frozen import verify_frozen
 from .original_release import verify_original_release
 from .paths import ROOT, load_json
 from .reproduce import reproduce
-from .run_engine import execute
+from .run_engine import execute, trace_run
+from .certify import certify_run
 
 
 def _print(value: object) -> None:
@@ -35,12 +36,17 @@ def _build_parser() -> argparse.ArgumentParser:
     replay.add_argument("--resume", action="store_true")
     replay.add_argument("--from-stage")
     replay.add_argument("--to-stage")
+    acceptance = sub.add_parser("acceptance-e2e")
+    acceptance.add_argument("--run-id", default="ci-synthetic-full")
+    trace = sub.add_parser("trace")
+    trace.add_argument("--run-id", required=True)
+    certify = sub.add_parser("certify")
+    certify.add_argument("--run-id", required=True)
     search = sub.add_parser("search")
-    search.add_argument("--all", action="store_true")
-    search.add_argument("--encoder", action="store_true")
-    search.add_argument("--rl", action="store_true")
-    search.add_argument("--oracle", action="store_true")
+    search.add_argument("--rl", action="store_true", required=True)
     search.add_argument("--catalog", type=Path)
+    search.add_argument("--source-run", required=True)
+    search.add_argument("--run-id", default="search-reproduction")
     sub.add_parser("verify-original")
     sub.add_parser("rebuild-c3e").add_argument("--release", choices=("original",), required=True)
     data = sub.add_parser("data")
@@ -50,6 +56,8 @@ def _build_parser() -> argparse.ArgumentParser:
     restore.add_argument("--raw-all", type=Path, required=True)
     restore.add_argument("--raw-nonfinancial", type=Path, required=True)
     restore.add_argument("--ratings", type=Path, required=True)
+    restore.add_argument("--stage2-source", type=Path)
+    restore.add_argument("--c6ex-permutation", type=Path)
     inspect = sub.add_parser("inspect")
     inspect.add_argument("kind", choices=("claim", "result", "run"))
     inspect.add_argument("identifier")
@@ -114,9 +122,25 @@ def main(argv: list[str] | None = None) -> None:
             _print(result)
             if result.get("status") not in {"PASS", "PASS_WITH_QUALIFICATION"}:
                 raise SystemExit(1)
+        elif args.command == "acceptance-e2e":
+            from .acceptance import run_acceptance
+            result = run_acceptance(args.run_id)
+            _print(result)
+            if result.get("completion_state") != "PASS" or result.get("dag_complete") is not True or result.get("certifiable") is not False:
+                raise SystemExit(1)
+        elif args.command == "trace":
+            result = trace_run(args.run_id)
+            _print(result)
+            if result.get("lineage_closed") is not True:
+                raise SystemExit(1)
+        elif args.command == "certify":
+            result = certify_run(args.run_id)
+            _print(result)
+            if result.get("state") not in {"CERTIFIED_FRESH_REPLICATION", "QUALIFIED_FRESH_REPLICATION"}:
+                raise SystemExit(1)
         elif args.command == "search":
             from .search import reproduce_search
-            result = reproduce_search(ROOT, mode="all" if args.all else "selected", catalog_path=args.catalog)
+            result = reproduce_search(ROOT, mode="rl", catalog_path=args.catalog, source_run=args.source_run, run_id=args.run_id)
             _print(result)
             if result.get("status") != "PASS":
                 raise SystemExit(1)
@@ -131,7 +155,7 @@ def main(argv: list[str] | None = None) -> None:
             if result["status"] != "PASS":
                 raise SystemExit(1)
         elif args.command == "data":
-            _print(data_doctor() if args.data_command == "doctor" else restore_data(args.raw_all, args.raw_nonfinancial, args.ratings))
+            _print(data_doctor() if args.data_command == "doctor" else restore_data(args.raw_all, args.raw_nonfinancial, args.ratings, stage2_source=args.stage2_source, c6ex_permutation=args.c6ex_permutation))
         elif args.command == "inspect":
             _print(_inspect(args.kind, args.identifier))
     except (FileNotFoundError, ValueError, PermissionError) as exc:

@@ -53,7 +53,7 @@ def _current_stage6(project_root: Path, *, fixture_mode: bool = False) -> tuple[
     if required - set(payoffs):
         raise ValueError(f"Stage6 payoff surface lacks {sorted(required-set(payoffs))}")
     expected_firms = 575 if not fixture_mode else len(payoffs) // 9
-    if len(payoffs) != expected_firms * 9 or payoffs["row_id"].nunique() != len(payoffs):
+    if len(payoffs) != expected_firms * 9 or payoffs["row_id"].nunique() != expected_firms:
         raise ValueError("Stage6 payoff surface is not a complete cohort x 9 grid")
     if set(payoffs["action"].astype(str)) != set(ACTION_ORDER):
         raise ValueError("Stage6 payoff surface action contract mismatch")

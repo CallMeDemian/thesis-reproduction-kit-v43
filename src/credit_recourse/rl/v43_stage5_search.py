@@ -1,14 +1,18 @@
 """Independent Stage5 runs consuming one immutable Stage3/4 baseline."""
 from pathlib import Path
 from dataclasses import dataclass,asdict
-import copy,json,math,re
+import copy,json,math,re,os
 import numpy as np
 import pandas as pd
 from credit_recourse.rl.contracts.v43_encoder import ACTION_IDS, file_sha256, content_hash
-from credit_recourse.rl.v43_one_pass_contract import RUN_PATH,write_json
+from credit_recourse.rl.v43_one_pass_contract import run_path,write_json
 from credit_recourse.rl.v43_reward_components import recompose
-from credit_recourse.contracts.stage_paths import V43_STAGE5_SEARCH_PATH
-SEARCH_ROOT=V43_STAGE5_SEARCH_PATH.as_posix()
+def search_root(root: Path) -> Path:
+    configured = os.environ.get("THESIS_REPRO_SEARCH_ROOT")
+    if configured:
+        path = Path(configured)
+        return path if path.is_absolute() else Path(root) / path
+    return Path(root) / "runs/search-reproduction/search/rl"
 
 @dataclass(frozen=True)
 class SearchConfig:
@@ -44,7 +48,11 @@ class SearchConfig:
         return value
 
 def load_baseline(root, *, training=False):
-    root=Path(root);path=root/RUN_PATH/'V43_STAGE5_SEARCH_BASELINE.json'
+    root=Path(root).resolve()
+    configured = os.environ.get("THESIS_REPRO_SEARCH_BASELINE")
+    path = Path(configured) if configured else Path(run_path(root)) / "V43_STAGE5_SEARCH_BASELINE.json"
+    if not path.is_absolute():
+        path = root / path
     baseline=json.loads(path.read_text(encoding='utf-8'))
     permitted=['READY_FOR_V43_STAGE5_HYPERPARAMETER_SEARCH'] if training else ['PREPARED_FOR_SCHEMA_DRY_RUN','READY_FOR_V43_STAGE5_HYPERPARAMETER_SEARCH']
     if baseline['status'] not in permitted:raise ValueError('Search baseline is not ready')
@@ -82,7 +90,7 @@ def leaderboard_schema():
 
 def prepare_run(root,config, *, dry_run=True):
     config.validate();root=Path(root).resolve();baseline=load_baseline(root,training=not dry_run)
-    destination=root/SEARCH_ROOT/config.run_id
+    destination=search_root(root)/config.run_id
     if destination.exists():raise FileExistsError('Run namespace already exists: '+config.run_id)
     component_path=root/baseline['artifacts']['reward_components']
     frame=pd.read_parquet(component_path)
@@ -204,7 +212,7 @@ def evaluate_run(consumer,config,baseline,identity):
     return out
 
 def append_leaderboard(root,row):
-    folder=Path(root)/SEARCH_ROOT;schema=leaderboard_schema();required=set(schema['columns'])
+    folder=search_root(root);schema=leaderboard_schema();required=set(schema['columns'])
     if not required.issubset(row):raise ValueError('Incomplete leaderboard diagnostics: '+repr(sorted(required-set(row))))
     path=folder/'leaderboard.jsonl';lock=folder/'leaderboard.append.lock'
     # Exclusive lock protects independent run append and duplicate IDs.

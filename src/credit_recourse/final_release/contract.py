@@ -99,6 +99,12 @@ def load_design(root: Path | None = None) -> DesignBundle:
         raise ContractError("Action dimension order drift")
     if canonical_hash(_semantic_design(design)) != release["final_design_semantic_hash"]:
         raise ContractError("Final design semantic hash drift")
+    c3e_root = Path(os.environ.get("THESIS_REPRO_C3E_ROOT", repo / "archive/DEPLOYED_RELEASE/stage5_candidate_iql/C3E_E2_7SEED_BALANCED_DFEBAFA6"))
+
+    def resolve_hash_path(value: str) -> Path:
+        path = Path(value)
+        return path if path.is_absolute() else repo / path
+
     for name, expected in release["source_hashes"].items():
         rel = {
             "authority_document": design["authority_document"],
@@ -109,10 +115,10 @@ def load_design(root: Path | None = None) -> DesignBundle:
             "information_contract": str(base / "information_contract.json"),
             "retry_policy": str(base / "retry_policy.json"),
             "analysis_contract": str(base / "analysis_contract.json"),
-            "action_contract": design["action_contract"]["source"],
-            "c3e_definition": "archive/DEPLOYED_RELEASE/stage5_candidate_iql/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_definition.json",
-            "c3e_probabilities": "archive/DEPLOYED_RELEASE/stage5_candidate_iql/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_firm_probabilities.parquet",
-            "c3e_actions": "archive/DEPLOYED_RELEASE/stage5_candidate_iql/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_firm_actions.parquet",
+            "action_contract": str(active_action_contract(repo)),
+            "c3e_definition": str(c3e_root / "C3E_definition.json"),
+            "c3e_probabilities": str(c3e_root / "C3E_firm_probabilities.parquet"),
+            "c3e_actions": str(c3e_root / "C3E_firm_actions.parquet"),
             "c6ex_permutation": str(base / "C6EX_permutation.parquet"),
             "c6ex_materialized": str(base / "C6EX_materialized.parquet"),
             "c6ex_manifest": str(base / "C6EX_manifest.json"),
@@ -136,7 +142,7 @@ def load_design(root: Path | None = None) -> DesignBundle:
             "stage9_evaluator": "src/credit_recourse/eval/final_stage9_llm_rl_comparison/pipeline.py",
             "stage9_revision_metrics": "src/credit_recourse/eval/final_stage9_llm_rl_comparison/revision_metrics.py",
         }[name]
-        if file_hash(repo / rel) != expected:
+        if file_hash(resolve_hash_path(rel)) != expected:
             raise ContractError(f"Released source hash drift: {name}")
     return DesignBundle(repo, design, release, matrix, models, prompts, information, retry, action, release["design_release_hash"])
 
@@ -173,15 +179,18 @@ def load_firm_cohort(design: DesignBundle) -> pd.DataFrame:
 
     # IC-b/IC-c industry values are supplied only by the frozen OpenDART
     # binding. Do not silently fall back to sparse serving-panel metadata.
-    binding_manifest = design.root / design.information["industry_binding_manifest"]
+    config_root = Path(os.environ.get("THESIS_REPRO_LLM_CONFIG_ROOT", design.root / "frozen/evidence/llm"))
+    binding_reference = Path(str(design.information["industry_binding_manifest"]))
+    binding_manifest = binding_reference if binding_reference.is_absolute() else config_root / binding_reference
     evidence = load_json(binding_manifest) if binding_manifest.is_file() else {}
     if not (
-        evidence.get("frozen")
+        (evidence.get("frozen") or evidence.get("role") in {"FROZEN_EXOGENOUS_INFORMATION_INPUT", "FRESH_EXOGENOUS_INFORMATION_INPUT"})
         and int(evidence.get("unresolved_count", 575)) == 0
         and evidence.get("binding_artifact")
     ):
         raise ContractError("Frozen 575-firm industry binding is unavailable")
-    binding_path = design.root / str(evidence["binding_artifact"])
+    binding_reference = Path(str(evidence["binding_artifact"]))
+    binding_path = binding_reference if binding_reference.is_absolute() else config_root / binding_reference
     binding = pd.read_parquet(binding_path)
     required_binding = {"firm_key", "induty_code", "industry_display_value"}
     if not required_binding.issubset(binding.columns):

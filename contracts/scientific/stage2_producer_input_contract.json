@@ -1,0 +1,22 @@
+{
+  "schema_version": "v43_stage2_producer_input_contract_v1",
+  "source_status": "ORIGINAL_PRODUCER_INPUT_NOT_DISTRIBUTED",
+  "source_evidence": "repro_audit/v21_final_closure_20260916/STAGE2_PARITY_REPORT.md",
+  "role": "EXPERIMENTAL_INPUT_NOT_RESULT",
+  "required_files": [
+    "input_splits/phase1_pretrain.parquet",
+    "input_splits/phase2_bc.parquet",
+    "input_splits/phase3_iql.parquet",
+    "input_splits/phase_eval.parquet",
+    "phase_eval_candidate.parquet",
+    "input_splits/canonical_business_plan_history.parquet",
+    "runtime_inputs/historical_financial_context_v4_3/actual_context.parquet",
+    "runtime_inputs/historical_financial_context_v4_3/actual_financial_states.parquet"
+  ],
+  "validation": {
+    "phase_eval_rows": 575,
+    "phase_eval_year": 2024,
+    "result_substitutions_forbidden": true,
+    "required_hashes": "not_declared_when_original_hashes_are_unavailable"
+  }
+}

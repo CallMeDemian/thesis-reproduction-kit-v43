@@ -130,7 +130,32 @@ def data_doctor() -> dict[str, Any]:
     return report
 
 
-def restore_data(raw_all: Path, raw_nonfinancial: Path, ratings: Path) -> dict[str, Any]:
+def validate_stage2_source(root: Path | None = None) -> dict[str, Any]:
+    root = Path(root or ROOT).resolve()
+    source_root = root / "data/raw/stage2_input_source"
+    contract_path = root / "contracts/scientific/stage2_producer_input_contract.json"
+    contract = load_json(contract_path)
+    required = list(contract["required_files"])
+    missing = [relative for relative in required if not (source_root / relative).is_file() or (source_root / relative).stat().st_size <= 0]
+    forbidden = [str(path.relative_to(source_root)).replace("\\", "/") for path in source_root.rglob("*") if path.is_file() and any(token in str(path).replace("\\", "/") for token in ("checkpoint", "oracle_score", "C3E_firm"))]
+    schema_errors: list[str] = []
+    try:
+        import pandas as pd
+        evaluation = pd.read_parquet(source_root / "input_splits/phase_eval.parquet")
+        if len(evaluation) != 575:
+            schema_errors.append(f"phase_eval_rows:{len(evaluation)}")
+        year_column = "fiscal_year" if "fiscal_year" in evaluation.columns else "year" if "year" in evaluation.columns else None
+        if year_column is None or set(pd.to_numeric(evaluation[year_column], errors="coerce").dropna().astype(int)) != {2024}:
+            schema_errors.append("phase_eval_year:not_2024")
+    except Exception as exc:
+        if not (source_root / "input_splits/phase_eval.parquet").is_file():
+            schema_errors.append("phase_eval_missing")
+        else:
+            schema_errors.append(f"phase_eval_unreadable:{type(exc).__name__}")
+    return {"status": "PASS" if not missing and not forbidden and not schema_errors else "INPUT_REQUIRED", "role": contract["role"], "source_status": contract["source_status"], "source_root": str(source_root.relative_to(root)).replace("\\", "/"), "required_files": required, "missing": missing, "forbidden_substitutions": forbidden, "schema_errors": schema_errors}
+
+
+def restore_data(raw_all: Path, raw_nonfinancial: Path, ratings: Path, *, stage2_source: Path | None = None, c6ex_permutation: Path | None = None) -> dict[str, Any]:
     raw_root = ROOT / "data/raw"
     if raw_root.exists():
         for child in raw_root.iterdir():
@@ -148,6 +173,28 @@ def restore_data(raw_all: Path, raw_nonfinancial: Path, ratings: Path) -> dict[s
             continue
         files = _safe_extract(archive, raw_root / name)
         receipt["archives"].append({"name": name, "path": str(archive), "status": "PASS", "file_count": len(files), "files": [{"path": str(path.relative_to(ROOT)), "size_bytes": path.stat().st_size, "sha256": _hash(path)} for path in files]})
+    if stage2_source is not None:
+        stage2_root = raw_root / "stage2_input_source"
+        files = _safe_extract(stage2_source, stage2_root) if stage2_source.is_file() else []
+        validation = validate_stage2_source(ROOT)
+        receipt["stage2_source"] = {"path": str(stage2_source), "role": "EXPERIMENTAL_INPUT_NOT_RESULT", "status": "PASS" if stage2_source.is_file() and validation["status"] == "PASS" else "INPUT_REQUIRED", "file_count": len(files), "validation": validation}
+        if validation["status"] != "PASS":
+            receipt["status"] = "INPUT_REQUIRED"
+    if c6ex_permutation is not None:
+        destination = ROOT / "data/design/C6EX_permutation.parquet"
+        if not c6ex_permutation.is_file():
+            receipt["c6ex_permutation"] = {"status": "INPUT_REQUIRED", "reason": "file_missing"}
+            receipt["status"] = "INPUT_REQUIRED"
+        else:
+            expected = "a5385d4c811e73fbf39a46cf299959d72ada8f3931ed3a02a2ba07e4f1c0bd40"
+            actual = _hash(c6ex_permutation)
+            if actual != expected:
+                receipt["c6ex_permutation"] = {"status": "FAILED", "expected_sha256": expected, "actual_sha256": actual}
+                receipt["status"] = "FAIL"
+            else:
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(c6ex_permutation, destination)
+                receipt["c6ex_permutation"] = {"status": "PASS", "path": str(destination.relative_to(ROOT)).replace("\\", "/"), "sha256": actual}
     write_json(raw_root / "input_receipt.json", receipt)
     contract = verify_input_contract(write=True)
     receipt["input_contract_status"] = contract["status"]

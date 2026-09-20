@@ -5,7 +5,7 @@ import json
 
 import pandas as pd
 
-from thesis_repro.llm_runtime import EXPECTED_REQUESTS, execute_full_llm, materialize_full_stage7, prepare_full_llm
+from thesis_repro.llm_runtime import EXPECTED_REQUESTS, execute_full_llm, materialize_full_stage7, prepare_full_llm, prepare_real_llm, execute_real_llm, materialize_real_stage7
 from thesis_repro.runtime_paths import FreshRuntimePaths
 from thesis_repro.status import APPROVAL_REQUIRED
 from thesis_repro.status import CREDENTIALS_REQUIRED, FAILED, INPUT_REQUIRED, PASS
@@ -41,14 +41,26 @@ def run_real_stage(paths: FreshRuntimePaths, stage: str, parent_hashes: list[str
         if not release.is_file():
             return StageResult(stage, INPUT_REQUIRED, "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"reason": "same-run C3-E release is required before request preparation"})
         try:
-            firm_count = 8 if context and context.execution_class == "SYNTHETIC_E2E_ACCEPTANCE" else 575
-            report = prepare_full_llm(paths, firm_count=firm_count)
-            if report.get("status") != "PASS":
-                return StageResult(stage, FAILED, "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"report": report})
-            artifacts = [
-                {"logical_id": "fresh:llm:logical_requests", "path": str((paths.llm_root / "logical_requests.jsonl").relative_to(paths.root)).replace("\\", "/"), "sha256": sha256_file(paths.llm_root / "logical_requests.jsonl"), "size_bytes": (paths.llm_root / "logical_requests.jsonl").stat().st_size, "producer": "thesis_repro.llm_runtime.prepare_full_llm", "parents": [{"sha256": value} for value in parent_hashes]},
-                write_stage_artifact(paths, "09_llm/prepare_report.json", report, "fresh:llm:prepare", ({"sha256": value} for value in parent_hashes)),
-            ]
+            if context and context.execution_class == "SYNTHETIC_E2E_ACCEPTANCE":
+                firm_count = 8
+                report = prepare_full_llm(paths, firm_count=firm_count)
+            else:
+                report = prepare_real_llm(paths)
+            expected_status = "PASS" if context and context.execution_class == "SYNTHETIC_E2E_ACCEPTANCE" else "PREPARED"
+            if report.get("status") != expected_status:
+                status = INPUT_REQUIRED if report.get("status") == "INPUT_REQUIRED" else FAILED
+                return StageResult(stage, status, "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"report": report})
+            artifacts = [write_stage_artifact(paths, "09_llm/prepare_report.json", report, "fresh:llm:prepare", ({"sha256": value} for value in parent_hashes))]
+            if expected_status == "PASS":
+                request_path = paths.llm_root / "logical_requests.jsonl"
+                artifacts.append({"logical_id": "fresh:llm:logical_requests", "path": str(request_path.relative_to(paths.root)).replace("\\", "/"), "sha256": sha256_file(request_path), "size_bytes": request_path.stat().st_size, "producer": "thesis_repro.llm_runtime.prepare_full_llm", "parents": [{"sha256": value} for value in parent_hashes]})
+            else:
+                from credit_recourse.final_release.executor import output_root
+                for label in ("baseline_hash", "high_hash"):
+                    request_path = output_root(paths.root) / str(report[label]) / "logical_requests.parquet"
+                    if not request_path.is_file():
+                        raise FileNotFoundError(request_path)
+                    artifacts.append({"logical_id": f"fresh:llm:{label}:logical_requests", "path": str(request_path.relative_to(paths.root)).replace("\\", "/"), "sha256": sha256_file(request_path), "size_bytes": request_path.stat().st_size, "producer": "credit_recourse.final_release.executor", "parents": [{"sha256": value} for value in parent_hashes]})
             return StageResult(stage, PASS, "REAL_COMPUTE", executed=True, artifacts=artifacts, parent_hashes=parent_hashes, details={"report": report, "provider_identities": {"contract": "thesis_repro.llm_runtime"}})
         except Exception as exc:
             return StageResult(stage, FAILED, "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"reason": repr(exc), "failure_class": "LLM_PREPARATION_FAILED"})
@@ -60,16 +72,29 @@ def run_real_stage(paths: FreshRuntimePaths, stage: str, parent_hashes: list[str
                 return StageResult(stage, PASS, "SYNTHETIC_E2E_ACCEPTANCE", executed=True, artifacts=[artifact], parent_hashes=parent_hashes, details={"provider_contacted": False, "mock_only": True, "receipt": receipt})
             except Exception as exc:
                 return StageResult(stage, FAILED, "SYNTHETIC_E2E_ACCEPTANCE", executed=False, parent_hashes=parent_hashes, details={"reason": repr(exc), "failure_class": "LLM_MOCK_EXECUTION_FAILED"})
-        if execute_llm:
-            credentials = bool(os.environ.get("OPENAI_API_KEY")) and bool(os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY"))
-            if not credentials:
-                return _blocked(stage, parent_hashes, "live provider credentials are required before submission", status=CREDENTIALS_REQUIRED)
-            return _blocked(stage, parent_hashes, "provider-native live submission requires an authorized final release", status=APPROVAL_REQUIRED)
-        return _blocked(stage, parent_hashes, "live provider transport was not requested; credentials/provider approval are required", status=CREDENTIALS_REQUIRED)
+        if not execute_llm:
+            return _blocked(stage, parent_hashes, "live provider transport was not requested; credentials/provider approval are required", status=CREDENTIALS_REQUIRED)
+        credentials = bool(os.environ.get("OPENAI_API_KEY")) and bool(os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY"))
+        if not credentials:
+            return _blocked(stage, parent_hashes, "live provider credentials are required before submission", status=CREDENTIALS_REQUIRED)
+        try:
+            receipt = execute_real_llm(paths, resume=False)
+            status = receipt.get("status")
+            if status == "PASS":
+                artifact = write_stage_artifact(paths, "09_llm/generate_receipt.json", receipt, "fresh:llm:live_receipt", ({"sha256": value} for value in parent_hashes))
+                return StageResult(stage, PASS, "REAL_COMPUTE", executed=True, artifacts=[artifact], parent_hashes=parent_hashes, details=receipt)
+            if status in {"APPROVAL_REQUIRED", "CREDENTIALS_REQUIRED", "EXTERNAL_WAIT"}:
+                return StageResult(stage, status, "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details=receipt)
+            return StageResult(stage, FAILED, "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details=receipt)
+        except Exception as exc:
+            return StageResult(stage, FAILED, "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"reason": repr(exc), "failure_class": "LIVE_LLM_EXECUTION_FAILED"})
     if stage == "LLMMaterialize":
         try:
-            expected_count = 42 * 2 * (8 if context and context.execution_class == "SYNTHETIC_E2E_ACCEPTANCE" else 575)
-            report = materialize_full_stage7(paths, expected_count=expected_count)
+            if context and context.execution_class == "SYNTHETIC_E2E_ACCEPTANCE":
+                expected_count = 42 * 2 * 8
+                report = materialize_full_stage7(paths, expected_count=expected_count)
+            else:
+                report = materialize_real_stage7(paths)
             if report.get("status") != "PASS":
                 return StageResult(stage, INPUT_REQUIRED, "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"report": report, "reason": "complete provider response set is required"})
             if report.get("execution_class") == "SYNTHETIC_E2E_ACCEPTANCE" and not (context and context.execution_class == "SYNTHETIC_E2E_ACCEPTANCE"):
@@ -192,14 +217,22 @@ def _final_stage(paths, stage: str, parent_hashes: list[str], *, context=None) -
         elif stage == "CompareFrozen":
             from thesis_repro.compare import compare_run
             payload = compare_run(paths.run_id, root=paths.root)
-            if payload.get("comparison_status") != "PASS":
+            allowed_synthetic = execution_class == "SYNTHETIC_E2E_ACCEPTANCE" and payload.get("comparison_status") == "SYNTHETIC_COMPARISON_NOT_APPLICABLE"
+            if payload.get("comparison_status") != "PASS" and not allowed_synthetic:
                 raise ValueError(f"fresh-vs-frozen comparison did not complete: {payload.get('comparison_status')}")
             destination = paths.comparison_root
             path = destination / "fresh_vs_frozen.json"
         else:
             destination = paths.release_root
             destination.mkdir(parents=True, exist_ok=True)
-            payload = {"status": "PASS", "stage": stage, "execution_class": execution_class, "parent_hashes": parent_hashes, "same_run_only": True, "certification_delegated_to": "thesis_repro.certify.certify_run"}
+            from thesis_repro.certify import certify_run
+            payload = certify_run(paths.run_id)
+            expected_certified = execution_class == "REAL_COMPUTE"
+            if expected_certified and payload.get("certified") is not True:
+                raise ValueError(f"fresh certification failed: {payload.get('errors')}")
+            if not expected_certified and not (payload.get("certified") is False and payload.get("state") == "NOT_CERTIFIABLE"):
+                raise ValueError("synthetic certification did not fail closed as NOT_CERTIFIABLE")
+            payload = {**payload, "status": "PASS", "stage": stage, "execution_class": execution_class, "parent_hashes": parent_hashes, "same_run_only": True}
             path = destination / "verification.json"
             path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     except Exception as exc:

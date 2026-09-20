@@ -32,19 +32,45 @@ def _c3e_comparison(root: Path, run_dir: Path) -> dict[str, Any]:
         return {"status": "UNAVAILABLE", "reason": "fresh or frozen C3-E action table missing"}
     fresh = pd.read_parquet(fresh_path)
     frozen = pd.read_parquet(frozen_path)
-    key = "row_id" if "row_id" in fresh and "row_id" in frozen else None
-    if key is None:
-        return {"status": "UNAVAILABLE", "reason": "no shared C3-E firm key"}
-    left = fresh.set_index(key)
-    right = frozen.set_index(key)
-    common = left.index.intersection(right.index)
-    action_column = "action_id" if "action_id" in left and "action_id" in right else "action"
-    if action_column not in left or action_column not in right:
-        return {"status": "UNAVAILABLE", "reason": "no shared C3-E action column"}
-    agreement = float((left.loc[common, action_column].astype(str).to_numpy() == right.loc[common, action_column].astype(str).to_numpy()).mean()) if len(common) else None
-    probability_columns = sorted(set(left.columns).intersection(right.columns).intersection({"p_A0", "p_DL", "p_RF", "p_CX", "p_WC1", "p_WC2", "p_OE", "p_MX1", "p_MX2"}))
-    probability_mae = float((left.loc[common, probability_columns].astype(float) - right.loc[common, probability_columns].astype(float)).abs().to_numpy().mean()) if probability_columns and len(common) else None
-    return {"status": "PASS", "fresh_rows": int(len(fresh)), "frozen_rows": int(len(frozen)), "common_firms": int(len(common)), "action_agreement": agreement, "changed_firm_count": int(len(common) - round((agreement or 0.0) * len(common))), "probability_mae": probability_mae, "fresh_sha256": _sha256(fresh_path), "frozen_sha256": _sha256(frozen_path), "comparison_only": True}
+    if "row_id" not in fresh or "row_id" not in frozen:
+        return {"status": "FAILED", "reason": "no shared C3-E firm identity"}
+
+    actions = "action_id" if "action_id" in fresh.columns and "action_id" in frozen.columns else "action" if "action" in fresh.columns and "action" in frozen.columns else None
+    if actions is None:
+        return {"status": "FAILED", "reason": "no compatible C3-E action column"}
+
+    action_names = ("A0", "DL", "RF", "CX", "WC1", "WC2", "OE", "MX1", "MX2")
+
+    def normalized(frame: pd.DataFrame, label: str) -> pd.DataFrame:
+        out = frame.copy()
+        out["row_id"] = pd.to_numeric(out["row_id"], errors="raise").astype(int)
+        out = out.rename(columns={actions: "action_id"})
+        found: dict[str, str] = {}
+        for action in action_names:
+            for candidate in (f"probability__{action}", f"p_{action}", action):
+                if candidate in out.columns:
+                    found[action] = candidate
+                    break
+        if len(found) != len(action_names):
+            raise ValueError(f"{label} C3-E probability columns are incomplete")
+        for action, column in found.items():
+            out[f"probability__{action}"] = pd.to_numeric(out[column], errors="raise")
+        if out.duplicated("row_id").any():
+            raise ValueError(f"{label} C3-E identity is duplicated")
+        return out[["row_id", "action_id", *[f"probability__{action}" for action in action_names]]]
+
+    try:
+        left = normalized(fresh, "fresh")
+        right = normalized(frozen, "frozen")
+    except (KeyError, ValueError) as exc:
+        return {"status": "FAILED", "reason": str(exc)}
+    merged = left.merge(right, on="row_id", how="inner", suffixes=("_fresh", "_frozen"), validate="one_to_one")
+    if len(merged) == 0 or len(merged) != len(left) or len(merged) != len(right):
+        return {"status": "FAILED", "reason": "fresh and frozen C3-E identities do not close exactly", "fresh_rows": len(left), "frozen_rows": len(right), "common_firms": len(merged)}
+    agreement = float(merged["action_id_fresh"].astype(str).eq(merged["action_id_frozen"].astype(str)).mean())
+    probability_columns = [f"probability__{action}" for action in action_names]
+    probability_mae = float((merged[[f"{column}_fresh" for column in probability_columns]].to_numpy(dtype=float) - merged[[f"{column}_frozen" for column in probability_columns]].to_numpy(dtype=float)).__abs__().mean())
+    return {"status": "PASS", "fresh_rows": int(len(fresh)), "frozen_rows": int(len(frozen)), "common_firms": int(len(merged)), "action_agreement": agreement, "changed_firm_count": int((~merged["action_id_fresh"].astype(str).eq(merged["action_id_frozen"].astype(str))).sum()), "probability_mae": probability_mae, "fresh_sha256": _sha256(fresh_path), "frozen_sha256": _sha256(frozen_path), "comparison_only": True}
 
 
 def _stage9_comparison(root: Path, run_dir: Path) -> dict[str, Any]:
@@ -79,12 +105,13 @@ def compare_run(run_id: str, *, root: Path = ROOT) -> dict[str, Any]:
         "stage9": _artifact_state(run_dir, "11_stage9/metadata.json"),
     }
     complete = all(item["state"] == "present" for item in fresh.values())
+    synthetic = manifest.get("execution_class") == "SYNTHETIC_E2E_ACCEPTANCE"
     report = {
         "schema_version": "fresh_vs_frozen_v3",
         "run_id": run_id,
         "frozen_status": frozen["status"],
         "fresh_completion_state": manifest.get("completion_state"),
-        "comparison_status": "PASS" if complete and frozen["status"] == "PASS" else "INPUT_REQUIRED",
+        "comparison_status": "PASS" if complete and frozen["status"] == "PASS" else ("SYNTHETIC_COMPARISON_NOT_APPLICABLE" if synthetic else "INPUT_REQUIRED"),
         "fresh_artifacts": fresh,
         "c3e": _c3e_comparison(root, run_dir),
         "stage9": _stage9_comparison(root, run_dir),

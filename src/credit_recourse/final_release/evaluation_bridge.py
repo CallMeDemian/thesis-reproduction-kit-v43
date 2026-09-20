@@ -11,6 +11,7 @@ from credit_recourse.contracts.stage_paths import stage_dir
 
 from .common import ContractError, sha256_file, utc_now, write_json
 from .contract import CONDITIONS, DIMENSIONS, load_design
+from credit_recourse.contracts.runtime_assets import active_action_contract
 from .executor import generation_status, load_release
 from .ledger import connect, ledger_content_hash
 
@@ -91,6 +92,8 @@ def _action_record(
 def materialize_evaluation_inputs(
     project_root: Path,
     release_hash: str,
+    *,
+    output_dir: Path | None = None,
 ) -> dict[str, Any]:
     root = Path(project_root).resolve()
     directory, release = load_release(root, release_hash)
@@ -193,7 +196,7 @@ def materialize_evaluation_inputs(
     if set(merged["condition"].astype(str)) != set(CONDITIONS):
         raise ContractError("Materialized conditions differ from the final Plan-3 contract")
 
-    stage7 = stage_dir(root, "stage7")
+    stage7 = Path(output_dir) if output_dir is not None else stage_dir(root, "stage7")
     stage7.mkdir(parents=True, exist_ok=True)
     layers_df = pd.DataFrame(layers)
     pp_df = pd.DataFrame(accepted)
@@ -245,9 +248,7 @@ def materialize_evaluation_inputs(
         "action_semantic_contract_version": design.action_contract[
             "simulator_action_semantic_contract_version"
         ],
-        "final_action_contract_hash": sha256_file(
-            root / design.design["action_contract"]["source"]
-        ),
+        "final_action_contract_hash": sha256_file(active_action_contract(root)),
         "conditions": list(CONDITIONS),
         "action_dimensions": list(DIMENSIONS),
         "logical_requests": 24_150,

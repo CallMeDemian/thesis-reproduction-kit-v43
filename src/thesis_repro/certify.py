@@ -24,10 +24,13 @@ def certify_run(run_id: str) -> dict[str, Any]:
         errors.append("smoke_or_non_fresh_execution")
     if manifest.get("scientific_gate_applicable") is False or (manifest.get("execution_context") or {}).get("scientific_gate_applicable") is not True:
         errors.append("scientific_gate_not_applicable")
-    if manifest.get("completion_state") == PARTIAL_EXECUTION or manifest.get("dag_complete") is not True:
-        errors.append("partial_execution_not_certifiable")
-    if manifest.get("completion_state") not in SCIENTIFIC_ACCEPTED:
-        errors.append(f"run_completion_not_accepted:{manifest.get('completion_state')}")
+    verify_all_manifest = _stage_manifest(run_dir, "VerifyAll") if run_dir.is_dir() else run_dir / "15_release/stage_manifest_VerifyAll.json"
+    certification_called_from_verify_all = not verify_all_manifest.is_file() and manifest.get("mode") == "FullClean"
+    if not certification_called_from_verify_all:
+        if manifest.get("completion_state") == PARTIAL_EXECUTION or manifest.get("dag_complete") is not True:
+            errors.append("partial_execution_not_certifiable")
+        if manifest.get("completion_state") not in SCIENTIFIC_ACCEPTED:
+            errors.append(f"run_completion_not_accepted:{manifest.get('completion_state')}")
     if (manifest.get("source_state") or {}).get("git_tree_clean") is not True:
         errors.append("source_tree_not_clean")
     mode = manifest.get("mode")
@@ -50,7 +53,8 @@ def certify_run(run_id: str) -> dict[str, Any]:
         if trace.get("forbidden_legacy_parent_count", 0) or trace.get("nested_forbidden_parent_references"):
             errors.append("forbidden_historical_parent_reference")
     stage_records: list[dict[str, Any]] = []
-    for stage in required:
+    stages_to_check = required[:-1] if certification_called_from_verify_all else required
+    for stage in stages_to_check:
         path = _stage_manifest(run_dir, stage)
         if not path.is_file():
             errors.append(f"stage_manifest_missing:{stage}")

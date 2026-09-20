@@ -21,34 +21,75 @@ def _materialize_release(paths, parent_hashes: list[str]) -> list[dict]:
     if not source.is_file() or not decisions.is_file() or not c2.is_file():
         raise FileNotFoundError("native Stage6 evaluator did not write fixed-action, C3, and C2 tables")
     scores = pd.read_parquet(source).rename(columns={"alpha": "Alpha", "beta": "Beta", "gamma": "Gamma", "base_year": "fiscal_year", "candidate_id": "action"})
+    canonical_actions = ("A0", "DL", "RF", "CX", "WC1", "WC2", "OE", "MX1", "MX2")
+    required_score_columns = {"firm_id", "fiscal_year", "action", "Alpha", "Beta", "Gamma"}
+    if required_score_columns - set(scores.columns):
+        raise ValueError(f"fresh Stage6 payoff surface lacks {sorted(required_score_columns - set(scores.columns))}")
+    scores["firm_id"] = scores["firm_id"].astype(str).str.strip().str.replace(r"\.0$", "", regex=True).str.zfill(6)
+    scores["fiscal_year"] = pd.to_numeric(scores["fiscal_year"], errors="raise").astype(int)
     if len(scores) != 575 * 9 or scores.duplicated(["firm_id", "fiscal_year", "action"]).any():
         raise ValueError("fresh Stage6 payoff surface is not the complete 575x9 table")
-    scores["row_id"] = scores.groupby("firm_id", sort=True).ngroup() * 9 + scores.groupby("firm_id", sort=True).cumcount()
-    surface_cols = ["row_id", "firm_id", "action", "Alpha", "Beta", "Gamma"]
+    if set(scores["action"].astype(str)) != set(canonical_actions):
+        raise ValueError("fresh Stage6 payoff surface action vocabulary drift")
+
+    eval_ids_path = paths.stage2_root / "input_source/input_splits/canonical_evaluation_row_ids.parquet"
+    if not eval_ids_path.is_file():
+        eval_ids_path = paths.stage2_root / "input_splits/canonical_evaluation_row_ids.parquet"
+    if not eval_ids_path.is_file():
+        raise FileNotFoundError("canonical evaluation identity table is required for Stage6 release materialization")
+    eval_ids = pd.read_parquet(eval_ids_path).copy()
+    required_eval_columns = {"row_id", "firm_id", "fiscal_year"}
+    if required_eval_columns - set(eval_ids.columns):
+        raise ValueError(f"canonical evaluation identity table lacks {sorted(required_eval_columns - set(eval_ids.columns))}")
+    eval_ids["firm_id"] = eval_ids["firm_id"].astype(str).str.strip().str.replace(r"\.0$", "", regex=True).str.zfill(6)
+    eval_ids["fiscal_year"] = pd.to_numeric(eval_ids["fiscal_year"], errors="raise").astype(int)
+    if len(eval_ids) != 575 or eval_ids["row_id"].nunique() != 575 or eval_ids.duplicated(["firm_id", "fiscal_year"]).any():
+        raise ValueError("canonical evaluation identity table must contain 575 unique firm-year identities")
+    scores = scores.merge(eval_ids[["row_id", "firm_id", "fiscal_year"]], on=["firm_id", "fiscal_year"], how="left", validate="many_to_one")
+    if scores["row_id"].isna().any():
+        raise ValueError("Stage6 payoff surface contains a firm-year absent from the canonical evaluation identity table")
+    if scores["row_id"].nunique() != 575 or scores.duplicated(["row_id", "action"]).any():
+        raise ValueError("Stage6 payoff surface does not preserve firm-level row_id semantics")
+    surface_cols = ["row_id", "firm_id", "fiscal_year", "action", "Alpha", "Beta", "Gamma"]
     surface = scores[surface_cols]
-    surface_path = paths.stage6_root / "firm_action_oracle_payoffs.parquet"
+    release_id = f"FRESH_C3E_{paths.run_id}"
+    release_dir = paths.stage6_root / release_id
+    release_dir.mkdir(parents=True, exist_ok=True)
+    surface_path = release_dir / "firm_action_oracle_payoffs.parquet"
     surface.to_parquet(surface_path, index=False)
     c3 = pd.read_parquet(decisions).rename(columns={"candidate_id": "action_id"})
-    c3 = c3[["firm_id", "fiscal_year", "action_id"]]
+    if "fiscal_year" not in c3 and "base_year" in c3:
+        c3 = c3.rename(columns={"base_year": "fiscal_year"})
+    c3["firm_id"] = c3["firm_id"].astype(str).str.strip().str.replace(r"\.0$", "", regex=True).str.zfill(6)
+    c3["fiscal_year"] = pd.to_numeric(c3["fiscal_year"], errors="raise").astype(int)
+    if "row_id" not in c3:
+        c3 = c3.merge(eval_ids[["row_id", "firm_id", "fiscal_year"]], on=["firm_id", "fiscal_year"], how="left", validate="one_to_one")
+    c3 = c3[["row_id", "firm_id", "fiscal_year", "action_id"]]
     c3_scores = surface.rename(columns={"action": "action_id"})
-    c3 = c3.merge(c3_scores, on=["firm_id", "fiscal_year", "action_id"], how="left", validate="one_to_one")
+    c3 = c3.merge(c3_scores[["row_id", "firm_id", "fiscal_year", "action_id", "Alpha", "Beta", "Gamma"]], on=["row_id", "firm_id", "fiscal_year", "action_id"], how="left", validate="one_to_one")
     c2_frame = pd.read_parquet(c2)
+    if "fiscal_year" not in c2_frame and "base_year" in c2_frame:
+        c2_frame = c2_frame.rename(columns={"base_year": "fiscal_year"})
+    c2_frame["firm_id"] = c2_frame["firm_id"].astype(str).str.strip().str.replace(r"\.0$", "", regex=True).str.zfill(6)
+    c2_frame["fiscal_year"] = pd.to_numeric(c2_frame["fiscal_year"], errors="raise").astype(int)
     c2_frame = c2_frame.rename(columns={"candidate_id": "C2_action"})[["firm_id", "fiscal_year", "C2_action"]]
-    c2_scores = surface.rename(columns={"action": "C2_action", "Alpha": "C2_Alpha", "Beta": "C2_Beta", "Gamma": "C2_Gamma"})[["firm_id", "fiscal_year", "C2_action", "C2_Alpha", "C2_Beta", "C2_Gamma"]]
-    c2_frame = c2_frame.merge(c2_scores, on=["firm_id", "fiscal_year", "C2_action"], how="left", validate="one_to_one")
-    c3 = c3.merge(c2_frame, on=["firm_id", "fiscal_year"], how="left", validate="one_to_one")
-    c3["row_id"] = c3_scores.groupby("firm_id", sort=True).ngroup() if False else range(len(c3))
-    c3_path = paths.stage6_root / "C3E_firm_actions_payoffs.parquet"
+    c2_frame = c2_frame.merge(eval_ids[["row_id", "firm_id", "fiscal_year"]], on=["firm_id", "fiscal_year"], how="left", validate="one_to_one")
+    c2_scores = surface.rename(columns={"action": "C2_action", "Alpha": "C2_Alpha", "Beta": "C2_Beta", "Gamma": "C2_Gamma"})[["row_id", "firm_id", "fiscal_year", "C2_action", "C2_Alpha", "C2_Beta", "C2_Gamma"]]
+    c2_frame = c2_frame.merge(c2_scores, on=["row_id", "firm_id", "fiscal_year", "C2_action"], how="left", validate="one_to_one")
+    c3 = c3.merge(c2_frame, on=["row_id", "firm_id", "fiscal_year"], how="left", validate="one_to_one")
+    if len(c3) != 575 or c3["row_id"].nunique() != 575:
+        raise ValueError("fresh C3-E deployment table must contain 575 firm-level rows")
+    c3_path = release_dir / "C3E_firm_actions_payoffs.parquet"
     c3[["row_id", "firm_id", "fiscal_year", "action_id", "Alpha", "Beta", "Gamma", "C2_action", "C2_Alpha", "C2_Beta", "C2_Gamma"]].to_parquet(c3_path, index=False)
     summary = paths.stage6_root / "evaluation_summary.json"
     payload = json.loads(summary.read_text(encoding="utf-8")) if summary.is_file() else {}
-    metrics = paths.stage6_root / "C3E_metrics.json"
+    metrics = release_dir / "C3E_metrics.json"
     metrics.write_text(json.dumps({"status": "PASS", "evaluation_firm_count": 575, "fixed_action_rows": len(surface), "parent_hashes": parent_hashes, "native_summary_sha256": sha256_file(summary)}, indent=2) + "\n", encoding="utf-8")
-    manifest = paths.stage6_root / "EVALUATION_MANIFEST.json"
+    manifest = release_dir / "EVALUATION_MANIFEST.json"
     manifest.write_text(json.dumps({"status": "PASS", "release_role": "fresh_stage6", "surface_rows": len(surface), "c3_rows": len(c3), "summary_status": payload.get("status"), "parent_hashes": parent_hashes}, indent=2) + "\n", encoding="utf-8")
     release_hash = hashlib.sha256(surface_path.read_bytes() + c3_path.read_bytes()).hexdigest()
     current = paths.stage6_root / "CURRENT_RELEASE.json"
-    current.write_text(json.dumps({"release_id": paths.run_id, "release_hash": release_hash, "payoff_surface_path": str(surface_path.relative_to(paths.root)).replace("\\", "/"), "payoff_surface_sha256": sha256_file(surface_path), "artifact_path": str(c3_path.relative_to(paths.root)).replace("\\", "/")}, indent=2) + "\n", encoding="utf-8")
+    current.write_text(json.dumps({"release_id": release_id, "release_hash": release_hash, "payoff_surface_path": str(surface_path.relative_to(paths.root)).replace("\\", "/"), "payoff_surface_sha256": sha256_file(surface_path), "artifact_path": str(release_dir.relative_to(paths.root)).replace("\\", "/")}, indent=2) + "\n", encoding="utf-8")
     return [{"logical_id": f"fresh:stage6:{path.name}", "path": str(path.relative_to(paths.root)).replace("\\", "/"), "sha256": sha256_file(path), "size_bytes": path.stat().st_size, "producer": "thesis_repro.stage6", "parents": [{"sha256": value} for value in parent_hashes]} for path in (surface_path, c3_path, metrics, manifest, current)]
 
 
@@ -181,10 +222,12 @@ def _run_synthetic_stage6(paths, parent_hashes: list[str], context=None) -> Stag
         for action in canonical_actions:
             selected = firm_rows[firm_rows[simulator_action_column].astype(str) == action]
             value = float(selected["sim__operating_income"].iloc[0]) if not selected.empty else 0.0
-            rows.append({"row_id": ordinal * 9 + len([r for r in rows if r["firm_id"] == firm]), "firm_id": firm, "fiscal_year": year, "action": action, "Alpha": value, "Beta": value, "Gamma": value})
+            rows.append({"row_id": ordinal, "firm_id": firm, "fiscal_year": year, "action": action, "Alpha": value, "Beta": value, "Gamma": value})
     surface = pd.DataFrame(rows)
-    output = paths.stage6_root / "firm_action_oracle_payoffs.parquet"
-    output.parent.mkdir(parents=True, exist_ok=True)
+    release_id = f"FRESH_C3E_{paths.run_id}"
+    release_dir = paths.stage6_root / release_id
+    release_dir.mkdir(parents=True, exist_ok=True)
+    output = release_dir / "firm_action_oracle_payoffs.parquet"
     surface.to_parquet(output, index=False)
     selected_actions = actions["action_id"].astype(str).tolist()
     c3rows = []
@@ -194,14 +237,18 @@ def _run_synthetic_stage6(paths, parent_hashes: list[str], context=None) -> Stag
         a0 = surface[(surface.firm_id == item.firm_id) & (surface.fiscal_year == int(item.base_year)) & (surface.action == "A0")].iloc[0]
         c3rows.append({"row_id": ordinal, "firm_id": item.firm_id, "fiscal_year": int(item.base_year), "action_id": action, "Alpha": chosen.Alpha, "Beta": chosen.Beta, "Gamma": chosen.Gamma, "C2_action": "A0", "C2_Alpha": a0.Alpha, "C2_Beta": a0.Beta, "C2_Gamma": a0.Gamma})
     deployed = pd.DataFrame(c3rows)
-    deployed_path = paths.stage6_root / "C3E_firm_actions_payoffs.parquet"
+    deployed_path = release_dir / "C3E_firm_actions_payoffs.parquet"
     deployed.to_parquet(deployed_path, index=False)
     payload = {"status": "PASS", "release_id": paths.run_id, "release_hash": hashlib.sha256(output.read_bytes() + deployed_path.read_bytes()).hexdigest(), "payoff_surface_path": str(output.relative_to(paths.root)).replace("\\", "/"), "payoff_surface_sha256": sha256_file(output), "artifact_path": str(deployed_path.relative_to(paths.root)).replace("\\", "/")}
+    payload["release_id"] = release_id
+    payload["artifact_path"] = str(release_dir.relative_to(paths.root)).replace("\\", "/")
     (paths.stage6_root / "CURRENT_RELEASE.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    (paths.stage6_root / "C3E_metrics.json").write_text(json.dumps({"status": "PASS", "evaluation_firm_count": int(base.firm_id.nunique()), "fixed_action_rows": len(surface), "parent_hashes": parent_hashes}, indent=2) + "\n", encoding="utf-8")
-    (paths.stage6_root / "EVALUATION_MANIFEST.json").write_text(json.dumps({"status": "PASS", "surface_rows": len(surface), "c3_rows": len(deployed), "fixture_only": True, "parent_hashes": parent_hashes}, indent=2) + "\n", encoding="utf-8")
+    metrics_path = release_dir / "C3E_metrics.json"
+    manifest_path = release_dir / "EVALUATION_MANIFEST.json"
+    metrics_path.write_text(json.dumps({"status": "PASS", "evaluation_firm_count": int(base.firm_id.nunique()), "fixed_action_rows": len(surface), "parent_hashes": parent_hashes}, indent=2) + "\n", encoding="utf-8")
+    manifest_path.write_text(json.dumps({"status": "PASS", "surface_rows": len(surface), "c3_rows": len(deployed), "fixture_only": True, "parent_hashes": parent_hashes}, indent=2) + "\n", encoding="utf-8")
     receipt = write_stage_artifact(paths, "08_stage6/stage6_execution_receipt.json", {"status": "PASS", "stage": "Stage6", **receipt_context(context), "fixture_only": True, "parent_hashes": parent_hashes}, "fresh:stage6:receipt", ({"sha256": value} for value in parent_hashes))
     artifacts = [receipt]
-    for path in (output, deployed_path, paths.stage6_root / "CURRENT_RELEASE.json", paths.stage6_root / "C3E_metrics.json", paths.stage6_root / "EVALUATION_MANIFEST.json"):
+    for path in (output, deployed_path, paths.stage6_root / "CURRENT_RELEASE.json", metrics_path, manifest_path):
         artifacts.append({"logical_id": f"fresh:stage6:{path.name}", "path": str(path.relative_to(paths.root)).replace("\\", "/"), "sha256": sha256_file(path), "size_bytes": path.stat().st_size, "producer": "thesis_repro.stage6._run_synthetic_stage6", "parents": [{"sha256": value} for value in parent_hashes]})
     return StageResult("Stage6", "PASS", "SYNTHETIC_E2E_ACCEPTANCE", executed=True, artifacts=artifacts, parent_hashes=parent_hashes, details={"fixture_only": True, "evaluation_firm_count": int(base.firm_id.nunique()), "fixed_action_rows": len(surface)})

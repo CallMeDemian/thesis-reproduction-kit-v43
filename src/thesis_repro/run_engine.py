@@ -80,8 +80,14 @@ def _scientific_fingerprint(input_contract_hash: str | None = None) -> str:
         ROOT / "frozen/evidence/llm/experiment_matrix.csv",
         ROOT / "src/thesis_repro/dag.py",
         ROOT / "src/thesis_repro/stage2.py",
+        ROOT / "src/thesis_repro/stage6.py",
+        ROOT / "src/thesis_repro/fresh_rl_runtime.py",
+        ROOT / "src/thesis_repro/llm_runtime.py",
         ROOT / "src/thesis_repro/stages/adapters.py",
-        ROOT / "src/thesis_repro/stage2.py",
+        ROOT / "src/thesis_repro/execution_context.py",
+        ROOT / "src/thesis_repro/status.py",
+        ROOT / "src/thesis_repro/compare.py",
+        ROOT / "src/thesis_repro/certify.py",
         ROOT / "src/credit_recourse/rl/v43_one_pass_contract.py",
         ROOT / "src/credit_recourse/rl/v43_one_pass_data.py",
         ROOT / "src/credit_recourse/rl/v43_one_pass_grid.py",
@@ -92,7 +98,14 @@ def _scientific_fingerprint(input_contract_hash: str | None = None) -> str:
         ROOT / "src/credit_recourse/eval/v43_one_pass_evaluation.py",
         ROOT / "src/credit_recourse/eval/v43_stage6_scoring.py",
         ROOT / "src/credit_recourse/eval/v43_stage6_reporting.py",
+        ROOT / "src/credit_recourse/simulator/v43_production_bundle.py",
+        ROOT / "src/credit_recourse/simulator/business_plan_interest_rate_v4.py",
+        ROOT / "src/credit_recourse/rl/pipelines/final_stage2_raw_action_source_precompute/pipeline.py",
+        ROOT / "contracts/scientific/stage2_producer_input_contract.json",
     ]
+    paths.extend(sorted((ROOT / "src/credit_recourse/simulator").rglob("*.py")))
+    paths.extend(sorted((ROOT / "src/credit_recourse/final_release").rglob("*.py")))
+    paths.extend(sorted((ROOT / "src/credit_recourse/high_reasoning").rglob("*.py")))
     paths.extend(sorted((ROOT / "contracts/oracle_components").rglob("*")))
     records = [{"path": str(path.relative_to(ROOT)).replace("\\", "/"), "sha256": sha256_file(path)} for path in paths if path.is_file()]
     payload = {
@@ -332,7 +345,7 @@ def execute(mode: str, run_id: str, profile: str = "smoke", resume: bool = False
         details: dict[str, Any] = {"profile": profile, "execution_class": context.execution_class, "scientific_gate_applicable": context.scientific_gate_applicable, "same_run_compute_parent": True}
         artifacts: list[dict[str, Any]] = []
         if stage == "VerifyInputs":
-            details.update({"input_contract_status": contract_report_now["status"], "raw_data_present": contract_report_now.get("present_file_count", 0) > 0})
+            details.update({"input_contract_status": contract_report_now["status"], "raw_data_present": contract_report_now.get("present_file_count", 0) > 0, "implemented": True, "executed": True})
             status = (SMOKE_PASS if contract_report_now["status"] == "INPUT_CONTRACT_PASS" else SMOKE_PASS_WITH_SKIPS) if profile == "smoke" else (PASS if contract_report_now["status"] == "INPUT_CONTRACT_PASS" else INPUT_REQUIRED)
             artifacts.append(_artifact(input_report_path, "input.contract.report", "thesis_repro.data") if input_report_path.is_file() else _write_artifact(run_dir, "01_inputs/input_contract_report.json", contract_report_now, "input.contract.report", "thesis_repro.data"))
         elif profile == "full" and contract_report_now["status"] != "INPUT_CONTRACT_PASS":
@@ -400,6 +413,37 @@ def trace_run(run_id: str) -> dict[str, Any]:
     prior_hashes: set[str] = set()
     lineage_errors: list[dict[str, Any]] = []
     nested_forbidden: list[dict[str, Any]] = []
+    allowed_external_roles = {
+        "FROZEN_DESIGN_INPUT",
+        "FROZEN_EXOGENOUS_INPUT",
+        "FROZEN_EXOGENOUS_INFORMATION_INPUT",
+        "FROZEN_COMPARISON_REFERENCE",
+    }
+
+    def forbidden_json_references(value: Any, location: str = "$") -> list[dict[str, str]]:
+        """Find forbidden historical paths in nested metadata.
+
+        A historical path is permitted only when it is the ``source`` member
+        of the same object as an explicitly allowed immutable-input ``role``.
+        The allowance is intentionally local: a frozen checkpoint, result, or
+        nested unlabelled path cannot inherit permission from its parent.
+        """
+        found: list[dict[str, str]] = []
+        if isinstance(value, dict):
+            role = value.get("role")
+            for key, child in value.items():
+                child_location = f"{location}.{key}"
+                if isinstance(child, str) and any(token in child.replace("\\", "/") for token in forbidden):
+                    allowed = key == "source" and role in allowed_external_roles
+                    if not allowed:
+                        found.append({"location": child_location, "value": child})
+                else:
+                    found.extend(forbidden_json_references(child, child_location))
+        elif isinstance(value, list):
+            for index, child in enumerate(value):
+                found.extend(forbidden_json_references(child, f"{location}[{index}]"))
+        return found
+
     for stage in stage_order:
         path = stage_paths.get(stage)
         if path is None:
@@ -418,20 +462,15 @@ def trace_run(run_id: str) -> dict[str, Any]:
             if artifact_path.is_file() and artifact_path.suffix.lower() in {".json", ".yaml", ".yml"}:
                 try:
                     raw = artifact_path.read_text(encoding="utf-8")
-                    metadata_only_contract_reference = (
-                        stage == "C3E"
-                        and artifact.get("logical_id") == "fresh:c3e:07_c3e:C3E_definition.json"
-                    )
-                    if any(token in raw.replace("\\", "/") for token in forbidden) and not metadata_only_contract_reference:
-                        nested_forbidden.append({"stage": stage, "artifact": artifact.get("logical_id"), "path": artifact.get("path")})
-                    elif metadata_only_contract_reference:
-                        payload = json.loads(raw)
-                        reference = str(payload.get("source_release_definition", "")).replace("\\", "/")
-                        other_text = raw.replace(reference, "") if reference else raw
-                        if any(token in other_text for token in forbidden):
-                            nested_forbidden.append({"stage": stage, "artifact": artifact.get("logical_id"), "path": artifact.get("path")})
+                    payload = json.loads(raw)
+                    references = forbidden_json_references(payload)
+                    if references:
+                        nested_forbidden.append({"stage": stage, "artifact": artifact.get("logical_id"), "path": artifact.get("path"), "references": references})
                 except (OSError, UnicodeDecodeError):
                     pass
+                except json.JSONDecodeError:
+                    if any(token in artifact_path.read_text(encoding="utf-8", errors="ignore").replace("\\", "/") for token in forbidden):
+                        nested_forbidden.append({"stage": stage, "artifact": artifact.get("logical_id"), "path": artifact.get("path"), "reason": "unparseable_metadata_contains_forbidden_path"})
             prior_hashes.add(str(artifact.get("sha256")))
         prior_hashes.add(stage_hash)
     return {

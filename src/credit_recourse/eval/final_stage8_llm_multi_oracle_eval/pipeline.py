@@ -434,12 +434,13 @@ def _load_stage6_payoff_surface(project_root: Path, *, fixture_mode: bool = Fals
             f"{path}"
         )
     frame = pd.read_parquet(path)
-    required = {"row_id", "firm_id", "action", "Alpha", "Beta", "Gamma"}
+    required = {"row_id", "firm_id", "fiscal_year", "action", "Alpha", "Beta", "Gamma"}
     missing = required - set(frame)
     if missing:
         raise ValueError(f"Stage6 payoff surface missing columns: {sorted(missing)}")
-    expected_rows = 5_175 if not fixture_mode else len(frame)
-    if len(frame) != expected_rows or len(frame) % 9 != 0 or frame[["row_id", "action"]].duplicated().any():
+    expected_firms = 575 if not fixture_mode else len(frame) // 9
+    expected_rows = expected_firms * 9
+    if len(frame) != expected_rows or frame["row_id"].nunique() != expected_firms or len(frame) % 9 != 0 or frame[["row_id", "action"]].duplicated().any():
         raise ValueError("Stage6 payoff surface must be a unique cohort x 9 grid")
     if set(frame["action"].astype(str)) != set(CANDIDATES):
         raise ValueError("Stage6 payoff surface action universe drift")

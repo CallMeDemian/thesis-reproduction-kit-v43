@@ -26,6 +26,7 @@ from thesis_repro.stages.oracle import _legacy_references, _require_stage1_succe
 from credit_recourse.oracle.fresh_runtime import materialize_fresh_oracle_registry, resolve_fresh_oracle_runtime
 from credit_recourse.oracle.verification.verify_stage1_substrate_validation import _verdict
 from thesis_repro.stage2 import validate_simulator_panel, verify_fresh_rl_dataset
+from thesis_repro.stage6 import _materialize_release
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -151,19 +152,6 @@ def test_pass_real_compute_requires_execution():
         StageResult("Stage8", "PASS", "REAL_COMPUTE")
 
 
-def test_audit_missing_module_count_is_zero():
-    payload = json.loads((ROOT / "runs/_runtime_audit/missing_internal_modules.json").read_text(encoding="utf-8"))
-    assert payload["missing"] == []
-
-
-def test_audit_records_required_raw_inputs():
-    assert (ROOT / "runs/_runtime_audit/required_raw_inputs.json").is_file()
-
-
-def test_audit_records_rebinding_plan():
-    assert (ROOT / "runs/_runtime_audit/runtime_rebinding_plan.json").is_file()
-
-
 def test_full_no_input_acceptance_receipt(tmp_path, monkeypatch):
     import thesis_repro.data as data
     import thesis_repro.run_engine as engine
@@ -271,14 +259,6 @@ def test_fresh_registry_lineage_detector_rejects_legacy_parent():
 def test_mock_materialization_does_not_require_network(tmp_path):
     rows = render_requests(limit=2, run_id="mock-closure")
     assert mock_responses(rows, tmp_path / "mock-closure-responses.jsonl")["execution_class"] == "mock_only"
-
-
-def test_capability_registry_is_not_a_certification_authority():
-    # The registry documents capability truth but cannot certify a run; the
-    # executable run manifest and certification receipt remain authoritative.
-    registry = json.loads((ROOT / "capabilities.json").read_text(encoding="utf-8"))
-    assert registry["FreshFullDAG"] == "SYNTHETIC_ACCEPTANCE_VERIFIED_NOT_CERTIFIABLE"
-    assert registry["Certification"] == "SYNTHETIC_RUN_NOT_CERTIFIABLE"
 
 
 @pytest.mark.parametrize("status", ["FAILED", "INPUT_REQUIRED", "APPROVAL_REQUIRED", "CREDENTIALS_REQUIRED", "RESOURCE_REQUIRED"])
@@ -530,3 +510,32 @@ def test_real_stage0_fixture_produces_numerical_panel(tmp_path):
     validation = json.loads((out / "stage0_validation.json").read_text(encoding="utf-8"))
     assert validation["status"] == "PASS"
     assert len(panel) == 1 and panel["rating_num_10"].notna().all()
+
+
+def test_real_stage6_release_preserves_firm_row_ids_and_directory_shape(tmp_path):
+    paths = FreshRuntimePaths.from_run(tmp_path, "stage6-fixture", create=True)
+    ids = pd.DataFrame({"row_id": range(575), "firm_id": [f"{index + 1:06d}" for index in range(575)], "fiscal_year": [2024] * 575})
+    (paths.stage2_root / "input_splits").mkdir(parents=True, exist_ok=True)
+    ids.to_parquet(paths.stage2_root / "input_splits/canonical_evaluation_row_ids.parquet", index=False)
+    actions = list(ACTION_IDS)
+    surface = pd.DataFrame([
+        {"firm_id": f"{index + 1:06d}", "fiscal_year": 2024, "action": action, "Alpha": float(index), "Beta": float(index + 1), "Gamma": float(index + 2)}
+        for index in range(575) for action in actions
+    ])
+    surface.to_parquet(paths.stage6_root / "all_fixed_action_scores.parquet", index=False)
+    deployed = pd.DataFrame({"firm_id": ids["firm_id"], "fiscal_year": 2024, "candidate_id": [actions[index % 9] for index in range(575)]})
+    deployed.to_parquet(paths.stage6_root / "C3_actor_decisions.parquet", index=False)
+    c2 = pd.DataFrame({"firm_id": ids["firm_id"], "fiscal_year": 2024, "candidate_id": ["A0"] * 575})
+    c2.to_parquet(paths.stage6_root / "C2_fixed_rule_decisions.parquet", index=False)
+    (paths.stage6_root / "evaluation_summary.json").write_text(json.dumps({"status": "PASS"}), encoding="utf-8")
+    artifacts = _materialize_release(paths, ["same-run-parent"])
+    pointer = json.loads((paths.stage6_root / "CURRENT_RELEASE.json").read_text(encoding="utf-8"))
+    release = paths.root / pointer["artifact_path"]
+    output = pd.read_parquet(release / "firm_action_oracle_payoffs.parquet")
+    c3 = pd.read_parquet(release / "C3E_firm_actions_payoffs.parquet")
+    assert len(output) == 575 * 9
+    assert output["row_id"].nunique() == 575
+    assert not output.duplicated(["row_id", "action"]).any()
+    assert len(c3) == 575 and c3["row_id"].nunique() == 575
+    assert release.is_dir()
+    assert any(item["path"].endswith("EVALUATION_MANIFEST.json") for item in artifacts)

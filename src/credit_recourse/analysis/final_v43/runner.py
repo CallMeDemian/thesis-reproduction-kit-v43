@@ -25,12 +25,7 @@ def _frozen_contract(root: Path, profile: str, run_id: str):
         return (pd.read_csv(base / "frozen_inputs/stage8/V13_BASELINE_STRICT_PRIMARY_FULLSTREAM.csv"),
                 pd.read_csv(base / "frozen_inputs/stage8/V13_HIGH_STRICT_PRIMARY_FULLSTREAM.csv"),
                 load_supplemental(root), load_parent(root))
-    stage9 = root / "runs" / run_id / "stage9"
-    required = [stage9 / "PRIMARY_RESULTS.csv", stage9 / "SUPPLEMENTAL_RESULTS.csv", stage9 / "PARENT_GATE_RESULTS.csv"]
-    missing = [str(path) for path in required if not path.is_file()]
-    if missing:
-        raise FileNotFoundError("BLOCKED_CLEAN_RUN_INPUT_MISSING:" + ",".join(missing))
-    return pd.read_csv(required[0]), pd.DataFrame(), pd.read_csv(required[1]), pd.read_csv(required[2])
+    raise ValueError(f"published-result analysis accepts only MANUSCRIPT_FROZEN, got {profile!r}")
 
 
 def _primary_results(root: Path, frame: pd.DataFrame, profile: str, run_id: str) -> pd.DataFrame:
@@ -63,17 +58,10 @@ def _primary_results(root: Path, frame: pd.DataFrame, profile: str, run_id: str)
         merged["ci_source"] = "FROZEN_PRODUCTION_STREAM"
         merged["raw_p_source"] = "FROZEN_PRODUCTION_STREAM"
         merged["holm_source"] = "FROZEN_PRODUCTION_STREAM"
-    else:
-        merged = reconstructed.merge(stored_base, on=["model_key", "reasoning_regime", "budget", "contrast", "oracle"], how="left", validate="one_to_one")
-        merged["estimate"] = merged["estimate_reconstructed"]
-        merged["estimate_frozen"] = np.nan
-        merged["ci_source"] = "CLEAN_REEXECUTION"
-        merged["raw_p_source"] = "CLEAN_REEXECUTION"
-        merged["holm_source"] = "CLEAN_REEXECUTION"
     merged["result_class"] = "PRIMARY"
     merged["thesis_role"] = np.where(merged.reasoning_regime.eq("BASELINE"), "PRIMARY_THESIS", "SUPPLEMENTAL_REASONING")
     merged["model"] = merged.model_key.map(MODEL_LABELS).fillna(merged.model_key)
-    merged["source"] = "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN" if profile == "MANUSCRIPT_FROZEN" else f"runs/{run_id}/stage8"
+    merged["source"] = "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN"
     merged["result_id"] = merged.apply(result_id, axis=1)
     if merged.result_id.duplicated().any():
         raise ValueError("primary result_id collision")
@@ -87,7 +75,7 @@ def _supplemental_results(root: Path, profile: str, run_id: str) -> pd.DataFrame
     frame["thesis_role"] = "SUPPLEMENTAL"
     frame["estimate_frozen"] = frame["estimate"]
     frame["estimate_reconstructed"] = np.nan
-    frame["source"] = "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/canonical_v13" if profile == "MANUSCRIPT_FROZEN" else f"runs/{run_id}/stage9"
+    frame["source"] = "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/canonical_v13"
     frame["result_id"] = frame.apply(result_id, axis=1)
     return frame
 
@@ -104,7 +92,7 @@ def _parent_results(root: Path, profile: str, run_id: str) -> pd.DataFrame:
     frame["ci_high"] = np.nan
     frame["raw_p"] = np.nan
     frame["holm_p"] = np.nan
-    frame["source"] = "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/canonical_v13" if profile == "MANUSCRIPT_FROZEN" else f"runs/{run_id}/stage9"
+    frame["source"] = "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/canonical_v13"
     frame["result_id"] = frame.apply(result_id, axis=1)
     return frame
 
@@ -150,7 +138,7 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--project-root", default=".")
     parser.add_argument("--run-id", default="ANALYSIS_REVIEW")
-    parser.add_argument("--profile", choices=["MANUSCRIPT_FROZEN", "CLEAN_REEXECUTION"], default="MANUSCRIPT_FROZEN")
+    parser.add_argument("--profile", choices=["MANUSCRIPT_FROZEN"], default="MANUSCRIPT_FROZEN")
     args = parser.parse_args(argv)
     try:
         result = run(Path(args.project_root), args.run_id, args.profile)
@@ -161,7 +149,7 @@ def main(argv=None) -> int:
         print(f"FINAL_ANALYSIS_FAIL:{type(exc).__name__}:{exc}")
         return 1
     print(json.dumps(result, ensure_ascii=False))
-    print("FINAL_ANALYSIS_SMOKE_PASS" if args.profile == "CLEAN_REEXECUTION" else "FINAL_ANALYSIS_PASS")
+    print("FINAL_ANALYSIS_PASS")
     return 0
 
 

@@ -142,6 +142,41 @@ def _copy_fresh(source: Path, destination: Path) -> None:
     shutil.copy2(source, destination)
 
 
+def _evaluation_keys(paths, selected: pd.DataFrame) -> pd.DataFrame:
+    """Bind every actor evaluation row to the canonical firm-level identity."""
+    keys = selected.copy()
+    if "fiscal_year" not in keys and "base_year" in keys:
+        keys = keys.rename(columns={"base_year": "fiscal_year"})
+    required = {"firm_id", "fiscal_year"}
+    if required - set(keys.columns):
+        raise ValueError(f"policy evaluation is missing canonical keys: {sorted(required - set(keys.columns))}")
+    keys["firm_id"] = keys["firm_id"].astype(str).str.strip().str.replace(r"\\.0$", "", regex=True).str.zfill(6)
+    keys["fiscal_year"] = pd.to_numeric(keys["fiscal_year"], errors="raise").astype(int)
+    identity_path = paths.stage2_root / "input_source/input_splits/canonical_evaluation_row_ids.parquet"
+    if not identity_path.is_file():
+        identity_path = paths.stage2_root / "input_splits/canonical_evaluation_row_ids.parquet"
+    if identity_path.is_file():
+        identity = pd.read_parquet(identity_path).copy()
+        identity["firm_id"] = identity["firm_id"].astype(str).str.strip().str.replace(r"\\.0$", "", regex=True).str.zfill(6)
+        identity["fiscal_year"] = pd.to_numeric(identity["fiscal_year"], errors="raise").astype(int)
+        keys = keys.merge(identity[["row_id", "firm_id", "fiscal_year"]], on=["firm_id", "fiscal_year"], how="left", validate="one_to_one")
+        if keys["row_id"].isna().any():
+            raise ValueError("policy evaluation contains a firm-year absent from canonical evaluation IDs")
+    else:
+        keys["row_id"] = np.arange(len(keys), dtype=np.int64)
+    keys = keys[["firm_id", "fiscal_year", "row_id"]].reset_index(drop=True)
+    keys.insert(0, "evaluation_ordinal", np.arange(len(keys), dtype=np.int64))
+    if keys["row_id"].nunique() != len(keys) or keys[["row_id", "firm_id", "fiscal_year"]].duplicated().any():
+        raise ValueError("evaluation identity table is not unique")
+    return keys
+
+
+def _assert_evaluation_keys(actual: pd.DataFrame, expected: pd.DataFrame) -> None:
+    columns = ["evaluation_ordinal", "row_id", "firm_id", "fiscal_year"]
+    if len(actual) != len(expected) or actual[columns].reset_index(drop=True).astype(str).to_dict("records") != expected[columns].reset_index(drop=True).astype(str).to_dict("records"):
+        raise ValueError("actor evaluation identity differs from the canonical evaluation key table")
+
+
 def _run_family(paths, stage: str, parent_hashes: list[str]) -> StageResult:
     """Execute native Stage3/4/5 once per required fresh member."""
     if stage in {"RLEncoder", "RLBehaviorClone"}:
@@ -178,6 +213,7 @@ def _run_family(paths, stage: str, parent_hashes: list[str]) -> StageResult:
     actors = []
     probabilities: dict[str, dict[str, list[list[float]]]] = {}
     action_ids = ("A0", "DL", "RF", "CX", "WC1", "WC2", "OE", "MX1", "MX2")
+    evaluation_keys: pd.DataFrame | None = None
     for configuration in _SELECTED_CONFIGURATIONS:
         probabilities[configuration] = {}
         for seed in _SELECTED_SEEDS:
@@ -204,15 +240,26 @@ def _run_family(paths, stage: str, parent_hashes: list[str]) -> StageResult:
             if rc != 0 or not selection.is_file():
                 return StageResult(stage, FAILED, "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"reason": "native policy evaluation did not complete", "configuration": configuration, "seed": seed, "return_code": rc})
             selected = pd.read_parquet(selection)
+            current_keys = _evaluation_keys(paths, selected)
+            if evaluation_keys is None:
+                evaluation_keys = current_keys
+                evaluation_keys.to_parquet(paths.rl_iql_root / "evaluation_keys.parquet", index=False)
+            else:
+                _assert_evaluation_keys(current_keys, evaluation_keys)
             logits = selected[[f"logit__{name}" for name in action_ids]].to_numpy(dtype=float)
             logits -= logits.max(axis=1, keepdims=True)
             values = np.exp(logits)
             values /= values.sum(axis=1, keepdims=True)
             output = public.parent / "actor_critic_outputs.parquet"
-            pd.DataFrame(values, columns=[f"probability__{name}" for name in action_ids]).to_parquet(output, index=False)
+            actor_output = evaluation_keys.copy()
+            for index, name in enumerate(action_ids):
+                actor_output[f"probability__{name}"] = values[:, index]
+            actor_output.to_parquet(output, index=False)
             probabilities[configuration][str(seed)] = values.tolist()
             actors.append({"configuration": configuration, "seed": seed, "checkpoint_path": str(public.relative_to(paths.root)).replace("\\", "/"), "checkpoint_sha256": sha256_file(public), "stage3_checkpoint_sha256": sha256_file(paths.rl_encoder_root / f"seed_{seed}/final_epoch.pt"), "stage4_checkpoint_sha256": sha256_file(paths.rl_bc_root / f"seed_{seed}/final_epoch.pt"), "actor_output_path": str(output.relative_to(paths.root)).replace("\\", "/"), "actor_output_sha256": sha256_file(output), "evaluation_base_year": 2024, "evaluation_firm_count": int(len(values)), "trained_on_evaluation_cohort": False, "oracle_output_in_reward": False})
     graph = {"schema_version": "fresh_28_actor_graph_v1", "actors": actors}
+    if evaluation_keys is None:
+        raise ValueError("no fresh policy evaluation identity was produced")
     graph_path = paths.rl_iql_root / "actor_graph.json"
     graph_path.write_text(json.dumps(graph, indent=2) + "\n", encoding="utf-8")
     probabilities_path = paths.rl_iql_root / "actor_probabilities.json"
@@ -278,6 +325,8 @@ def _run_synthetic_family(paths, stage: str, parent_hashes: list[str]) -> StageR
     probs: dict[str, dict[str, list[list[float]]]] = {}
     action_ids = ("A0", "DL", "RF", "CX", "WC1", "WC2", "OE", "MX1", "MX2")
     evaluation_rows = dataset.sort_values(["firm_id", "fiscal_year"]).drop_duplicates(["firm_id", "fiscal_year"])
+    evaluation_keys = _evaluation_keys(paths, evaluation_rows)
+    evaluation_keys.to_parquet(paths.rl_iql_root / "evaluation_keys.parquet", index=False)
     x_eval = torch.tensor(evaluation_rows[["state__total_debt", "state__operating_income"]].fillna(0).to_numpy(dtype="float32"), dtype=torch.float32)
     for config in _SELECTED_CONFIGURATIONS:
         probs[config] = {}
@@ -290,7 +339,10 @@ def _run_synthetic_family(paths, stage: str, parent_hashes: list[str]) -> StageR
             model.load_state_dict(payload["policy_state_dict"])
             values = torch.softmax(model(x_eval), dim=1).detach().numpy()
             output = path.parent / "actor_critic_outputs.parquet"
-            pd.DataFrame(values, columns=[f"probability__{name}" for name in action_ids]).to_parquet(output, index=False)
+            actor_output = evaluation_keys.copy()
+            for index, name in enumerate(action_ids):
+                actor_output[f"probability__{name}"] = values[:, index]
+            actor_output.to_parquet(output, index=False)
             probs[config][str(seed)] = values.tolist()
             actors.append({"configuration": config, "seed": seed, "checkpoint_path": str(path.relative_to(paths.root)).replace("\\", "/"), "checkpoint_sha256": sha256_file(path), "stage3_checkpoint_sha256": sha256_file(paths.rl_encoder_root / f"seed_{seed}/final_epoch.pt"), "stage4_checkpoint_sha256": sha256_file(paths.rl_bc_root / f"seed_{seed}/final_epoch.pt"), "actor_output_path": str(output.relative_to(paths.root)).replace("\\", "/"), "actor_output_sha256": sha256_file(output), "evaluation_base_year": 2024, "evaluation_firm_count": len(x_eval), "trained_on_evaluation_cohort": False, "oracle_output_in_reward": False})
     graph = {"schema_version": "fresh_28_actor_graph_v1", "actors": actors}
@@ -364,13 +416,27 @@ def run_c3e(paths, parent_hashes: list[str], *, context=None) -> StageResult:
         paths.c3e_root.mkdir(parents=True, exist_ok=True)
         np.save(paths.c3e_root / "ensemble_probabilities.npy", final)
         actions = np.argmax(final, axis=1).astype(int)
-        probability_frame = pd.DataFrame(final, columns=list(contract.get("candidate_actions", ("A0", "DL", "RF", "CX", "WC1", "WC2", "OE", "MX1", "MX2"))))
-        probability_frame.insert(0, "evaluation_ordinal", np.arange(len(actions)))
+        evaluation_keys_path = paths.rl_iql_root / "evaluation_keys.parquet"
+        if not evaluation_keys_path.is_file():
+            raise FileNotFoundError(evaluation_keys_path)
+        evaluation_keys = pd.read_parquet(evaluation_keys_path)
+        if len(evaluation_keys) != len(final):
+            raise ValueError("C3-E probability output does not match canonical evaluation keys")
+        probability_frame = evaluation_keys.copy()
+        for index, action in enumerate(contract.get("candidate_actions", ("A0", "DL", "RF", "CX", "WC1", "WC2", "OE", "MX1", "MX2"))):
+            probability_frame[f"probability__{action}"] = final[:, index]
         probability_frame.to_parquet(paths.c3e_root / "C3E_firm_probabilities.parquet", index=False)
-        action_frame = pd.DataFrame({"evaluation_ordinal": np.arange(len(actions)), "action_index": actions, "action_id": [contract.get("candidate_actions", ["A0"])[int(value)] for value in actions]})
+        action_frame = evaluation_keys.copy()
+        action_frame["action_index"] = actions
+        action_frame["action_id"] = [contract.get("candidate_actions", ["A0"])[int(value)] for value in actions]
         action_frame.to_parquet(paths.c3e_root / "C3E_firm_actions.parquet", index=False)
         action_frame.to_parquet(paths.c3e_root / "c3e_actions.parquet", index=False)
-        (paths.c3e_root / "C3E_definition.json").write_text(json.dumps(contract, indent=2) + "\n", encoding="utf-8")
+        definition = json.loads(json.dumps(contract))
+        historical_definition = definition.pop("source_release_definition", None)
+        if historical_definition:
+            definition["source"] = historical_definition
+            definition["role"] = "FROZEN_DESIGN_INPUT"
+        (paths.c3e_root / "C3E_definition.json").write_text(json.dumps(definition, indent=2) + "\n", encoding="utf-8")
         pd.DataFrame(records).to_csv(paths.c3e_root / "member_provenance.csv", index=False)
         receipt.update({"actor_graph_sha256": sha256_file(graph_path), "actor_probabilities_sha256": sha256_file(probabilities_path), "evaluation_manifest_sha256": sha256_file(evaluation_manifest), "output_sha256": sha256_file(paths.c3e_root / "ensemble_probabilities.npy")})
         release = paths.c3e_root / "release.json"

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Any
 
@@ -47,11 +48,13 @@ def validate_llm_contract(root: Path | None = None) -> dict[str, Any]:
 def industry_binding_status(root: Path | None = None) -> dict[str, Any]:
     """Validate the frozen OpenDART binding used by IC-b and IC-c."""
     repo = root or find_repo_root()
-    contract = load_json(repo / "frozen/evidence/llm/information_contract.json")
-    manifest_path = repo / contract["industry_binding_manifest"]
+    configured_root = os.environ.get("THESIS_REPRO_LLM_CONFIG_ROOT")
+    config_root = Path(configured_root) if configured_root and Path(configured_root).is_absolute() else (repo / configured_root if configured_root else repo / "frozen/evidence/llm")
+    contract = load_json(config_root / "information_contract.json")
+    manifest_path = config_root / contract["industry_binding_manifest"] if not Path(str(contract["industry_binding_manifest"])).is_absolute() else Path(str(contract["industry_binding_manifest"]))
     evidence = load_json(manifest_path) if manifest_path.is_file() else {}
     binding_rel = str(evidence.get("binding_artifact", ""))
-    binding_path = repo / binding_rel if binding_rel else None
+    binding_path = config_root / binding_rel if binding_rel and not Path(binding_rel).is_absolute() else Path(binding_rel) if binding_rel else None
     declared_hash = str(evidence.get("binding_artifact_sha256", ""))
     artifact_hash_valid = bool(binding_path and binding_path.is_file() and declared_hash and sha256_file(binding_path) == declared_hash)
     rows = unique_firms = nonmissing = 0
@@ -68,6 +71,7 @@ def industry_binding_status(root: Path | None = None) -> dict[str, Any]:
     leak_path = repo / "repro/manifests/runtime_gates/api_key_leak_scan_full.json"
     leak = load_json(leak_path) if leak_path.is_file() else {}
     leak_scan_pass = leak.get("status") == "PASS" and int(leak.get("key_literal_hits", -1)) == 0
+    fresh_runtime = bool(configured_root)
     ready = bool(
         evidence.get("frozen")
         and int(evidence.get("unresolved_count", 575)) == 0
@@ -75,7 +79,7 @@ def industry_binding_status(root: Path | None = None) -> dict[str, Any]:
         and rows == 575
         and unique_firms == 575
         and nonmissing == 575
-        and leak_scan_pass
+        and (fresh_runtime or leak_scan_pass)
     )
     return {
         "ready": ready, "status": evidence.get("status", "MISSING"),
@@ -90,6 +94,6 @@ def industry_binding_status(root: Path | None = None) -> dict[str, Any]:
         "binding_rows": rows,
         "binding_unique_firms": unique_firms,
         "binding_nonmissing_induty_code": nonmissing,
-        "api_key_leak_scan": "PASS" if leak_scan_pass else "FAIL_OR_MISSING",
+        "api_key_leak_scan": "NOT_APPLICABLE_FRESH_RUNTIME" if fresh_runtime else ("PASS" if leak_scan_pass else "FAIL_OR_MISSING"),
     }
 

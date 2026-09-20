@@ -65,12 +65,18 @@ def active_stage2_run_config(root: Path) -> Path:
 def active_stage2_eval_panel(root: Path) -> Path:
     fresh = _fresh(root)
     if fresh is not None:
-        for relative in ("03_stage2/stage2/evaluation_financial_grid.parquet", "03_stage2/stage2/evaluation_grid.parquet"):
+        for relative in ("03_stage2/input_source/phase_eval_candidate.parquet", "03_stage2/phase_eval_candidate.parquet"):
             path = fresh / relative
             if path.is_file():
+                panel = __import__("pandas").read_parquet(path)
+                if len(panel) != 575 or panel[["firm_id", "fiscal_year"]].drop_duplicates().shape[0] != 575:
+                    raise ValueError("active Stage2 evaluation panel must contain exactly one row per 575 firms")
                 return path
     path = _root(root) / "frozen/original_release/rl/stage2/phase_eval_candidate.parquet"
     if path.is_file():
+        panel = __import__("pandas").read_parquet(path)
+        if len(panel) != 575 or panel[["firm_id", "fiscal_year"]].drop_duplicates().shape[0] != 575:
+            raise ValueError("historical Stage2 evaluation panel is not a 575-firm panel")
         return path
     raise FileNotFoundError("active Stage2 evaluation panel is unavailable")
 
