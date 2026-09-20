@@ -191,7 +191,13 @@ def run(root: Path, run_id: str, artifact_root: Path | None = None, run_stage1: 
         if report.get("status") != "PASS" or report.get("final_result_allowed") is not True:
             raise RuntimeError("Stage1 ledger did not PASS with final_result_allowed=true")
         runtime = resolve_fresh_oracle_runtime(root)
-        verification = _verify_production_oracle(root, runtime, write_validation_report=True, context=fixture_context)
+        # The production verifiers retain a scoped compatibility binding for
+        # the fixture profile.  Keep the verification call inside the same
+        # explicit context as Stage1; otherwise the Alpha strict verifier
+        # would correctly interpret the synthetic parameter hash as a
+        # production canonical-hash mismatch.
+        with scoped_oracle_compatibility(fixture_context):
+            verification = _verify_production_oracle(root, runtime, write_validation_report=True, context=fixture_context)
         if verification.get("status") != "PASS" or verification.get("final_result_allowed") is not True:
             raise RuntimeError("production Oracle verification did not PASS")
         if verification.get("fixture_verification_contract", {}).get("contract") != "SYNTHETIC_E2E_ACCEPTANCE":
