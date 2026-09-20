@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import pandas as pd
 
+from .paths import frozen_v13_root
+
 
 EXPECTED_COUNTS = {
     "PP_CONTRAST": 336,
@@ -15,7 +17,7 @@ EXPECTED_COUNTS = {
 
 
 def load(root):
-    path = root / "frozen_replay/v1.3/canonical_v13/V13_SUPPLEMENTAL_RESULTS.csv"
+    path = frozen_v13_root(root) / "canonical_v13/V13_SUPPLEMENTAL_RESULTS.csv"
     frame = pd.read_csv(path)
     if len(frame) != 722 or frame.analysis_id.value_counts().to_dict() != EXPECTED_COUNTS:
         raise ValueError("supplemental 722-row contract mismatch")

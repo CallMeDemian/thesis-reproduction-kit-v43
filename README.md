@@ -2,17 +2,19 @@
 
 An end-to-end product for frozen replay, fresh Oracle/RL/LLM replication, and explicit fresh-vs-frozen comparison for the V4.3 corporate credit recourse thesis.
 
-## Four reviewer workflows
+## Three reproducibility levels
 
-1. **Verify frozen thesis evidence** — `python -m thesis_repro verify` and `python -m thesis_repro verify-original` check the published artifacts only.
-2. **Run synthetic acceptance** — `python -m thesis_repro acceptance-e2e --run-id ci-e2e` executes the real `VerifyInputs → Oracle → VerifyOracle → Simulator → RLDataset` prefix with deterministic fixture data; it intentionally stops as `PARTIAL_EXECUTION` and is never certification.
-3. **Restore authorized raw inputs** — `python -m thesis_repro data restore ...` records the private-input receipt and contract hash.
-4. **Run or continue fresh replication** — use `fresh --mode ... --profile full`; missing licensed inputs, GPU approval, and live-provider approval remain typed blockers.
+1. **Published result reproduction** — `python -m thesis_repro reproduce` runs the certified V1.3 replay, final statistical analysis, 914-row registry comparison, and thesis-output builder. It uses no private data, GPU, training, or paid API.
+2. **Full experimental reproduction** — `python -m thesis_repro reproduce --full --run-id full_001` enters the same fresh run engine and adapters used by the raw-input path. Missing licensed inputs, GPU approval, Stage2/Stage6 producers, and provider approval remain explicit blockers; frozen computed outputs are never substituted.
+3. **Original search reproduction** — `python -m thesis_repro search --all` uses the preserved historical search runtime only when its certified immutable baseline is present. It refuses to invent a new search campaign when that baseline is absent.
+
+The lower-level commands remain available for evidence verification, synthetic architecture acceptance, input restoration, and stage-by-stage fresh continuation.
 
 ## Quick start
 
 ```powershell
 python -m pip install -e ".[full,dev]"
+python -m thesis_repro reproduce --run-id thesis-reproduction
 python -m thesis_repro doctor
 python -m thesis_repro verify
 python -m thesis_repro acceptance-e2e --run-id ci-e2e
@@ -22,6 +24,12 @@ python -m thesis_repro fresh --mode FullClean --run-id full_001 --plan
 python -m thesis_repro compare --run-id oracle_smoke
 ```
 
+Successful published reproduction writes `runs/<run_id>/final/REPRODUCTION_RECEIPT.json`,
+`runs/<run_id>/final/analysis/RESULT_REGISTRY.csv`, and the regenerated workbooks under
+`runs/<run_id>/final/thesis_outputs/`. Primary estimates are recomputed from the frozen
+Stage8 rows; the certified historical bootstrap confidence intervals and p-value stream
+remain explicitly labelled `FROZEN_PRODUCTION_STREAM`.
+
 ## Fresh modes
 
 `OracleClean`, `OracleRLClean`, `OracleRLLMClean`, and `FullClean` are explicit DAG targets. Use `--plan` to inspect stages and resources. Use `--resume`, `--from-stage`, and `--to-stage` for namespaced execution.
@@ -30,7 +38,7 @@ The smoke profile exercises the namespaced DAG, artifact ledger, input gate, res
 
 ## Frozen lane
 
-The frozen distribution is stored at `frozen/distribution/THESIS_REPRO_KIT_v2.1.1_FINAL.zip` and is checked against its recorded SHA-256. It contains the canonical 96,600 Stage8 observations and the 914-row registry. The frozen lane never reads the source repository at runtime.
+The certified release authority is `frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/` and declares `V1.3_FROZEN_EVIDENCE` with scope `FROZEN_EVIDENCE_REPRODUCTION_AND_REPORTING`. The V1.3 evidence package at `frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/` contains the canonical 96,600 Stage8 observations and statistical contracts. The V2.1.1 distribution remains an immutable integrity cross-check for the 914-row historical registry. Exact historical Stage8/Stage9 producer bytes, raw LLM regeneration, and full raw-data rebuild are not certified by that release.
 
 ## Data preparation
 

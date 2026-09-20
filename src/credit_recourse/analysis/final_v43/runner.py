@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 
 from .parent_gate import load as load_parent
+from .paths import frozen_v13_root
 from .primary import reconstruct
 from .registry import result_id
 from .schema import validate
@@ -20,7 +21,7 @@ MODEL_LABELS = {"openai_gpt54mini": "GPT", "google_gemini31flashlite": "GEMINI"}
 
 def _frozen_contract(root: Path, profile: str, run_id: str):
     if profile == "MANUSCRIPT_FROZEN":
-        base = root / "frozen_replay/v1.3"
+        base = frozen_v13_root(root)
         return (pd.read_csv(base / "frozen_inputs/stage8/V13_BASELINE_STRICT_PRIMARY_FULLSTREAM.csv"),
                 pd.read_csv(base / "frozen_inputs/stage8/V13_HIGH_STRICT_PRIMARY_FULLSTREAM.csv"),
                 load_supplemental(root), load_parent(root))
@@ -72,7 +73,7 @@ def _primary_results(root: Path, frame: pd.DataFrame, profile: str, run_id: str)
     merged["result_class"] = "PRIMARY"
     merged["thesis_role"] = np.where(merged.reasoning_regime.eq("BASELINE"), "PRIMARY_THESIS", "SUPPLEMENTAL_REASONING")
     merged["model"] = merged.model_key.map(MODEL_LABELS).fillna(merged.model_key)
-    merged["source"] = "frozen_replay/v1.3" if profile == "MANUSCRIPT_FROZEN" else f"runs/{run_id}/stage8"
+    merged["source"] = "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN" if profile == "MANUSCRIPT_FROZEN" else f"runs/{run_id}/stage8"
     merged["result_id"] = merged.apply(result_id, axis=1)
     if merged.result_id.duplicated().any():
         raise ValueError("primary result_id collision")
@@ -86,7 +87,7 @@ def _supplemental_results(root: Path, profile: str, run_id: str) -> pd.DataFrame
     frame["thesis_role"] = "SUPPLEMENTAL"
     frame["estimate_frozen"] = frame["estimate"]
     frame["estimate_reconstructed"] = np.nan
-    frame["source"] = "frozen_replay/v1.3/canonical_v13" if profile == "MANUSCRIPT_FROZEN" else f"runs/{run_id}/stage9"
+    frame["source"] = "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/canonical_v13" if profile == "MANUSCRIPT_FROZEN" else f"runs/{run_id}/stage9"
     frame["result_id"] = frame.apply(result_id, axis=1)
     return frame
 
@@ -103,7 +104,7 @@ def _parent_results(root: Path, profile: str, run_id: str) -> pd.DataFrame:
     frame["ci_high"] = np.nan
     frame["raw_p"] = np.nan
     frame["holm_p"] = np.nan
-    frame["source"] = "frozen_replay/v1.3/canonical_v13" if profile == "MANUSCRIPT_FROZEN" else f"runs/{run_id}/stage9"
+    frame["source"] = "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/canonical_v13" if profile == "MANUSCRIPT_FROZEN" else f"runs/{run_id}/stage9"
     frame["result_id"] = frame.apply(result_id, axis=1)
     return frame
 

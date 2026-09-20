@@ -18,6 +18,7 @@ from .data import data_doctor, restore_data
 from .frozen import verify_frozen
 from .original_release import verify_original_release
 from .paths import ROOT, load_json
+from .reproduce import reproduce
 from .run_engine import STAGES, execute, plan, trace_run
 
 
@@ -31,6 +32,14 @@ def _build_parser() -> argparse.ArgumentParser:
     sub.add_parser("doctor")
     sub.add_parser("verify")
     sub.add_parser("frozen-replay")
+    replay = sub.add_parser("reproduce")
+    replay.add_argument("--full", action="store_true", help="run the optional raw-input fresh reproduction path")
+    replay.add_argument("--run-id", default="thesis-reproduction")
+    search = sub.add_parser("search")
+    search.add_argument("--all", action="store_true")
+    search.add_argument("--encoder", action="store_true")
+    search.add_argument("--rl", action="store_true")
+    search.add_argument("--oracle", action="store_true")
     sub.add_parser("verify-original")
     sub.add_parser("rebuild-c3e").add_argument("--release", choices=("original",), required=True)
     data = sub.add_parser("data")
@@ -114,9 +123,24 @@ def main(argv: list[str] | None = None) -> None:
             if result["status"] != "PASS":
                 raise SystemExit(1)
         elif args.command == "frozen-replay":
-            result = verify_frozen()
+            result = reproduce(ROOT, "frozen-replay")
             _print(result)
             if result["status"] != "PASS":
+                raise SystemExit(1)
+        elif args.command == "reproduce":
+            if args.full:
+                result = execute("FullClean", args.run_id, "full", False, None, None, False, False)
+                result["scope"] = "FULL_EXPERIMENTAL_REPRODUCTION"
+            else:
+                result = reproduce(ROOT, args.run_id)
+            _print(result)
+            if result.get("status") not in {"PASS", "PASS_WITH_QUALIFICATION"}:
+                raise SystemExit(1)
+        elif args.command == "search":
+            from .search import reproduce_search
+            result = reproduce_search(ROOT, mode="all" if args.all else "selected")
+            _print(result)
+            if result.get("status") != "PASS":
                 raise SystemExit(1)
         elif args.command == "verify-original":
             result = verify_original_release()

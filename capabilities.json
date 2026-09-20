@@ -1,6 +1,8 @@
 {
   "schema_version": "capabilities_v1",
-  "FrozenReplay": "FROZEN_CERTIFIED",
+  "FrozenReplay": "PUBLISHED_RESULT_REPRODUCTION_VERIFIED",
+  "PublishedResultReproduction": "EXECUTED_VERIFIED_914_ROWS",
+  "OriginalSearchReproduction": "PRESERVED_RUNTIME_INPUT_GATED",
   "OriginalAssetVerification": "FROZEN_CERTIFIED",
   "OriginalC3ERebuild": "FROZEN_CERTIFIED",
   "OracleClean": "IMPLEMENTED_FIXTURE_VERIFIED_INPUT_GATED",

@@ -2,11 +2,13 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from .paths import frozen_v13_root
+
 
 def source_path(root: Path, run_id: str, profile: str) -> Path:
     root = Path(root)
     if profile == "MANUSCRIPT_FROZEN":
-        return root / "frozen_replay/v1.3/frozen_inputs/stage8/canonical_itt_observations.parquet"
+        return frozen_v13_root(root) / "frozen_inputs/stage8/canonical_itt_observations.parquet"
     if profile == "CLEAN_REEXECUTION":
         run_root = root / "runs" / run_id
         run_info = run_root / "RUN_INFO.json"

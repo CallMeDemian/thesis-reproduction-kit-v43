@@ -30,3 +30,33 @@ jobs:
       - run: python -m pytest -q
         env:
           PYTHONPATH: src
+
+  published-reproduction:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e ".[full]"
+      - name: Execute certified published-result reproduction
+        run: python -m thesis_repro reproduce --run-id ci-reproduction
+        env:
+          PYTHONPATH: src
+      - name: Assert certified reproduction receipt
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path("runs/ci-reproduction/final")
+          receipt = json.loads((root / "REPRODUCTION_RECEIPT.json").read_text())
+          assert receipt["status"] == "PASS"
+          assert receipt["analysis"]["primary_rows"] == 96
+          assert receipt["analysis"]["supplemental_rows"] == 722
+          assert receipt["analysis"]["parent_rows"] == 96
+          assert receipt["analysis"]["registry_rows"] == 914
+          assert all(receipt["replay"]["markers"].values())
+          assert (root / "analysis/RESULT_REGISTRY.csv").is_file()
+          assert (root / "thesis_outputs/THESIS_OUTPUT_INDEX.xlsx").is_file()
+          PY
