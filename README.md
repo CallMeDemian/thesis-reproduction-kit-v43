@@ -5,7 +5,7 @@ An end-to-end product for frozen replay, fresh Oracle/RL/LLM replication, and ex
 ## Four reviewer workflows
 
 1. **Verify frozen thesis evidence** — `python -m thesis_repro verify` and `python -m thesis_repro verify-original` check the published artifacts only.
-2. **Run synthetic acceptance** — `python -m thesis_repro acceptance-e2e --run-id ci-e2e` traverses the complete architecture with deterministic fixture data and a mock LLM; it is never certification.
+2. **Run synthetic acceptance** — `python -m thesis_repro acceptance-e2e --run-id ci-e2e` executes the real `VerifyInputs → Oracle → VerifyOracle → Simulator → RLDataset` prefix with deterministic fixture data; it intentionally stops as `PARTIAL_EXECUTION` and is never certification.
 3. **Restore authorized raw inputs** — `python -m thesis_repro data restore ...` records the private-input receipt and contract hash.
 4. **Run or continue fresh replication** — use `fresh --mode ... --profile full`; missing licensed inputs, GPU approval, and live-provider approval remain typed blockers.
 
@@ -26,7 +26,7 @@ python -m thesis_repro compare --run-id oracle_smoke
 
 `OracleClean`, `OracleRLClean`, `OracleRLLMClean`, and `FullClean` are explicit DAG targets. Use `--plan` to inspect stages and resources. Use `--resume`, `--from-stage`, and `--to-stage` for namespaced execution.
 
-The smoke profile exercises the namespaced DAG, artifact ledger, input gate, resume invalidation, and a complete 48,300-request fresh dry render. Full scientific execution is permitted only after `data doctor` returns `INPUT_CONTRACT_PASS`; it never silently uses `frozen/` artifacts as compute parents. Live provider transport is separately gated by `THESIS_REPRO_ENABLE_LIVE_LLM=I_APPROVE_FRESH_REPLICATION`, and 28-actor retraining by `THESIS_REPRO_ENABLE_HEAVY_RL=I_APPROVE_28_ACTOR_RETRAIN`.
+The smoke profile exercises the namespaced DAG, artifact ledger, input gate, resume invalidation, and a complete 48,300-request fresh dry render. Synthetic acceptance uses the same run engine and production adapters as a real run, but its fixture-scale RQ1 gate is explicitly inapplicable. Full scientific execution is permitted only after `data doctor` returns `INPUT_CONTRACT_PASS`; it never silently uses `frozen/` artifacts as compute parents. Live provider transport is separately gated by `THESIS_REPRO_ENABLE_LIVE_LLM=I_APPROVE_FRESH_REPLICATION`, and 28-actor retraining by `THESIS_REPRO_ENABLE_HEAVY_RL=I_APPROVE_28_ACTOR_RETRAIN`.
 
 ## Frozen lane
 
@@ -59,7 +59,7 @@ The active scientific identity is V4.3: 9 candidate actions, 8 managerial dimens
 
 ## Execution-state truth table
 
-`PASS` means all required scientific verifiers accepted. `PASS_WITH_QUALIFICATION` records a canonical qualified result. `FAILED`, `INPUT_REQUIRED`, `APPROVAL_REQUIRED`, `CREDENTIALS_REQUIRED`, `RESOURCE_REQUIRED`, `NOT_IMPLEMENTED`, `NOT_EXECUTED`, and `EXECUTED_UNVERIFIED` are never collapsed into `PASS_WITH_SKIPS`; that label is smoke-only. Synthetic acceptance is reported as `SYNTHETIC_E2E_PASS` and cannot be certified.
+`PASS` means all required stages for the requested mode completed and all required scientific verifiers accepted. `PASS_WITH_QUALIFICATION` records a canonical qualified result. `PARTIAL_EXECUTION` is an intentionally incomplete prefix and is never a full-run pass. `FAILED`, `INPUT_REQUIRED`, `APPROVAL_REQUIRED`, `CREDENTIALS_REQUIRED`, `RESOURCE_REQUIRED`, `NOT_IMPLEMENTED`, `NOT_EXECUTED`, and `EXECUTED_UNVERIFIED` are never collapsed into `PASS_WITH_SKIPS`; that label is smoke-only. Synthetic acceptance is reported as `SYNTHETIC_E2E_ACCEPTANCE` with an acceptance-segment result of `PASS`, and cannot be certified.
 
 ## Scope
 

@@ -4,19 +4,22 @@
   "OriginalAssetVerification": "FROZEN_CERTIFIED",
   "OriginalC3ERebuild": "FROZEN_CERTIFIED",
   "OracleClean": "IMPLEMENTED_FIXTURE_VERIFIED_INPUT_GATED",
+  "Simulator": "IMPLEMENTED_SYNTHETIC_VERIFIED_INPUT_GATED",
+  "RLDataset": "IMPLEMENTED_SYNTHETIC_VERIFIED_INPUT_GATED",
+  "FreshProductionSegment": "IMPLEMENTED_SYNTHETIC_VERIFIED_INPUT_GATED",
   "OracleRLClean": "ORACLE_SIMULATOR_INPUT_GATED_RL_NOT_IMPLEMENTED",
   "OracleRLLLMClean": "ORACLE_SIMULATOR_INPUT_GATED_RL_LLM_NOT_IMPLEMENTED",
   "LLMDryRun48300": "DRY_RUN_CERTIFIED",
   "LLMLiveFresh": "GATED_ADAPTERS_MOCK_CERTIFIED",
-  "FullClean": "INPUT_REQUIRED_UNEXECUTED_FRESH_ENGINE",
+  "FullClean": "PREFIX_VERIFIED_PARTIAL_EXECUTION_INPUT_GATED",
   "notes": [
     "Frozen ZIP and 914-row registry are locally verifiable.",
     "The selected original Simulator and RL parent packs are hash-verified; RL_PARENT_GRAPH reports 28/28 closed historical actor chains.",
     "The historical LLM source snapshot is migrated, hash-verified, and request-ID reconciled; fresh IDs use a run namespace and no live call is enabled by default.",
-    "The fresh Oracle path dispatches the production Stage0 and Stage1 functions under runs/<run_id>/02_oracle/work and requires same-run VerifyOracle acceptance. SYNTHETIC_E2E_ACCEPTANCE now runs the real Stage0/Stage1 producers and all Oracle verifiers; its thesis-scale RQ1 gate is explicitly not applicable and is never reported as a scientific pass. Licensed-data production execution remains input-gated.",
-    "FullClean acceptance with no raw inputs returns INPUT_REQUIRED at VerifyInputs. Simulator is implemented but requires an authorized same-run input artifact; RL, Stage8, and Stage9 production dispatch remain NOT_IMPLEMENTED until their real producers and verifiers are wired. Explicit approval gates are checked before expensive work.",
-    "SYNTHETIC_E2E_ACCEPTANCE executes the architecture with real semantic simulator/formula code, canonical C3-E membership, and mock LLM responses; it is never a thesis replication or certification.",
-    "Closure views: historical evidence CLOSED; fresh code PARTIAL; fresh execution NOT_EXECUTED; fresh verified execution NOT_EXECUTED.",
+    "The fresh Oracle path dispatches the production Stage0 and Stage1 functions under runs/<run_id>/02_oracle/work and requires same-run VerifyOracle acceptance. SYNTHETIC_E2E_ACCEPTANCE runs the real Stage0/Stage1 producers and all Oracle verifiers; its thesis-scale RQ1 gate is explicitly not applicable and is never reported as a scientific pass. Licensed-data production execution remains input-gated.",
+    "The production prefix VerifyInputs -> Oracle -> VerifyOracle -> Simulator -> RLDataset is wired through the canonical run engine and adapters. Simulator derives its same-run cohort from Oracle/financial artifacts and emits the nine-action table; RLDataset consumes that table and enforces the V4.3 temporal/reward contract. A synthetic receipt is PARTIAL_EXECUTION, not certification.",
+    "FullClean with no raw inputs returns INPUT_REQUIRED at VerifyInputs. RL training, live LLM, Stage8, Stage9, and final release remain typed NOT_IMPLEMENTED/NOT_EXECUTED or gated states. Explicit approval gates are checked before expensive work.",
+    "Closure views: historical evidence CLOSED; complete fresh code PARTIAL; five-stage fresh segment code CLOSED; complete fresh execution NOT_EXECUTED; synthetic segment execution VERIFIED only when its run receipt is present; complete fresh verified execution NOT_EXECUTED.",
     "Runtime closure audit: runs/_runtime_audit; missing internal modules 0."
   ]
 }

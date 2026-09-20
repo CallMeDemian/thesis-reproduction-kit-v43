@@ -19,6 +19,8 @@
   "closure_views": {
     "historical_evidence_closure": "CLOSED",
     "fresh_code_closure": "PARTIAL",
+    "fresh_production_segment_code_closure": "CLOSED",
+    "fresh_production_segment_execution_closure": "SYNTHETIC_VERIFIED_ONLY",
     "fresh_execution_closure": "NOT_EXECUTED",
     "fresh_verified_execution_closure": "NOT_EXECUTED",
     "authority": "run manifests and certification receipts, not prose claims"
@@ -89,6 +91,17 @@
       "closure_status": "CLOSED",
       "evidence": "Simulator/action implementation is present and covered by product tests; this is code closure, not a fresh numerical run.",
       "reproducibility_level": "fresh_code_available"
+    },
+    {
+      "logical_id": "fresh.segment.verifyinputs_to_rldataset",
+      "artifact": "same-run VerifyInputs -> Oracle -> VerifyOracle -> Simulator -> RLDataset production prefix",
+      "parent_logical_ids": ["input.raw.restricted", "simulator.runtime.code"],
+      "parent_availability": "TARGET_RUNTIME_CODE; SYNTHETIC_FIXTURE_EXECUTABLE; LICENSED_INPUT_REQUIRED_FOR_FULL_RUN",
+      "parent_path": "src/thesis_repro/run_engine.py; src/thesis_repro/stages/adapters.py; runs/<run_id>/01_inputs..04_rl_dataset",
+      "parent_sha256": "recorded_per_run_manifest_and_stage_artifacts",
+      "closure_status": "CLOSED_FOR_SYNTHETIC_PREFIX",
+      "evidence": "Canonical run_engine and adapter path produces same-run Oracle, VerifyOracle, Simulator cohort/action panel, and RLDataset artifacts; synthetic receipts are PARTIAL_EXECUTION and never certification.",
+      "reproducibility_level": "fresh_segment_execution"
     },
     {
       "logical_id": "simulator.stage8.input_pack",
@@ -202,14 +215,13 @@
     }
   ],
   "summary": {
-    "closed": 14,
+    "closed": 15,
     "partial": 1,
     "missing_parent": 0,
     "external_restricted_input": 1,
+    "fresh_segment_status": "SYNTHETIC_VERIFIED_ONLY",
     "fresh_full_chain_status": "NOT_EXECUTED_DOWNSTREAM_AND_RESTRICTED_INPUT_GATED",
     "remaining_compute_edges": [
-      "Oracle->VerifyOracle same-run acceptance",
-      "VerifyOracle->Simulator",
       "Simulator->RLDataset->RLEncoder->RLBehaviorClone->RLIQL",
       "RLIQL->C3E->Stage6->VerifyRL",
       "VerifyRL->LLMPrepare->LLMGenerate->LLMMaterialize",
