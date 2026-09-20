@@ -1,150 +1,89 @@
 {
-  "architecture_source_commit": "1c383fe93f29331d4fd0203712c483697a65f3aa",
-  "authority_order": [
-    "narrative final manuscript reporting layer",
-    "V1.3 frozen evidence capsule",
-    "final result registry / primary + supplemental contracts",
-    "final V4.3 scientific contracts",
-    "C3-E release identity",
-    "C6-EX frozen mapping",
-    "current implementation",
-    "historical/source-lineage records"
-  ],
+  "schema_version": "thesis_submission_release_v1",
+  "release_id": "THESIS_V43_SUBMISSION_FINAL_20260917",
+  "overall": "THESIS_REPRO_RELEASE_READY",
+  "ready": true,
+  "tag_safe": true,
+  "scientific_authority": "V1.3_FROZEN_EVIDENCE",
+  "reporting_status": "NARRATIVE_FINAL_REPORTING_LAYER",
+  "manuscript_delivery_mode": "EXTERNAL_SUBMISSION_ARTIFACT",
+  "source_lineage_status": "PARTIAL_LINEAGE",
   "cash_plug_audit": "DISCLOSED_NOT_CLAIMED",
-  "certification_commit": "PENDING_FINAL_CERTIFICATION_COMMIT",
-  "gates": {
-    "C3E_IDENTITY": "PASS",
-    "C6EX_IDENTITY": "PASS",
-    "CI_FROZEN_DISTRIBUTION": "PENDING_CI",
-    "CI_MANUSCRIPT": "PENDING_CI",
-    "CI_SOURCE": "PENDING_CI",
-    "FROZEN_DISTRIBUTION_CLEANROOM": "PASS",
-    "FROZEN_DISTRIBUTION_SHA": "PASS",
-    "FROZEN_REPLAY": "PASS",
-    "FROZEN_V13_INTEGRITY": "PASS",
-    "NARRATIVE_CLAIM_COVERAGE": "COMPLETE",
-    "NARRATIVE_DOCX_HASH": "BLOCKED_MISSING_EXACT_RENDERED_BYTES",
-    "NARRATIVE_MANUSCRIPT_SOURCE": "PASS",
-    "NARRATIVE_PDF_HASH": "BLOCKED_MISSING_EXACT_RENDERED_BYTES",
-    "NO_SCIENTIFIC_DRIFT": "PASS_NO_DRIFT",
-    "RESULT_REGISTRY_914": "PASS",
-    "SCIENTIFIC_CONTRACT": "PASS"
-  },
+  "scientific_evidence_base_commit": "449c942cd1c02b17bcc1720f10ee8c96ee0a883a",
+  "architecture_source_commit": "1c383fe93f29331d4fd0203712c483697a65f3aa",
+  "narrative_source_commit": "42a6af7879d9434ab2761a59a3fa9867775864c4",
   "integration_commit": "83f76c25d1c6fb265ca00add315b70c9f8d10cee",
+  "certification_commit": "e2ad7fb731e3965b6be750c1057b7db04871b2a7",
   "integration_policy": "evidence base authoritative; architecture selectively ported",
   "manuscript_source": "docs/thesis_narrative_v43_20260917/",
-  "narrative_source_commit": "42a6af7879d9434ab2761a59a3fa9867775864c4",
-  "overall": "NOT_READY",
-  "ready": false,
-  "release_id": "THESIS_V43_SUBMISSION_FINAL_20260917",
-  "release_root_sha256": "67660326740f091ff848ebd31e7dc725d87ebf5747821419a4bd237bab82ae67",
   "rendered_docx": {
-    "path": "docs/manuscript/final/석사학위논문_조종선_V43_서사중심_전면재작성본_20260917.docx",
-    "sha256": "cff1a5ee9d934e7220fa6dd7bf2406f1e797e81516a3da87707021c6b7320e0a"
+    "delivery_mode": "EXTERNAL_SUBMISSION_ARTIFACT",
+    "filename": "석사학위논문_조종선_V43_서사중심_전면재작성본_20260917.docx",
+    "size_bytes": 409166,
+    "sha256": "cff1a5ee9d934e7220fa6dd7bf2406f1e797e81516a3da87707021c6b7320e0a",
+    "external_manifest": "docs/manuscript/final/EXTERNAL_ARTIFACT_MANIFEST.json",
+    "repository_contains_bytes": false
   },
   "rendered_pdf": {
-    "path": "docs/manuscript/final/석사학위논문_조종선_V43_서사중심_전면재작성본_20260917.pdf",
-    "sha256": "d52bf48bc25567539157d296aa20265f329fc477bb8fa971d5122e61184a3f8d"
+    "delivery_mode": "EXTERNAL_SUBMISSION_ARTIFACT",
+    "filename": "석사학위논문_조종선_V43_서사중심_전면재작성본_20260917.pdf",
+    "size_bytes": 1496788,
+    "sha256": "d52bf48bc25567539157d296aa20265f329fc477bb8fa971d5122e61184a3f8d",
+    "external_manifest": "docs/manuscript/final/EXTERNAL_ARTIFACT_MANIFEST.json",
+    "repository_contains_bytes": false
   },
-  "reporting_status": "NARRATIVE_FINAL_REPORTING_LAYER",
+  "ci_evidence": {
+    "workflow": "thesis-submission-release",
+    "run_id": 35173407866,
+    "certified_commit": "e2ad7fb731e3965b6be750c1057b7db04871b2a7",
+    "source_contract": "PASS",
+    "frozen_distribution": "PASS",
+    "manuscript_binding": "PASS"
+  },
+  "gates": {
+    "SCIENTIFIC_CONTRACT": "PASS",
+    "FROZEN_V13_INTEGRITY": "PASS",
+    "FROZEN_DISTRIBUTION_SHA": "PASS",
+    "FROZEN_DISTRIBUTION_CLEANROOM": "PASS",
+    "FROZEN_REPLAY": "PASS",
+    "RESULT_REGISTRY_914": "PASS",
+    "C3E_IDENTITY": "PASS",
+    "C6EX_IDENTITY": "PASS",
+    "NARRATIVE_MANUSCRIPT_SOURCE": "PASS",
+    "NARRATIVE_DOCX_HASH": "PASS",
+    "NARRATIVE_PDF_HASH": "PASS",
+    "NARRATIVE_CLAIM_COVERAGE": "COMPLETE",
+    "CI_SOURCE": "PASS",
+    "CI_FROZEN_DISTRIBUTION": "PASS",
+    "CI_MANUSCRIPT": "PASS",
+    "NO_SCIENTIFIC_DRIFT": "PASS"
+  },
+  "scientific_drift_evidence_status": "PASS_NO_DRIFT",
+  "release_root_sha256": "67660326740f091ff848ebd31e7dc725d87ebf5747821419a4bd237bab82ae67",
   "root_hash_basis": "sorted logical_id + sha256 for release-critical registry, contract, evidence, and manuscript objects; release.json, audits, and CURRENT_RELEASE pointer excluded",
   "root_inputs": [
-    {
-      "logical_id": "release-object:release_scope.json",
-      "sha256": "ecc7d13003c341f2a1cf345b66eb18d6e7ee58c4fb1a0aed83729bc84e4cb599"
-    },
-    {
-      "logical_id": "release-object:RELEASE_SCOPE.json",
-      "sha256": "ecc7d13003c341f2a1cf345b66eb18d6e7ee58c4fb1a0aed83729bc84e4cb599"
-    },
-    {
-      "logical_id": "release-object:artifact_registry.json",
-      "sha256": "79a9d3dfceae29b15ce835e60d1d26cc145b5aced03f6ffc2c79ffccbefcc516"
-    },
-    {
-      "logical_id": "release-object:source_registry.json",
-      "sha256": "b070b0ef5d29786c5c70ec7bfa814a927ce8ab6edddd4cdba46c54fefa50568f"
-    },
-    {
-      "logical_id": "release-object:contract_registry.json",
-      "sha256": "9f5cee1413f7df1075d912159e2d7113bdc4e6a98788337c34bb19548b07ad21"
-    },
-    {
-      "logical_id": "release-object:claim_registry.json",
-      "sha256": "eb279ba24b332c310cbaae7b4864c7d766d92e50ac284ad7406ebffb12526eef"
-    },
-    {
-      "logical_id": "release-object:table_registry.csv",
-      "sha256": "d36fbc4ece4624b72aa737df31e3f49f2c45f8f0b4792e3b1c3dcfce199e20b0"
-    },
-    {
-      "logical_id": "release-object:planned_protocol.json",
-      "sha256": "d7b1945e4883d94b93a59b9d28f6c3e2e76efbd13a173fb58cf50b2d50d0b5f4"
-    },
-    {
-      "logical_id": "release-object:as_executed_protocol.json",
-      "sha256": "02e2a9d71a396ce06c43a3162e6bc83d50c1f79721b8ce2ddfa5b121e271bae7"
-    },
-    {
-      "logical_id": "release-object:lineage_edges.json",
-      "sha256": "7310847aa3599dab247e9f1874a0b592ff9cbf0a0bf2613351cf797cdca6d155"
-    },
-    {
-      "logical_id": "release-object:limitations.json",
-      "sha256": "6013e2714e9383e7ca3c2948756279358982d64a8ab0aa62a23ecfbdbaaec47a"
-    },
-    {
-      "logical_id": "release-object:verification_profile.json",
-      "sha256": "614b945e0f37e110597aa6081a0c43da3856acc74694db81698070572bfcacdd"
-    },
-    {
-      "logical_id": "artifact.v13.frozen_capsule",
-      "sha256": "e887648864d55d8e2441647a3b4dc3c5f25d133c5314110f26ceb28315a555a2"
-    },
-    {
-      "logical_id": "artifact.v13.stage8.canonical_parquet",
-      "sha256": "aedfadbf1728a14d3e4cb45bfa8a022d2c10313c52606e7bd1aee68899de8a0d"
-    },
-    {
-      "logical_id": "artifact.distribution.v2_1_1_final",
-      "sha256": "931631d52541bb6dfdd5ed9fda767e2e48ccb8b7521f70ae771db68df2c1831d"
-    },
-    {
-      "logical_id": "artifact.result_registry.914",
-      "sha256": "6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56"
-    },
-    {
-      "logical_id": "artifact.c3e.definition",
-      "sha256": "768ddb63544ab581a52836852c03debed408fb57f80c9781f2564fb5537c4e26"
-    },
-    {
-      "logical_id": "artifact.c3e.metrics",
-      "sha256": "9016eb5b4ae1620d1158d6f77360b0334306e2dc60bbd49bd025a52f1a14c2c3"
-    },
-    {
-      "logical_id": "artifact.c6ex.manifest",
-      "sha256": "c3c35323bc6b598439ced6d75ed138af01e8cc0df51199438df2d3b4435fc747"
-    },
-    {
-      "logical_id": "artifact.scientific.action_contract",
-      "sha256": "f722e189a265e111c018341254a648ddb9cecc05aa8c12c3547a023ea4c458c0"
-    },
-    {
-      "logical_id": "artifact.manuscript.source",
-      "sha256": "99cb6c9b86be8321cbad5866713ab77d5344347ae834c6e70e006c7b56c3cb1e"
-    },
-    {
-      "logical_id": "artifact.manuscript.docx",
-      "sha256": "cff1a5ee9d934e7220fa6dd7bf2406f1e797e81516a3da87707021c6b7320e0a"
-    },
-    {
-      "logical_id": "artifact.manuscript.pdf",
-      "sha256": "d52bf48bc25567539157d296aa20265f329fc477bb8fa971d5122e61184a3f8d"
-    }
-  ],
-  "schema_version": "thesis_submission_release_v1",
-  "scientific_authority": "V1.3_FROZEN_EVIDENCE",
-  "scientific_evidence_base_commit": "449c942cd1c02b17bcc1720f10ee8c96ee0a883a",
-  "source_lineage_status": "PARTIAL_LINEAGE",
-  "tag_safe": false
+    {"logical_id":"release-object:release_scope.json","sha256":"ecc7d13003c341f2a1cf345b66eb18d6e7ee58c4fb1a0aed83729bc84e4cb599"},
+    {"logical_id":"release-object:RELEASE_SCOPE.json","sha256":"ecc7d13003c341f2a1cf345b66eb18d6e7ee58c4fb1a0aed83729bc84e4cb599"},
+    {"logical_id":"release-object:artifact_registry.json","sha256":"79a9d3dfceae29b15ce835e60d1d26cc145b5aced03f6ffc2c79ffccbefcc516"},
+    {"logical_id":"release-object:source_registry.json","sha256":"b070b0ef5d29786c5c70ec7bfa814a927ce8ab6edddd4cdba46c54fefa50568f"},
+    {"logical_id":"release-object:contract_registry.json","sha256":"9f5cee1413f7df1075d912159e2d7113bdc4e6a98788337c34bb19548b07ad21"},
+    {"logical_id":"release-object:claim_registry.json","sha256":"eb279ba24b332c310cbaae7b4864c7d766d92e50ac284ad7406ebffb12526eef"},
+    {"logical_id":"release-object:table_registry.csv","sha256":"d36fbc4ece4624b72aa737df31e3f49f2c45f8f0b4792e3b1c3dcfce199e20b0"},
+    {"logical_id":"release-object:planned_protocol.json","sha256":"d7b1945e4883d94b93a59b9d28f6c3e2e76efbd13a173fb58cf50b2d50d0b5f4"},
+    {"logical_id":"release-object:as_executed_protocol.json","sha256":"02e2a9d71a396ce06c43a3162e6bc83d50c1f79721b8ce2ddfa5b121e271bae7"},
+    {"logical_id":"release-object:lineage_edges.json","sha256":"7310847aa3599dab247e9f1874a0b592ff9cbf0a0bf2613351cf797cdca6d155"},
+    {"logical_id":"release-object:limitations.json","sha256":"6013e2714e9383e7ca3c2948756279358982d64a8ab0aa62a23ecfbdbaaec47a"},
+    {"logical_id":"release-object:verification_profile.json","sha256":"614b945e0f37e110597aa6081a0c43da3856acc74694db81698070572bfcacdd"},
+    {"logical_id":"artifact.v13.frozen_capsule","sha256":"e887648864d55d8e2441647a3b4dc3c5f25d133c5314110f26ceb28315a555a2"},
+    {"logical_id":"artifact.v13.stage8.canonical_parquet","sha256":"aedfadbf1728a14d3e4cb45bfa8a022d2c10313c52606e7bd1aee68899de8a0d"},
+    {"logical_id":"artifact.distribution.v2_1_1_final","sha256":"931631d52541bb6dfdd5ed9fda767e2e48ccb8b7521f70ae771db68df2c1831d"},
+    {"logical_id":"artifact.result_registry.914","sha256":"6d43643da844315c3a531cdb07c5dddc8f5fef5fc91b00f117f830b6c95e1b56"},
+    {"logical_id":"artifact.c3e.definition","sha256":"768ddb63544ab581a52836852c03debed408fb57f80c9781f2564fb5537c4e26"},
+    {"logical_id":"artifact.c3e.metrics","sha256":"9016eb5b4ae1620d1158d6f77360b0334306e2dc60bbd49bd025a52f1a14c2c3"},
+    {"logical_id":"artifact.c6ex.manifest","sha256":"c3c35323bc6b598439ced6d75ed138af01e8cc0df51199438df2d3b4435fc747"},
+    {"logical_id":"artifact.scientific.action_contract","sha256":"f722e189a265e111c018341254a648ddb9cecc05aa8c12c3547a023ea4c458c0"},
+    {"logical_id":"artifact.manuscript.source","sha256":"99cb6c9b86be8321cbad5866713ab77d5344347ae834c6e70e006c7b56c3cb1e"},
+    {"logical_id":"artifact.manuscript.docx","sha256":"cff1a5ee9d934e7220fa6dd7bf2406f1e797e81516a3da87707021c6b7320e0a"},
+    {"logical_id":"artifact.manuscript.pdf","sha256":"d52bf48bc25567539157d296aa20265f329fc477bb8fa971d5122e61184a3f8d"}
+  ]
 }

@@ -1,5 +1,5 @@
 {
-  "schema_version": "narrative_thesis_claim_audit_v2",
+  "schema_version": "narrative_thesis_claim_audit_v3",
   "release_id": "THESIS_V43_SUBMISSION_FINAL_20260917",
   "status": "COMPLETE",
   "claims_checked": 176,
@@ -9,7 +9,8 @@
   "empirical_tables_complete": 20,
   "unbound_empirical_claims": [],
   "errors": [],
-  "source_sha256": "b67a6684f8e83428fb7ea6ad460c5e5825a1f436331124641d3f08b766a2b921",
+  "source_sha256": "542302aa52642a52db7a56ce3bf0e2f70e49ec643b6d5cf1e461e28e98d61cb0",
+  "source_hash_semantics": "SHA256 over sorted Markdown filename + LF-normalized bytes for the complete narrative source tree",
   "canonical_result_registry_rows": 914,
   "certification_boundary": "structured evidence wins over manuscript prose; source-lineage gaps are disclosed rather than promoted to PASS"
 }
