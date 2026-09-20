@@ -20,10 +20,13 @@ Frozen artifacts are addressed by SHA-256 in
 ## Closure state
 
 - historical evidence closure: `CLOSED`
-- fresh code closure: `PARTIAL` (Oracle and the canonical semantic simulator are wired; RL/Stage8/Stage9 full production dispatch remains explicitly typed as not implemented)
-- fresh execution closure: `NOT_EXECUTED` unless a run manifest records actual execution
+- fresh code closure: `PARTIAL` for the complete thesis DAG; the production `VerifyInputs -> Oracle -> VerifyOracle -> Simulator -> RLDataset` segment is wired through canonical adapters
+- fresh segment execution closure: `SYNTHETIC_VERIFIED` only when a run manifest records the real production-prefix acceptance; this is not a thesis-scale replication
+- fresh execution closure: `NOT_EXECUTED` for the complete fresh replication unless a run manifest records actual execution
 - fresh verified execution closure: `NOT_EXECUTED` unless every same-run verifier and certification check accepts
 
 `python -m thesis_repro acceptance-e2e --run-id ci-e2e` is a separate
-`SYNTHETIC_E2E_ACCEPTANCE` architecture receipt. It does not use licensed raw
-data or paid APIs and is never eligible for fresh replication certification.
+`SYNTHETIC_E2E_ACCEPTANCE` architecture receipt. It uses the same run engine and
+production adapters for the five-stage prefix, does not use licensed raw data or
+paid APIs, ends as `PARTIAL_EXECUTION`, and is never eligible for fresh
+replication certification.
