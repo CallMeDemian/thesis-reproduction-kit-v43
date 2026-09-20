@@ -31,11 +31,11 @@ class V43StageConsumer:
         self.contract = V43EncoderContract.from_project_root(self.root)
         configured_run = os.environ.get("CREDIT_REPRO_RUN_PATH") or os.environ.get("THESIS_REPRO_RUN_ROOT")
         self.run_root = Path(configured_run).resolve() if configured_run else self.root / PREPARATION
-        self.folder = self.run_root / PREPARATION if self.run_root.name != "03_simulator" else self.run_root
+        self.folder = self.run_root if self.run_root.name == "03_stage2" else self.run_root / PREPARATION
         frozen = _read_json(self.folder / "01_contract/encoder_contract.json")
         if frozen["schema_hash"] != self.contract.schema_hash:
             raise ValueError("V43 frozen contract identity changed")
-        self.config = load_run_config(self.root)
+        self.config = load_run_config(self.root, output_root=self.folder)
         self.statistics = _read_json(self.folder / "01_contract/training_preprocessing.json")
         fit = pd.read_parquet(self.folder / "02_data/statistics_fit_rows.parquet")
         assert_training_rows(fit)
@@ -105,13 +105,13 @@ class V43StageConsumer:
 
     def _verify_final_checkpoint(self, path, payload, stage):
         from credit_recourse.rl.contracts.v43_encoder import file_sha256
-        from credit_recourse.contracts.stage_paths import stage_dir
-        expected = stage_dir(self.root, f"stage{stage}") / "final_epoch.pt"
-        if Path(path).resolve()!=expected.resolve():raise ValueError('Only the fixed final epoch checkpoint is accepted')
+        expected = Path(path).resolve()
+        if expected.name != "final_epoch.pt" or not expected.is_relative_to(self.run_root):
+            raise ValueError('Only a fresh final_epoch.pt inside the active run namespace is accepted')
         run=_read_json(expected.parent/'execution.json')
         epochs=self.config['stages'][f'stage{stage}']['max_epochs']
         if (run['status']!='PASS' or run['final_epoch']!=epochs or payload.get('final_epoch')!=epochs
-            or payload.get('config_hash')!=self.config['config_hash'] or run['checkpoint_sha256']!=file_sha256(expected)):
+            or payload.get('config_hash')!=self.config['config_hash'] or run.get('config_hash')!=self.config['config_hash'] or run['checkpoint_sha256']!=file_sha256(expected)):
             raise ValueError('Checkpoint does not match the completed fixed run')
 
     def load_encoder(self, path, *, schema_dry_run=False):

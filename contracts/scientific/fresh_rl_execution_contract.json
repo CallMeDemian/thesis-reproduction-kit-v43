@@ -18,7 +18,7 @@
   },
   "training": {
     "no_hyperparameter_search": true,
-    "heavy_gate": "THESIS_REPRO_ENABLE_HEAVY_RL=I_APPROVE_28_ACTOR_RETRAIN",
+    "authorization": "python -m thesis_repro reproduce --full",
     "reward_oracle_output_leak_forbidden": true,
     "evaluation_cohort_training_leak_forbidden": true
   }

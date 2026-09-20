@@ -1,17 +1,39 @@
 {
   "schema_version": "production_segment_migration_map_v1",
-  "scope": "VerifyInputs -> Oracle -> VerifyOracle -> Simulator -> RLDataset",
-  "scientific_changes": [],
+  "source_repository": "CallMeDemian/REPRO_KIT_semantic_repair",
+  "source_commit": "324b5fbb0ac9cf322ae20cf97793165227bf45ed",
   "components": [
-    {"component": "V4.3 simulator cohort and candidate expansion", "authoritative_source": "src/credit_recourse/simulator/v43_production_bundle.py", "source_sha256": "36bb4262dc2e9f12582bd7035d152383faae6b0d286e275abca1e57215d5d483", "new_runtime_entrypoint": "thesis_repro.fresh_simulator.run_fresh_simulator -> V43ProductionSimulationBundle.simulate_candidate", "scientific_changes": [], "engineering_changes": ["same-run Oracle panel binding", "run namespace injection", "Parquet receipt and validation"]},
-    {"component": "Business-plan construction", "authoritative_source": "src/credit_recourse/simulator/business_plan.py", "source_sha256": "d0991ed618e4b8a2a103c30104f0efd4b9e32ed3bec15c30b373c79cb84b9e6b", "new_runtime_entrypoint": "V43ProductionSimulationBundle.build_plan", "scientific_changes": [], "engineering_changes": ["same-run source panel selection"]},
-    {"component": "Canonical 8D / 9-action semantics", "authoritative_source": "src/credit_recourse/simulator/semantic_action_v4.py", "source_sha256": "29d85e1101fab1c68fc68b33cb2d7305751cff3cc4163cf7c56139066c66a313", "new_runtime_entrypoint": "V43ProductionSimulationBundle._candidate_action", "scientific_changes": [], "engineering_changes": ["artifact lineage metadata"]},
-    {"component": "Offline-RL population and factual transition contract", "authoritative_source": "src/credit_recourse/rl/v43_one_pass_data.py", "source_sha256": "3489ba3d649997b7431004cf98c3aaed5501d2dbf899ba20e978957b04d4f92a", "new_runtime_entrypoint": "thesis_repro.fresh_rl_dataset.run_fresh_rl_dataset", "scientific_changes": [], "engineering_changes": ["fresh Simulator panel input binding", "run-local manifests"]},
-    {"component": "Temporal eligibility", "authoritative_source": "src/credit_recourse/rl/v43_one_pass_contract.py", "source_sha256": "7ccd01b3d652eebccad486ce29527fb409a4ec07170d56e11e7dbe07f0b7d9ed", "new_runtime_entrypoint": "credit_recourse.rl.v43_one_pass_contract.rl_fit_allowed", "scientific_changes": [], "engineering_changes": ["same-run validation receipt"]},
-    {"component": "Reward construction", "authoritative_source": "src/credit_recourse/rl/v43_reward_math.py", "source_sha256": "7fce14ee343edee06d491b9f73cec0ed1184f5dd6fb26597f58af1230703c980", "new_runtime_entrypoint": "thesis_repro.fresh_rl_dataset._reward_frame", "scientific_changes": [], "engineering_changes": ["fresh transition column binding", "explicit no-Oracle-score audit"]},
-    {"component": "State and feature construction", "authoritative_source": "src/credit_recourse/rl/v43_features.py", "source_sha256": "846e6cf9c61845316c73413aabbe26dc72a9539b7a9968107d5cc94cb99c7b71", "new_runtime_entrypoint": "thesis_repro.fresh_rl_dataset.run_fresh_rl_dataset", "scientific_changes": [], "engineering_changes": ["run-local state column lineage"]},
-    {"component": "Action contract", "authoritative_source": "contracts/scientific/v43_action_contract.json", "source_sha256": "5fd8ff5825fbee64e781fac8ce7302d36aa9c6ca7fe56f21ec8bea7a8fc101cc", "new_runtime_entrypoint": "V43ProductionSimulationBundle.from_project_root", "scientific_changes": [], "engineering_changes": ["contract hash in receipts"]},
-    {"component": "Temporal split contract", "authoritative_source": "contracts/scientific/final_freeze/temporal_split.yaml", "source_sha256": "9dd1da319bff0aa881c896f5b75c642f507c4a5a5458b3a6627646801fb27272", "new_runtime_entrypoint": "V43TemporalContract", "scientific_changes": [], "engineering_changes": ["manifest and verifier binding"]},
-    {"component": "V4.3 RL methodology and cohort contract", "authoritative_source": "contracts/scientific/final_freeze/v43_rl.json", "source_sha256": "19a8829d40421301bf059f1d9cdbc63345c0f64be559c2d19a2a4532b65f9a2e", "new_runtime_entrypoint": "thesis_repro.fresh_rl_dataset", "scientific_changes": [], "engineering_changes": ["fresh run receipt"]}
+    {
+      "component": "Stage2 population and feature preparation",
+      "authoritative_source": "src/credit_recourse/rl/v43_one_pass_data.py",
+      "source_sha256": "3489ba3d649997b7431004cf98c3aaed5501d2dbf899ba20e978957b04d4f92a",
+      "new_runtime_entrypoint": "thesis_repro.stage2.run_stage2",
+      "scientific_changes": [],
+      "engineering_changes": ["run-local input root", "run namespace binding", "execution receipt", "hash lineage"]
+    },
+    {
+      "component": "Stage2 financial/action grid",
+      "authoritative_source": "src/credit_recourse/rl/v43_one_pass_grid.py",
+      "source_sha256": "ef8ce1f0149c9db5a5c0de4d64a35277e95b9742ce56f4b17447e39ab2a08613",
+      "new_runtime_entrypoint": "thesis_repro.stage2.run_stage2",
+      "scientific_changes": [],
+      "engineering_changes": ["run-local output root", "evaluation/training separation", "validation receipt"]
+    },
+    {
+      "component": "Stage6 final OOT evaluation",
+      "authoritative_source": "src/credit_recourse/eval/v43_one_pass_evaluation.py",
+      "source_sha256": "8359cced60ced24627047ac58b75798651a04813d69fa377b5f08055025bfaee",
+      "new_runtime_entrypoint": "thesis_repro.stage6.run_stage6",
+      "scientific_changes": [],
+      "engineering_changes": ["run-local Stage2/Stage5/Stage6 roots", "same-run Oracle registry binding", "execution receipt"]
+    },
+    {
+      "component": "Original RL search",
+      "authoritative_source": "src/credit_recourse/rl/v43_stage5_search.py",
+      "source_sha256": "195147df756fb92f5aeec55ddac587f3d96dba4a29f606a7b654a9ca04e50a19",
+      "new_runtime_entrypoint": "thesis_repro.search.reproduce_search",
+      "scientific_changes": [],
+      "engineering_changes": ["catalog snapshot", "run namespace", "selection comparison"]
+    }
   ]
 }

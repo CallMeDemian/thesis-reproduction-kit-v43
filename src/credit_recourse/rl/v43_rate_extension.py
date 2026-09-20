@@ -20,8 +20,10 @@ def prepare_rate_extension(root):
     original=pd.read_parquet(root/RATE_PATH)
     required=set(map(tuple,rows[['firm_id','fiscal_year']].to_numpy()))
     present=set(map(tuple,original[['firm_id','base_year']].to_numpy()))
-    provider_path=root/'archive/DEPLOYED_RELEASE/stage2_candidate_projection/runtime_inputs/business_plan_rate_v4/source/provider_rate_observation_ledger.parquet'
-    event_path=root/'archive/DEPLOYED_RELEASE/stage0_oracle_foundation/canonical_panel/rating_event_panel.parquet'
+    from credit_recourse.rl.v43_one_pass_data import input_root
+    stage2_input = input_root(root)
+    provider_path=stage2_input/'runtime_inputs/business_plan_rate_v4/source/provider_rate_observation_ledger.parquet'
+    event_path=stage2_input/'runtime_inputs/stage0_oracle_foundation/canonical_panel/rating_event_panel.parquet'
     provider=pd.read_parquet(provider_path)
     provider['firm_id']=provider.firm_id.map(key)
     provider=provider.loc[provider.fiscal_year<=2022]

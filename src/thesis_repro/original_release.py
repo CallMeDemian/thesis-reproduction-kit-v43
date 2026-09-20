@@ -17,6 +17,8 @@ CANONICAL_LF_PATHS = {
     "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/contract_registry.json",
     "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/source_registry.json",
     "frozen/release/submission/THESIS_V43_SUBMISSION_FINAL_20260917/table_registry.csv",
+    "provenance/SCIENTIFIC_DAG_CLOSURE.json",
+    "provenance/source_commit_verification.json",
 }
 
 

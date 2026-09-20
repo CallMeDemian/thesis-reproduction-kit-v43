@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import collections
 import csv
+import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping
@@ -10,6 +11,7 @@ import numpy as np
 import pandas as pd
 
 from .action_validation import CANDIDATES, DIMENSIONS
+from credit_recourse.contracts.runtime_assets import active_action_contract, active_stage2_eval_ids, active_stage2_eval_panel
 from .common import ContractError, canonical_hash, file_hash, find_repo_root, load_json
 
 
@@ -58,7 +60,8 @@ def _semantic_design(value: Mapping[str, Any]) -> dict[str, Any]:
 
 def load_design(root: Path | None = None) -> DesignBundle:
     repo = (root or find_repo_root()).resolve()
-    base = repo / "configs/current/llm"
+    configured = os.environ.get("THESIS_REPRO_LLM_CONFIG_ROOT")
+    base = Path(configured) if configured and Path(configured).is_absolute() else (repo / configured if configured else repo / "frozen/evidence/llm")
     design = load_json(base / "final_design.json")
     release = load_json(base / "design_release.json")
     matrix = _csv(base / "experiment_matrix.csv")
@@ -66,7 +69,7 @@ def load_design(root: Path | None = None) -> DesignBundle:
     prompts = load_json(base / "prompt_contract.json")
     information = load_json(base / "information_contract.json")
     retry = load_json(base / "retry_policy.json")
-    action_path = repo / design["action_contract"]["source"]
+    action_path = active_action_contract(repo)
     action = load_json(action_path)
     if len(matrix) != 42 or len({row["cell_id"] for row in matrix}) != 42:
         raise ContractError("Final matrix must contain 42 unique cells")
@@ -99,20 +102,20 @@ def load_design(root: Path | None = None) -> DesignBundle:
     for name, expected in release["source_hashes"].items():
         rel = {
             "authority_document": design["authority_document"],
-            "experiment_matrix": "configs/current/llm/experiment_matrix.csv",
-            "model_contract": "configs/current/llm/model_contract.json",
-            "prompt_contract": "configs/current/llm/prompt_contract.json",
-            "feature_dictionary": "configs/current/llm/feature_dictionary.csv",
-            "information_contract": "configs/current/llm/information_contract.json",
-            "retry_policy": "configs/current/llm/retry_policy.json",
-            "analysis_contract": "configs/current/llm/analysis_contract.json",
+            "experiment_matrix": str(base / "experiment_matrix.csv"),
+            "model_contract": str(base / "model_contract.json"),
+            "prompt_contract": str(base / "prompt_contract.json"),
+            "feature_dictionary": str(base / "feature_dictionary.csv"),
+            "information_contract": str(base / "information_contract.json"),
+            "retry_policy": str(base / "retry_policy.json"),
+            "analysis_contract": str(base / "analysis_contract.json"),
             "action_contract": design["action_contract"]["source"],
             "c3e_definition": "archive/DEPLOYED_RELEASE/stage5_candidate_iql/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_definition.json",
             "c3e_probabilities": "archive/DEPLOYED_RELEASE/stage5_candidate_iql/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_firm_probabilities.parquet",
             "c3e_actions": "archive/DEPLOYED_RELEASE/stage5_candidate_iql/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_firm_actions.parquet",
-            "c6ex_permutation": "configs/current/llm/C6EX_permutation.parquet",
-            "c6ex_materialized": "configs/current/llm/C6EX_materialized.parquet",
-            "c6ex_manifest": "configs/current/llm/C6EX_manifest.json",
+            "c6ex_permutation": str(base / "C6EX_permutation.parquet"),
+            "c6ex_materialized": str(base / "C6EX_materialized.parquet"),
+            "c6ex_manifest": str(base / "C6EX_manifest.json"),
             "runtime_contract": "src/credit_recourse/final_release/contract.py",
     "runtime_llm_contract": "src/credit_recourse/final_release/llm_contract.py",
             "runtime_parser": "src/credit_recourse/final_release/parsing.py",
@@ -149,8 +152,8 @@ def _number(value: Any) -> float | None:
 
 
 def load_firm_cohort(design: DesignBundle) -> pd.DataFrame:
-    ids = pd.read_parquet(design.root / "archive/DEPLOYED_RELEASE/stage2_candidate_projection/input_splits/canonical_evaluation_row_ids.parquet")
-    panel = pd.read_parquet(design.root / "archive/DEPLOYED_RELEASE/stage2_candidate_projection/phase_eval_candidate.parquet")
+    ids = pd.read_parquet(active_stage2_eval_ids(design.root))
+    panel = pd.read_parquet(active_stage2_eval_panel(design.root))
     ids = ids.sort_values("row_id").reset_index(drop=True)
     panel = panel.copy()
     panel["firm_id"] = panel["firm_id"].astype(str).str.replace(r"\.0$", "", regex=True).str.zfill(6)

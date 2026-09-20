@@ -1,4 +1,4 @@
-from thesis_repro.contracts import EXPECTED_REQUESTS, contract_report
+from thesis_repro.llm_runtime import EXPECTED_REQUESTS, contract_report
 
 
 def test_final_logical_request_count():

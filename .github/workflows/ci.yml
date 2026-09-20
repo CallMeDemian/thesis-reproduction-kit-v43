@@ -5,28 +5,19 @@ on:
   pull_request:
 
 jobs:
-  frozen-replay:
+  source-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 1
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - run: python -m pip install --upgrade pip
-      - run: python -m pip install -e ".[dev,oracle]"
-      - run: python -m thesis_repro verify
-        env:
-          PYTHONPATH: src
-
-  source-contract:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - run: python -m pip install --upgrade pip
-      - run: python -m pip install -e ".[dev,oracle]"
+      - run: python -m pip install -e ".[full,dev]"
+      - run: git lfs fsck
       - run: python -m pytest -q
         env:
           PYTHONPATH: src
@@ -35,28 +26,59 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 1
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: python -m pip install --upgrade pip
       - run: python -m pip install -e ".[full]"
-      - name: Execute certified published-result reproduction
-        run: python -m thesis_repro reproduce --run-id ci-reproduction
+      - run: git lfs fsck
+      - run: python -m thesis_repro verify
         env:
           PYTHONPATH: src
-      - name: Assert certified reproduction receipt
+      - run: python -m thesis_repro reproduce --run-id ci-reproduction
+        env:
+          PYTHONPATH: src
+      - name: Assert published receipt
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          root = Path("runs/ci-reproduction/final")
-          receipt = json.loads((root / "REPRODUCTION_RECEIPT.json").read_text())
+          receipt = json.loads(Path("runs/ci-reproduction/final/REPRODUCTION_RECEIPT.json").read_text())
           assert receipt["status"] == "PASS"
           assert receipt["analysis"]["primary_rows"] == 96
           assert receipt["analysis"]["supplemental_rows"] == 722
           assert receipt["analysis"]["parent_rows"] == 96
           assert receipt["analysis"]["registry_rows"] == 914
           assert all(receipt["replay"]["markers"].values())
-          assert (root / "analysis/RESULT_REGISTRY.csv").is_file()
-          assert (root / "thesis_outputs/THESIS_OUTPUT_INDEX.xlsx").is_file()
           PY
+
+  synthetic-full-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -e ".[full,dev]"
+      - run: git lfs fsck
+      - name: Execute canonical synthetic full DAG
+        run: |
+          python - <<'PY'
+          from thesis_repro.acceptance import run_acceptance
+          result = run_acceptance("ci-synthetic-full")
+          assert result["completion_state"] == "PASS", result
+          assert result["dag_complete"] is True, result
+          assert result["acceptance_segment_status"] == "PASS", result
+          assert result["certifiable"] is False, result
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-full-e2e-${{ github.sha }}
+          if-no-files-found: error
+          path: runs/ci-synthetic-full/

@@ -47,7 +47,7 @@ def validate_llm_contract(root: Path | None = None) -> dict[str, Any]:
 def industry_binding_status(root: Path | None = None) -> dict[str, Any]:
     """Validate the frozen OpenDART binding used by IC-b and IC-c."""
     repo = root or find_repo_root()
-    contract = load_json(repo / "configs/current/llm/information_contract.json")
+    contract = load_json(repo / "frozen/evidence/llm/information_contract.json")
     manifest_path = repo / contract["industry_binding_manifest"]
     evidence = load_json(manifest_path) if manifest_path.is_file() else {}
     binding_rel = str(evidence.get("binding_artifact", ""))

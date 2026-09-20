@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Mapping
@@ -15,7 +16,12 @@ from .prompting import render_policy_prompt
 from .providers import build_batch_record, provider_request_hash
 
 
-OUTPUT_ROOT = Path("archive/DEPLOYED_RELEASE/llm_runs/final_plan3")
+def output_root(root: Path) -> Path:
+    configured = os.environ.get("THESIS_REPRO_LLM_OUTPUT_ROOT")
+    if configured:
+        path = Path(configured)
+        return path if path.is_absolute() else Path(root) / path
+    return Path(root) / "archive/DEPLOYED_RELEASE/llm_runs/final_plan3"
 
 
 def request_id(release_hash: str, cell: Mapping[str, Any], firm_key: str, parent_request_id: str | None) -> str:
@@ -85,7 +91,7 @@ def freeze_release(root: Path | None = None) -> tuple[Path, dict[str, Any]]:
     from .semantic_fixture import run_semantic_fixture
     semantic_fixture = run_semantic_fixture(design.root)
     cohort = load_firm_cohort(design)
-    directory = design.root / OUTPUT_ROOT / design.design_release_hash
+    directory = output_root(design.root) / design.design_release_hash
     directory.mkdir(parents=True, exist_ok=True)
     inventory = _inventory(design, cohort)
     inventory.to_parquet(directory / "logical_requests.parquet", index=False)
@@ -120,7 +126,7 @@ def freeze_release(root: Path | None = None) -> tuple[Path, dict[str, Any]]:
             "main": 17_250,
             "stability": 6_900,
         },
-        "canonical_matrix": "configs/current/llm/experiment_matrix.csv",
+        "canonical_matrix": str((Path(os.environ.get("THESIS_REPRO_LLM_CONFIG_ROOT", design.root / "frozen/evidence/llm")) / "experiment_matrix.csv").resolve()),
         "api_calls_executed": 0,
         "live_blockers": [] if live_ready else [f"industry binding unresolved for {industry['unresolved_count']}/575 canonical firms"],
     }
@@ -129,7 +135,7 @@ def freeze_release(root: Path | None = None) -> tuple[Path, dict[str, Any]]:
 
 
 def load_release(project_root: Path, release_hash: str) -> tuple[Path, dict[str, Any]]:
-    directory = Path(project_root).resolve() / OUTPUT_ROOT / release_hash
+    directory = output_root(Path(project_root).resolve()) / release_hash
     release = json.loads((directory / "release.json").read_text(encoding="utf-8"))
     if release.get("protocol_release_hash") != release_hash:
         raise ContractError("Runtime release identity mismatch")
@@ -151,7 +157,7 @@ def _reference_table(path: str) -> pd.DataFrame:
 
 
 def _render(design: DesignBundle, firm: Mapping[str, Any], record: Mapping[str, Any], parent_text: str | None) -> Any:
-    refs = _reference_table(str((design.root / "configs/current/llm/C6EX_materialized.parquet").resolve()))
+    refs = _reference_table(str((Path(os.environ.get("THESIS_REPRO_LLM_CONFIG_ROOT", design.root / "frozen/evidence/llm")) / "C6EX_materialized.parquet").resolve()))
     reference = _reference_id(design, str(record["condition"]), str(refs.loc[int(record["row_id"]), "own_C3E_action"]), str(refs.loc[int(record["row_id"]), "C6EX_reference_action"]))
     return render_policy_prompt(
         design,
@@ -226,7 +232,7 @@ def run_full_dry_run(root: Path | None, output_dir: Path) -> dict[str, Any]:
     semantic_fixture = run_semantic_fixture(design.root)
     cohort = load_firm_cohort(design)
     inventory = _inventory(design, cohort)
-    refs = pd.read_parquet(design.root / "configs/current/llm/C6EX_materialized.parquet")
+    refs = pd.read_parquet(Path(os.environ.get("THESIS_REPRO_LLM_CONFIG_ROOT", design.root / "frozen/evidence/llm")) / "C6EX_materialized.parquet")
     ref_by_row = refs.set_index("row_id")
     cell_lookup = {row["cell_id"]: row for row in design.matrix}
     synthetic_parent = json.dumps({"diagnosis": "Synthetic dry-run parent.", "action": {name: 0.0 for name in design.action_contract["normalization_scale_by_dimension"]}, "evidence_fields": [], "rationale": "No live completion is used."}, separators=(",", ":"))

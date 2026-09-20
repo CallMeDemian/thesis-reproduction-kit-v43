@@ -42,7 +42,7 @@ def _sha256(path: Path) -> str:
     return h.hexdigest()
 
 
-def _current_stage6(project_root: Path) -> tuple[dict[str, Any], pd.DataFrame, pd.DataFrame]:
+def _current_stage6(project_root: Path, *, fixture_mode: bool = False) -> tuple[dict[str, Any], pd.DataFrame, pd.DataFrame]:
     pointer_path = stage_dir(project_root, "stage6") / "CURRENT_RELEASE.json"
     pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
     payoff_path = project_root / str(pointer["payoff_surface_path"])
@@ -52,17 +52,19 @@ def _current_stage6(project_root: Path) -> tuple[dict[str, Any], pd.DataFrame, p
     required = {"row_id", "firm_id", "action", "Alpha", "Beta", "Gamma"}
     if required - set(payoffs):
         raise ValueError(f"Stage6 payoff surface lacks {sorted(required-set(payoffs))}")
-    if len(payoffs) != 575 * 9 or payoffs["row_id"].nunique() != 575:
-        raise ValueError("Stage6 payoff surface is not the canonical 575x9 grid")
+    expected_firms = 575 if not fixture_mode else len(payoffs) // 9
+    if len(payoffs) != expected_firms * 9 or payoffs["row_id"].nunique() != len(payoffs):
+        raise ValueError("Stage6 payoff surface is not a complete cohort x 9 grid")
     if set(payoffs["action"].astype(str)) != set(ACTION_ORDER):
         raise ValueError("Stage6 payoff surface action contract mismatch")
     if payoffs.duplicated(["row_id", "action"]).any():
         raise ValueError("Stage6 payoff surface has duplicate firm-action rows")
 
     release_dir = project_root / str(pointer["artifact_path"])
-    deployed = read_parquet_required(release_dir / "C3E_firm_actions_payoffs.parquet")
-    if len(deployed) != 575 or deployed["row_id"].nunique() != 575:
-        raise ValueError("Current deployed C3-E table is not the canonical 575 firms")
+    deployed_path = release_dir if release_dir.suffix == ".parquet" else release_dir / "C3E_firm_actions_payoffs.parquet"
+    deployed = read_parquet_required(deployed_path)
+    if len(deployed) != expected_firms or deployed["row_id"].nunique() != expected_firms:
+        raise ValueError("Current deployed C3-E table is not a complete cohort")
     return pointer, payoffs, deployed
 
 
@@ -187,12 +189,12 @@ def _aggregate_failure_audit(project_root: Path) -> pd.DataFrame:
     return counts.merge(sums, on=groups, how="left", validate="one_to_one")
 
 
-def run_stage9(*, project_root: Path) -> dict[str, Any]:
+def run_stage9(*, project_root: Path, fixture_mode: bool = False) -> dict[str, Any]:
     project_root = Path(project_root).resolve()
     out = stage_dir(project_root, "stage9")
     out.mkdir(parents=True, exist_ok=True)
 
-    pointer, payoffs, deployed = _current_stage6(project_root)
+    pointer, payoffs, deployed = _current_stage6(project_root, fixture_mode=fixture_mode)
     stage8, stage8_meta, stage8_path = _load_stage8(project_root)
     geometry = load_action_geometry(project_root)
     if tuple(geometry.fixed_candidates) != ACTION_ORDER:

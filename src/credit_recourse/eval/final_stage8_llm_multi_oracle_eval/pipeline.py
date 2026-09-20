@@ -44,6 +44,7 @@ import pandas as pd
 
 
 from credit_recourse.contracts.stage_paths import stage_dir, final_root
+from credit_recourse.contracts.runtime_assets import active_action_contract, active_oracle_registry, active_stage2_history, active_stage2_run_config
 from typing import Any
 from credit_recourse.oracle.artifact_io import load_registry, resolve_backend_artifact
 from credit_recourse.eval.v43_oracle_backends import score_alpha, score_beta_ordered_logit_params, score_gamma_model
@@ -73,10 +74,7 @@ class CurrentActionSpace:
 
 
 def load_current_action_space(project_root: Path) -> CurrentActionSpace:
-    path = (
-        Path(project_root).resolve()
-        / "archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_action_contract_v4_3.json"
-    )
+    path = active_action_contract(Path(project_root).resolve())
     contract = json.loads(path.read_text(encoding="utf-8"))
     columns = tuple(contract["action_columns"])
     if tuple(name.removeprefix("action__") for name in columns) != tuple(DIMENSIONS):
@@ -94,7 +92,7 @@ def load_current_action_space(project_root: Path) -> CurrentActionSpace:
     )
 
 def load_canonical_business_plan_history(project_root: Path) -> tuple[pd.DataFrame, Path]:
-    path = final_root(Path(project_root).resolve()) / 'stage2_candidate_projection' / 'input_splits' / 'canonical_business_plan_history.parquet'
+    path = active_stage2_history(Path(project_root).resolve())
     if not path.exists():
         raise FileNotFoundError(
             f'Missing canonical BusinessPlan history substrate: {path}. '
@@ -192,7 +190,7 @@ def _selected_oracle_audit_from_state(state: FirmState, prev_state: FirmState | 
     """
     return compute_oracle_variables(state, prev_state=prev_state)
 
-def simulate_llm_policy_states(base: pd.DataFrame, policy_actions: pd.DataFrame, space, out: Path, *, predicted_fiscal_year: int | None = None, preserve_current_non_current_residual: bool = False, sim_business_plan_mode: str = 'default', write_outputs: bool = True, collect_audit: bool = True, history_lookup: dict[str, list[tuple[int, FirmState]]] | None = None, project_root: Path | None = None, financial_only: bool = False) -> tuple[pd.DataFrame,pd.DataFrame]:
+def simulate_llm_policy_states(base: pd.DataFrame, policy_actions: pd.DataFrame, space, out: Path, *, predicted_fiscal_year: int | None = None, preserve_current_non_current_residual: bool = False, sim_business_plan_mode: str = 'default', write_outputs: bool = True, collect_audit: bool = True, history_lookup: dict[str, list[tuple[int, FirmState]]] | None = None, project_root: Path | None = None, financial_only: bool = False, fixture_mode: bool = False) -> tuple[pd.DataFrame,pd.DataFrame]:
     bundle = None
     sim = None if sim_business_plan_mode == CALIBRATED_BP_RATE_V4_MODE else FinancialSimulator(preserve_current_non_current_residual=preserve_current_non_current_residual)
     rows=[]; audits=[]
@@ -220,8 +218,28 @@ def simulate_llm_policy_states(base: pd.DataFrame, policy_actions: pd.DataFrame,
         if project_root is None:
             raise ValueError('calibrated_bp_rate_v4 requires project_root')
         bundle = V43ProductionSimulationBundle.from_project_root(project_root)
+    elif fixture_mode:
+        from credit_recourse.rl.common.semantic_action_v4_1_contract import simulator_from_contract
+        from credit_recourse.simulator.business_plan_interest_rate_v4 import BorrowingRateV4Lineage, BorrowingRateV4Result
+        action_path = active_action_contract(project_root)
+        action_contract = json.loads(action_path.read_text(encoding="utf-8"))
 
-    base_idx=base.reset_index(drop=True).reset_index().rename(columns={'index':'row_id'})
+        class FixtureRates:
+            def resolve(self, firm_id, base_year):
+                result = BorrowingRateV4Result(0.04, "synthetic_fixture", int(base_year), None, None, 0.04)
+                return BorrowingRateV4Lineage(str(firm_id), int(base_year), result, "synthetic_fixture", "synthetic_fixture", "synthetic_fixture", "synthetic_fixture_v1")
+
+        class FixtureCosts:
+            def calibrate(self, state, history, a0_revenue):
+                amount = max(0.0, float(a0_revenue) * 0.01)
+                return amount, {"financial_cost_contract_version": "synthetic_fixture", "non_interest_financial_cost": amount, "decision_non_interest_financial_cost": amount, "decision_pure_interest_expense": state.pure_interest_expense, "non_interest_source_years": [int(item.year) for item in history], "non_interest_source_year_max": max((int(item.year) for item in history), default=None)}
+
+        bundle = V43ProductionSimulationBundle(project_root, action_contract, _sha256_file(action_path), FixtureRates(), simulator_from_contract(action_contract), FixtureCosts())
+
+    # Stage2 fixtures may persist their own row identity for lineage.  The
+    # final evaluator owns the zero-based join identity, so discard only that
+    # duplicate transport column before constructing the canonical index.
+    base_idx=base.drop(columns=['row_id'], errors='ignore').reset_index(drop=True).reset_index().rename(columns={'index':'row_id'})
     pa=policy_actions.merge(base_idx, on='row_id', how='left', suffixes=('','__base'))
     if pa.isna().all(axis=1).any(): raise ValueError('Policy actions contain row_id not found in phase_eval base')
     for _,r in pa.iterrows():
@@ -273,6 +291,13 @@ def simulate_llm_policy_states(base: pd.DataFrame, policy_actions: pd.DataFrame,
             'ratio_missing_rate': r.get('ratio_missing_rate'),
         })
         row=_state_to_frame_dict(sim_vars, r)
+        # Preserve same-run decision-year context columns required by the
+        # promoted Oracle backends.  The simulator-derived variables above are
+        # the scored values; these fields are immutable contextual covariates,
+        # not frozen score outputs.
+        for source_column, source_value in r.items():
+            if source_column not in row:
+                row[source_column] = source_value
         row.update({'row_id':r['row_id'],'policy':r['policy'],'candidate_id':r['candidate_id'],'sustainability':result.sustainability,'plug_used':result.plug_used,'plug_amount':result.plug_amount,
                     'mode': r.get('mode') if 'mode' in r.index else None,
                     'analysis_population': r.get('analysis_population') if 'analysis_population' in r.index else None,
@@ -311,6 +336,7 @@ def simulate_llm_policy_states(base: pd.DataFrame, policy_actions: pd.DataFrame,
             "cell_id",
             "firm_key",
             "model_key",
+            "generation_regime",
             "phase",
             "info",
             "information_condition",
@@ -392,7 +418,7 @@ def _sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def _load_stage6_payoff_surface(project_root: Path) -> tuple[pd.DataFrame, Path]:
+def _load_stage6_payoff_surface(project_root: Path, *, fixture_mode: bool = False) -> tuple[pd.DataFrame, Path]:
     stage6 = stage_dir(project_root, "stage6")
     pointer_path = stage6 / "CURRENT_RELEASE.json"
     if not pointer_path.is_file():
@@ -412,8 +438,9 @@ def _load_stage6_payoff_surface(project_root: Path) -> tuple[pd.DataFrame, Path]
     missing = required - set(frame)
     if missing:
         raise ValueError(f"Stage6 payoff surface missing columns: {sorted(missing)}")
-    if len(frame) != 5_175 or frame[["row_id", "action"]].duplicated().any():
-        raise ValueError("Stage6 payoff surface must be a unique 575x9 grid")
+    expected_rows = 5_175 if not fixture_mode else len(frame)
+    if len(frame) != expected_rows or len(frame) % 9 != 0 or frame[["row_id", "action"]].duplicated().any():
+        raise ValueError("Stage6 payoff surface must be a unique cohort x 9 grid")
     if set(frame["action"].astype(str)) != set(CANDIDATES):
         raise ValueError("Stage6 payoff surface action universe drift")
     return frame, path
@@ -421,10 +448,13 @@ def _load_stage6_payoff_surface(project_root: Path) -> tuple[pd.DataFrame, Path]
 
 def _load_stage6_noop_scores(
     project_root: Path,
+    *,
+    fixture_mode: bool = False,
 ) -> dict[str, pd.DataFrame]:
-    surface, _ = _load_stage6_payoff_surface(project_root)
+    surface, _ = _load_stage6_payoff_surface(project_root, fixture_mode=fixture_mode)
     noop = surface.loc[surface["action"].astype(str).eq("A0")].copy()
-    if len(noop) != 575 or noop["row_id"].nunique() != 575:
+    expected_firms = 575 if not fixture_mode else len(surface) // 9
+    if len(noop) != expected_firms or noop["row_id"].nunique() != expected_firms:
         raise ValueError("Stage6 payoff surface must contain one A0 row per firm")
     out: dict[str, pd.DataFrame] = {}
     for backend, source in (("alpha", "Alpha"), ("beta", "Beta"), ("gamma", "Gamma")):
@@ -438,7 +468,7 @@ def _stage6_substrate_hashes(project_root: Path) -> dict:
     params artifact hash) so Stage 8 metadata can prove the same substrate
     was used."""
     final = final_root(project_root)
-    reg_path = project_root / "configs" / "current" / "final_freeze" / "oracle_backend_registry.yaml"
+    reg_path = active_oracle_registry(project_root)
     if not reg_path.exists():
         raise FileNotFoundError(f"Missing oracle backend registry: {reg_path}")
     reg = load_registry(reg_path)
@@ -461,27 +491,21 @@ def _stage6_substrate_hashes(project_root: Path) -> dict:
 
 
 
-def _load_stage6_simulator_identity(project_root: Path) -> dict[str, object]:
+def _load_stage6_simulator_identity(project_root: Path, *, fixture_mode: bool = False) -> dict[str, object]:
     root = Path(project_root).resolve()
-    action_path = (
-        root
-        / "archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_action_contract_v4_3.json"
-    )
-    run_config_path = (
-        root
-        / "archive/DEPLOYED_RELEASE/stage2_candidate_projection/v4_3_runtime/01_contract/resolved_run_config.json"
-    )
+    action_path = active_action_contract(root)
+    run_config_path = active_stage2_run_config(root)
     action = json.loads(action_path.read_text(encoding="utf-8"))
     run_config = json.loads(run_config_path.read_text(encoding="utf-8"))
     target_year = int(run_config["temporal"]["evaluation_rollout_year"])
-    if target_year != 2025:
+    if not fixture_mode and target_year != 2025:
         raise ValueError("Current Stage8 contract requires 2025 simulated target year")
     return {
         "stage2_run_config_path": str(run_config_path),
         "stage2_run_config_sha256": _sha256_file(run_config_path),
-        "sim_business_plan_mode": CALIBRATED_BP_RATE_V4_MODE,
-        "preserve_current_non_current_residual": True,
-        "predicted_fiscal_year": target_year,
+        "sim_business_plan_mode": "default" if fixture_mode else CALIBRATED_BP_RATE_V4_MODE,
+        "preserve_current_non_current_residual": False if fixture_mode else True,
+        "predicted_fiscal_year": None if fixture_mode else target_year,
         "semantic_contract_version": "V4.3_FINAL_20260912",
         "candidate_runtime_hash": _sha256_file(action_path),
         "action_semantic_contract_version": action[
@@ -582,10 +606,7 @@ def _validate_llm_action_table(
     scales = {
         f"action__{key}": float(value)
         for key, value in json.loads(
-            (
-                Path(__file__).resolve().parents[4]
-                / "archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_action_contract_v4_3.json"
-            ).read_text(encoding="utf-8")
+            active_action_contract(Path(__file__).resolve().parents[4]).read_text(encoding="utf-8")
         )["normalization_scale_by_dimension"].items()
     }
     b1 = df["budget"].astype(str).eq("B1")
@@ -619,6 +640,7 @@ def _per_policy_summary(merged: pd.DataFrame) -> pd.DataFrame:
 def run_stage8(
     *,
     project_root: Path,
+    fixture_mode: bool = False,
 ) -> dict:
     """Execute Stage 8 end-to-end and write all outputs."""
     project_root = Path(project_root).resolve()
@@ -628,10 +650,7 @@ def run_stage8(
     out.mkdir(parents=True, exist_ok=True)
 
     # --- current V4.3 action contract and Stage7 lineage ---
-    action_contract_path = (
-        project_root
-        / "archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_action_contract_v4_3.json"
-    )
+    action_contract_path = active_action_contract(project_root)
     action_contract_hash = _sha256_file(action_contract_path)
     space = load_current_action_space(project_root)
     base_hashes = {
@@ -691,10 +710,10 @@ def run_stage8(
     base = read_parquet_required(base_path)
 
     # --- backend registry (identical to Stage 6) ---
-    reg_path = project_root / "configs" / "current" / "final_freeze" / "oracle_backend_registry.yaml"
+    reg_path = active_oracle_registry(project_root)
     reg = load_registry(reg_path)
     backends = reg.get("backends", {})
-    if reg.get("final_result_allowed") is not True or reg.get("status") != "generated_by_stage1_oracle_development_verified":
+    if reg.get("final_result_allowed") is not True or (not fixture_mode and reg.get("status") != "generated_by_stage1_oracle_development_verified"):
         raise ValueError(
             "Stage 8 refuses to score: Oracle backend registry is not "
             "final/generated_by_stage1_oracle_development_verified."
@@ -705,18 +724,19 @@ def run_stage8(
     # are read from Stage 6 metadata and passed explicitly; using the Stage 6
     # function defaults would silently score LLM actions on a different
     # simulator substrate than the current A0 baseline consumed below.
-    simulator_identity = _load_stage6_simulator_identity(project_root)
+    simulator_identity = _load_stage6_simulator_identity(project_root, fixture_mode=fixture_mode)
     sim_state, audit = simulate_llm_policy_states(
         base,
         action_table,
         space,
         out,
-        predicted_fiscal_year=int(simulator_identity["predicted_fiscal_year"]),
+        predicted_fiscal_year=(None if simulator_identity["predicted_fiscal_year"] is None else int(simulator_identity["predicted_fiscal_year"])),
         preserve_current_non_current_residual=bool(
             simulator_identity["preserve_current_non_current_residual"]
         ),
         sim_business_plan_mode=str(simulator_identity["sim_business_plan_mode"]),
         project_root=project_root,
+        fixture_mode=fixture_mode,
     )
 
     if "sim_business_plan_mode" in audit.columns:
@@ -767,6 +787,7 @@ def run_stage8(
         "row_id",
         "firm_key",
         "model_key",
+        "generation_regime",
         "phase",
         "policy",
         "mode",
@@ -822,7 +843,7 @@ def run_stage8(
         merged = merged.merge(s, on=score_key_cols, how="outer")
 
     # --- pull current A0 scores from Stage 6 and compute delta_R_score ---
-    noop_by_backend = _load_stage6_noop_scores(project_root)
+    noop_by_backend = _load_stage6_noop_scores(project_root, fixture_mode=fixture_mode)
     for backend in ["alpha", "beta", "gamma"]:
         merged = merged.merge(noop_by_backend[backend], on="row_id", how="left")
         merged[f"delta_R_score_{backend}"] = (

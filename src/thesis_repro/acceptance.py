@@ -48,10 +48,19 @@ def _prepare_raw_fixture(root: Path, run_id: str) -> dict:
 
 def run_acceptance(run_id: str = "ci-e2e", *, root: Path = ROOT) -> dict:
     _prepare_raw_fixture(root, run_id)
-    manifest = execute("FullClean", run_id, profile="synthetic", to_stage="RLDataset")
-    manifest["acceptance_segment_status"] = "PASS" if manifest.get("completion_state") == "PARTIAL_EXECUTION" else "FAILED"
+    # Acceptance is a real full-DAG invocation.  It may use a reduced fixture
+    # and mock provider transport, but it must not reinterpret a prefix as a
+    # successful run.
+    manifest = execute(
+        "FullClean",
+        run_id,
+        profile="synthetic",
+        resume=False,
+        execute_llm=False,
+    )
+    manifest["acceptance_segment_status"] = "PASS" if manifest.get("completion_state") == "PASS" and manifest.get("dag_complete") else "FAILED"
     manifest["certifiable"] = False
-    manifest["acceptance_architecture"] = {"run_engine_used": True, "canonical_adapters_used": True, "engineered_scientific_stages": ["VerifyInputs", "Oracle", "VerifyOracle", "Simulator", "RLDataset"]}
+    manifest["acceptance_architecture"] = {"run_engine_used": True, "canonical_adapters_used": True, "scientific_stages": manifest.get("required_stages", []), "full_dag_remains_unexecuted": False}
     path = root / "runs" / run_id / "00_run" / "acceptance_report.json"
     path.write_text(json.dumps({"status": manifest["acceptance_segment_status"], "execution_class": manifest.get("execution_class"), "completion_state": manifest.get("completion_state"), "certifiable": False, "lineage_closed": True, "run_engine_used": True, "canonical_adapters_used": True}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     from .paths import write_json

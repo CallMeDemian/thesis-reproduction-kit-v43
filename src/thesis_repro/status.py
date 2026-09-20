@@ -16,9 +16,7 @@ INPUT_REQUIRED: Final = "INPUT_REQUIRED"
 APPROVAL_REQUIRED: Final = "APPROVAL_REQUIRED"
 CREDENTIALS_REQUIRED: Final = "CREDENTIALS_REQUIRED"
 RESOURCE_REQUIRED: Final = "RESOURCE_REQUIRED"
-NOT_IMPLEMENTED: Final = "NOT_IMPLEMENTED"
-NOT_EXECUTED: Final = "NOT_EXECUTED"
-EXECUTED_UNVERIFIED: Final = "EXECUTED_UNVERIFIED"
+EXTERNAL_WAIT: Final = "EXTERNAL_WAIT"
 SMOKE_PASS: Final = "SMOKE_PASS"
 SMOKE_PASS_WITH_SKIPS: Final = "SMOKE_PASS_WITH_SKIPS"
 SMOKE_FAILED: Final = "SMOKE_FAILED"
@@ -32,9 +30,7 @@ BLOCKING: Final = frozenset({
     APPROVAL_REQUIRED,
     CREDENTIALS_REQUIRED,
     RESOURCE_REQUIRED,
-    NOT_IMPLEMENTED,
-    NOT_EXECUTED,
-    EXECUTED_UNVERIFIED,
+    EXTERNAL_WAIT,
     SMOKE_FAILED,
 })
 
@@ -52,10 +48,9 @@ def is_terminal_block(status: str) -> bool:
 
 
 def normalize_legacy_status(status: str) -> str:
-    """Map pre-contract adapter labels to the single public vocabulary."""
+    """Normalize only historical terminal labels still found in old manifests."""
     return {
         "PASS_WITH_SKIPS": SMOKE_PASS_WITH_SKIPS,
-        "IMPLEMENTED_UNEXECUTED": NOT_EXECUTED,
         "ORACLE_EXECUTION_FAILED": FAILED,
         "ORACLE_VERIFICATION_FAILED": FAILED,
         "ORACLE_ARTIFACTS_INCOMPLETE": FAILED,
@@ -75,16 +70,7 @@ def aggregate_completion(statuses: list[str], *, profile: str) -> str:
         if normalized and all(value in {SMOKE_PASS, SMOKE_PASS_WITH_SKIPS} for value in normalized):
             return SMOKE_PASS_WITH_SKIPS
         return SMOKE_FAILED
-    for candidate in (
-        FAILED,
-        INPUT_REQUIRED,
-        APPROVAL_REQUIRED,
-        CREDENTIALS_REQUIRED,
-        RESOURCE_REQUIRED,
-        NOT_IMPLEMENTED,
-        NOT_EXECUTED,
-        EXECUTED_UNVERIFIED,
-    ):
+    for candidate in (FAILED, INPUT_REQUIRED, APPROVAL_REQUIRED, CREDENTIALS_REQUIRED, RESOURCE_REQUIRED, EXTERNAL_WAIT):
         if candidate in normalized:
             return candidate
     if normalized and all(value == PASS for value in normalized):

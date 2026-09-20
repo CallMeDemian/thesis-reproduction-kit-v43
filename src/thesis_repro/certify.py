@@ -34,16 +34,15 @@ def certify_run(run_id: str) -> dict[str, Any]:
     required = STAGES.get("FullClean", []) if mode == "FullClean" else STAGES.get(mode, [])
     if mode != "FullClean":
         errors.append("certification_requires_FullClean_mode")
-    for stage in ("Simulator", "RLDataset"):
-        validation = run_dir / ("03_simulator/simulator_validation_report.json" if stage == "Simulator" else "04_rl_dataset/dataset_validation_report.json")
-        if not validation.is_file():
-            errors.append(f"{stage.lower()}_validation_missing")
-        else:
-            try:
-                if load_json(validation).get("status") != "PASS":
-                    errors.append(f"{stage.lower()}_validation_not_pass")
-            except Exception:
-                errors.append(f"{stage.lower()}_validation_unreadable")
+    stage2_validation = run_dir / "03_stage2/stage2_validation_report.json"
+    if not stage2_validation.is_file():
+        errors.append("stage2_validation_missing")
+    else:
+        try:
+            if load_json(stage2_validation).get("status") != "PASS":
+                errors.append("stage2_validation_not_pass")
+        except Exception:
+            errors.append("stage2_validation_unreadable")
     if run_dir.is_dir() and manifest:
         trace = trace_run(run_id)
         if trace.get("lineage_closed") is not True:

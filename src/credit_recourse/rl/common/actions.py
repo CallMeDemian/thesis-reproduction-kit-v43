@@ -5,7 +5,7 @@ import hashlib
 import json
 import numpy as np
 import pandas as pd
-from .io import config_root, final_root, load_yaml
+from .io import final_root, load_yaml
 
 PROJECTION_NEAR_TIE_MARGIN = 0.025
 PROJECTION_MIN_OBSERVED_VARIABLE_FRACTION = 0.50
@@ -124,20 +124,21 @@ def _sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 def active_config_hashes(project_root: Path) -> dict[str, str]:
-    cfg = config_root(project_root)
-    cand_path = cfg / "final_candidate_library.yaml"
-    action_path = cfg / "final_action_contract.yaml"
+    root = Path(project_root).resolve()
+    cand_path = root / "contracts/scientific/v43_action_contract.json"
+    action_path = cand_path
     if not cand_path.exists():
         raise FileNotFoundError(f"Missing final candidate library: {cand_path}")
     if not action_path.exists():
         raise FileNotFoundError(f"Missing final action contract: {action_path}")
+    contract_hash = _sha256_file(action_path)
     return {
         "candidate_template_hash": _sha256_file(cand_path),
         "candidate_template_path": str(cand_path),
         # Compatibility aliases.  Runtime consumers must additionally embed
         # candidate_runtime_hash/path for the generated P50 library.
         "candidate_library_hash": _sha256_file(cand_path),
-        "final_action_contract_hash": _sha256_file(action_path),
+        "final_action_contract_hash": contract_hash,
         "candidate_library_path": str(cand_path),
         "final_action_contract_path": str(action_path),
     }
@@ -151,7 +152,7 @@ def resolve_candidate_library_path(
 ) -> Path:
     """Resolve the candidate-library YAML consumed by an action-space user.
 
-    The canonical active config remains ``configs/current/final_freeze/final_candidate_library.yaml``.
+    The canonical active config is the promoted V4.3 JSON action contract.
     RL training/evaluation can consume Stage2's materialized magnitude-calibrated
     libraries (``final_candidate_library__P{q}.yaml``).  LLM stages use this helper
     so their prompt table, projection space, and simulator actions can be explicitly
@@ -169,7 +170,7 @@ def resolve_candidate_library_path(
             raise ValueError(f"Unsupported candidate-library magnitude quantile: {q}")
         path = final_root(root) / "stage2_candidate_projection" / f"final_candidate_library__P{q}.yaml"
     else:
-        path = config_root(root) / "final_candidate_library.yaml"
+        path = root / "contracts/scientific/v43_action_contract.json"
     path = path.resolve()
     if not path.exists():
         raise FileNotFoundError(f"Candidate library not found: {path}")
@@ -213,7 +214,8 @@ def assert_hashes_match(
         raise ValueError(f"{context} hash mismatch for {key}: checkpoint={found} active={expected}")
 
 def _load_runtime_action_contract(cfg: Path) -> tuple[list[str], dict[str, tuple[float, float]], dict]:
-    action = load_yaml(cfg / "final_action_contract.yaml")
+    path = cfg
+    action = json.loads(path.read_text(encoding="utf-8"))
     if "action_columns" in action:
         columns = list(action["action_columns"])
     else:
@@ -231,7 +233,7 @@ def load_action_space(
     candidate_library_path: str | Path | None = None,
     magnitude_quantile: int | None = None,
 ) -> ActionSpace:
-    cfg = config_root(project_root)
+    cfg = Path(project_root).resolve() / "contracts/scientific/v43_action_contract.json"
     columns, bounds, action = _load_runtime_action_contract(cfg)
     cand_path = resolve_candidate_library_path(
         project_root,
@@ -431,7 +433,7 @@ def _apply_a0_margin_override(
         raise ValueError(f"Unknown a0_policy: {a0_policy}")
     if not np.isfinite(float(a0_margin)) or float(a0_margin) < 0:
         raise ValueError(f"a0_margin must be a non-negative finite number: {a0_margin}")
-    noop_idx = cand_names.index("A0_noop") if "A0_noop" in cand_names else None
+    noop_idx = cand_names.index("A0") if "A0" in cand_names else None
     raw_best = primary_order[:, 0].astype(int)
     chosen = raw_best.copy()
     n = len(raw_best)
@@ -544,7 +546,7 @@ def project_actions_to_candidates(
         w = np.ones_like(widths, dtype=np.float32)
         primary_dists = l1_dists
 
-    noop_idx = cand_names.index("A0_noop") if "A0_noop" in cand_names else 0
+    noop_idx = cand_names.index("A0") if "A0" in cand_names else 0
     cand_active = np.abs(C) > 1e-12
     evidence_eps = np.maximum(widths * 1e-3, 1e-9)
 
@@ -606,7 +608,7 @@ def project_actions_to_candidates(
         chosen = active_chosen.copy()
         a0_diag = {
             "raw_best_is_a0": primary_order[:, 0] == noop_idx,
-            "a0_distance": primary_dists[:, noop_idx] if "A0_noop" in cand_names else np.full(len(X), np.nan),
+            "a0_distance": primary_dists[:, noop_idx] if "A0" in cand_names else np.full(len(X), np.nan),
             "best_non_noop_idx": np.full(len(X), -1, dtype=np.int32),
             "best_non_noop_dist": np.full(len(X), np.nan, dtype=np.float32),
             "keep_by_margin": primary_order[:, 0] == noop_idx,

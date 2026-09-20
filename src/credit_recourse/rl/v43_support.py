@@ -6,12 +6,12 @@ import numpy as np
 import pandas as pd
 import pyarrow.parquet as pq
 from credit_recourse.rl.v43_one_pass_contract import RUN_PATH, TEMPORAL, write_json, run_path
+from credit_recourse.rl.v43_one_pass_data import input_root
 from credit_recourse.rl.contracts.v43_encoder import ACTION_IDS, KEYS, file_sha256, content_hash
 from credit_recourse.rl.v43_features import canonical_keys, key_hash
 from credit_recourse.simulator.historical_source import read_financial_panel, state_from_record
 from credit_recourse.simulator.v43_production_bundle import V43ProductionSimulationBundle, financial_record
 
-INPUT_ROOT = 'archive/DEPLOYED_RELEASE/stage2_candidate_projection'
 PHASES = {3: 'phase1_pretrain.parquet', 4: 'phase2_bc.parquet', 5: 'phase3_iql.parquet'}
 SUPPORT_RULE = 'all_nine_candidates_pass_frozen_simulator_invariants'
 INFEASIBILITY_PREFIXES = (
@@ -24,7 +24,7 @@ INFEASIBILITY_PREFIXES = (
 def temporal_source_rows(root):
     frames = []
     for name in PHASES.values():
-        path = Path(root) / INPUT_ROOT / 'input_splits' / name
+        path = input_root(root) / 'input_splits' / name
         columns = list(KEYS) + (['fiscal_year_next'] if 'fiscal_year_next' in pq.read_schema(path).names else [])
         frame = pd.read_parquet(path, columns=columns)
         frame[list(KEYS)] = canonical_keys(frame)
@@ -72,7 +72,7 @@ def prepare_action_support(root):
     if (folder / 'action_support_metadata.json').exists():
         raise FileExistsError('Action support already frozen')
     rows = temporal_source_rows(root)
-    history_path = root / INPUT_ROOT / 'input_splits/canonical_business_plan_history.parquet'
+    history_path = input_root(root) / 'input_splits/canonical_business_plan_history.parquet'
     accounts, _ = read_financial_panel(history_path)
     accounts = accounts.loc[accounts.fiscal_year.le(2022)]
     states, histories = {}, {}
@@ -85,13 +85,13 @@ def prepare_action_support(root):
     bundle = replace(V43ProductionSimulationBundle.from_project_root(root), _rate_resolver=training_rate_resolver(root))
     _, rate_report = read_extended_rates(root)
     unavailable_rates = {(r['firm_id'],r['fiscal_year']):r['reason'] for r in rate_report.get('unavailable_rate_keys',[])}
-    stage5 = canonical_keys(pd.read_parquet(root / INPUT_ROOT / 'input_splits' / PHASES[5], columns=list(KEYS)))
+    stage5 = canonical_keys(pd.read_parquet(input_root(root) / 'input_splits' / PHASES[5], columns=list(KEYS)))
     retain = set(stage5.itertuples(index=False, name=None))
     sources = [history_path, root / RUN_PATH / '01_contract/extended_bp_rate_ledger.parquet', root / RUN_PATH / '01_contract/extended_bp_rate_preflight.json',
         root / 'src/credit_recourse/rl/v43_support.py', root / 'src/credit_recourse/rl/v43_one_pass_contract.py']
-    sources += [root / INPUT_ROOT / 'input_splits' / name for name in PHASES.values()]
+    sources += [input_root(root) / 'input_splits' / name for name in PHASES.values()]
     sources += list((root / 'src/credit_recourse/simulator').glob('*.py'))
-    sources += [root / 'archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_action_contract_v4_3.json']
+    sources += [input_root(root) / 'candidate_action_contract_v4_3.json']
     from credit_recourse.simulator.financial_cost_v43 import SOURCE_PATH
     sources += [root/SOURCE_PATH, root/RUN_PATH/'01_contract/r085_financial_cost_contract.json', root/'src/credit_recourse/contracts/account_registry.py']
     source_hashes = {p.relative_to(root).as_posix(): file_sha256(p) for p in sources}

@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from .common import ContractError, find_repo_root, load_json
+from credit_recourse.contracts.runtime_assets import active_action_contract
 
 
 DIMENSIONS = (
@@ -32,7 +33,7 @@ class AppliedAction:
 
 def load_action_contract(root: Path | None = None) -> dict[str, Any]:
     repo = root or find_repo_root()
-    return load_json(repo / "archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_action_contract_v4_3.json")
+    return load_json(active_action_contract(repo))
 
 
 def _coerce_exact_vector(value: Mapping[str, Any]) -> dict[str, float]:

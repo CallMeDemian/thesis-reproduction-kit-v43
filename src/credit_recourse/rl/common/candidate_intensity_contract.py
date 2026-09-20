@@ -26,7 +26,7 @@ INTENSITY_TOLERANCE = 1e-8
 VECTOR_TOLERANCE = 1e-12
 
 TARGET_INTENSITY_BY_CANDIDATE: dict[str, float] = {
-    "A0_noop": 0.0,
+    "A0": 0.0,
     "DL1_deleverage_mild": 1.0,
     "DL2_deleverage_moderate": 1.5,
     "RF1_short_debt_refinance": 1.0,
@@ -40,7 +40,7 @@ TARGET_INTENSITY_BY_CANDIDATE: dict[str, float] = {
 }
 
 FAMILY_BY_CANDIDATE: dict[str, str] = {
-    "A0_noop": "noop",
+    "A0": "noop",
     "DL1_deleverage_mild": "deleveraging",
     "DL2_deleverage_moderate": "deleveraging",
     "RF1_short_debt_refinance": "refinancing",
@@ -132,9 +132,9 @@ def normalize_candidate_library(
         if old_intensity is None:
             raise ActionNormalizationConflict(f"Cannot measure intensity for {candidate}")
         target = float(TARGET_INTENSITY_BY_CANDIDATE[candidate])
-        if candidate == "A0_noop":
+        if candidate == "A0":
             if abs(old_intensity) > INTENSITY_TOLERANCE:
-                raise ActionNormalizationConflict("A0_noop is not a zero-intensity vector")
+                raise ActionNormalizationConflict("A0 is not a zero-intensity vector")
             scale_factor = 1.0
         else:
             if old_intensity <= 0.0:
@@ -250,7 +250,7 @@ def normalize_candidate_library(
     zero_non_noop = [
         name
         for name in names
-        if name != "A0_noop"
+        if name != "A0"
         and standardized_action_intensity(normalized_fixed[name], scales) <= INTENSITY_TOLERANCE
     ]
     if zero_non_noop:

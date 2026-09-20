@@ -1,5 +1,6 @@
 """Single temporal population, factual labels and shared feature artifacts."""
 from pathlib import Path
+import os
 import json
 import numpy as np
 import pandas as pd
@@ -12,19 +13,26 @@ from credit_recourse.rl.v43_one_pass_contract import (
 )
 from credit_recourse.simulator.historical_source import read_financial_panel
 
-INPUT_ROOT = 'archive/DEPLOYED_RELEASE/stage2_candidate_projection'
 PHASES = {3:'phase1_pretrain.parquet',4:'phase2_bc.parquet',5:'phase3_iql.parquet'}
+
+def input_root(root: Path) -> Path:
+    configured = os.environ.get('THESIS_REPRO_STAGE2_INPUT_ROOT')
+    if configured:
+        path = Path(configured)
+        return path if path.is_absolute() else Path(root) / path
+    raise FileNotFoundError('fresh Stage2 input root is not bound; set THESIS_REPRO_STAGE2_INPUT_ROOT')
 
 def _run_path(root):
     return run_path(root)
 
 def source_manifest(root):
-    paths = [f'{INPUT_ROOT}/input_splits/{name}' for name in PHASES.values()]
-    paths += [f'{INPUT_ROOT}/input_splits/canonical_business_plan_history.parquet',
-        f'{INPUT_ROOT}/action_sources/stage2_raw_action_source_panel.parquet',
-        'archive/DEPLOYED_RELEASE/stage2_candidate_projection/runtime_inputs/historical_financial_context_v4_3/actual_context.parquet',
-        'archive/DEPLOYED_RELEASE/stage2_candidate_projection/runtime_inputs/historical_financial_context_v4_3/actual_financial_states.parquet',
-        'archive/DEPLOYED_RELEASE/stage2_candidate_projection/v4_3_runtime/01_contract/financial_cost_sources_r2/history_financial_cost_sources.parquet']
+    source = input_root(root)
+    paths = [str(source / 'input_splits' / name) for name in PHASES.values()]
+    paths += [str(source / 'input_splits/canonical_business_plan_history.parquet'),
+        str(source / 'action_sources/stage2_raw_action_source_panel.parquet'),
+        str(source / 'runtime_inputs/historical_financial_context_v4_3/actual_context.parquet'),
+        str(source / 'runtime_inputs/historical_financial_context_v4_3/actual_financial_states.parquet'),
+        str(source / 'v4_3_runtime/01_contract/financial_cost_sources_r2/history_financial_cost_sources.parquet')]
     from credit_recourse.rl.contracts.v43_encoder import RATE_PATH, RATE_CONTRACT_PATH, ACTION_PATH, CALIBRATION_PATH
     paths += [RATE_PATH,RATE_CONTRACT_PATH,ACTION_PATH,CALIBRATION_PATH,
         f"{_run_path(root)}/01_contract/r085_financial_cost_contract.json",
@@ -36,7 +44,7 @@ def source_manifest(root):
     for name in ('action_support.parquet','action_support_metadata.json','candidate_support.parquet'):
         path=f'{_run_path(root)}/02_data/{name}'
         if (Path(root)/path).exists():paths.append(path)
-    return {path:file_sha256(Path(root)/path) for path in paths}
+    return {str(Path(path).resolve().relative_to(Path(root).resolve())).replace('\\', '/'):file_sha256(Path(path)) for path in paths}
 
 def prepare_populations(root):
     root=Path(root); out=root/_run_path(root)
@@ -50,7 +58,8 @@ def prepare_populations(root):
     from credit_recourse.rl.v43_support import read_action_support
     support,support_metadata=read_action_support(root)
     codec=V43ActionCodec(contract)
-    raw_path=root/INPUT_ROOT/'action_sources/stage2_raw_action_source_panel.parquet'
+    source_root = input_root(root)
+    raw_path=source_root/'action_sources/stage2_raw_action_source_panel.parquet'
     accounts, account_lineage=read_financial_panel(raw_path)
     accounts=accounts.loc[accounts.fiscal_year<=TEMPORAL.train_outcome_year_max].reset_index(drop=True)
     operating_columns=[*KEYS,*codec.columns[3:],*[d.replace('action__','action_observed__',1) for d in codec.columns[3:]]]
@@ -60,12 +69,12 @@ def prepare_populations(root):
     folder=out/'02_data'; folder.mkdir(parents=True,exist_ok=True)
     projection.to_parquet(folder/'factual_nine_action_projection.parquet',index=False)
     codec.ledger().to_csv(folder/'nine_action_semantic_ledger.csv',index=False)
-    history=pd.read_parquet(root/INPUT_ROOT/'input_splits/canonical_business_plan_history.parquet',columns=list(KEYS),filters=[('fiscal_year','<=',2023)])
+    history=pd.read_parquet(source_root/'input_splits/canonical_business_plan_history.parquet',columns=list(KEYS),filters=[('fiscal_year','<=',2023)])
     history=canonical_keys(history)
-    current_keys=pd.read_parquet(root/INPUT_ROOT/'input_splits/phase1_pretrain.parquet',columns=list(KEYS))
+    current_keys=pd.read_parquet(source_root/'input_splits/phase1_pretrain.parquet',columns=list(KEYS))
     target_keys=canonical_keys(current_keys); target_keys['fiscal_year']+=1
     missing=~pd.MultiIndex.from_frame(target_keys).isin(pd.MultiIndex.from_frame(history))
-    actual, _=read_financial_panel(root/'archive/DEPLOYED_RELEASE/stage2_candidate_projection/runtime_inputs/historical_financial_context_v4_3/actual_financial_states.parquet')
+    actual, _=read_financial_panel(source_root/'runtime_inputs/historical_financial_context_v4_3/actual_financial_states.parquet')
     targets=actual.loc[pd.MultiIndex.from_frame(actual[list(KEYS)]).isin(pd.MultiIndex.from_frame(target_keys.loc[missing]))].reset_index(drop=True)
     if targets.fiscal_year.max()>2023 or len(targets)!=int(missing.sum()):
         raise ValueError('Authoritative next-state supplement is incomplete or outside the time boundary')
@@ -73,13 +82,13 @@ def prepare_populations(root):
     history_index=pd.MultiIndex.from_frame(pd.concat([history,targets[list(KEYS)]],ignore_index=True))
     summaries=[]; eligible=[]
     for stage,name in PHASES.items():
-        path=root/INPUT_ROOT/'input_splits'/name
+        path=source_root/'input_splits'/name
         columns=pq.read_schema(path).names
         wanted=[c for c in (*KEYS,'fiscal_year_next','rating_reward_value','rating_reward_observed','rating_event_id','rating_event_id__next','sector_7') if c in columns]
-        source=pd.read_parquet(path,columns=wanted)
-        source[list(KEYS)]=canonical_keys(source)
-        source['outcome_year']=pd.to_numeric(source.pop('fiscal_year_next'),errors='raise').astype('int64') if 'fiscal_year_next' in source else source.fiscal_year+1
-        rows=source.merge(projection,on=list(KEYS),how='left',validate='one_to_one')
+        source_frame=pd.read_parquet(path,columns=wanted)
+        source_frame[list(KEYS)]=canonical_keys(source_frame)
+        source_frame['outcome_year']=pd.to_numeric(source_frame.pop('fiscal_year_next'),errors='raise').astype('int64') if 'fiscal_year_next' in source_frame else source_frame.fiscal_year+1
+        rows=source_frame.merge(projection,on=list(KEYS),how='left',validate='one_to_one')
         next_keys=rows[list(KEYS)].copy(); next_keys['fiscal_year']=rows.outcome_year
         rows['outcome_available']=pd.MultiIndex.from_frame(next_keys).isin(history_index)
         rows=rows.merge(support.rename(columns={'action_support_valid':'candidate_action_support_valid'}),on=list(KEYS),how='left',validate='one_to_one')

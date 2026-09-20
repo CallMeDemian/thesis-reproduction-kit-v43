@@ -12,16 +12,16 @@ class FreshRuntimePaths:
     raw_root: Path
     oracle_root: Path
     stage2_root: Path
-    stage3_root: Path
-    stage4_root: Path
-    actor_root: Path
+    rl_encoder_root: Path
+    rl_bc_root: Path
+    rl_iql_root: Path
     c3e_root: Path
     stage6_root: Path
     llm_root: Path
-    stage7_root: Path
     stage8_root: Path
     stage9_root: Path
-    analysis_root: Path
+    results_root: Path
+    thesis_outputs_root: Path
     comparison_root: Path
     release_root: Path
     logs_root: Path
@@ -31,12 +31,13 @@ class FreshRuntimePaths:
         run_root = Path(root) / "runs" / run_id
         values = {"root": Path(root), "run_id": run_id, "run_root": run_root,
                   "raw_root": run_root / "01_inputs", "oracle_root": run_root / "02_oracle",
-                  "stage2_root": run_root / "03_simulator", "stage3_root": run_root / "04_rl_dataset",
-                  "stage4_root": run_root / "05_rl_encoder", "actor_root": run_root / "06_rl_bc",
-                  "c3e_root": run_root / "08_c3e", "stage6_root": run_root / "08_c3e",
-                  "llm_root": run_root / "09_llm", "stage7_root": run_root / "09_llm",
+                  "stage2_root": run_root / "03_stage2", "rl_encoder_root": run_root / "04_rl_encoder",
+                  "rl_bc_root": run_root / "05_rl_bc", "rl_iql_root": run_root / "06_rl_iql",
+                  "c3e_root": run_root / "07_c3e", "stage6_root": run_root / "08_stage6",
+                  "llm_root": run_root / "09_llm",
                   "stage8_root": run_root / "10_stage8", "stage9_root": run_root / "11_stage9",
-                  "analysis_root": run_root / "13_thesis_outputs", "comparison_root": run_root / "14_comparison",
+                  "results_root": run_root / "12_results", "thesis_outputs_root": run_root / "13_thesis_outputs",
+                  "comparison_root": run_root / "14_comparison",
                   "release_root": run_root / "15_release", "logs_root": run_root / "logs"}
         result = cls(**values)
         if create:

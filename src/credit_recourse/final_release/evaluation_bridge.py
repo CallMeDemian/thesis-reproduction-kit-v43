@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -128,7 +129,8 @@ def materialize_evaluation_inputs(
         how="inner",
         validate="one_to_one",
     )
-    refs = pd.read_parquet(root / "configs/current/llm/C6EX_materialized.parquet")
+    config_root = Path(os.environ.get("THESIS_REPRO_LLM_CONFIG_ROOT", root / "frozen/evidence/llm"))
+    refs = pd.read_parquet(config_root / "C6EX_materialized.parquet")
     refs = refs.set_index("row_id", drop=False)
     if len(refs) != 575:
         raise ContractError("C6-EX materialized reference table is not 575 rows")

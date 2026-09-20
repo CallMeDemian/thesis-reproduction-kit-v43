@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-from thesis_repro.contracts import render_requests
-from thesis_repro.live_llm import gate_status, mock_responses
+from thesis_repro.llm_runtime import render_requests, gate_status, mock_responses
 
 
 def test_fresh_request_ids_are_namespaced_and_parented():

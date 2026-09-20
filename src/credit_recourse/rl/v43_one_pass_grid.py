@@ -8,7 +8,7 @@ from credit_recourse.rl.v43_one_pass_contract import load_run_config, assert_tra
 
 def _run_path(root):
     return run_path(root)
-from credit_recourse.rl.v43_one_pass_data import INPUT_ROOT, source_manifest
+from credit_recourse.rl.v43_one_pass_data import input_root, source_manifest
 from credit_recourse.rl.contracts.v43_encoder import ACTION_IDS, KEYS, V43EncoderContract, file_sha256
 from credit_recourse.rl.v43_features import canonical_keys, key_hash
 from credit_recourse.rl.v43_reward_math import (
@@ -116,7 +116,8 @@ def generate_grid(root,*,evaluation=False):
     destination=folder/(prefix+'_financial_grid.parquet')
     if destination.exists():raise FileExistsError('Grid already materialized: '+str(destination))
     if evaluation:
-        rows=pd.read_parquet(root/INPUT_ROOT/'input_splits/phase_eval.parquet',columns=list(KEYS))
+        source = input_root(root)
+        rows=pd.read_parquet(source/'input_splits/phase_eval.parquet',columns=list(KEYS))
         rows=canonical_keys(rows)
         if len(rows)!=575 or not rows.fiscal_year.eq(2024).all():raise ValueError('Evaluation cohort changed')
     else:
@@ -124,7 +125,8 @@ def generate_grid(root,*,evaluation=False):
         rows=rows.loc[rows.rl_fit_allowed].reset_index(drop=True)
         assert_training_rows(rows)
         stats,cdf=fit_reward_statistics(root,rows)
-    accounts,_=read_financial_panel(root/INPUT_ROOT/'input_splits/canonical_business_plan_history.parquet')
+    source = input_root(root)
+    accounts,_=read_financial_panel(source/'input_splits/canonical_business_plan_history.parquet')
     accounts=accounts.loc[accounts.fiscal_year<=(2024 if evaluation else 2022)].reset_index(drop=True)
     histories={};states={}
     for record in accounts.to_dict('records'):
@@ -138,7 +140,7 @@ def generate_grid(root,*,evaluation=False):
         bundle=replace(bundle,_rate_resolver=training_rate_resolver(root))
     if evaluation:
         from credit_recourse.eval.v43_financial_inputs import _row_to_firm_state
-        base=pd.read_parquet(root/INPUT_ROOT/'phase_eval_candidate.parquet')
+        base=pd.read_parquet(source/'phase_eval_candidate.parquet')
         for raw in base.to_dict('records'):
             state=_row_to_firm_state(pd.Series(raw))
             states[(str(state.firm_id),int(state.year))]=state

@@ -109,8 +109,11 @@ class V43FeatureProducer:
         from credit_recourse.simulator.historical_source import read_financial_panel
         from credit_recourse.rl.contracts.v43_encoder import RATE_PATH, PURE_INTEREST_PATH, file_sha256
         root = Path(root)
-        external = os.environ.get("THESIS_REPRO_RL_INPUT_ROOT")
-        input_root = Path(external).resolve() if external else root / "archive/DEPLOYED_RELEASE/stage2_candidate_projection"
+        # Stage2 inputs are resolved at call time so a fresh run can bind the
+        # exact same producer to its run-local input_source namespace.  The
+        # legacy deployed root remains a compatibility fallback only.
+        from credit_recourse.rl.v43_one_pass_data import input_root as stage2_input_root
+        input_root = stage2_input_root(root).resolve()
         paths = {
             "canonical": input_root / "input_splits/canonical_business_plan_history.parquet",
             "historical": input_root / "runtime_inputs/historical_financial_context_v4_3/actual_financial_states.parquet",
@@ -128,7 +131,7 @@ class V43FeatureProducer:
             accounts["source__target_only"] = False
             accounts = pd.concat([accounts,target_accounts],ignore_index=True)
             canonical_keys(accounts)
-        interest_path = (input_root / "v4_3_runtime/01_contract/financial_cost_sources_r2/history_financial_cost_sources.parquet") if external else root / PURE_INTEREST_PATH
+        interest_path = input_root / "v4_3_runtime/01_contract/financial_cost_sources_r2/history_financial_cost_sources.parquet"
         interest = pd.read_parquet(interest_path, columns=[*KEYS, "U01B550010000", "interest_source_conflict"])
         interest[list(KEYS)] = canonical_keys(interest)
         values = pd.to_numeric(interest["U01B550010000"], errors="raise")

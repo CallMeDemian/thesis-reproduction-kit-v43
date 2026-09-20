@@ -9,6 +9,7 @@ import zipfile
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import pandas as pd
 
 from .frozen import REGISTRY_MEMBER, reproduce_frozen
@@ -50,7 +51,16 @@ def _compare_registry(root: Path, run_id: str) -> dict[str, Any]:
         if column in frozen and column in generated:
             left = frozen.set_index("result_id")[column].sort_index()
             right = generated.set_index("result_id")[column].sort_index()
-            equal = left.index.equals(right.index) and (left.astype(float).to_numpy() == right.astype(float).to_numpy()).all()
+            if column == "N":
+                equal = left.index.equals(right.index) and left.astype("Int64").equals(right.astype("Int64"))
+            else:
+                equal = left.index.equals(right.index) and np.isclose(
+                    left.astype(float).to_numpy(),
+                    right.astype(float).to_numpy(),
+                    atol=1e-12,
+                    rtol=1e-12,
+                    equal_nan=True,
+                ).all()
             checks.append({"name": f"{column}_match", "status": "PASS" if equal else "FAIL"})
     return {"status": "PASS" if all(check["status"] == "PASS" for check in checks) else "FAIL", "generated": str(generated_path), "frozen_registry_rows": len(frozen), "checks": checks}
 

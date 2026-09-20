@@ -16,6 +16,7 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
+from credit_recourse.contracts.runtime_assets import active_action_contract
 
 
 PRIMARY_CONTRASTS: tuple[tuple[str, str, str], ...] = (
@@ -43,10 +44,7 @@ class ActionGeometry:
 
 
 def load_action_geometry(project_root: Path) -> ActionGeometry:
-    path = (
-        Path(project_root).resolve()
-        / "archive/DEPLOYED_RELEASE/stage2_candidate_projection/candidate_action_contract_v4_3.json"
-    )
+    path = active_action_contract(Path(project_root).resolve())
     contract = json.loads(path.read_text(encoding="utf-8"))
     columns = tuple(contract["action_columns"])
     widths = np.asarray(
@@ -236,6 +234,9 @@ def build_revision_table(
             for key in (
                 "row_id",
                 "firm_key",
+                "cell_id",
+                "generation_regime",
+                "phase",
                 "model_key",
                 "mode",
                 "information_condition",
@@ -263,6 +264,8 @@ def build_identity_contrast_table(revision_df: pd.DataFrame) -> pd.DataFrame:
         for key in (
             "row_id",
             "firm_key",
+            "generation_regime",
+            "phase",
             "model_key",
             "mode",
             "information_condition",
@@ -307,6 +310,8 @@ def _contrast_pairs(scores: pd.DataFrame) -> pd.DataFrame:
         for key in (
             "row_id",
             "firm_key",
+            "generation_regime",
+            "phase",
             "model_key",
             "mode",
             "info",
@@ -461,6 +466,9 @@ def build_primary_contrasts(
             "control_condition",
             "row_id",
             "firm_key",
+            "cell_id",
+            "generation_regime",
+            "phase",
             "model_key",
             "mode",
             "info",

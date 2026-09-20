@@ -2,7 +2,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-V43_STAGE2_RUNTIME_PATH = Path("03_simulator")
+V43_STAGE2_RUNTIME_PATH = Path("03_stage2")
 V43_BP_RATE_SOURCE_PATH = Path("contracts/scientific/v43_rate_source")
 V43_BP_RATE_PRODUCTION_PATH = Path("contracts/scientific/v43_rate_production")
 
@@ -10,10 +10,11 @@ V43_BP_RATE_PRODUCTION_PATH = Path("contracts/scientific/v43_rate_production")
 # reproduction product exposes numbered run directories.  Keep the scientific
 # producer names, but resolve them to the active run namespace at call time.
 _RUN_STAGE_DIRS = {
-    "stage3": "05_rl_encoder",
-    "stage4": "06_rl_bc",
-    "stage5": "07_rl_iql",
-    "stage6": "08_c3e",
+    "stage2": "03_stage2",
+    "stage3": "04_rl_encoder",
+    "stage4": "05_rl_bc",
+    "stage5": "06_rl_iql",
+    "stage6": "08_stage6",
     "stage7": "09_llm",
     "stage8": "10_stage8",
     "stage9": "11_stage9",

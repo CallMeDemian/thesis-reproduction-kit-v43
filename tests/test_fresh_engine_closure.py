@@ -13,22 +13,19 @@ import pytest
 from credit_recourse.contracts.v43_action_contract import ACTION_DIMENSIONS, ACTION_IDS, load_action_contract
 from credit_recourse.eval.v43_oracle_backends import score_alpha, score_beta_ordered_logit_params, score_gamma_model
 from credit_recourse.oracle.stage0.build_stage0_foundation_from_raw import build_stage0_foundation
-from thesis_repro.contracts import EXPECTED_REQUESTS, render_requests
-from thesis_repro.live_llm import gate_status, mock_responses
+from thesis_repro.llm_runtime import EXPECTED_REQUESTS, render_requests, gate_status, mock_responses
 from thesis_repro.runtime_paths import FreshRuntimePaths
 from thesis_repro.stages.base import StageResult
-from thesis_repro.stages.adapters import HEAVY_GATE, LIVE_GATE
 from thesis_repro.status import aggregate_completion
 from thesis_repro.run_engine import STAGES
 from thesis_repro.execution_context import ExecutionContext, FRESH_REPLICATION, SYNTHETIC_E2E_ACCEPTANCE, scoped_oracle_compatibility, receipt_context
 from thesis_repro.c3e import aggregate_hierarchical, load_fresh_rl_contract
 from thesis_repro.fresh_rl import verify_actor_graph
-from thesis_repro.fresh_llm import prepare_requests, generate_mock, materialize_responses
+from thesis_repro.llm_runtime import prepare_requests, generate_mock, materialize_responses
 from thesis_repro.stages.oracle import _legacy_references, _require_stage1_success
 from credit_recourse.oracle.fresh_runtime import materialize_fresh_oracle_registry, resolve_fresh_oracle_runtime
 from credit_recourse.oracle.verification.verify_stage1_substrate_validation import _verdict
-from thesis_repro.fresh_simulator import _validate as validate_simulator_panel
-from thesis_repro.fresh_rl_dataset import verify_fresh_rl_dataset
+from thesis_repro.stage2 import validate_simulator_panel, verify_fresh_rl_dataset
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -136,11 +133,6 @@ def test_fresh_request_namespace_isolated():
 
 def test_live_gate_is_closed_by_default():
     assert gate_status()["authorized"] is False
-
-
-def test_gate_strings_are_explicit():
-    assert HEAVY_GATE == "I_APPROVE_28_ACTOR_RETRAIN"
-    assert LIVE_GATE == "I_APPROVE_FRESH_REPLICATION"
 
 
 def test_runtime_paths_are_run_local():
@@ -281,13 +273,15 @@ def test_mock_materialization_does_not_require_network(tmp_path):
     assert mock_responses(rows, tmp_path / "mock-closure-responses.jsonl")["execution_class"] == "mock_only"
 
 
-def test_capabilities_do_not_claim_full_execution():
-    payload = json.loads((ROOT / "capabilities.json").read_text(encoding="utf-8"))
-    assert "PARTIAL_EXECUTION" in payload["FullClean"]
-    assert "INPUT_GATED" in payload["FullClean"]
+def test_capability_registry_is_not_a_certification_authority():
+    # The registry documents capability truth but cannot certify a run; the
+    # executable run manifest and certification receipt remain authoritative.
+    registry = json.loads((ROOT / "capabilities.json").read_text(encoding="utf-8"))
+    assert registry["FreshFullDAG"] == "SYNTHETIC_ACCEPTANCE_VERIFIED_NOT_CERTIFIABLE"
+    assert registry["Certification"] == "SYNTHETIC_RUN_NOT_CERTIFIABLE"
 
 
-@pytest.mark.parametrize("status", ["FAILED", "INPUT_REQUIRED", "APPROVAL_REQUIRED", "NOT_IMPLEMENTED", "NOT_EXECUTED", "EXECUTED_UNVERIFIED"])
+@pytest.mark.parametrize("status", ["FAILED", "INPUT_REQUIRED", "APPROVAL_REQUIRED", "CREDENTIALS_REQUIRED", "RESOURCE_REQUIRED"])
 def test_full_terminal_failure_never_becomes_pass_with_skips(status):
     assert aggregate_completion([status], profile="full") == status
 
@@ -320,7 +314,7 @@ def test_new_run_cannot_begin_from_downstream_stage(tmp_path, monkeypatch):
     monkeypatch.setattr(data, "ROOT", tmp_path)
     monkeypatch.setattr(engine, "verify_input_contract", lambda write=True: {"status": "INPUT_REQUIRED", "present_file_count": 0})
     with pytest.raises(ValueError, match="may not begin from a downstream stage"):
-        engine.execute("FullClean", "new-downstream", "full", from_stage="Simulator")
+        engine.execute("FullClean", "new-downstream", "full", from_stage="Stage2")
 
 
 def test_ambient_synthetic_profile_cannot_downgrade_full_run(tmp_path, monkeypatch):
@@ -373,7 +367,7 @@ def test_acceptance_uses_canonical_dag_and_real_dispatch():
     import thesis_repro.acceptance as acceptance
     from thesis_repro import dag
     assert not hasattr(acceptance, "STAGES")
-    assert tuple(dag.stages_for("FullClean")[:5]) == ("VerifyInputs", "Oracle", "VerifyOracle", "Simulator", "RLDataset")
+    assert tuple(dag.stages_for("FullClean")[:5]) == ("VerifyInputs", "Oracle", "VerifyOracle", "Stage2", "RLEncoder")
 
 
 def test_verify_oracle_precedes_every_oracle_consumer():
@@ -382,10 +376,10 @@ def test_verify_oracle_precedes_every_oracle_consumer():
             assert stages[stages.index("Oracle") + 1] == "VerifyOracle", mode
 
 
-def test_heavy_gate_is_before_first_rl_training_stage():
+def test_stage2_is_before_first_rl_training_stage():
     for mode in ("OracleRLClean", "OracleRLLLMClean", "FullClean"):
         stages = STAGES[mode]
-        assert stages.index("RLExecutionGate") < stages.index("RLEncoder") < stages.index("RLIQL")
+        assert stages.index("Stage2") < stages.index("RLEncoder") < stages.index("RLIQL")
 
 
 def test_rq1_verdict_has_three_distinct_branches():
