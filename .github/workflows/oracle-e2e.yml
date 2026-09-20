@@ -67,7 +67,7 @@ jobs:
           assert validation["verification"]["verifiers"]["alpha_strict"] == "PASS"
           assert validation["verification"]["verifiers"]["beta_contract"] == "PASS"
           assert validation["verification"]["verifiers"]["gamma_contract"] == "PASS"
-          registry = json.loads(json.dumps(__import__("yaml").safe_load((work / "contracts/oracle_backend_registry.yaml").read_text())))
+          registry = json.loads(json.dumps(__import__("yaml").safe_load((root / "work/contracts/oracle_backend_registry.yaml").read_text())))
           assert registry["provenance"]["materialized_run_id"] == "github-actions"
           assert all("runs/oracle-e2e/github-actions" in str(value).replace("\\", "/") for backend in registry["backends"].values() for key, value in backend.items() if key in {"path", "params", "output", "metrics", "model"})
           for name in [
