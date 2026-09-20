@@ -12,6 +12,7 @@ import pandas as pd
 
 from credit_recourse.eval.v43_oracle_backends import score_alpha, score_beta_ordered_logit_params, score_gamma_model
 from credit_recourse.oracle.stage0.build_stage0_foundation_from_raw import build_stage0_foundation
+from thesis_repro.execution_context import ExecutionContext, scoped_oracle_compatibility
 
 
 class TinyGammaModel:
@@ -167,23 +168,20 @@ def run(root: Path, run_id: str, artifact_root: Path | None = None, run_stage1: 
         # inputs.  Frozen Stage1 input trees are evidence-only and must never
         # become a silent parent of a fresh CI computation.
         stage1_input_mode = "fresh_synthetic_raw_stage1"
-        # This is an explicit fixture acceptance profile.  It runs the real
+        # This is an explicit fixture acceptance profile. It runs the real
         # Stage0/Stage1 producers and verifiers, but does not claim that a
         # tiny synthetic panel reproduces the licensed-data Alpha bytes.
-        os.environ["THESIS_REPRO_ORACLE_PROFILE"] = "synthetic"
+        fixture_context = ExecutionContext.from_profile("synthetic", run_id, "OracleClean")
         stage1_common = ["--project-root", str(root), "--raw-rating-dir", str(raw_rating)]
-        # Keep the fixture within ordinary CI process limits while exercising
-        # the exact production runner.  Partial windows are explicit and each
-        # prerequisite is checked by Stage1 before the next window begins.
-        windows = [
-            [*stage1_common, "--clean", "--end-step", "stage00_04"],
-            [*stage1_common, "--start-step", "backend_alpha", "--end-step", "backend_alpha"],
-            [*stage1_common, "--start-step", "backend_beta"],
-        ]
-        for window in windows:
-            stage1_rc = stage1_main(window)
-            if stage1_rc != 0:
-                raise RuntimeError(f"production Stage1 returned {stage1_rc} for window={window}")
+        # The fixture is an end-to-end acceptance, not a partial Stage1
+        # prefix. A single production invocation is required so the final
+        # ledger can truthfully assert final_result_allowed=true.
+        windows = [[*stage1_common, "--clean"]]
+        with scoped_oracle_compatibility(fixture_context):
+            for window in windows:
+                stage1_rc = stage1_main(window)
+                if stage1_rc != 0:
+                    raise RuntimeError(f"production Stage1 returned {stage1_rc} for window={window}")
         stage1_status = "E2E_PASS"
 
     backend_root = work_root / "stage1_oracle_backends"
@@ -193,7 +191,7 @@ def run(root: Path, run_id: str, artifact_root: Path | None = None, run_stage1: 
         if report.get("status") != "PASS" or report.get("final_result_allowed") is not True:
             raise RuntimeError("Stage1 ledger did not PASS with final_result_allowed=true")
         runtime = resolve_fresh_oracle_runtime(root)
-        verification = _verify_production_oracle(root, runtime, write_validation_report=True)
+        verification = _verify_production_oracle(root, runtime, write_validation_report=True, context=fixture_context)
         if verification.get("status") != "PASS" or verification.get("final_result_allowed") is not True:
             raise RuntimeError("production Oracle verification did not PASS")
         if verification.get("fixture_verification_contract", {}).get("contract") != "SYNTHETIC_E2E_ACCEPTANCE":
