@@ -17,6 +17,7 @@ from .paths import ROOT, load_json
 from .reproduce import reproduce
 from .run_engine import execute, trace_run
 from .certify import certify_run
+from .status import is_scientific_accepted
 
 
 def _print(value: object) -> None:
@@ -120,7 +121,8 @@ def main(argv: list[str] | None = None) -> None:
             else:
                 result = reproduce(ROOT, args.run_id)
             _print(result)
-            if result.get("status") not in {"PASS", "PASS_WITH_QUALIFICATION"}:
+            completion_state = result.get("completion_state") if args.full else result.get("status")
+            if not is_scientific_accepted(str(completion_state)):
                 raise SystemExit(1)
         elif args.command == "acceptance-e2e":
             from .acceptance import run_acceptance

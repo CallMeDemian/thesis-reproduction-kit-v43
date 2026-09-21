@@ -460,27 +460,35 @@ def prepare_real_plan3_config(paths) -> dict[str, Any]:
     action_frame = pd.read_parquet(actions_path)
     if len(action_frame) != 575 or len(permutation_frame) != 575:
         return {"status": "FAILED", "reason": "C6-EX requires 575 fresh evaluation firms"}
-    donor_column = next((column for column in ("donor_row_id", "reference_row_id", "permuted_row_id") if column in permutation_frame), None)
-    if donor_column is None:
-        return {"status": "FAILED", "reason": "C6EX permutation lacks donor row identity"}
-    action_frame = action_frame.sort_values("row_id" if "row_id" in action_frame else "evaluation_ordinal").reset_index(drop=True)
-    materialized = permutation_frame.copy().reset_index(drop=True)
-    materialized["row_id"] = action_frame["row_id"].to_numpy() if "row_id" in action_frame else action_frame["evaluation_ordinal"].to_numpy()
-    materialized["own_C3E_action"] = action_frame["action_id"].astype(str).to_numpy()
-    by_row = action_frame.set_index("row_id" if "row_id" in action_frame else "evaluation_ordinal")
-    donor_ids = pd.to_numeric(materialized[donor_column], errors="raise").astype(int)
-    materialized["donor_row_id"] = donor_ids
-    materialized["self_donor_collision"] = materialized["row_id"].eq(materialized["donor_row_id"])
-    materialized["C6EX_reference_action"] = [str(by_row.loc[int(row), "action_id"]) for row in donor_ids]
-    if donor_ids.nunique() != 575 or materialized["self_donor_collision"].any():
-        return {"status": "FAILED", "reason": "C6EX donor relation is not a 575-firm derangement"}
-    own_actions = action_frame["action_id"].astype(str).value_counts().sort_index().to_dict()
-    reference_actions = materialized["C6EX_reference_action"].astype(str).value_counts().sort_index().to_dict()
-    if own_actions != reference_actions:
-        return {"status": "FAILED", "reason": "C6EX action multiset was not preserved"}
-    materialized["action_label_collision"] = False
+    from credit_recourse.final_release.llm_contract import build_c6ex_materialization
+    try:
+        materialized, c6ex_diagnostics = build_c6ex_materialization(
+            permutation_frame,
+            action_frame,
+            expected_rows=FIRM_COUNT,
+        )
+    except Exception as exc:
+        return {"status": "FAILED", "reason": str(exc)}
     materialized.to_parquet(config_root / "C6EX_materialized.parquet", index=False)
-    manifest = {"status": "PASS", "parent_historical_permutation_sha256": expected_hash, "fresh_c3e_release_hash": json.loads((paths.c3e_root / "release.json").read_text(encoding="utf-8")).get("release_hash"), "fresh_materialized_sha256": _sha256(config_root / "C6EX_materialized.parquet"), "donor_relation_reused": True, "self_donor_collisions": int(materialized["self_donor_collision"].sum()), "action_label_collision_count": 0, "rows": 575}
+    c3e_release_hash = json.loads((paths.c3e_root / "release.json").read_text(encoding="utf-8")).get("release_hash")
+    materialized_sha256 = _sha256(config_root / "C6EX_materialized.parquet")
+    manifest = {
+        "schema_version": "v43_c6ex_fresh_materialization_v1",
+        "status": "PASS",
+        "c3e_release_hash": c3e_release_hash,
+        "permutation_sha256": expected_hash,
+        "materialized_sha256": materialized_sha256,
+        "parent_historical_permutation_sha256": expected_hash,
+        "fresh_c3e_release_hash": c3e_release_hash,
+        "fresh_materialized_sha256": materialized_sha256,
+        "donor_relation_reused": True,
+        "distribution_preserved": c6ex_diagnostics["distribution_preserved"],
+        "firm_count": c6ex_diagnostics["firm_count"],
+        "self_donor_collision_count": c6ex_diagnostics["self_donor_collision_count"],
+        "self_donor_collisions": c6ex_diagnostics["self_donor_collision_count"],
+        "action_label_collision_count": c6ex_diagnostics["action_label_collision_count"],
+        "rows": c6ex_diagnostics["firm_count"],
+    }
     (config_root / "C6EX_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     industry = _materialize_fresh_industry_binding(paths, config_root)
     if industry.get("status") != "PASS":
@@ -521,7 +529,31 @@ def execute_real_llm(paths, *, resume: bool) -> dict[str, Any]:
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         from credit_recourse.final_release.live_batch import poll_and_download, submit_wave
         from credit_recourse.final_release.retry import prepare_retry
-        from credit_recourse.final_release.executor import generation_status
+        from credit_recourse.final_release.executor import generation_status, load_release
+
+        def retry_manifest(release_hash: str, wave: int, attempt: int) -> Path:
+            directory, _ = load_release(paths.root, release_hash)
+            return directory / "manifests" / f"wave{int(wave)}_attempt{int(attempt)}_retry_prepared.json"
+
+        def prepare_retry_after_terminal(release_hash: str, wave: int, attempt: int) -> dict[str, Any]:
+            path = retry_manifest(release_hash, wave, attempt)
+            if path.is_file():
+                return json.loads(path.read_text(encoding="utf-8"))
+            return prepare_retry(paths.root, release_hash, wave, attempt)
+
+        def no_retry_outcome(release_hash: str, reason: str) -> dict[str, Any]:
+            generation = generation_status(paths.root, release_hash)
+            pending = any(
+                int(generation.get("ledger_states", {}).get(state, 0)) > 0
+                for state in ("SUBMITTED", "SUBMITTING")
+            )
+            return {
+                **manifest,
+                "status": "EXTERNAL_WAIT" if pending else "FAILED",
+                "reason": reason if pending else f"terminal generation is incomplete without an eligible retry: {reason}",
+                "generation": generation,
+            }
+
         for arm in (("baseline_hash", "baseline"), ("high_hash", "high")):
             release_hash = manifest[arm[0]]
             for wave in (1, 2):
@@ -530,15 +562,38 @@ def execute_real_llm(paths, *, resume: bool) -> dict[str, Any]:
                     prepare_wave(paths.root, release_hash, wave) if arm[1] == "baseline" else __import__("credit_recourse.high_reasoning.runner", fromlist=["prepare"]).prepare(paths.root, release_hash, wave, preflight=False)
                 for attempt in (1, 2, 3):
                     if attempt > 1:
-                        prepare_retry(paths.root, release_hash, wave, attempt)
+                        retry = prepare_retry_after_terminal(release_hash, wave, attempt)
+                        if retry.get("status") == "NO_RETRY_NEEDED":
+                            return no_retry_outcome(release_hash, "prepare_retry returned NO_RETRY_NEEDED")
+                        if retry.get("status") != "PREPARED":
+                            return {
+                                **manifest,
+                                "status": "FAILED",
+                                "reason": "retry preparation did not produce a PREPARED manifest",
+                                "retry": retry,
+                            }
                     submit_wave(paths.root, release_hash, wave, approved=True, attempt_index=attempt)
                     polled = poll_and_download(paths.root, release_hash, wave, attempt_index=attempt)
-                    generation_status(paths.root, release_hash)
-                    if polled.get("status") in {"PASS", "GENERATION_COMPLETE", "COLLECTED"} or polled.get("all_terminal_or_downloaded"):
+                    if not polled.get("all_terminal_or_downloaded") and "status" not in polled:
+                        # A provider job that is still running is an external
+                        # wait, not a failed attempt and never a retry trigger.
+                        return {**manifest, "status": "EXTERNAL_WAIT", "reason": "provider jobs remain incomplete"}
+                    generation = generation_status(paths.root, release_hash)
+                    if polled.get("status") in {"PASS", "GENERATION_COMPLETE", "COLLECTED"}:
                         break
-                    if attempt == 3:
-                        return {"status": "EXTERNAL_WAIT", "reason": "provider jobs remain incomplete", **manifest}
-        return {"status": "PASS", **manifest}
+                    if polled.get("status") in {"RETRY_REQUIRED", "INCOMPLETE_INFRA"}:
+                        if attempt == 3:
+                            return {**manifest, "status": "FAILED", "reason": "provider retries exhausted", "generation": generation}
+                        # The next iteration may prepare a retry, but only now
+                        # that this attempt is terminal.
+                        continue
+                    if polled.get("status") in {"BLOCKED_RUNTIME", "FAILED"}:
+                        if attempt == 3:
+                            return {**manifest, "status": "FAILED", "reason": "provider attempt reached a terminal non-success state", "generation": generation}
+                    if polled.get("all_terminal_or_downloaded") and "status" not in polled:
+                        break
+                    return {**manifest, "status": "FAILED", "reason": "provider poll returned an unrecognized terminal state", "poll": polled}
+        return {**manifest, "status": "PASS"}
 
 
 def materialize_real_stage7(paths) -> dict[str, Any]:
