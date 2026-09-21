@@ -183,9 +183,14 @@ def load_firm_cohort(design: DesignBundle) -> pd.DataFrame:
     binding_reference = Path(str(design.information["industry_binding_manifest"]))
     binding_manifest = binding_reference if binding_reference.is_absolute() else config_root / binding_reference
     evidence = load_json(binding_manifest) if binding_manifest.is_file() else {}
+    configured_root = os.environ.get("THESIS_REPRO_LLM_CONFIG_ROOT")
+    role = evidence.get("role")
+    historical_authorized = evidence.get("frozen") is True or role == "FROZEN_EXOGENOUS_INFORMATION_INPUT"
+    fresh_authorized = bool(configured_root) and role == "FRESH_EXOGENOUS_INFORMATION_INPUT"
     if not (
-        (evidence.get("frozen") or evidence.get("role") in {"FROZEN_EXOGENOUS_INFORMATION_INPUT", "FRESH_EXOGENOUS_INFORMATION_INPUT"})
-        and int(evidence.get("unresolved_count", 575)) == 0
+        (historical_authorized or fresh_authorized)
+        and evidence.get("status") == "PASS"
+        and evidence.get("unresolved_count") == 0
         and evidence.get("binding_artifact")
     ):
         raise ContractError("Frozen 575-firm industry binding is unavailable")

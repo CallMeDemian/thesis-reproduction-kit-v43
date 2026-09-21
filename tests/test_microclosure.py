@@ -200,7 +200,7 @@ def _live_paths(tmp_path: Path):
     )
 
 
-def _patch_live_control_plane(monkeypatch, tmp_path, polls, retries=None):
+def _patch_live_control_plane(monkeypatch, tmp_path, polls, retries=None, generation_statuses=None):
     paths = _live_paths(tmp_path)
     submissions = []
     retry_calls = []
@@ -226,7 +226,16 @@ def _patch_live_control_plane(monkeypatch, tmp_path, polls, retries=None):
     monkeypatch.setattr("credit_recourse.final_release.live_batch.poll_and_download", poll)
     monkeypatch.setattr("credit_recourse.final_release.retry.prepare_retry", retry)
     monkeypatch.setattr("credit_recourse.final_release.executor.load_release", lambda root, release: (tmp_path, {"status": "FROZEN_READY_WAVE1"}))
-    monkeypatch.setattr("credit_recourse.final_release.executor.generation_status", lambda root, release: {"status": "GENERATION_INCOMPLETE", "ledger_states": {}})
+    complete = {
+        "status": "GENERATION_COMPLETE",
+        "ledger_states": {"DELIVERED_LOCKED": 24150},
+        "expected_logical_requests": 24150,
+    }
+    generation_statuses = generation_statuses or {}
+    monkeypatch.setattr(
+        "credit_recourse.final_release.executor.generation_status",
+        lambda root, release: generation_statuses.get(release, complete),
+    )
     monkeypatch.setattr("credit_recourse.final_release.executor.prepare_wave", lambda *args, **kwargs: {"status": "PREPARED"})
     monkeypatch.setattr("credit_recourse.high_reasoning.runner.prepare", lambda *args, **kwargs: {"status": "PREPARED"})
     monkeypatch.setenv("OPENAI_API_KEY", "test-openai")
@@ -298,6 +307,45 @@ def test_live_success_does_not_prepare_retry_and_high_wave2_stays_high(monkeypat
     assert ("high", 2, 1) in submissions
     assert submissions.index(("high", 2, 1)) > submissions.index(("baseline", 2, 1))
     assert all(release_hash == "high" for release_hash, wave, _ in submissions if release_hash == "high" and wave == 2)
+    assert result["baseline_generation"]["status"] == "GENERATION_COMPLETE"
+    assert result["high_generation"]["status"] == "GENERATION_COMPLETE"
+
+
+def test_live_incomplete_baseline_generation_cannot_pass(monkeypatch, tmp_path):
+    paths, submissions, retry_calls = _patch_live_control_plane(
+        monkeypatch,
+        tmp_path,
+        [],
+        generation_statuses={"baseline": {"status": "GENERATION_INCOMPLETE", "ledger_states": {"NO_CONFIRMED_COMPLETION": 1}, "expected_logical_requests": 24150}},
+    )
+    result = execute_real_llm(paths, resume=True)
+    assert result["status"] == "FAILED"
+    assert result["arm"] == "baseline"
+    assert result["generation"]["status"] == "GENERATION_INCOMPLETE"
+
+
+def test_live_incomplete_high_generation_with_active_work_waits(monkeypatch, tmp_path):
+    paths, submissions, retry_calls = _patch_live_control_plane(
+        monkeypatch,
+        tmp_path,
+        [],
+        generation_statuses={"high": {"status": "GENERATION_INCOMPLETE", "ledger_states": {"SUBMITTED": 1}, "expected_logical_requests": 24150}},
+    )
+    result = execute_real_llm(paths, resume=True)
+    assert result["status"] == "EXTERNAL_WAIT"
+    assert result["arm"] == "high"
+
+
+def test_live_incomplete_high_generation_without_active_work_fails(monkeypatch, tmp_path):
+    paths, submissions, retry_calls = _patch_live_control_plane(
+        monkeypatch,
+        tmp_path,
+        [],
+        generation_statuses={"high": {"status": "GENERATION_INCOMPLETE", "ledger_states": {"NO_CONFIRMED_COMPLETION": 1}, "expected_logical_requests": 24150}},
+    )
+    result = execute_real_llm(paths, resume=True)
+    assert result["status"] == "FAILED"
+    assert result["arm"] == "high"
 
 
 @pytest.mark.parametrize("completion_state,accepted", [("PASS", True), ("PASS_WITH_QUALIFICATION", True), ("INPUT_REQUIRED", False), ("EXTERNAL_WAIT", False)])

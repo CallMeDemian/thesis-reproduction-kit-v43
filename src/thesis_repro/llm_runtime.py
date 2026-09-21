@@ -554,6 +554,30 @@ def execute_real_llm(paths, *, resume: bool) -> dict[str, Any]:
                 "generation": generation,
             }
 
+        def arm_completion(release_hash: str, arm: str) -> dict[str, Any] | None:
+            generation = generation_status(paths.root, release_hash)
+            if generation.get("status") == "GENERATION_COMPLETE":
+                return None
+            active_states = {"SUBMITTED", "SUBMITTING"}
+            has_active_provider_work = any(
+                int(generation.get("ledger_states", {}).get(state, 0)) > 0
+                for state in active_states
+            )
+            return {
+                **manifest,
+                "status": "EXTERNAL_WAIT" if has_active_provider_work else "FAILED",
+                "release_hash": release_hash,
+                "arm": arm,
+                "generation": generation,
+                "reason": (
+                    f"{arm} generation remains incomplete with active provider work"
+                    if has_active_provider_work
+                    else f"{arm} generation ledger is terminal but incomplete"
+                ),
+            }
+
+        completed_generations: dict[str, dict[str, Any]] = {}
+
         for arm in (("baseline_hash", "baseline"), ("high_hash", "high")):
             release_hash = manifest[arm[0]]
             for wave in (1, 2):
@@ -593,7 +617,16 @@ def execute_real_llm(paths, *, resume: bool) -> dict[str, Any]:
                     if polled.get("all_terminal_or_downloaded") and "status" not in polled:
                         break
                     return {**manifest, "status": "FAILED", "reason": "provider poll returned an unrecognized terminal state", "poll": polled}
-        return {**manifest, "status": "PASS"}
+            completed = arm_completion(release_hash, arm[1])
+            if completed is not None:
+                return completed
+            completed_generations[arm[1]] = generation_status(paths.root, release_hash)
+        return {
+            **manifest,
+            "status": "PASS",
+            "baseline_generation": completed_generations["baseline"],
+            "high_generation": completed_generations["high"],
+        }
 
 
 def materialize_real_stage7(paths) -> dict[str, Any]:

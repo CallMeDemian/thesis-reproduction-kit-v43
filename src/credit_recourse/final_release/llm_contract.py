@@ -170,7 +170,7 @@ def validate_llm_contract(root: Path | None = None) -> dict[str, Any]:
 
 
 def industry_binding_status(root: Path | None = None) -> dict[str, Any]:
-    """Validate the frozen OpenDART binding used by IC-b and IC-c."""
+    """Validate the authorized historical or run-local OpenDART binding."""
     repo = root or find_repo_root()
     configured_root = os.environ.get("THESIS_REPRO_LLM_CONFIG_ROOT")
     config_root = Path(configured_root) if configured_root and Path(configured_root).is_absolute() else (repo / configured_root if configured_root else repo / "frozen/evidence/llm")
@@ -182,14 +182,31 @@ def industry_binding_status(root: Path | None = None) -> dict[str, Any]:
     declared_hash = str(evidence.get("binding_artifact_sha256", ""))
     artifact_hash_valid = bool(binding_path and binding_path.is_file() and declared_hash and sha256_file(binding_path) == declared_hash)
     rows = unique_firms = nonmissing = 0
+    role = evidence.get("role")
+    historical_authorized = evidence.get("frozen") is True or role == "FROZEN_EXOGENOUS_INFORMATION_INPUT"
+    fresh_authorized = bool(configured_root) and role == "FRESH_EXOGENOUS_INFORMATION_INPUT"
+    provenance_authorized = historical_authorized or fresh_authorized
+    def _declared_int(value: Any) -> int:
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return -1
+
+    declared_rows = _declared_int(evidence.get("rows"))
+    declared_unique_firms = _declared_int(evidence.get("unique_firm_key"))
+    status_pass = evidence.get("status") == "PASS"
+    unresolved_zero = evidence.get("unresolved_count") == 0
+    codes_complete = False
     if artifact_hash_valid and binding_path is not None:
         try:
             binding = pd.read_parquet(binding_path)
             rows = len(binding)
             unique_firms = int(binding["firm_key"].nunique()) if "firm_key" in binding else 0
-            nonmissing = int(binding["induty_code"].notna().sum()) if "induty_code" in binding else 0
             if "induty_code" in binding:
-                nonmissing = int(binding["induty_code"].astype(str).str.strip().ne("").sum())
+                codes = binding["induty_code"].astype(str).str.strip()
+                valid_codes = codes.ne("") & ~codes.str.lower().isin({"nan", "none", "unknown"})
+                nonmissing = int(valid_codes.sum())
+                codes_complete = bool(valid_codes.all())
         except Exception:
             artifact_hash_valid = False
     leak_path = repo / "repro/manifests/runtime_gates/api_key_leak_scan_full.json"
@@ -197,16 +214,27 @@ def industry_binding_status(root: Path | None = None) -> dict[str, Any]:
     leak_scan_pass = leak.get("status") == "PASS" and int(leak.get("key_literal_hits", -1)) == 0
     fresh_runtime = bool(configured_root)
     ready = bool(
-        evidence.get("frozen")
-        and int(evidence.get("unresolved_count", 575)) == 0
+        status_pass
+        and provenance_authorized
+        and unresolved_zero
         and artifact_hash_valid
+        and declared_rows == 575
+        and declared_unique_firms == 575
         and rows == 575
         and unique_firms == 575
         and nonmissing == 575
-        and (fresh_runtime or leak_scan_pass)
+        and codes_complete
+        and (fresh_authorized or leak_scan_pass)
     )
     return {
         "ready": ready, "status": evidence.get("status", "MISSING"),
+        "role": role,
+        "fresh_runtime": fresh_runtime,
+        "historical_authorized": historical_authorized,
+        "fresh_authorized": fresh_authorized,
+        "provenance_authorized": provenance_authorized,
+        "declared_rows": declared_rows,
+        "declared_unique_firm_key": declared_unique_firms,
         "nonmissing_count": int(contract["valid_industry_nonmissing"]),
         "missing_count": int(contract["valid_industry_missing"]),
         "coverage_rate": float(contract["valid_industry_coverage_rate"]),
@@ -218,6 +246,6 @@ def industry_binding_status(root: Path | None = None) -> dict[str, Any]:
         "binding_rows": rows,
         "binding_unique_firms": unique_firms,
         "binding_nonmissing_induty_code": nonmissing,
-        "api_key_leak_scan": "NOT_APPLICABLE_FRESH_RUNTIME" if fresh_runtime else ("PASS" if leak_scan_pass else "FAIL_OR_MISSING"),
+        "api_key_leak_scan": "NOT_APPLICABLE_FRESH_RUNTIME" if fresh_authorized else ("PASS" if leak_scan_pass else "FAIL_OR_MISSING"),
     }
 
