@@ -8,17 +8,31 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
-from .common import ContractError, find_repo_root, load_json, sha256_file
+from .common import ContractError, find_repo_root, load_json, published_contract_registry, sha256_file
 
 ACTIONS = ("A0", "DL", "RF", "CX", "WC1", "WC2", "OE", "MX1", "MX2")
 
 
 def validate_final_reference(root: Path | None = None) -> dict[str, Any]:
     repo = root or find_repo_root()
-    registry = load_json(repo / "configs/current/contract_manifest.json")
-    definition_path = repo / registry["rl_reference_definition"]
-    probability_path = repo / registry["rl_reference_probabilities"]
-    action_path = repo / registry["rl_reference_actions"]
+    registry = load_json(published_contract_registry(repo))
+    reference_dir = repo / "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6"
+
+    def resolve_reference(key: str, filename: str) -> Path:
+        direct = repo / registry[key]
+        if direct.is_file():
+            return direct
+        # The old registry records the pre-cleanup archive path.  The
+        # immutable release stores the same reference package under the
+        # explicit historical namespace above.
+        candidate = reference_dir / filename
+        if candidate.is_file():
+            return candidate
+        raise ContractError(f"Published C3-E reference is unavailable: {key}")
+
+    definition_path = resolve_reference("rl_reference_definition", "C3E_definition.json")
+    probability_path = resolve_reference("rl_reference_probabilities", "C3E_firm_probabilities.parquet")
+    action_path = resolve_reference("rl_reference_actions", "C3E_firm_actions.parquet")
     definition = load_json(definition_path)
     if definition["release_id"] != registry["rl_reference_id"] or definition["release_hash"] != registry["rl_release_hash"]:
         raise ContractError("Current C3-E pointer identity/hash drift")

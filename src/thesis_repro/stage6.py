@@ -64,9 +64,23 @@ def _materialize_release(paths, parent_hashes: list[str]) -> list[dict]:
     c3["fiscal_year"] = pd.to_numeric(c3["fiscal_year"], errors="raise").astype(int)
     if "row_id" not in c3:
         c3 = c3.merge(eval_ids[["row_id", "firm_id", "fiscal_year"]], on=["firm_id", "fiscal_year"], how="left", validate="one_to_one")
+    if c3["row_id"].isna().any() or c3["row_id"].nunique() != len(c3):
+        raise ValueError("fresh C3-E decisions do not preserve one canonical row_id per firm-year")
+    canonical_c3_identity = eval_ids[["row_id", "firm_id", "fiscal_year"]].merge(
+        c3[["row_id", "firm_id", "fiscal_year"]], on="row_id", how="left", suffixes=("_canonical", "_decision"), validate="one_to_one"
+    )
+    if canonical_c3_identity[["firm_id_decision", "fiscal_year_decision"]].isna().any().any() or not (
+        canonical_c3_identity["firm_id_canonical"].eq(canonical_c3_identity["firm_id_decision"])
+        & canonical_c3_identity["fiscal_year_canonical"].eq(canonical_c3_identity["fiscal_year_decision"])
+    ).all():
+        raise ValueError("fresh C3-E decisions contain a mismatched canonical firm/year identity")
     c3 = c3[["row_id", "firm_id", "fiscal_year", "action_id"]]
+    if set(c3["action_id"].astype(str)) - set(canonical_actions):
+        raise ValueError("fresh C3-E decisions contain an unknown candidate action")
     c3_scores = surface.rename(columns={"action": "action_id"})
     c3 = c3.merge(c3_scores[["row_id", "firm_id", "fiscal_year", "action_id", "Alpha", "Beta", "Gamma"]], on=["row_id", "firm_id", "fiscal_year", "action_id"], how="left", validate="one_to_one")
+    if c3[["Alpha", "Beta", "Gamma"]].isna().any().any():
+        raise ValueError("fresh C3-E decisions could not be joined to the canonical payoff surface")
     c2_frame = pd.read_parquet(c2)
     if "fiscal_year" not in c2_frame and "base_year" in c2_frame:
         c2_frame = c2_frame.rename(columns={"base_year": "fiscal_year"})
@@ -74,8 +88,12 @@ def _materialize_release(paths, parent_hashes: list[str]) -> list[dict]:
     c2_frame["fiscal_year"] = pd.to_numeric(c2_frame["fiscal_year"], errors="raise").astype(int)
     c2_frame = c2_frame.rename(columns={"candidate_id": "C2_action"})[["firm_id", "fiscal_year", "C2_action"]]
     c2_frame = c2_frame.merge(eval_ids[["row_id", "firm_id", "fiscal_year"]], on=["firm_id", "fiscal_year"], how="left", validate="one_to_one")
+    if c2_frame["row_id"].isna().any() or set(c2_frame["C2_action"].astype(str)) - set(canonical_actions):
+        raise ValueError("fresh C2 decisions do not preserve canonical evaluation identity/action semantics")
     c2_scores = surface.rename(columns={"action": "C2_action", "Alpha": "C2_Alpha", "Beta": "C2_Beta", "Gamma": "C2_Gamma"})[["row_id", "firm_id", "fiscal_year", "C2_action", "C2_Alpha", "C2_Beta", "C2_Gamma"]]
     c2_frame = c2_frame.merge(c2_scores, on=["row_id", "firm_id", "fiscal_year", "C2_action"], how="left", validate="one_to_one")
+    if c2_frame[["C2_Alpha", "C2_Beta", "C2_Gamma"]].isna().any().any():
+        raise ValueError("fresh C2 decisions could not be joined to the canonical payoff surface")
     c3 = c3.merge(c2_frame, on=["row_id", "firm_id", "fiscal_year"], how="left", validate="one_to_one")
     if len(c3) != 575 or c3["row_id"].nunique() != 575:
         raise ValueError("fresh C3-E deployment table must contain 575 firm-level rows")

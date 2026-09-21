@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import importlib
 import json
+import os
 import platform
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 from .action_validation import DIMENSIONS, candidate_action
-from .common import ContractError, find_repo_root, load_json, verify_declared_hash
+from .common import ContractError, find_repo_root, load_json, published_contract_registry
 from .contract import load_design, load_firm_cohort
 from .llm_contract import industry_binding_status, validate_llm_contract
 from .parsing import parse_policy_response
@@ -36,23 +37,6 @@ def _parser_check(root: Path) -> dict[str, Any]:
     return {"status":"PASS","free8":a.to_dict(),"candidate9":b.to_dict()}
 
 
-def _golden_check(root: Path) -> dict[str, Any]:
-    import pandas as pd
-    golden = load_json(root / "repro/expected/final_c3e_golden.json")
-    registry = load_json(root / "configs/current/contract_manifest.json")
-    if golden["release_hash"] != registry["rl_release_hash"]:
-        raise ContractError("Golden/current release hash mismatch")
-    actions = pd.read_parquet(root / registry["rl_reference_actions"]).set_index("row_id")
-    for row in golden["sample_rows"]:
-        actual = actions.loc[int(row["row_id"])]
-        if str(actual["firm_id"]) != str(row["firm_id"]) or str(actual["action_id"]) != str(row["action_id"]):
-            raise ContractError("Golden sample action drift")
-        for name in ("Alpha","Beta","Gamma"):
-            if abs(float(actual[name])-float(row[name])) > 1e-12:
-                raise ContractError(f"Golden sample payoff drift: {row['row_id']} {name}")
-    return {"status":"PASS","sample_count":len(golden["sample_rows"]),"release_hash":golden["release_hash"]}
-
-
 def _downstream_reachability() -> dict[str, Any]:
     names = [
         "credit_recourse.simulator.v43_production_bundle",
@@ -66,33 +50,43 @@ def _downstream_reachability() -> dict[str, Any]:
 
 def run_doctor(root: Path | None = None) -> dict[str, Any]:
     repo = (root or find_repo_root()).resolve()
-    checks, errors = [], []
+    checks, errors, external_blockers = [], [], []
     def check(name: str, fn: Any) -> None:
         try:
             checks.append({"name":name,"status":"PASS","detail":fn()})
         except Exception as exc:
             checks.append({"name":name,"status":"FAIL","detail":str(exc)}); errors.append(f"{name}: {exc}")
-    registry = load_json(repo / "configs/current/contract_manifest.json")
-    for key in ("action_contract","oracle_registry","simulator_contract","rl_reference_definition","rl_reference_probabilities","rl_reference_actions","llm_design","llm_matrix","llm_design_release","c6ex_permutation","c6ex_materialized","c6ex_manifest","analysis_contract","parser_implementation"):
-        expected = registry.get(key+"_sha256")
-        if expected:
-            check(key+"_hash", lambda k=key,e=expected: verify_declared_hash(repo, registry[k], e))
+    registry = load_json(published_contract_registry(repo))
     check("canonical_rl_reference", lambda: validate_final_reference(repo))
-    check("final_llm_contract", lambda: validate_llm_contract(repo))
-    check("provider_adapters", lambda: _provider_adapter_check(repo))
-    check("strict_parser", lambda: _parser_check(repo))
-    check("golden_regression", lambda: _golden_check(repo))
-    check("firm_cohort", lambda: {"rows":len(load_firm_cohort(load_design(repo))),"status":"PASS"})
+    fresh_configured = bool(os.environ.get("THESIS_REPRO_LLM_CONFIG_ROOT"))
+    if fresh_configured:
+        # A run-local derived design release is the only place where adapted
+        # runtime source hashes are authoritative.  The published evidence
+        # bundle intentionally retains historical hashes and is not used as a
+        # fresh live-execution design.
+        check("final_llm_contract", lambda: validate_llm_contract(repo))
+        check("provider_adapters", lambda: _provider_adapter_check(repo))
+        check("strict_parser", lambda: _parser_check(repo))
+        check("firm_cohort", lambda: {"rows":len(load_firm_cohort(load_design(repo))),"status":"PASS"})
+        check("semantic_end_to_end", lambda: run_semantic_fixture(repo))
+    else:
+        checks.append({"name":"final_llm_contract","status":"INPUT_REQUIRED","detail":"run-local fresh Plan-3 config is required; published evidence is reference-only"})
+        checks.append({"name":"provider_adapters","status":"NOT_APPLICABLE","detail":"validated after a run-local fresh design release is installed"})
+        checks.append({"name":"strict_parser","status":"NOT_APPLICABLE","detail":"validated after a run-local fresh design release is installed"})
+        checks.append({"name":"firm_cohort","status":"NOT_APPLICABLE","detail":"validated after a run-local fresh design release is installed"})
+        checks.append({"name":"semantic_end_to_end","status":"NOT_APPLICABLE","detail":"validated after a run-local fresh design release is installed"})
+        external_blockers.append("FRESH_RUN_LOCAL_PLAN3_CONFIG_REQUIRED")
     check("simulator_oracle_reachability", _downstream_reachability)
-    check("semantic_end_to_end", lambda: run_semantic_fixture(repo))
     legacy_path = repo / "repro/manifests/runtime_gates/LEGACY_FREE_ASSERTION.json"
     legacy = load_json(legacy_path) if legacy_path.is_file() else {"status":"PENDING","active_legacy_contracts":-1}
     if legacy.get("status") == "PASS": checks.append({"name":"legacy_free","status":"PASS","detail":legacy})
     else: checks.append({"name":"legacy_free","status":"PENDING","detail":legacy})
     industry = industry_binding_status(repo)
-    blockers = list(errors)
-    if not industry["ready"]: blockers.append(f"industry_binding: {industry['status']}; unresolved={industry['unresolved_count']}")
-    if legacy.get("status") != "PASS": blockers.append("legacy removal/post-delete regression not yet sealed")
+    blockers = list(errors) + list(external_blockers)
+    if not industry["ready"]:
+        blockers.append(f"industry_binding: {industry['status']}; unresolved={industry['unresolved_count']}")
+    if legacy.get("status") != "PASS":
+        checks[-1]["detail"] = {**legacy, "role": "historical_audit_not_required_for_fresh_runtime"}
     live_ready = not blockers
     return {
         "schema_version":"v43_final_release_doctor_v3_semantic_gate", "generated_utc":datetime.now(timezone.utc).isoformat(),

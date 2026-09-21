@@ -530,12 +530,20 @@ def _load_stage1_cleaned_state_substrate(
     an available accounting value is never represented as an observed zero.
     """
     configured = os.environ.get("THESIS_REPRO_STAGE1_CLEANED_STATE_DIR")
-    cleaned_dir = Path(configured) if configured else (
-        root
-        / "data/final_freeze/stage1_oracle_inputs"
-        / "stage00_01_rating_statement_integration"
-        / "cleaned_statement_panels"
-    )
+    execution_class = os.environ.get("THESIS_REPRO_EXECUTION_CLASS", "").strip()
+    if configured:
+        cleaned_dir = Path(configured)
+    elif execution_class == "FRESH_REPLICATION":
+        raise FileNotFoundError("fresh Stage2 requires THESIS_REPRO_STAGE1_CLEANED_STATE_DIR bound to the same-run Oracle")
+    else:
+        # Historical CLI compatibility only.  The fresh run coordinator always
+        # supplies an explicit same-run binding and sets the execution class.
+        cleaned_dir = (
+            root
+            / "data/final_freeze/stage1_oracle_inputs"
+            / "stage00_01_rating_statement_integration"
+            / "cleaned_statement_panels"
+        )
     codes = sorted({str(code).upper() for code in required_codes})
     source_rows: list[pd.DataFrame] = []
     sources: dict[str, list[dict[str, Any]]] = {code: [] for code in codes}

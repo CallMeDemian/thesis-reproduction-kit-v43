@@ -13,7 +13,7 @@ import pytest
 from credit_recourse.contracts.v43_action_contract import ACTION_DIMENSIONS, ACTION_IDS, load_action_contract
 from credit_recourse.eval.v43_oracle_backends import score_alpha, score_beta_ordered_logit_params, score_gamma_model
 from credit_recourse.oracle.stage0.build_stage0_foundation_from_raw import build_stage0_foundation
-from thesis_repro.llm_runtime import EXPECTED_REQUESTS, render_requests, gate_status, mock_responses
+from thesis_repro.llm_runtime import EXPECTED_REQUESTS, render_requests, gate_status, mock_responses, execute_full_llm
 from thesis_repro.runtime_paths import FreshRuntimePaths
 from thesis_repro.stages.base import StageResult
 from thesis_repro.status import aggregate_completion
@@ -27,6 +27,8 @@ from credit_recourse.oracle.fresh_runtime import materialize_fresh_oracle_regist
 from credit_recourse.oracle.verification.verify_stage1_substrate_validation import _verdict
 from thesis_repro.stage2 import validate_simulator_panel, verify_fresh_rl_dataset
 from thesis_repro.stage6 import _materialize_release
+from credit_recourse.eval.final_stage9_llm_rl_comparison.pipeline import _current_stage6
+from credit_recourse.rl.pipelines.final_stage2_raw_action_source_precompute.pipeline import _load_stage1_cleaned_state_substrate
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -134,6 +136,17 @@ def test_fresh_request_namespace_isolated():
 
 def test_live_gate_is_closed_by_default():
     assert gate_status()["authorized"] is False
+
+
+def test_live_llm_without_credentials_is_not_reported_as_approval_only(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    llm_root = tmp_path / "09_llm"
+    llm_root.mkdir(parents=True)
+    (llm_root / "logical_requests.jsonl").write_text(json.dumps({"request_id": "fixture-1"}) + "\n", encoding="utf-8")
+    for name in ("OPENAI_API_KEY", "GOOGLE_API_KEY", "GEMINI_API_KEY", "CREDIT_RECOURSE_ENABLE_LLM_V43_FINAL_PLAN3"):
+        monkeypatch.delenv(name, raising=False)
+    paths = SimpleNamespace(root=tmp_path, run_id="llm-credentials", run_root=tmp_path, llm_root=llm_root, c3e_root=tmp_path / "08_stage6")
+    assert execute_full_llm(paths, live=True)["status"] == "CREDENTIALS_REQUIRED"
 
 
 def test_runtime_paths_are_run_local():
@@ -539,3 +552,59 @@ def test_real_stage6_release_preserves_firm_row_ids_and_directory_shape(tmp_path
     assert len(c3) == 575 and c3["row_id"].nunique() == 575
     assert release.is_dir()
     assert any(item["path"].endswith("EVALUATION_MANIFEST.json") for item in artifacts)
+
+
+def _write_stage9_fixture(root: Path, *, mismatched_identity: bool = False) -> Path:
+    stage_root = root / "runs/unbound/08_stage6/FRESH_C3E_fixture"
+    stage_root.mkdir(parents=True, exist_ok=True)
+    rows = []
+    for row_id, firm_id in ((0, "000001"), (1, "000002")):
+        for action in ACTION_IDS:
+            rows.append({"row_id": row_id, "firm_id": firm_id, "fiscal_year": 2024, "action": action, "Alpha": 1.0, "Beta": 2.0, "Gamma": 3.0})
+    payoffs = pd.DataFrame(rows)
+    if mismatched_identity:
+        payoffs.loc[payoffs["row_id"].eq(0) & payoffs["action"].eq("DL"), "firm_id"] = "000099"
+    payoff_path = stage_root / "firm_action_oracle_payoffs.parquet"
+    payoffs.to_parquet(payoff_path, index=False)
+    deployed = pd.DataFrame({
+        "row_id": [0, 1], "firm_id": ["000001", "000002"], "fiscal_year": [2024, 2024],
+        "action_id": ["A0", "A0"], "Alpha": [1.0, 1.0], "Beta": [2.0, 2.0], "Gamma": [3.0, 3.0],
+        "C2_action": ["A0", "A0"], "C2_Alpha": [1.0, 1.0], "C2_Beta": [2.0, 2.0], "C2_Gamma": [3.0, 3.0],
+    })
+    deployed.to_parquet(stage_root / "C3E_firm_actions_payoffs.parquet", index=False)
+    (root / "runs/unbound/08_stage6/CURRENT_RELEASE.json").write_text(json.dumps({
+        "payoff_surface_path": "runs/unbound/08_stage6/FRESH_C3E_fixture/firm_action_oracle_payoffs.parquet",
+        "payoff_surface_sha256": __import__("hashlib").sha256(payoff_path.read_bytes()).hexdigest(),
+        "artifact_path": "runs/unbound/08_stage6/FRESH_C3E_fixture",
+    }), encoding="utf-8")
+    return root
+
+
+def test_stage9_accepts_canonical_fixture_surface(tmp_path):
+    _, payoffs, deployed = _current_stage6(_write_stage9_fixture(tmp_path), fixture_mode=True)
+    assert len(payoffs) == 18
+    assert payoffs["row_id"].nunique() == 2
+    assert len(deployed) == 2
+
+
+def test_stage9_rejects_mismatched_row_identity(tmp_path):
+    with pytest.raises(ValueError, match="multiple firm/year identities"):
+        _current_stage6(_write_stage9_fixture(tmp_path, mismatched_identity=True), fixture_mode=True)
+
+
+def test_fresh_stage2_cleaned_state_cannot_fall_back_to_frozen(monkeypatch, tmp_path):
+    monkeypatch.delenv("THESIS_REPRO_STAGE1_CLEANED_STATE_DIR", raising=False)
+    monkeypatch.setenv("THESIS_REPRO_EXECUTION_CLASS", "FRESH_REPLICATION")
+    with pytest.raises(FileNotFoundError, match="same-run Oracle"):
+        _load_stage1_cleaned_state_substrate(tmp_path, {"CASH"})
+
+
+def test_fresh_stage2_cleaned_state_uses_explicit_run_binding(monkeypatch, tmp_path):
+    bound = tmp_path / "runs/run/02_oracle/work/cleaned_statement_panels"
+    bound.mkdir(parents=True)
+    pd.DataFrame({"firm_id": ["000001"], "fiscal_year": [2022], "CASH": [10.0]}).to_parquet(bound / "state.parquet", index=False)
+    monkeypatch.setenv("THESIS_REPRO_EXECUTION_CLASS", "FRESH_REPLICATION")
+    monkeypatch.setenv("THESIS_REPRO_STAGE1_CLEANED_STATE_DIR", str(bound))
+    state, report = _load_stage1_cleaned_state_substrate(tmp_path, {"CASH"})
+    assert len(state) == 1
+    assert report["cleaned_dir"] == str(bound)

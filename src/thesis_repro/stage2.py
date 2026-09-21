@@ -45,14 +45,17 @@ _REQUIRED_PACK = (
 
 @contextmanager
 def _stage2_environment(paths, input_root: Path) -> Iterator[None]:
-    names = ("THESIS_REPRO_STAGE2_INPUT_ROOT", "CREDIT_RECOURSE_RUN_PATH", "THESIS_REPRO_RUN_ROOT", "THESIS_REPRO_STAGE1_CLEANED_STATE_DIR")
+    names = ("THESIS_REPRO_STAGE2_INPUT_ROOT", "CREDIT_RECOURSE_RUN_PATH", "THESIS_REPRO_RUN_ROOT", "THESIS_REPRO_EXECUTION_CLASS", "THESIS_REPRO_STAGE1_CLEANED_STATE_DIR")
     old = {name: os.environ.get(name) for name in names}
     os.environ["THESIS_REPRO_STAGE2_INPUT_ROOT"] = str(input_root)
     os.environ["CREDIT_RECOURSE_RUN_PATH"] = str(paths.stage2_root.relative_to(paths.root)).replace("\\", "/")
     os.environ["THESIS_REPRO_RUN_ROOT"] = str(paths.run_root)
+    os.environ["THESIS_REPRO_EXECUTION_CLASS"] = "FRESH_REPLICATION"
     cleaned = paths.oracle_root / "work/stage1_oracle_inputs/stage00_01_rating_statement_integration/cleaned_statement_panels"
-    if cleaned.is_dir():
-        os.environ["THESIS_REPRO_STAGE1_CLEANED_STATE_DIR"] = str(cleaned)
+    # Bind the path even when the same-run Oracle did not produce it.  The
+    # raw producer must then fail closed; it must never discover the frozen
+    # historical directory as a fresh scientific parent.
+    os.environ["THESIS_REPRO_STAGE1_CLEANED_STATE_DIR"] = str(cleaned)
     try:
         yield
     finally:
@@ -93,10 +96,17 @@ def _resolve_input_source(paths) -> Path:
 
 def _run_raw_action_source(paths, input_root: Path) -> tuple[int, str]:
     raw_all = paths.root / "data/raw/raw_all"
-    output = input_root / "action_sources"
+    # Raw action-source computation is a fresh derived artifact.  Keep it in
+    # the run namespace even when the unrecovered producer-input pack is
+    # supplied from an external restore directory.
+    output = paths.stage2_root / "input_source/action_sources"
     panel = output / "stage2_raw_action_source_panel.parquet"
-    if panel.is_file() and panel.stat().st_size > 0:
-        return 0, "already_materialized"
+    # Rebuild on every Stage2 attempt.  The panel is a derived computation,
+    # not an independently resumable input; retaining it across a changed
+    # source tree or restored raw archive would otherwise bypass the source
+    # fingerprint invalidation contract.
+    if output.exists():
+        shutil.rmtree(output)
     if not raw_all.is_dir():
         return 2, "raw_all is unavailable"
     output.mkdir(parents=True, exist_ok=True)
@@ -381,13 +391,17 @@ def run_stage2(paths, parent_hashes: list[str], *, context=None) -> StageResult:
         input_root = _resolve_input_source(paths)
         input_root.mkdir(parents=True, exist_ok=True)
         design = _copy_design_inputs(paths.root, input_root)
-        rc, raw_log = _run_raw_action_source(paths, input_root)
+        # The producer is a subprocess.  Bind the same-run Stage1 substrate
+        # before launching it; otherwise its historical CLI fallback could be
+        # discovered outside the coordinator's scoped environment.
+        with _stage2_environment(paths, input_root):
+            rc, raw_log = _run_raw_action_source(paths, input_root)
         if rc != 0:
             required_external_input = "licensed raw_all" if not (paths.root / "data/raw/raw_all").is_dir() else "STAGE2_RAW_ACTION_SOURCE"
-            return StageResult("Stage2", "INPUT_REQUIRED", "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"reason": "fresh raw Stage2 action-source production did not complete", "return_code": rc, "log_tail": raw_log, "required_external_input": required_external_input, "design_inputs_materialized": design, "frozen_compute_fallback": False})
+            return StageResult("Stage2", "INPUT_REQUIRED", "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"reason": "fresh raw Stage2 action-source production did not complete", "return_code": rc, "log_tail": raw_log, "required_external_input": required_external_input, "design_inputs_materialized": design, "raw_action_source_status": "INPUT_REQUIRED", "downstream_stage2_status": "NOT_ATTEMPTED", "invented_reconstruction": False, "frozen_compute_fallback": False})
         missing = [relative for relative in _REQUIRED_PACK if not (input_root / relative).is_file() or (input_root / relative).stat().st_size <= 0]
         if missing:
-            return StageResult("Stage2", "INPUT_REQUIRED", "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"reason": "authorized fresh Stage2 producer-input pack is incomplete", "required_external_input": "STAGE2_PRODUCER_INPUT_PACK_REQUIRED", "missing": missing, "design_inputs_materialized": design, "frozen_compute_fallback": False})
+            return StageResult("Stage2", "INPUT_REQUIRED", "REAL_COMPUTE", executed=False, parent_hashes=parent_hashes, details={"reason": "authorized fresh Stage2 producer-input pack is incomplete", "required_external_input": "STAGE2_PRODUCER_INPUT_PACK_REQUIRED", "external_boundary": "STAGE2_PRODUCER_INPUT_PACK_REQUIRED", "missing": missing, "design_inputs_materialized": design, "raw_action_source_status": "PASS", "downstream_stage2_status": "INPUT_REQUIRED", "invented_reconstruction": False, "frozen_compute_fallback": False})
 
         from credit_recourse.rl.v43_one_pass_data import prepare_features, prepare_populations
         from credit_recourse.rl.v43_one_pass_grid import generate_grid

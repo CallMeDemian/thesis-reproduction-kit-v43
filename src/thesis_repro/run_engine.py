@@ -312,6 +312,12 @@ def execute(mode: str, run_id: str, profile: str = "smoke", resume: bool = False
     manifest["selected_stage_range"] = {"from_stage": selected[0], "to_stage": selected[-1]}
     manifest["required_stages"] = stages
     manifest["partial_execution_reason"] = None
+    # Downstream comparison/certification adapters are intentionally run
+    # inside this loop and must see the current run identity before the final
+    # return-time write.  In particular, CompareFrozen reads the manifest to
+    # distinguish a fresh run from a historical replay.  Persist the initial
+    # manifest now; stage updates are persisted again at the end.
+    write_json(manifest_path, manifest)
     if start_index > 0:
         if not resume or not manifest_path.is_file():
             raise ValueError("downstream --from-stage requires a resumable existing run")

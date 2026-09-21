@@ -137,9 +137,7 @@ def execute_full_llm(paths, *, live: bool, firm_count: int = FIRM_COUNT) -> dict
     request_path = paths.llm_root / "logical_requests.jsonl"
     requests = _requests(request_path)
     if live:
-        if not (os.environ.get("OPENAI_API_KEY") or os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")):
-            return {"status": "CREDENTIALS_REQUIRED", "reason": "provider credentials are required before submission"}
-        return {"status": "EXTERNAL_WAIT", "reason": "provider submission is intentionally resumable and must be driven by final_release live_batch"}
+        return execute_real_llm(paths, resume=True)
     response_path = paths.llm_root / "raw_mock_responses.jsonl"
     with response_path.open("w", encoding="utf-8") as handle:
         for request in requests:
@@ -511,16 +509,19 @@ def prepare_real_llm(paths) -> dict[str, Any]:
 
 def execute_real_llm(paths, *, resume: bool) -> dict[str, Any]:
     with _real_runtime_environment(paths):
+        if not os.environ.get("OPENAI_API_KEY") or not (os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")):
+            return {"status": "CREDENTIALS_REQUIRED", "reason": "both OpenAI and Gemini provider credentials are required before submission"}
+        if os.environ.get("CREDIT_RECOURSE_ENABLE_LLM_V43_FINAL_PLAN3") != "I_APPROVE_LLM_V43_FINAL_PLAN3_BATCH":
+            return {"status": "APPROVAL_REQUIRED", "reason": "live LLM sentinel is required"}
         manifest_path = paths.llm_root / "real_llm_release_manifest.json"
         if not manifest_path.is_file():
             prepared = prepare_real_llm(paths)
             if prepared.get("status") != "PREPARED":
                 return prepared
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        if not os.environ.get("CREDIT_RECOURSE_ENABLE_LLM_V43_FINAL_PLAN3") == "I_APPROVE_LLM_V43_FINAL_PLAN3_BATCH":
-            return {"status": "APPROVAL_REQUIRED", "reason": "live LLM sentinel is required", **manifest}
         from credit_recourse.final_release.live_batch import poll_and_download, submit_wave
         from credit_recourse.final_release.retry import prepare_retry
+        from credit_recourse.final_release.executor import generation_status
         for arm in (("baseline_hash", "baseline"), ("high_hash", "high")):
             release_hash = manifest[arm[0]]
             for wave in (1, 2):
@@ -532,6 +533,7 @@ def execute_real_llm(paths, *, resume: bool) -> dict[str, Any]:
                         prepare_retry(paths.root, release_hash, wave, attempt)
                     submit_wave(paths.root, release_hash, wave, approved=True, attempt_index=attempt)
                     polled = poll_and_download(paths.root, release_hash, wave, attempt_index=attempt)
+                    generation_status(paths.root, release_hash)
                     if polled.get("status") in {"PASS", "GENERATION_COMPLETE", "COLLECTED"} or polled.get("all_terminal_or_downloaded"):
                         break
                     if attempt == 3:

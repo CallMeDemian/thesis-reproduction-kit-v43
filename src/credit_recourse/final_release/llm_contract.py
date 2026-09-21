@@ -14,10 +14,26 @@ from .contract import CONDITIONS, MODEL_KEYS, load_design
 def validate_llm_contract(root: Path | None = None) -> dict[str, Any]:
     repo = root or find_repo_root()
     bundle = load_design(repo)
-    registry = load_json(repo / "configs/current/contract_manifest.json")
+    configured_root = os.environ.get("THESIS_REPRO_LLM_CONFIG_ROOT")
+    config_root = Path(configured_root) if configured_root and Path(configured_root).is_absolute() else (repo / configured_root if configured_root else repo / "frozen/evidence/llm")
+    # The published simulator registry is not part of the fresh checkout.
+    # Resolve the active design bundle first, then use its run-local or
+    # evidence-local C6-EX files.  A legacy contract_manifest remains an
+    # optional compatibility source, never the fresh runtime authority.
+    registry_path = config_root / "contract_manifest.json"
+    registry = load_json(registry_path) if registry_path.is_file() else {
+        "rl_release_hash": bundle.release["c3e_release_hash"],
+        "c6ex_manifest": str(config_root / "C6EX_manifest.json"),
+        "llm_matrix": str(config_root / "experiment_matrix.csv"),
+        "c6ex_materialized": str(config_root / "C6EX_materialized.parquet"),
+        "c6ex_permutation": str(config_root / "C6EX_permutation.parquet"),
+    }
     ref = bundle.design["active_reference_policy"]
     hashes = {registry["rl_release_hash"], ref["release_hash"], bundle.release["c3e_release_hash"]}
-    c6 = load_json(repo / registry["c6ex_manifest"])
+    c6_manifest = Path(str(registry["c6ex_manifest"]))
+    if not c6_manifest.is_absolute():
+        c6_manifest = config_root / c6_manifest.name if str(c6_manifest).startswith("configs/current") else repo / c6_manifest
+    c6 = load_json(c6_manifest)
     hashes.add(c6["c3e_release_hash"])
     if len(hashes) != 1:
         raise ContractError(f"Cross-component C3-E hash mismatch: {hashes}")
@@ -25,12 +41,21 @@ def validate_llm_contract(root: Path | None = None) -> dict[str, Any]:
     counts_model = matrix.groupby("model").size().to_dict()
     requests_model = matrix.groupby("model")["expected_requests"].apply(lambda s: s.astype(int).sum()).to_dict()
     phase_requests = matrix.groupby("phase")["expected_requests"].apply(lambda s: s.astype(int).sum()).to_dict()
-    materialized = pd.read_parquet(repo / registry["c6ex_materialized"]).sort_values("row_id")
+    materialized_path = Path(str(registry["c6ex_materialized"]))
+    if not materialized_path.is_absolute():
+        materialized_path = config_root / materialized_path.name if str(materialized_path).startswith("configs/current") else repo / materialized_path
+    permutation_path = Path(str(registry["c6ex_permutation"]))
+    if not permutation_path.is_absolute():
+        permutation_path = config_root / permutation_path.name if str(permutation_path).startswith("configs/current") else repo / permutation_path
+    matrix_path = Path(str(registry["llm_matrix"]))
+    if not matrix_path.is_absolute():
+        matrix_path = config_root / matrix_path.name if str(matrix_path).startswith("configs/current") else repo / matrix_path
+    materialized = pd.read_parquet(materialized_path).sort_values("row_id")
     if len(materialized) != 575 or materialized["self_donor_collision"].any():
         raise ContractError("Current C6-EX materialization is not a 575-firm derangement")
-    if sha256_file(repo / registry["c6ex_materialized"]) != c6["materialized_sha256"]:
+    if sha256_file(materialized_path) != c6["materialized_sha256"]:
         raise ContractError("Current C6-EX materialized hash drift")
-    if sha256_file(repo / registry["c6ex_permutation"]) != c6["permutation_sha256"]:
+    if sha256_file(permutation_path) != c6["permutation_sha256"]:
         raise ContractError("Current C6-EX permutation hash drift")
     return {
         "status": "PASS", "design_release_hash": bundle.design_release_hash,
@@ -41,7 +66,7 @@ def validate_llm_contract(root: Path | None = None) -> dict[str, Any]:
         "reference_policy": ref, "cross_component_reference_hash": next(iter(hashes)),
         "c6ex_self_collisions": 0, "c6ex_action_label_collisions": int(c6["action_label_collision_count"]),
         "action_dimensions": list(DIMENSIONS), "candidate_order": list(CANDIDATES),
-        "matrix_sha256": sha256_file(repo / registry["llm_matrix"]),
+        "matrix_sha256": sha256_file(matrix_path),
     }
 
 

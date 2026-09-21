@@ -78,7 +78,7 @@ def run_real_stage(paths: FreshRuntimePaths, stage: str, parent_hashes: list[str
         if not credentials:
             return _blocked(stage, parent_hashes, "live provider credentials are required before submission", status=CREDENTIALS_REQUIRED)
         try:
-            receipt = execute_real_llm(paths, resume=False)
+            receipt = execute_real_llm(paths, resume=True)
             status = receipt.get("status")
             if status == "PASS":
                 artifact = write_stage_artifact(paths, "09_llm/generate_receipt.json", receipt, "fresh:llm:live_receipt", ({"sha256": value} for value in parent_hashes))

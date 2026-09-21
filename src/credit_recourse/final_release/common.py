@@ -148,9 +148,30 @@ def relative_to_root(root: Path, path: Path) -> str:
 def find_repo_root(start: Path | None = None) -> Path:
     here = (start or Path(__file__)).resolve()
     for candidate in (here, *here.parents):
-        if (candidate / "configs" / "current" / "contract_manifest.json").is_file():
+        # The cleaned kit intentionally does not carry the old
+        # ``configs/current`` tree.  Root discovery must therefore be based on
+        # the repository contract, not on a deleted development registry.
+        if (
+            (candidate / "pyproject.toml").is_file()
+            and (candidate / "src").is_dir()
+            and (candidate / "contracts").is_dir()
+            and (candidate / "frozen").is_dir()
+        ):
             return candidate
     raise ContractError("Could not locate repository root")
+
+
+def published_contract_registry(root: Path) -> Path:
+    """Return the immutable published registry, with legacy fallback explicit."""
+    repo = Path(root).resolve()
+    candidates = (
+        repo / "configs/current/contract_manifest.json",
+        repo / "frozen/original_release/simulator/configs/current/contract_manifest.json",
+    )
+    for path in candidates:
+        if path.is_file():
+            return path
+    raise ContractError("Published contract registry is unavailable")
 
 
 def sha256_file(path: Path) -> str:

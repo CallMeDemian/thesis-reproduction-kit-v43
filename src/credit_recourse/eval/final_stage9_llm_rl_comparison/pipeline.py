@@ -49,20 +49,36 @@ def _current_stage6(project_root: Path, *, fixture_mode: bool = False) -> tuple[
     if _sha256(payoff_path) != str(pointer["payoff_surface_sha256"]):
         raise ValueError("Current Stage6 payoff surface hash mismatch")
     payoffs = read_parquet_required(payoff_path)
-    required = {"row_id", "firm_id", "action", "Alpha", "Beta", "Gamma"}
+    required = {"row_id", "firm_id", "fiscal_year", "action", "Alpha", "Beta", "Gamma"}
     if required - set(payoffs):
         raise ValueError(f"Stage6 payoff surface lacks {sorted(required-set(payoffs))}")
     expected_firms = 575 if not fixture_mode else len(payoffs) // 9
+    identity_counts = payoffs.groupby("row_id", sort=False)[["firm_id", "fiscal_year"]].nunique()
+    if (identity_counts > 1).any(axis=None):
+        raise ValueError("Stage6 payoff surface maps one row_id to multiple firm/year identities")
     if len(payoffs) != expected_firms * 9 or payoffs["row_id"].nunique() != expected_firms:
         raise ValueError("Stage6 payoff surface is not a complete cohort x 9 grid")
     if set(payoffs["action"].astype(str)) != set(ACTION_ORDER):
         raise ValueError("Stage6 payoff surface action contract mismatch")
     if payoffs.duplicated(["row_id", "action"]).any():
         raise ValueError("Stage6 payoff surface has duplicate firm-action rows")
+    action_counts = payoffs.groupby("row_id", sort=False)["action"].agg(list)
+    if not action_counts.map(lambda values: len(values) == 9 and set(values) == set(ACTION_ORDER)).all():
+        raise ValueError("Stage6 payoff surface does not contain exactly one canonical action set per row_id")
 
     release_dir = project_root / str(pointer["artifact_path"])
     deployed_path = release_dir if release_dir.suffix == ".parquet" else release_dir / "C3E_firm_actions_payoffs.parquet"
     deployed = read_parquet_required(deployed_path)
+    deployed_required = {"row_id", "firm_id", "fiscal_year"}
+    if deployed_required - set(deployed.columns):
+        raise ValueError(f"Current deployed C3-E table lacks {sorted(deployed_required - set(deployed.columns))}")
+    deployed_identity = deployed.groupby("row_id", sort=False)[["firm_id", "fiscal_year"]].nunique()
+    if (deployed_identity > 1).any(axis=None):
+        raise ValueError("Current deployed C3-E table maps one row_id to multiple firm/year identities")
+    expected_identity = payoffs[["row_id", "firm_id", "fiscal_year"]].drop_duplicates("row_id").sort_values("row_id").reset_index(drop=True)
+    actual_identity = deployed[["row_id", "firm_id", "fiscal_year"]].sort_values("row_id").reset_index(drop=True)
+    if not expected_identity.equals(actual_identity):
+        raise ValueError("Current deployed C3-E identity does not match the Stage6 payoff surface")
     if len(deployed) != expected_firms or deployed["row_id"].nunique() != expected_firms:
         raise ValueError("Current deployed C3-E table is not a complete cohort")
     return pointer, payoffs, deployed
