@@ -1,15 +1,43 @@
 # Clean-clone acceptance
 
-The repository is accepted as a fresh clone when the following sequence completes without access to the source repository:
+## Path A — published result reproduction
+
+This path does not require the original multi-gigabyte LFS tree:
 
 ```powershell
-python -m pip install -e ".[data,dev]"
-python -m thesis_repro frozen-replay
-python -m thesis_repro verify-original
-python -m thesis_repro rebuild-c3e --release original
-python -m thesis_repro fresh --mode OracleRLLLMClean --run-id clean-clone-smoke --profile smoke --dry-render
-python -m thesis_repro trace --run-id clean-clone-smoke
-python -m thesis_repro compare --run-id clean-clone-smoke
+python -m pip install -e ".[full,dev]"
+python -m thesis_repro verify
+python -m thesis_repro reproduce --run-id clean-clone-published
 ```
 
-Acceptance requires frozen verification PASS, 1,035 original artifacts verified, 28/28 historical RL parent chains closed, a 48,300-request fresh namespace dry render, and an explicit `INPUT_REQUIRED` result for full fresh execution when private raw inputs are not restored. No frozen artifact may appear as a silent fresh compute parent.
+Expected result: PASS with 96 primary rows, 722 supplemental rows, 96
+parent-gate rows, and 914 registry rows.
+
+## Path B — synthetic full-DAG architecture
+
+```powershell
+python -m thesis_repro acceptance-e2e --run-id clean-clone-synthetic
+python -m thesis_repro trace --run-id clean-clone-synthetic
+```
+
+Expected result:
+
+- `completion_state=PASS`
+- `dag_complete=true`
+- `certifiable=false`
+- `lineage_closed=true`
+
+This is deterministic architecture evidence, not thesis-scale numerical
+replication.
+
+## Path C — original LFS asset integrity
+
+After a complete Git LFS pull, optionally run:
+
+```powershell
+git lfs fsck
+python -m thesis_repro verify-original
+python -m thesis_repro rebuild-c3e --release original
+```
+
+The source archive alone is not an LFS-complete historical asset checkout.

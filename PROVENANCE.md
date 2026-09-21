@@ -1,32 +1,32 @@
 # Provenance
 
-This repository is a clean-room product repository. The scientific source is
-preserved separately as historical evidence:
+## Historical source identity
 
-- source repository: `CallMeDemian/REPRO_KIT_semantic_repair`
-- source commit recorded by the release brief: `324b5fbb0ac9cf322ae20cf97793165227bf45ed`
-- scientific evidence base: `449c942cd1c02b17bcc1720f10ee8c96ee0a883a`
-- frozen release: `THESIS_V43_SUBMISSION_FINAL_20260917`
-- certification commit recorded by the release brief: `e2ad7fb731e3965b6be750c1057b7db04871b2a7`
+The product is a clean-room reproduction repository for
+`CallMeDemian/REPRO_KIT_semantic_repair`. Source commits, the scientific
+evidence base, release identity, and the migrated asset inventory are recorded
+in `provenance/source_release.json` and the immutable release manifests.
 
-The requested source and certification objects are not present in the local
-Git object database at migration time. Their identifiers are retained as
-provenance claims and are not used as runtime dependencies.
+## Migration history
 
-Frozen artifacts are addressed by SHA-256 in
-`frozen/release/frozen_manifest.json`. Fresh outputs live only under
-`runs/<run_id>/` and never replace frozen objects.
+At the initial migration step, some source Git objects were unavailable and
+were recorded as migration boundaries. The current `source_release.json`
+records the relevant source, evidence-base, and certification objects as
+`VERIFIED`; the historical statement is retained here to describe the
+migration context, not the current verification state.
 
-## Closure state
+## Current closure state
 
-- historical evidence closure: `CLOSED`
-- fresh code closure: `PARTIAL` for the complete thesis DAG; the production `VerifyInputs -> Oracle -> VerifyOracle -> Simulator -> RLDataset` segment is wired through canonical adapters
-- fresh segment execution closure: `SYNTHETIC_VERIFIED` only when a run manifest records the real production-prefix acceptance; this is not a thesis-scale replication
-- fresh execution closure: `NOT_EXECUTED` for the complete fresh replication unless a run manifest records actual execution
-- fresh verified execution closure: `NOT_EXECUTED` unless every same-run verifier and certification check accepts
+- Historical evidence closure: **CLOSED**.
+- Fresh implementation/code closure: **CLOSED WITH EXTERNAL INPUT BOUNDARIES**.
+- Published-result reproduction: **CLOSED**.
+- Synthetic full-DAG architecture acceptance: **PASS**, execution class
+  `SYNTHETIC_E2E_ACCEPTANCE`, `completion_state=PASS`, `dag_complete=true`,
+  `certifiable=false`.
+- Full fresh numerical execution: **NOT CLAIMED AS COMPLETED**. It requires
+  authorized raw inputs, the unrecovered original Stage2 producer-input pack,
+  compute, and/or provider credentials as described in the professor guide.
 
-`python -m thesis_repro acceptance-e2e --run-id ci-e2e` is a separate
-`SYNTHETIC_E2E_ACCEPTANCE` architecture receipt. It uses the same run engine and
-production adapters for the five-stage prefix, does not use licensed raw data or
-paid APIs, ends as `PARTIAL_EXECUTION`, and is never eligible for fresh
-replication certification.
+Synthetic acceptance invokes the canonical FullClean DAG, run engine, and
+canonical adapters on deterministic fixture inputs. It proves architecture
+and lineage, not thesis-scale fresh scientific replication.

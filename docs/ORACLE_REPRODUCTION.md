@@ -1,8 +1,15 @@
 # Oracle reproduction
 
-The intended clean chain is restored raw inputs → Stage0 foundation → ratio
-engineering → nonfinancial processing → variable selection → Alpha/Beta/Gamma
-→ validation. The final frozen Oracle contract is retained under
-`contracts/scientific/final_freeze`; the public run engine currently exposes a
-contract-valid smoke harness while raw-input adapters are being connected.
+The fresh Oracle path is connected to the production Stage0/Stage1
+implementation. Its same-run manifests, artifact hashes, contracts, and
+recursive lineage are required before downstream consumers can run.
 
+Authorized raw inputs are required for a full fresh Oracle execution. If they
+are unavailable or fail validation, the run stops with an explicit
+`INPUT_REQUIRED` boundary and does not substitute frozen Oracle outputs as
+fresh compute parents.
+
+The synthetic acceptance command exercises the canonical Oracle adapter with
+deterministic fixture data. It proves executable wiring and lineage only; it
+is not thesis-scale raw-data Oracle evidence and does not relax the scientific
+gate for a real fresh replication.
