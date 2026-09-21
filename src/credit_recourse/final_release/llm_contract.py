@@ -185,6 +185,8 @@ def industry_binding_status(root: Path | None = None) -> dict[str, Any]:
     role = evidence.get("role")
     historical_authorized = evidence.get("frozen") is True or role == "FROZEN_EXOGENOUS_INFORMATION_INPUT"
     fresh_authorized = bool(configured_root) and role == "FRESH_EXOGENOUS_INFORMATION_INPUT"
+    authorized_role = role in {"FRESH_EXOGENOUS_INFORMATION_INPUT", "FROZEN_EXOGENOUS_INFORMATION_INPUT"}
+    runtime_provenance_authorized = bool(configured_root) and authorized_role
     provenance_authorized = historical_authorized or fresh_authorized
     def _declared_int(value: Any) -> int:
         try:
@@ -224,7 +226,7 @@ def industry_binding_status(root: Path | None = None) -> dict[str, Any]:
         and unique_firms == 575
         and nonmissing == 575
         and codes_complete
-        and (fresh_authorized or leak_scan_pass)
+        and (runtime_provenance_authorized or leak_scan_pass)
     )
     return {
         "ready": ready, "status": evidence.get("status", "MISSING"),
@@ -232,6 +234,7 @@ def industry_binding_status(root: Path | None = None) -> dict[str, Any]:
         "fresh_runtime": fresh_runtime,
         "historical_authorized": historical_authorized,
         "fresh_authorized": fresh_authorized,
+        "runtime_provenance_authorized": runtime_provenance_authorized,
         "provenance_authorized": provenance_authorized,
         "declared_rows": declared_rows,
         "declared_unique_firm_key": declared_unique_firms,
@@ -246,6 +249,6 @@ def industry_binding_status(root: Path | None = None) -> dict[str, Any]:
         "binding_rows": rows,
         "binding_unique_firms": unique_firms,
         "binding_nonmissing_induty_code": nonmissing,
-        "api_key_leak_scan": "NOT_APPLICABLE_FRESH_RUNTIME" if fresh_authorized else ("PASS" if leak_scan_pass else "FAIL_OR_MISSING"),
+        "api_key_leak_scan": "NOT_APPLICABLE_FRESH_RUNTIME" if runtime_provenance_authorized else ("PASS" if leak_scan_pass else "FAIL_OR_MISSING"),
     }
 

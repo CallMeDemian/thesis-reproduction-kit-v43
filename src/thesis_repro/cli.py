@@ -58,7 +58,7 @@ def _build_parser() -> argparse.ArgumentParser:
     restore.add_argument("--raw-nonfinancial", type=Path, required=True)
     restore.add_argument("--ratings", type=Path, required=True)
     restore.add_argument("--stage2-source", type=Path)
-    restore.add_argument("--c6ex-permutation", type=Path)
+    restore.add_argument("--c6ex-permutation", type=Path, help="optional exact-byte C6-EX override; absent uses the certified distribution member")
     inspect = sub.add_parser("inspect")
     inspect.add_argument("kind", choices=("claim", "result", "run"))
     inspect.add_argument("identifier")

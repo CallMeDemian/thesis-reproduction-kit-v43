@@ -9,10 +9,12 @@ from __future__ import annotations
 
 import csv
 import hashlib
+import io
 import json
 import os
 import shutil
 import time
+import zipfile
 from contextlib import contextmanager
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -24,6 +26,9 @@ from credit_recourse.final_release.common import canonical_hash
 EXPECTED_REQUESTS = 48_300
 FIRM_COUNT = 575
 REGIMES = ("baseline", "high")
+C6EX_PERMUTATION_SHA256 = "a5385d4c811e73fbf39a46cf299959d72ada8f3931ed3a02a2ba07e4f1c0bd40"
+CERTIFIED_DISTRIBUTION_SHA256 = "931631d52541bb6dfdd5ed9fda767e2e48ccb8b7521f70ae771db68df2c1831d"
+CERTIFIED_DISTRIBUTION_RELATIVE = Path("frozen/distribution/THESIS_REPRO_KIT_v2.1.1_FINAL.zip")
 
 
 @dataclass(frozen=True)
@@ -296,49 +301,201 @@ def _real_runtime_environment(paths):
     return scoped()
 
 
-def _materialize_fresh_industry_binding(paths, config_root: Path) -> dict[str, Any]:
-    """Bind public industry metadata without copying computed financial results."""
-    candidates = [
-        paths.stage2_root / "input_source/phase_eval_candidate.parquet",
-        paths.stage2_root / "phase_eval_candidate.parquet",
-        paths.root / "frozen/original_release/llm/final_plan3/2cf6d6d0e4250e66ce882ab95f9d641f2c73711ffbc6429e9a203dcc2ee680a2/firm_payload_source.parquet",
-    ]
-    source = next((path for path in candidates if path.is_file()), None)
-    if source is None:
-        return {"status": "INPUT_REQUIRED", "reason": "INDUSTRY_BINDING_SOURCE_REQUIRED"}
+def _source_label(paths, source: Path | str) -> str:
+    value = Path(source)
+    try:
+        return str(value.relative_to(paths.root)).replace("\\", "/")
+    except ValueError:
+        return str(value).replace("\\", "/")
+
+
+def _canonical_industry_firm_universe(paths) -> set[str] | None:
+    """Resolve the canonical FY2024 firm-year universe without using results."""
     import pandas as pd
-    frame = pd.read_parquet(source).copy()
-    firm_col = next((name for name in ("firm_id", "firm_key", "canonical_firm_year_id") if name in frame), None)
+
+    local_candidates = (
+        paths.stage2_root / "input_source/input_splits/canonical_evaluation_row_ids.parquet",
+        paths.stage2_root / "input_splits/canonical_evaluation_row_ids.parquet",
+    )
+    for candidate in local_candidates:
+        if not candidate.is_file():
+            continue
+        try:
+            frame = pd.read_parquet(candidate)
+            for column in ("canonical_firm_year_id", "firm_key"):
+                if column in frame:
+                    values = frame[column].astype(str).str.strip()
+                    if len(values) == FIRM_COUNT and values.nunique() == FIRM_COUNT:
+                        return set(values)
+        except Exception:
+            continue
+
+    distribution = paths.root / CERTIFIED_DISTRIBUTION_RELATIVE
+    if not distribution.is_file() or _sha256(distribution) != CERTIFIED_DISTRIBUTION_SHA256:
+        return None
+    try:
+        with zipfile.ZipFile(distribution) as archive:
+            member = next(
+                name for name in archive.namelist()
+                if name.endswith("stage2_candidate_projection/input_splits/canonical_evaluation_row_ids.parquet")
+            )
+            frame = pd.read_parquet(io.BytesIO(archive.read(member)))
+            values = frame["canonical_firm_year_id"].astype(str).str.strip()
+            if len(values) == FIRM_COUNT and values.nunique() == FIRM_COUNT:
+                return set(values)
+    except Exception:
+        return None
+    return None
+
+
+def _industry_candidate_frame(candidate: dict[str, Any], paths):
+    """Read one authorized industry candidate and return its frame/provenance."""
+    import pandas as pd
+
+    if candidate["kind"] == "path":
+        source = Path(candidate["path"])
+        if not source.is_file():
+            return None, {"valid": False, "source": _source_label(paths, source), "role": candidate["role"], "reason": "SOURCE_MISSING"}
+        try:
+            raw = source.read_bytes()
+            frame = pd.read_parquet(io.BytesIO(raw)).copy()
+        except Exception as exc:
+            return None, {"valid": False, "source": _source_label(paths, source), "role": candidate["role"], "reason": f"PARQUET_UNREADABLE:{type(exc).__name__}"}
+        return frame, {"source": _source_label(paths, source), "role": candidate["role"], "source_sha256": hashlib.sha256(raw).hexdigest()}
+
+    distribution = Path(candidate["zip_path"])
+    label = f"{_source_label(paths, distribution)}::{candidate['member']}"
+    if not distribution.is_file():
+        return None, {"valid": False, "source": label, "role": candidate["role"], "reason": "SOURCE_MISSING"}
+    distribution_sha256 = _sha256(distribution)
+    if distribution_sha256 != CERTIFIED_DISTRIBUTION_SHA256:
+        return None, {"valid": False, "source": label, "role": candidate["role"], "reason": "CERTIFIED_DISTRIBUTION_HASH_MISMATCH", "distribution_zip_sha256": distribution_sha256}
+    try:
+        with zipfile.ZipFile(distribution) as archive:
+            members = [name for name in archive.namelist() if name.endswith(candidate["member_suffix"])]
+            if len(members) != 1:
+                return None, {"valid": False, "source": label, "role": candidate["role"], "reason": "CERTIFIED_MEMBER_NOT_UNIQUE", "member_count": len(members)}
+            member = members[0]
+            raw = archive.read(member)
+            frame = pd.read_parquet(io.BytesIO(raw)).copy()
+            source_manifest = None
+            if candidate.get("manifest_suffix"):
+                manifests = [name for name in archive.namelist() if name.endswith(candidate["manifest_suffix"])]
+                if len(manifests) == 1:
+                    source_manifest = json.loads(archive.read(manifests[0]).decode("utf-8"))
+                    expected = source_manifest.get("binding_artifact_sha256")
+                    if expected and expected != hashlib.sha256(raw).hexdigest():
+                        return None, {"valid": False, "source": f"{_source_label(paths, distribution)}::{member}", "role": candidate["role"], "reason": "SOURCE_MANIFEST_HASH_MISMATCH"}
+            return frame, {
+                "source": f"{_source_label(paths, distribution)}::{member}",
+                "role": candidate["role"],
+                "source_sha256": hashlib.sha256(raw).hexdigest(),
+                "distribution_zip": _source_label(paths, distribution),
+                "distribution_zip_sha256": distribution_sha256,
+                "member": member,
+                "source_manifest": source_manifest,
+            }
+    except Exception as exc:
+        return None, {"valid": False, "source": label, "role": candidate["role"], "reason": f"PARQUET_UNREADABLE:{type(exc).__name__}"}
+
+
+def _evaluate_industry_binding_candidate(candidate: dict[str, Any], paths, canonical_universe: set[str] | None) -> dict[str, Any]:
+    """Validate a candidate completely before it can be selected."""
+    import pandas as pd
+
+    frame, provenance = _industry_candidate_frame(candidate, paths)
+    if frame is None:
+        return provenance
+    provenance = {**provenance, "priority": candidate["priority"]}
+    firm_col = next((name for name in ("canonical_firm_year_id", "firm_key", "firm_id") if name in frame), None)
     year_col = next((name for name in ("fiscal_year", "year") if name in frame), None)
     display_col = next((name for name in ("industry_display_value", "industry_class", "industry") if name in frame), None)
     code_col = next((name for name in ("induty_code", "industry_code", "industry_class") if name in frame), None)
-    if not firm_col or not year_col or not display_col or not code_col:
-        return {"status": "INPUT_REQUIRED", "reason": "INDUSTRY_BINDING_SOURCE_SCHEMA_REQUIRED", "source": str(source.relative_to(paths.root)).replace("\\", "/")}
-    if "::" in frame[firm_col].astype(str).iloc[0] if len(frame) else False:
-        frame["firm_key"] = frame[firm_col].astype(str)
-    else:
-        frame["firm_key"] = frame[firm_col].astype(str).str.strip().str.replace(r"\.0$", "", regex=True).str.zfill(6) + "::" + pd.to_numeric(frame[year_col], errors="raise").astype(int).astype(str)
-    frame["induty_code"] = frame[code_col].astype(str).str.strip()
-    if frame["induty_code"].eq("").any() or frame["induty_code"].str.lower().isin({"nan", "none", "unknown"}).any():
-        return {"status": "INPUT_REQUIRED", "reason": "INDUSTRY_BINDING_CODE_INCOMPLETE", "source": str(source.relative_to(paths.root)).replace("\\", "/")}
-    frame["industry_display_value"] = frame[display_col].astype(str).str.strip()
-    binding = frame[["firm_key", "induty_code", "industry_display_value"]].drop_duplicates("firm_key").reset_index(drop=True)
-    if len(binding) != 575 or binding["firm_key"].nunique() != 575 or binding["industry_display_value"].eq("").any():
-        return {"status": "INPUT_REQUIRED", "reason": "INDUSTRY_BINDING_COHORT_INCOMPLETE", "source": str(source.relative_to(paths.root)).replace("\\", "/"), "rows": len(binding)}
+    if not firm_col:
+        return {**provenance, "valid": False, "reason": "FIRM_KEY_UNIDENTIFIABLE"}
+    first_firm_value = str(frame[firm_col].iloc[0]) if len(frame) else ""
+    if not year_col and "::" not in first_firm_value:
+        return {**provenance, "valid": False, "reason": "FISCAL_YEAR_UNAVAILABLE"}
+    if not display_col or not code_col:
+        return {**provenance, "valid": False, "reason": "INDUSTRY_COLUMNS_INCOMPLETE"}
+
+    try:
+        if "::" in first_firm_value:
+            frame["firm_key"] = frame[firm_col].astype(str).str.strip()
+        else:
+            years = pd.to_numeric(frame[year_col], errors="raise").astype(int).astype(str)
+            frame["firm_key"] = frame[firm_col].astype(str).str.strip().str.replace(r"\.0$", "", regex=True).str.zfill(6) + "::" + years
+    except Exception:
+        return {**provenance, "valid": False, "reason": "FISCAL_YEAR_UNAVAILABLE"}
+    if len(frame) != FIRM_COUNT or frame["firm_key"].nunique() != FIRM_COUNT:
+        return {**provenance, "valid": False, "reason": "INDUSTRY_BINDING_COHORT_INCOMPLETE", "rows": len(frame), "unique_firms": int(frame["firm_key"].nunique())}
+    if canonical_universe is None:
+        return {**provenance, "valid": False, "reason": "CANONICAL_FIRM_UNIVERSE_UNAVAILABLE", "rows": len(frame), "unique_firms": FIRM_COUNT}
+    if set(frame["firm_key"]) != canonical_universe:
+        return {**provenance, "valid": False, "reason": "CANONICAL_FIRM_UNIVERSE_MISMATCH", "rows": len(frame), "unique_firms": FIRM_COUNT}
+    codes = frame[code_col].astype(str).str.strip()
+    if codes.eq("").any() or codes.str.lower().isin({"nan", "none", "unknown"}).any():
+        return {**provenance, "valid": False, "reason": "INDUSTRY_CODE_INCOMPLETE", "rows": len(frame), "unique_firms": FIRM_COUNT}
+    display = frame[display_col].astype(str).str.strip()
+    if display.eq("").any() or display.str.lower().isin({"nan", "none", "unknown"}).any():
+        return {**provenance, "valid": False, "reason": "INDUSTRY_DISPLAY_INCOMPLETE", "rows": len(frame), "unique_firms": FIRM_COUNT}
+    frame["induty_code"] = codes
+    frame["industry_display_value"] = display
+    return {**provenance, "valid": True, "frame": frame[["firm_key", "induty_code", "industry_display_value"]].reset_index(drop=True), "rows": len(frame), "unique_firms": int(frame["firm_key"].nunique())}
+
+
+def _industry_binding_candidates(paths) -> list[dict[str, Any]]:
+    stage2 = paths.stage2_root
+    root = paths.root
+    return [
+        {"priority": 1, "kind": "path", "path": stage2 / "input_source/FY2024_INDUSTRY_BINDING.parquet", "role": "FRESH_EXOGENOUS_INFORMATION_INPUT"},
+        {"priority": 1, "kind": "path", "path": stage2 / "input_source/industry_binding.parquet", "role": "FRESH_EXOGENOUS_INFORMATION_INPUT"},
+        {"priority": 1, "kind": "path", "path": stage2 / "input_source/firm_payload_source.parquet", "role": "FRESH_EXOGENOUS_INFORMATION_INPUT"},
+        {"priority": 2, "kind": "path", "path": stage2 / "input_source/phase_eval_candidate.parquet", "role": "FRESH_EXOGENOUS_INFORMATION_INPUT"},
+        {"priority": 2, "kind": "path", "path": stage2 / "phase_eval_candidate.parquet", "role": "FRESH_EXOGENOUS_INFORMATION_INPUT"},
+        {"priority": 3, "kind": "zip", "zip_path": root / CERTIFIED_DISTRIBUTION_RELATIVE, "member_suffix": "archive/DEPLOYED_RELEASE/llm_inputs/fy2024_industry_binding/industry_binding.parquet", "manifest_suffix": "archive/DEPLOYED_RELEASE/llm_inputs/fy2024_industry_binding/FY2024_INDUSTRY_BINDING_MANIFEST.json", "member": "archive/DEPLOYED_RELEASE/llm_inputs/fy2024_industry_binding/industry_binding.parquet", "role": "FROZEN_EXOGENOUS_INFORMATION_INPUT"},
+        {"priority": 4, "kind": "path", "path": root / "frozen/original_release/llm/final_plan3/2cf6d6d0e4250e66ce882ab95f9d641f2c73711ffbc6429e9a203dcc2ee680a2/firm_payload_source.parquet", "role": "FROZEN_EXOGENOUS_INFORMATION_INPUT"},
+    ]
+
+
+def _materialize_fresh_industry_binding(paths, config_root: Path) -> dict[str, Any]:
+    """Select the first valid authorized public industry source."""
+    canonical_universe = _canonical_industry_firm_universe(paths)
+    rejected: list[dict[str, Any]] = []
+    selected: dict[str, Any] | None = None
+    for candidate in _industry_binding_candidates(paths):
+        result = _evaluate_industry_binding_candidate(candidate, paths, canonical_universe)
+        if result.get("valid"):
+            selected = result
+            break
+        rejected.append({key: value for key, value in result.items() if key not in {"frame", "source_manifest"}})
+    if selected is None:
+        return {"status": "INPUT_REQUIRED", "reason": "INDUSTRY_BINDING_SOURCE_REQUIRED", "rejected_candidates": rejected}
+
+    binding = selected["frame"]
     artifact = config_root / "FY2024_INDUSTRY_BINDING.parquet"
     binding.to_parquet(artifact, index=False)
+    selected_source = selected["source"]
     manifest = {
         "schema_version": "fresh_industry_binding_v1",
         "status": "PASS",
-        "role": "FRESH_EXOGENOUS_INFORMATION_INPUT" if source.is_relative_to(paths.run_root) else "FROZEN_EXOGENOUS_INFORMATION_INPUT",
-        "source": str(source.relative_to(paths.root)).replace("\\", "/"),
-        "source_sha256": _sha256(source),
+        "role": selected["role"],
+        "selected_source": selected_source,
+        "selected_role": selected["role"],
+        "selected_source_sha256": selected["source_sha256"],
+        "selection_priority": selected["priority"],
+        "rejected_candidates": rejected,
+        "source": selected_source,
+        "source_sha256": selected["source_sha256"],
         "binding_artifact": "FY2024_INDUSTRY_BINDING.parquet",
         "binding_artifact_sha256": _sha256(artifact),
-        "rows": 575,
-        "unique_firm_key": 575,
+        "rows": FIRM_COUNT,
+        "unique_firm_key": FIRM_COUNT,
         "unresolved_count": 0,
     }
+    for key in ("distribution_zip", "distribution_zip_sha256", "member"):
+        if key in selected:
+            manifest[key] = selected[key]
     manifest_path = config_root / "FY2024_INDUSTRY_BINDING_MANIFEST.json"
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     information_path = config_root / "information_contract.json"
@@ -346,7 +503,7 @@ def _materialize_fresh_industry_binding(paths, config_root: Path) -> dict[str, A
     information["industry_binding_manifest"] = "FY2024_INDUSTRY_BINDING_MANIFEST.json"
     information["industry_status"] = "FRESH_BINDING_MATERIALIZED"
     information_path.write_text(json.dumps(information, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    return {"status": "PASS", "manifest": str(manifest_path.relative_to(paths.root)).replace("\\", "/"), "artifact": str(artifact.relative_to(paths.root)).replace("\\", "/"), "artifact_sha256": manifest["binding_artifact_sha256"], "role": manifest["role"]}
+    return {"status": "PASS", "manifest": str(manifest_path.relative_to(paths.root)).replace("\\", "/"), "artifact": str(artifact.relative_to(paths.root)).replace("\\", "/"), "artifact_sha256": manifest["binding_artifact_sha256"], "role": manifest["role"], "selected_source": selected_source, "selected_source_sha256": selected["source_sha256"], "selection_priority": selected["priority"], "rejected_candidates": rejected}
 
 
 def _write_fresh_design_release(paths, config_root: Path, c6ex_manifest: dict[str, Any]) -> dict[str, Any]:
@@ -436,6 +593,54 @@ def _write_fresh_design_release(paths, config_root: Path, c6ex_manifest: dict[st
     return {"design_release_hash": derived_hash, "c3e_release_hash": c3e_hash, "final_design_semantic_hash": historical["final_design_semantic_hash"], "source_hashes": historical["source_hashes"]}
 
 
+def _resolve_c6ex_permutation(paths, config_root: Path) -> dict[str, Any]:
+    """Resolve exact C6-EX bytes from an override or the certified distribution."""
+    config_root.mkdir(parents=True, exist_ok=True)
+    explicit_permutation = paths.root / "data/design/C6EX_permutation.parquet"
+    if explicit_permutation.is_file():
+        actual_hash = _sha256(explicit_permutation)
+        if actual_hash != C6EX_PERMUTATION_SHA256:
+            return {"status": "FAILED", "reason": "C6EX_PERMUTATION_HASH_MISMATCH", "expected_sha256": C6EX_PERMUTATION_SHA256, "actual_sha256": actual_hash, "source": _source_label(paths, explicit_permutation)}
+        provenance = {
+            "source_role": "EXPLICIT_RESTORED_DESIGN_INPUT",
+            "source": _source_label(paths, explicit_permutation),
+            "permutation_sha256": actual_hash,
+        }
+        shutil.copy2(explicit_permutation, config_root / "C6EX_permutation.parquet")
+        return {"status": "PASS", "path": config_root / "C6EX_permutation.parquet", "provenance": provenance}
+
+    distribution = paths.root / CERTIFIED_DISTRIBUTION_RELATIVE
+    if not distribution.is_file():
+        return {"status": "INPUT_REQUIRED", "reason": "C6EX_PERMUTATION_REQUIRED", "expected_sha256": C6EX_PERMUTATION_SHA256}
+    distribution_sha256 = _sha256(distribution)
+    if distribution_sha256 != CERTIFIED_DISTRIBUTION_SHA256:
+        return {"status": "FAILED", "reason": "CERTIFIED_DISTRIBUTION_HASH_MISMATCH", "expected_distribution_sha256": CERTIFIED_DISTRIBUTION_SHA256, "actual_distribution_sha256": distribution_sha256}
+    try:
+        with zipfile.ZipFile(distribution) as archive:
+            members = [name for name in archive.namelist() if name.endswith("configs/current/llm/C6EX_permutation.parquet")]
+            if len(members) != 1:
+                return {"status": "INPUT_REQUIRED", "reason": "C6EX_PERMUTATION_REQUIRED", "expected_sha256": C6EX_PERMUTATION_SHA256, "member_count": len(members)}
+            member = members[0]
+            permutation_bytes = archive.read(member)
+    except (OSError, zipfile.BadZipFile) as exc:
+        return {"status": "FAILED", "reason": "CERTIFIED_DISTRIBUTION_UNREADABLE", "error": type(exc).__name__}
+    member_hash = hashlib.sha256(permutation_bytes).hexdigest()
+    if member_hash != C6EX_PERMUTATION_SHA256:
+        return {"status": "FAILED", "reason": "C6EX_BUNDLED_PERMUTATION_HASH_MISMATCH", "expected_sha256": C6EX_PERMUTATION_SHA256, "actual_sha256": member_hash, "member": member}
+    (config_root / "C6EX_permutation.parquet").write_bytes(permutation_bytes)
+    return {
+        "status": "PASS",
+        "path": config_root / "C6EX_permutation.parquet",
+        "provenance": {
+            "source_role": "CERTIFIED_BUNDLED_DESIGN_INPUT",
+            "distribution_zip": _source_label(paths, distribution),
+            "distribution_zip_sha256": distribution_sha256,
+            "member": member,
+            "permutation_sha256": member_hash,
+        },
+    }
+
+
 def prepare_real_plan3_config(paths) -> dict[str, Any]:
     """Materialize immutable design inputs and derive a same-run Plan-3 release."""
     config_root = paths.llm_root / "config"
@@ -447,11 +652,12 @@ def prepare_real_plan3_config(paths) -> dict[str, Any]:
         if not source.is_file():
             return {"status": "INPUT_REQUIRED", "reason": "FINAL_PLAN3_DESIGN_INPUT_MISSING", "missing": str(source.relative_to(paths.root)).replace("\\", "/")}
         shutil.copy2(source, config_root / name)
-    permutation = paths.root / "data/design/C6EX_permutation.parquet"
-    expected_hash = "a5385d4c811e73fbf39a46cf299959d72ada8f3931ed3a02a2ba07e4f1c0bd40"
-    if not permutation.is_file() or _sha256(permutation) != expected_hash:
-        return {"status": "INPUT_REQUIRED", "reason": "C6EX_PERMUTATION_REQUIRED", "expected_sha256": expected_hash}
-    shutil.copy2(permutation, config_root / "C6EX_permutation.parquet")
+    expected_hash = C6EX_PERMUTATION_SHA256
+    resolved_permutation = _resolve_c6ex_permutation(paths, config_root)
+    if resolved_permutation.get("status") != "PASS":
+        return resolved_permutation
+    permutation = resolved_permutation["path"]
+    permutation_provenance = resolved_permutation["provenance"]
     import pandas as pd
     actions_path = paths.c3e_root / "C3E_firm_actions.parquet"
     if not actions_path.is_file():
@@ -488,13 +694,14 @@ def prepare_real_plan3_config(paths) -> dict[str, Any]:
         "self_donor_collisions": c6ex_diagnostics["self_donor_collision_count"],
         "action_label_collision_count": c6ex_diagnostics["action_label_collision_count"],
         "rows": c6ex_diagnostics["firm_count"],
+        "permutation_provenance": permutation_provenance,
     }
     (config_root / "C6EX_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     industry = _materialize_fresh_industry_binding(paths, config_root)
     if industry.get("status") != "PASS":
         return industry
     release = _write_fresh_design_release(paths, config_root, manifest)
-    return {"status": "PASS", "config_root": str(config_root.relative_to(paths.root)).replace("\\", "/"), "c6ex_permutation_sha256": expected_hash, "c6ex_materialized_sha256": manifest["fresh_materialized_sha256"], "matrix_cells": 42, "industry_binding": industry, "derived_release": release}
+    return {"status": "PASS", "config_root": str(config_root.relative_to(paths.root)).replace("\\", "/"), "c6ex_permutation_sha256": expected_hash, "c6ex_materialized_sha256": manifest["fresh_materialized_sha256"], "c6ex_permutation_provenance": permutation_provenance, "matrix_cells": 42, "industry_binding": industry, "derived_release": release}
 
 
 def prepare_real_llm(paths) -> dict[str, Any]:

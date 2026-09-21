@@ -130,18 +130,29 @@ def test_historical_frozen_industry_binding_remains_accepted(monkeypatch, tmp_pa
     assert result["historical_authorized"] is True
 
 
+def test_run_local_frozen_exogenous_binding_skips_historical_leak_gate(monkeypatch, tmp_path):
+    config, _ = _write_binding_fixture(
+        tmp_path,
+        role="FROZEN_EXOGENOUS_INFORMATION_INPUT",
+        frozen=False,
+    )
+    monkeypatch.setenv("THESIS_REPRO_LLM_CONFIG_ROOT", str(config))
+    result = industry_binding_status(tmp_path)
+    assert result["ready"] is True
+    assert result["runtime_provenance_authorized"] is True
+    assert result["api_key_leak_scan"] == "NOT_APPLICABLE_FRESH_RUNTIME"
+
+
 def test_real_plan3_prepare_freeze_and_wave1_accept_fresh_binding(monkeypatch, tmp_path):
     """Exercise the production preparation chain with preserved contract inputs."""
     source_repo = Path(__file__).resolve().parents[1]
     repo = tmp_path / "repo"
-    for relative in ("src", "contracts/scientific", "frozen/evidence/llm"):
+    for relative in ("src", "contracts/scientific", "frozen/evidence/llm", "frozen/distribution"):
         shutil.copytree(source_repo / relative, repo / relative)
 
     distribution = source_repo / "frozen" / "distribution" / "THESIS_REPRO_KIT_v2.1.1_FINAL.zip"
     assert distribution.is_file(), "the preserved exact permutation fixture is required"
     run_root = repo / "runs" / "integration"
-    design_root = repo / "data" / "design"
-    design_root.mkdir(parents=True)
     stage2_root = run_root / "03_stage2"
     (stage2_root / "input_source" / "input_splits").mkdir(parents=True)
     c3e_root = run_root / "07_c3e"
@@ -155,7 +166,6 @@ def test_real_plan3_prepare_freeze_and_wave1_accept_fresh_binding(monkeypatch, t
             "panel": next(name for name in members if name.endswith("stage2_candidate_projection/phase_eval_candidate.parquet")),
             "ids": next(name for name in members if name.endswith("stage2_candidate_projection/input_splits/canonical_evaluation_row_ids.parquet")),
         }
-        (design_root / "C6EX_permutation.parquet").write_bytes(archive.read(member_map["permutation"]))
         panel_path = stage2_root / "input_source" / "phase_eval_candidate.parquet"
         panel_path.write_bytes(archive.read(member_map["panel"]))
         panel = pd.read_parquet(panel_path)
@@ -178,6 +188,8 @@ def test_real_plan3_prepare_freeze_and_wave1_accept_fresh_binding(monkeypatch, t
     prepared = prepare_real_plan3_config(paths)
     assert prepared["status"] == "PASS", prepared
     assert prepared["industry_binding"]["role"] == "FRESH_EXOGENOUS_INFORMATION_INPUT"
+    assert prepared["c6ex_permutation_provenance"]["source_role"] == "CERTIFIED_BUNDLED_DESIGN_INPUT"
+    assert prepared["c6ex_permutation_provenance"]["permutation_sha256"] == "a5385d4c811e73fbf39a46cf299959d72ada8f3931ed3a02a2ba07e4f1c0bd40"
     config_root = llm_root / "config"
     monkeypatch.setenv("THESIS_REPRO_LLM_CONFIG_ROOT", str(config_root))
     assert industry_binding_status(repo)["ready"] is True

@@ -32,11 +32,10 @@ python -m thesis_repro data restore `
   --raw-all C:\path\raw_all.zip `
   --raw-nonfinancial C:\path\raw_nonfinancial.zip `
   --ratings C:\path\rating_sample.zip `
-  --stage2-source C:\path\stage2_producer_input_pack.zip `
-  --c6ex-permutation C:\path\C6EX_permutation.parquet
+  --stage2-source C:\path\stage2_producer_input_pack.zip
 ```
 
-The raw archives support the rebuilt Oracle and raw Stage2 action source. Full RL continuation additionally requires the exact original Stage2 producer-input pack because it was not distributed with the certified source release. Live Plan-3 LLM execution additionally requires the exact historical C6-EX permutation design input.
+The raw archives support the rebuilt Oracle and raw Stage2 action source. Full RL continuation additionally requires the exact original Stage2 producer-input pack because it was not distributed with the certified source release. Live Plan-3 automatically restores the exact frozen C6-EX donor permutation from the certified distribution and verifies its SHA-256. `--c6ex-permutation C:\path\C6EX_permutation.parquet` remains an optional exact-byte override; a present but tampered override fails closed.
 
 ## 4. Run or continue fresh replication
 
