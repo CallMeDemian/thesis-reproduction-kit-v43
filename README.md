@@ -5,7 +5,7 @@
 논문에 들어간 표와 수치뿐 아니라, 실험에 사용한 결과 자료, RL/LLM 실행 기록, 검증 정보, 해시와 연결 관계도 함께 보관했습니다.
 
 처음 보는 경우에는 아래의 **“논문 결과를 가장 간단하게 확인하는 방법”**부터 보면 됩니다.  
-더 자세한 내용은 [Reproduction Guide](docs/PROFESSOR_REPRODUCTION_GUIDE.md)에 정리되어 있습니다.
+연구의 전체 framework, 실험조건과 주요 결과를 빠르게 보려면 [Experiment Summary](docs/EXPERIMENT_SUMMARY.md)를 보면 됩니다.\n재현 절차의 자세한 내용은 [Reproduction Guide](docs/PROFESSOR_REPRODUCTION_GUIDE.md)에 정리되어 있습니다.
 
 현재 기준 release는 [v1.0.4](https://github.com/CallMeDemian/thesis-reproduction-kit-v43/releases/tag/thesis-v43-reproduction-kit-v1.0.4)입니다.
 
@@ -221,7 +221,7 @@ Reference environment는 Python 3.11입니다.
 
 ## 더 자세한 문서
 
-- [Reproduction Guide](docs/PROFESSOR_REPRODUCTION_GUIDE.md)
+- [Experiment Summary](docs/EXPERIMENT_SUMMARY.md)\n- [Reproduction Guide](docs/PROFESSOR_REPRODUCTION_GUIDE.md)
 - [Clean-clone acceptance](docs/CLEAN_CLONE_ACCEPTANCE.md)
 - [Oracle reproduction](docs/ORACLE_REPRODUCTION.md)
 - [RL reproduction](docs/RL_REPRODUCTION.md)
