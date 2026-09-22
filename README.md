@@ -1,11 +1,11 @@
 # V4.3 Thesis Reproduction Kit
 
-이 저장소는 제 석사학위논문의 실험 결과를 **다시 확인하고, 어떤 자료와 계산을 거쳐 결과가 만들어졌는지 추적할 수 있도록** 정리한 재현성 패키지입니다.
+이 저장소는 석사학위논문 V4.3의 실험 결과를 **다시 확인하고, 어떤 자료와 계산을 거쳐 결과가 만들어졌는지 추적할 수 있도록** 정리한 재현성 패키지입니다.
 
-논문에 들어간 표와 수치를 단순히 모아둔 것이 아니라, 당시 실험에서 사용한 결과 자료와 검증 정보, RL/LLM 실행 기록, 해시와 연결 관계를 함께 보관했습니다.
+논문에 들어간 표와 수치만 따로 모아둔 것이 아니라, 실험에 사용된 결과 자료와 검증 정보, RL/LLM 실행 기록, 해시와 연결 관계를 함께 보관했습니다.
 
-교수님이나 심사위원께서는 우선 아래의 **“논문 결과 확인”** 부분만 보셔도 됩니다.  
-좀 더 자세한 설명은 [Professor Reproduction Guide](docs/PROFESSOR_REPRODUCTION_GUIDE.md)에 정리해 두었습니다.
+처음 보는 경우에는 아래의 **“논문 결과를 가장 간단하게 확인하는 방법”**부터 보면 됩니다.  
+좀 더 자세한 내용은 [Reproduction Guide](docs/PROFESSOR_REPRODUCTION_GUIDE.md)에 정리되어 있습니다.
 
 현재 기준 release는 [v1.0.4](https://github.com/CallMeDemian/thesis-reproduction-kit-v43/releases/tag/thesis-v43-reproduction-kit-v1.0.4)입니다.
 
@@ -18,7 +18,7 @@ Python 3.11 환경에서 아래 세 명령을 실행하면 됩니다.
 ```powershell
 python -m pip install -e ".[full,dev]"
 python -m thesis_repro verify
-python -m thesis_repro reproduce --run-id professor_check
+python -m thesis_repro reproduce --run-id published_check
 ```
 
 정상적으로 끝나면 논문에 사용한 결과 묶음이 다음과 같이 확인됩니다.
@@ -34,19 +34,19 @@ python -m thesis_repro reproduce --run-id professor_check
 실행 결과는 아래 파일에 남습니다.
 
 ```text
-runs/professor_check/final/REPRODUCTION_RECEIPT.json
+runs/published_check/final/REPRODUCTION_RECEIPT.json
 ```
 
 이 과정에서는 **LLM API를 새로 호출하지 않고, RL도 다시 학습하지 않습니다.**  
 대신 당시 보존한 firm-level evidence에서 논문 결과를 다시 계산하고, 원래 결과 registry와 일치하는지 확인합니다.
 
-즉, “논문에 적힌 숫자를 다시 출력하는 것”보다는 한 단계 더 깊은 검증이지만, raw data부터 모든 실험을 새로 돌리는 방식과는 구분됩니다.
+따라서 논문에 적힌 숫자를 그대로 다시 출력하는 것보다는 한 단계 더 깊은 검증이지만, raw data부터 모든 실험을 새로 돌리는 방식과는 구분됩니다.
 
 ---
 
 ## 어디까지 재현할 수 있나요?
 
-재현 수준을 세 가지로 나누면 이해가 쉽습니다.
+재현 수준은 크게 세 가지로 나눌 수 있습니다.
 
 ### 1. 논문 결과 재현
 
@@ -54,14 +54,14 @@ runs/professor_check/final/REPRODUCTION_RECEIPT.json
 
 - 논문에 보고한 주요 결과 재계산
 - Stage8 96,600개 observation 확인
-- 914개 결과 registry 대조
+- 914개 result registry 대조
 - 결과가 어떤 frozen scientific evidence에서 나왔는지 확인
 
 이 경로에는 private raw data나 GPU, 유료 API가 필요하지 않습니다.
 
 ### 2. 당시 실험 자산까지 확인
 
-원래 사용한 Oracle, RL, LLM, evaluation 자산과 그 연결관계까지 보고 싶다면 Git LFS까지 내려받아 확인할 수 있습니다.
+원래 사용한 Oracle, RL, LLM, evaluation 자산과 그 연결관계까지 확인하려면 Git LFS까지 내려받으면 됩니다.
 
 ```powershell
 git clone https://github.com/CallMeDemian/thesis-reproduction-kit-v43.git
@@ -75,7 +75,7 @@ python -m thesis_repro verify-original
 python -m thesis_repro rebuild-c3e --release original
 ```
 
-여기서는 예를 들어 다음을 확인할 수 있습니다.
+이 경로에서는 다음과 같은 historical evidence를 확인할 수 있습니다.
 
 - Oracle stage0/stage1 결과
 - RL 학습에 사용된 Stage2 compute parent
@@ -134,7 +134,7 @@ python -m thesis_repro reproduce --full --live-llm --resume --run-id full_001
 - provider job completion
 - historical RL search catalog / selection-rule artifact
 
-그래서 이 저장소는 **논문 결과의 재현과 당시 실험의 검증은 가능하게 하되**, 외부에 배포할 수 없는 원천자료까지 포함한 완전한 fresh rerun은 별도 조건이 필요하다고 구분하고 있습니다.
+그래서 이 저장소에서는 **논문 결과의 재현과 당시 실험의 검증이 가능한 범위**와, 외부에 배포할 수 없는 원천자료까지 필요한 완전한 fresh rerun을 구분해 두었습니다.
 
 ---
 
@@ -162,7 +162,7 @@ python -m thesis_repro reproduce --full --live-llm --resume --run-id full_001
 
 ## Stage2와 RL 학습 데이터는 보존되어 있습니다
 
-한 가지 헷갈리기 쉬운 부분이 있어 별도로 적습니다.
+헷갈리기 쉬운 부분이라 따로 적습니다.
 
 RL이 실제로 어떤 Stage2 자료로 학습되었는지는 보존되어 있습니다.
 
@@ -226,7 +226,7 @@ Reference environment는 Python 3.11입니다.
 
 ## 더 자세한 문서
 
-- [Professor Reproduction Guide](docs/PROFESSOR_REPRODUCTION_GUIDE.md)
+- [Reproduction Guide](docs/PROFESSOR_REPRODUCTION_GUIDE.md)
 - [Clean-clone acceptance](docs/CLEAN_CLONE_ACCEPTANCE.md)
 - [Oracle reproduction](docs/ORACLE_REPRODUCTION.md)
 - [RL reproduction](docs/RL_REPRODUCTION.md)
@@ -238,7 +238,7 @@ Reference environment는 Python 3.11입니다.
 
 ## 정리
 
-이 repository에서 가장 중요하게 확인할 수 있는 것은 두 가지입니다.
+이 저장소에서 가장 중요하게 확인할 수 있는 것은 두 가지입니다.
 
 1. **논문에 보고한 결과가 보존된 scientific evidence에서 다시 산출되는지**
 2. **그 결과가 어떤 Oracle / RL / LLM / evaluation 자산과 연결되어 있는지**
