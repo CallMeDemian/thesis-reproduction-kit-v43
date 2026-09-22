@@ -549,7 +549,7 @@ python -m thesis_repro reproduce --run-id published_check
 ## 12. 관련 문서
 
 - [README](../README.md)
-- [Reproduction Guide](PROFESSOR_REPRODUCTION_GUIDE.md)
+- [Reproduction Guide](REPRODUCTION_GUIDE.md)
 - [RL Reproduction](RL_REPRODUCTION.md)
 - [LLM Reproduction](LLM_REPRODUCTION.md)
 - [Evaluation Reproduction](EVALUATION_REPRODUCTION.md)
