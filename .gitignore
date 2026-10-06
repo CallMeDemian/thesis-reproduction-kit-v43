@@ -10,3 +10,9 @@ runs/**
 !runs/.gitkeep
 dist/**/*.tmp
 
+
+# HB-FY24 evidence pack: copyrighted originals stay out of this public repo
+*.pdf
+*.zip
+evidence_pack/
+_private/
