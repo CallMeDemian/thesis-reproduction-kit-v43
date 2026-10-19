@@ -1,0 +1,158 @@
+{
+  "september_replay": {
+    "pass": true,
+    "rows": 2300,
+    "usable_match": 2300,
+    "action_match": 2300,
+    "action_string_match": 2300,
+    "model_ok": 2300,
+    "not_delivered": 0,
+    "unusable_in_september": 34,
+    "missing_rows": 0,
+    "duplicate_rows": 0,
+    "mismatch_count": 0,
+    "mismatch_examples": []
+  },
+  "synthetic": {
+    "pass": true,
+    "cases": [
+      {
+        "provider": "openai",
+        "case": "valid_action",
+        "outcome": "DELIVERED",
+        "status": "ACCEPTED",
+        "completion_kind": "usable_output",
+        "pass": true
+      },
+      {
+        "provider": "openai",
+        "case": "provider_refusal",
+        "outcome": "DELIVERED",
+        "status": "CONFIRMED_UNUSABLE_COMPLETION",
+        "completion_kind": "provider_refusal",
+        "pass": true
+      },
+      {
+        "provider": "openai",
+        "case": "truncated_max_tokens",
+        "outcome": "DELIVERED",
+        "status": "CONFIRMED_UNUSABLE_COMPLETION",
+        "completion_kind": "output_limit",
+        "pass": true
+      },
+      {
+        "provider": "openai",
+        "case": "empty_text",
+        "outcome": "DELIVERED",
+        "status": "CONFIRMED_UNUSABLE_COMPLETION",
+        "completion_kind": "delivered_empty",
+        "pass": true
+      },
+      {
+        "provider": "openai",
+        "case": "not_json",
+        "outcome": "DELIVERED",
+        "status": "CONFIRMED_UNUSABLE_COMPLETION",
+        "completion_kind": "usable_output",
+        "pass": true
+      },
+      {
+        "provider": "openai",
+        "case": "bound_violation",
+        "outcome": "DELIVERED",
+        "status": "CONFIRMED_UNUSABLE_COMPLETION",
+        "completion_kind": "usable_output",
+        "pass": true
+      },
+      {
+        "provider": "openai",
+        "case": "http_500_error",
+        "outcome": "RETRY",
+        "status": "UNRESOLVED_INFRA",
+        "completion_kind": null,
+        "pass": true
+      },
+      {
+        "provider": "openai",
+        "case": "explicit_error_object",
+        "outcome": "RETRY",
+        "status": "UNRESOLVED_INFRA",
+        "completion_kind": null,
+        "pass": true
+      },
+      {
+        "provider": "openai",
+        "case": "http_429",
+        "outcome": "RETRY",
+        "status": "UNRESOLVED_INFRA",
+        "completion_kind": null,
+        "pass": true
+      },
+      {
+        "provider": "google",
+        "case": "valid_action",
+        "outcome": "DELIVERED",
+        "status": "ACCEPTED",
+        "completion_kind": "usable_output",
+        "pass": true
+      },
+      {
+        "provider": "google",
+        "case": "provider_refusal",
+        "outcome": "DELIVERED",
+        "status": "CONFIRMED_UNUSABLE_COMPLETION",
+        "completion_kind": "provider_refusal",
+        "pass": true
+      },
+      {
+        "provider": "google",
+        "case": "truncated_max_tokens",
+        "outcome": "DELIVERED",
+        "status": "CONFIRMED_UNUSABLE_COMPLETION",
+        "completion_kind": "output_limit",
+        "pass": true
+      },
+      {
+        "provider": "google",
+        "case": "empty_text",
+        "outcome": "DELIVERED",
+        "status": "CONFIRMED_UNUSABLE_COMPLETION",
+        "completion_kind": "delivered_empty",
+        "pass": true
+      },
+      {
+        "provider": "google",
+        "case": "not_json",
+        "outcome": "DELIVERED",
+        "status": "CONFIRMED_UNUSABLE_COMPLETION",
+        "completion_kind": "usable_output",
+        "pass": true
+      },
+      {
+        "provider": "google",
+        "case": "bound_violation",
+        "outcome": "DELIVERED",
+        "status": "CONFIRMED_UNUSABLE_COMPLETION",
+        "completion_kind": "usable_output",
+        "pass": true
+      },
+      {
+        "provider": "google",
+        "case": "error_object",
+        "outcome": "RETRY",
+        "status": "UNRESOLVED_INFRA",
+        "completion_kind": null,
+        "pass": true
+      },
+      {
+        "provider": "google",
+        "case": "error_429",
+        "outcome": "RETRY",
+        "status": "UNRESOLVED_INFRA",
+        "completion_kind": null,
+        "pass": true
+      }
+    ]
+  },
+  "status": "PASS"
+}
