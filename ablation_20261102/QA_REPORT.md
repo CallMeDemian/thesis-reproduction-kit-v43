@@ -30,11 +30,11 @@ File status: see the "File status" table in the automated section. Tables and fi
 
 ## Automated checks (scripts/90_qa.py)
 
-Run at 2026-10-19T20:39:32.362695+00:00 on HEAD 754b880e5054. Evidence: `results/_qa_results.json`. 
+Run at 2026-10-19T20:57:29.887145+00:00 on HEAD e63b70c13edb. Evidence: `results/_qa_results.json`. 
 
 | ID | Check | Result | Key evidence |
 | --- | --- | --- | --- |
-| Q01 | Source pin | PASS | `{"base": "071848881349c8675bb4e15193a747fa02679986", "branch": "ablation-20261102", "head": "754b880e50547a56b8ca3bc9b57df4a9a16d7d49", "python": "3.12.10", "pandas": "3.0.2", "numpy": "2.4.4", "input_sha256": {"frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/frozen_inputs/sta ...` |
+| Q01 | Source pin | PASS | `{"base": "071848881349c8675bb4e15193a747fa02679986", "branch": "ablation-20261102", "head": "e63b70c13edb6a1edd3e7bd4f6432606b45c72bb", "python": "3.12.10", "pandas": "3.0.2", "numpy": "2.4.4", "input_sha256": {"frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/frozen_inputs/sta ...` |
 | Q02 | Scale | PASS | `{"requests_total": {"actual": 48300, "expected": 48300}, "strict_requests_21x575x2x2": {"actual": 48300, "expected": 48300}, "observations_rows": {"actual": 96600, "expected": 96600}, "registry_rows": {"actual": 914, "expected": 914}, "primary_rows": {"actual": 96, "expected": 96}, "supplemental_row ...` |
 | Q03 | Pairing and row counts | PASS | `{"T1_rows": 96, "T2_rows": 24, "T3_rows": 24, "T3_tested": 12, "T3_descriptive": 12, "R9_rows": 24, "all_n_firms_575": true, "result_id_duplicates": 0}` |
 | Q04 | Cell match (only the intended axis differs) | PASS | `{"A1": {"cells_x_firms": 4600, "model_regime_budget_cells": 8, "every_firm_cell_has_both_policies": true}, "A2": {"cells_x_firms": 4600, "model_regime_budget_cells": 8, "every_firm_cell_has_both_policies": true}, "A3": {"cells_x_firms": 4600, "model_regime_budget_cells": 8, "every_firm_cell_has_both ...` |
@@ -126,3 +126,17 @@ Of 24 rows, 18 are positive and 6 negative; 19 have Holm p < .05 (16 positive, 3
 Every S1 sentence names these rows and does not say that High raised policy value in every combination.
 
 <!-- QA_INTERP_END -->
+
+<!-- QA_Q13_BEGIN -->
+
+## Q13-Q15: report, deck and speaker notes (private files, not in this repository)
+
+Numbers in the private report, the deck (slides, tables, notes) and the speaker notes were extracted automatically and matched to `results/` files or the thesis text at the printed precision (1432 numeric tokens; integers up to 12 and years are treated as labels). Every number added to the report and to the new slides is computed from `results/` by the build scripts. Numbers typed by hand in the build scripts (counts such as 48,300 and 4,600, and values quoted from the thesis) were listed and checked against QA output and thesis tables. Value matching alone is weak for three-decimal numbers, so the build-from-files rule is the main evidence. Unmatched tokens (if any) were reviewed by hand; the list is kept with the private files. Figures are generated from the same result files by `scripts/50_figures.py`; their images are not text-extracted.
+
+| Check | Automatic result | Human sign-off |
+| --- | --- | --- |
+| Q13 numbers vs results and thesis | extraction done; unmatched tokens 3 (reviewed) | ______ (name, date) |
+| Q14 representative-condition notation (A3 High, B1, alpha: main p .012/.003 with 60-family p .078/.061 together) | PASS | ______ (name, date) |
+| Q15 Human baseline notation (53 and 56 firms, 95% interval of the difference) | PASS | ______ (name, date) |
+
+<!-- QA_Q13_END -->

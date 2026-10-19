@@ -21,7 +21,7 @@ LABEL = {"GPT": "GPT-5.4-mini", "GEMINI": "Gemini 3.1 Flash-Lite", "BASELINE": "
 
 
 def save(fig, name):
-    c.FIGURES.mkdir(parents=True, exist_ok=True)
+    (c.FIGURES / name).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(c.FIGURES / f"{name}.png", dpi=300, bbox_inches="tight", facecolor="white")
     fig.savefig(c.FIGURES / f"{name}.svg", bbox_inches="tight", facecolor="white")
     plt.close(fig)
@@ -74,7 +74,12 @@ def f1():
     save(fig, "F1_structure")
 
 
-def forest(df, contrasts, name, titles):
+def forest(df, contrasts, name, titles, scale=1.0):
+    with plt.rc_context({"font.size": 9 * scale}):
+        _forest(df, contrasts, name, titles, scale)
+
+
+def _forest(df, contrasts, name, titles, scale):
     fig, axes = plt.subplots(len(contrasts), 1, figsize=(8.2, 2.6 * len(contrasts)), sharex=True)
     axes = np.atleast_1d(axes)
     lo = min(df.ci_low.min(), 0) - 0.03
@@ -87,17 +92,21 @@ def forest(df, contrasts, name, titles):
             ax.plot([row.ci_low, row.ci_high], [y, y], color="black", lw=1.4)
             ax.plot(row.estimate, y, "o", color="black" if row.holm_p < 0.05 else "white", mec="black", ms=6)
             txt = f"{row.estimate:+.3f} [{row.ci_low:+.3f}, {row.ci_high:+.3f}]"
+            if scale > 1:  # slide variant: short annotation, p = main Holm / 60-family
+                p60s = f" / {row.holm_p_60:.3f}" if r == "HIGH" and not pd.isna(row.holm_p_60) else ""
+                ax.text(hi + 0.01, y, f"{txt}  p {row.holm_p:.3f}{p60s}", va="center", fontsize=7.5 * scale)
+                continue
             p60 = f"  60개 묶음 p={row.holm_p_60:.3f}" if r == "HIGH" and not pd.isna(row.holm_p_60) else ""
-            ax.text(hi + 0.01, y, f"{txt}   주 Holm p={row.holm_p:.3f}{p60}", va="center", fontsize=7.5)
+            ax.text(hi + 0.01, y, f"{txt}   주 Holm p={row.holm_p:.3f}{p60}", va="center", fontsize=7.5 * scale)
         ax.axvline(0, color=GREY, ls="--", lw=0.9)
         ax.set_yticks(ys)
         ax.set_yticklabels([f"{LABEL[m]} · {LABEL[r]}" for m, r in ROWS])
-        ax.set_title(title, loc="left", fontsize=10, fontweight="bold")
+        ax.set_title(title, loc="left", fontsize=10 * scale, fontweight="bold")
         ax.set_xlim(lo, hi)
         for sp in ("top", "right"):
             ax.spines[sp].set_visible(False)
-    axes[-1].set_xlabel("정책가치 차이 [95% 신뢰구간]  (자유 작성 · B1 · Oracle-α · Strict ITT · 575개 기업)")
-    fig.text(0.01, -0.02, "채운 점: 주 보정 Holm p < .05. 구간은 보정 전이다. 60개 묶음 p는 High 설정의 추가 보정값이다.", fontsize=8)
+    axes[-1].set_xlabel("정책가치 차이 [95% 신뢰구간]  (자유 작성 · B1 · Oracle-α · Strict ITT · 575개 기업)" if scale == 1 else "정책가치 차이 [95% 신뢰구간]")
+    if scale == 1: fig.text(0.01, -0.02 if scale == 1 else -0.09, ("채운 점: 주 보정 Holm p < .05. 구간은 보정 전이다. 60개 묶음 p는 High 설정의 추가 보정값이다." if scale == 1 else "p: 주 보정 Holm p (High 행은 / 뒤에 60개 묶음 p). 채운 점: 주 보정 p < .05"), fontsize=8 * scale)
     fig.subplots_adjust(right=0.58, hspace=0.45)
     save(fig, name)
 
@@ -105,6 +114,9 @@ def forest(df, contrasts, name, titles):
 def f2(t1):
     forest(t1, ["A1", "A2"], "F2a_forest_A1A2", ["A1  진단 유도 (C5 - C4)", "A2  자기 재검토 (C4R - C4)"])
     forest(t1, ["A3", "A4"], "F2b_forest_A3A4", ["A3  참조정보 추가 패키지의 증분 (C6-E - C4R)", "A4  참조 연결 (C6-E - C6-EX)"])
+    # slide variants (larger text for projection)
+    forest(t1, ["A1", "A2"], "slides/F2a_slide", ["A1  진단 유도 (C5 - C4)", "A2  자기 재검토 (C4R - C4)"], scale=1.7)
+    forest(t1, ["A3", "A4"], "slides/F2b_slide", ["A3  참조정보 추가 패키지의 증분 (C6-E - C4R)", "A4  참조 연결 (C6-E - C6-EX)"], scale=1.7)
 
 
 def f3(t1):

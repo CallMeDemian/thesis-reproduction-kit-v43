@@ -44,6 +44,30 @@ def main():
     return d2
 
 
+def d4():
+    """D4: execution-rule and repetition values for the report and slides (free8, B1, Oracle-alpha), taken from frozen rows."""
+    supp = pd.read_csv(c.SUPP_PATH)
+    t1 = pd.read_csv(c.RESULTS / "T1_primary_A1_A4.csv")
+    rep = supp[(supp.holm_family_id == "REPAIRED_SUPPLEMENTAL") & (supp.action_space == "FREE8") & (supp.budget == "B1") & (supp.oracle == "ALPHA")]
+    exe = supp[(supp.analysis_id == "EXECUTION_SENSITIVITY") & (supp.action_space == "FREE8") & (supp.budget == "B1") & (supp.oracle == "ALPHA")]
+    stab = supp[(supp.holm_family_id == "STABILITY_SUPPLEMENTAL") & (supp.execution_policy == "STRICT") & (supp.budget == "B1") & (supp.oracle == "ALPHA") & (supp.replicate == 2)]
+    rows = []
+    for cid, lhs, rhs in (("A2", "C4R", "C4"), ("A3", "C6-E", "C4R")):
+        for m in ("GPT", "GEMINI"):
+            for r in ("BASELINE", "HIGH"):
+                s = t1[(t1.contrast_id == cid) & (t1.model == m) & (t1.reasoning_regime == r) & (t1.budget == "B1") & (t1.oracle == "alpha")].iloc[0]
+                p = rep[(rep.model == m) & (rep.reasoning_regime == r) & (rep.lhs == lhs) & (rep.rhs == rhs)].iloc[0]
+                x = exe[(exe.model == m) & (exe.reasoning_regime == r) & (exe.lhs == lhs) & (exe.rhs == rhs)].iloc[0]
+                q = stab[(stab.model == m) & (stab.reasoning_regime == r) & (stab.lhs == lhs) & (stab.rhs == rhs)].iloc[0]
+                rows.append({"status": "FROZEN", "contrast_id": cid, "model": m, "reasoning_regime": r, "oracle": "alpha", "budget": "B1",
+                             "strict_estimate": s.estimate, "strict_ci_low": s.ci_low, "strict_ci_high": s.ci_high,
+                             "repaired_estimate": p.estimate, "repaired_ci_low": p.ci_low, "repaired_ci_high": p.ci_high,
+                             "repaired_minus_strict": x.estimate, "rms_ci_low": x.ci_low, "rms_ci_high": x.ci_high,
+                             "run1_strict_estimate": s.estimate, "run2_strict_estimate": q.estimate, "run2_ci_low": q.ci_low, "run2_ci_high": q.ci_high,
+                             "source": "T1; V13_SUPPLEMENTAL_RESULTS (REPAIRED_SUPPLEMENTAL, EXECUTION_SENSITIVITY, STABILITY_SUPPLEMENTAL)"})
+    c.write_csv(pd.DataFrame(rows), c.RESULTS / "D4_execution_and_repetition.csv")
+
+
 B, E = "<!-- QA_INTERP_BEGIN -->", "<!-- QA_INTERP_END -->"
 
 
@@ -92,5 +116,6 @@ def qa_block():
 
 if __name__ == "__main__":
     d2 = main()
+    d4()
     qa_block()
     print("S1 significant negative:", d2[d2.significant_negative][["lhs", "budget", "model", "oracle"]].values.tolist())

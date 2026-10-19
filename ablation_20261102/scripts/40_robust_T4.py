@@ -191,7 +191,7 @@ def summaries(r9t: pd.DataFrame, r10t: pd.DataFrame) -> pd.DataFrame:
     st = supp[supp.holm_family_id == "STABILITY_SUPPLEMENTAL"]
     add("R7", "Repetition", "Run1 -> Run2 (C4, C4R, C6-E)", "STABILITY_SUPPLEMENTAL; thesis Table 6-8", len(st), int((st.estimate > 0).sum()),
         int((st.holm_p < 0.05).sum()), "frozen Holm p < .05", "FROZEN",
-        "rank correlation of per-firm gains across runs is 0.06-0.29 in the 8 conditions (thesis Table 6-8, not recomputed here)")
+        "rank correlation of per-firm gains across runs is 0.06-0.29 on Oracle-alpha (thesis Sec. 6, repeated runs; not recomputed here)")
     add("R8", "Draft-link rule", "990 of 4,600 firm-conditions with a non-passing C4 draft set to A0", "parent_gate_sensitivity_v13.csv",
         len(parent), int((parent.parent_gate_mean > 0).sum()), "N/A", "none (descriptive)", "DESCRIPTIVE",
         "post-processing rule comparison, not a rerun")
