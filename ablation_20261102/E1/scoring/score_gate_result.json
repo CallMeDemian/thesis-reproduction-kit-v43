@@ -1,0 +1,32 @@
+{
+  "rows": 3450,
+  "seconds": 144.4,
+  "tolerance": {
+    "atol": 1e-09,
+    "rtol": 1e-09
+  },
+  "oracles": {
+    "alpha": {
+      "delta_match": 3450,
+      "score_match": 3450,
+      "noop_match": 3450,
+      "max_abs_delta_diff": 2.842170943040401e-14,
+      "nan_rows": 0
+    },
+    "beta": {
+      "delta_match": 3450,
+      "score_match": 3450,
+      "noop_match": 3450,
+      "max_abs_delta_diff": 0.0,
+      "nan_rows": 0
+    },
+    "gamma": {
+      "delta_match": 3450,
+      "score_match": 3450,
+      "noop_match": 3450,
+      "max_abs_delta_diff": 0.0,
+      "nan_rows": 0
+    }
+  },
+  "status": "PASS"
+}
