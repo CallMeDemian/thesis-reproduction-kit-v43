@@ -64,3 +64,9 @@ Q17-Q19: see the E1 section; Q18 and Q19 stay open until all 3,450 responses are
 | Run root | project root = THESIS_REPRO_RUN_ROOT = ..\runroot built from the v2.1.1 distribution zip by E1/scripts/e1_setup_runroot.ps1. Two adjustments, both path mapping only: the frozen action contract is exposed as contracts/scientific/v43_action_contract.json, and the copy of r085_financial_cost_contract.json gets an alias key (03_stage2/... path) with the same digest | E1/scripts/e1_setup_runroot.ps1 |
 | Generation complete (3,450), returned models, Strict rule applied | OPEN | collector log E1/runs/collector_log.jsonl |
 | Q19 placebo gate (232 firms) and audit if p < .05 | OPEN | to be recorded here per E1_PROTOCOL.md Sec. 9 |
+
+## Notes recorded for interpretation (2026-10-20)
+
+- S1 (T2) direction: of 24 rows, 18 are positive and 6 negative; 19 have Holm p < .05, of which 16 are positive and 3 are negative. The three significant negative rows are all Gemini, budget BINF: C4 alpha (-0.208 [-0.304, -0.108], Holm p .005), C4 gamma (-0.058 [-0.096, -0.019], .025) and C6-E alpha (-0.180 [-0.272, -0.088], .005). Any sentence on S1 must name these exceptions and cannot say that High raised policy value in every combination.
+- Frozen directory: `git diff` and `git status --porcelain` are empty, and `git status --porcelain --ignored -- frozen` is empty too (checked 2026-10-20), so no ignored or untracked file exists under `frozen/`.
+- Run-root adjustment for the scoring path (Q18): the financial-cost contract keys its source digests by the `archive/...` path while the loader looks them up by the `03_stage2/...` path. The copy of the contract in the run root outside the repository carries one extra alias key with the identical digest; no value was changed. The frozen action contract is exposed under the path the simulator reads. After these path mappings the September C4, C4R and C6-E rows (3,450) reproduce every frozen score (max abs difference 2.8e-14).
