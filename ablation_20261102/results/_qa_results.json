@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-19T20:28:22.173555+00:00",
- "head": "d63fe00b861fffe0d11d61e6a632dab44d491bbe",
+ "generated_utc": "2026-10-19T20:39:32.362695+00:00",
+ "head": "754b880e50547a56b8ca3bc9b57df4a9a16d7d49",
  "results": [
   {
    "id": "Q01",
@@ -9,7 +9,7 @@
    "evidence": {
     "base": "071848881349c8675bb4e15193a747fa02679986",
     "branch": "ablation-20261102",
-    "head": "d63fe00b861fffe0d11d61e6a632dab44d491bbe",
+    "head": "754b880e50547a56b8ca3bc9b57df4a9a16d7d49",
     "python": "3.12.10",
     "pandas": "3.0.2",
     "numpy": "2.4.4",
@@ -270,6 +270,56 @@
     "build_checks_all_pass": true,
     "manifest_sha256_equals_expected": true,
     "requests": 3450
+   }
+  },
+  {
+   "id": "Q17",
+   "name": "E1 prompt identity (manifest, shards, placebo pairs)",
+   "status": "PASS",
+   "evidence": {
+    "build_checks_all_pass": true,
+    "manifest_sha256_equals_expected": true,
+    "shard_files_equal_report_sha256": true,
+    "requests": 3450,
+    "placebo_pairs_identical_prompt (RL==OE, own=OE)": 464,
+    "placebo_pairs_total": 464,
+    "firms_343_RL_differs_from_OE": 686,
+    "C4R_differs_from_RL_all": true
+   }
+  },
+  {
+   "id": "Q18",
+   "name": "E1 generation complete and independently recomputed",
+   "status": "PASS",
+   "evidence": {
+    "delivered": 3450,
+    "attempts": [
+     1
+    ],
+    "jobs": 8,
+    "resubmissions": 0,
+    "returned_model_all_expected": true,
+    "per_model_condition_575": true,
+    "observations": 3450,
+    "duplicate_keys": 0,
+    "strict_unusable_to_A0": 50,
+    "unusable_have_zero_action": true,
+    "selected_only_from_batch_jobs": true,
+    "T5_means_recomputed_independently_max_abs_diff": 9.020562075079397e-17,
+    "contract_files_changed_since_5fbf549": "none"
+   }
+  },
+  {
+   "id": "Q19",
+   "name": "E1 placebo gate (232 firms)",
+   "status": "PASS",
+   "evidence": {
+    "rows": 6,
+    "n_firms": [
+     232
+    ],
+    "min_holm_p": 1.0,
+    "audit_required": false
    }
   }
  ]

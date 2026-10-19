@@ -223,6 +223,78 @@ def q16_17():
     return ok, ev
 
 
+def q17():
+    e1 = c.ABL / "E1"
+    man = pd.read_csv(e1 / "requests/E1_request_manifest.csv", dtype=str)
+    report = json.loads((e1 / "requests/E1_build_report.json").read_text(encoding="utf-8"))
+    shard_ok = all(c.sha256_file(e1 / "requests/batches" / s["file"]) == s["sha256"] for s in report["shards"])
+    wide = man.pivot_table(index=["model_key", "firm_key"], columns="e1_condition", values="visible_payload_sha256", aggfunc="first")
+    own = man.drop_duplicates("firm_key").set_index("firm_key").own_C3E_action
+    wide = wide.join(own, on="firm_key")
+    oe = wide.own_C3E_action == "OE"
+    ev = {"build_checks_all_pass": all(v.startswith("PASS") for v in report["checks"].values()),
+          "manifest_sha256_equals_expected": c.sha256_file(e1 / "requests/E1_request_manifest.csv") == "1f12775443db3a929cddf7a619a27882ad49fe5b189da23572f908854064357a",
+          "shard_files_equal_report_sha256": shard_ok, "requests": len(man),
+          "placebo_pairs_identical_prompt (RL==OE, own=OE)": int((wide.loc[oe, "E1-RL"] == wide.loc[oe, "E1-OE"]).sum()),
+          "placebo_pairs_total": int(oe.sum()) , "firms_343_RL_differs_from_OE": int((wide.loc[~oe, "E1-RL"] != wide.loc[~oe, "E1-OE"]).sum()),
+          "C4R_differs_from_RL_all": bool((wide["E1-C4R"] != wide["E1-RL"]).all())}
+    ok = (ev["build_checks_all_pass"] and ev["manifest_sha256_equals_expected"] and shard_ok and ev["placebo_pairs_identical_prompt (RL==OE, own=OE)"] == 464
+          and ev["placebo_pairs_total"] == 464 and ev["firms_343_RL_differs_from_OE"] == 686 and ev["C4R_differs_from_RL_all"])
+    return ok, ev
+
+
+def q18():
+    e1 = c.ABL / "E1"
+    o = pd.read_parquet(e1 / "observations/e1_observations.parquet")
+    resp = [json.loads(t) for t in (e1 / "runs/responses.jsonl").open(encoding="utf-8")]
+    sub = json.loads((e1 / "runs/submissions.json").read_text(encoding="utf-8"))
+    t5 = pd.read_csv(c.RESULTS / "T5_E1.csv")
+    exp_model = {"openai": "gpt-5.4-mini-2026-03-17", "google": "gemini-3.1-flash-lite"}
+    own = pd.read_csv(e1 / "requests/E1_request_manifest.csv", dtype=str).drop_duplicates("firm_key").set_index("firm_key").own_C3E_action
+    # independent recomputation of the T5 estimates with plain pandas (no kit code)
+    maxdiff = 0.0
+    for _, r in t5.iterrows():
+        cond = {"E1a": ("E1-RL", "E1-OE"), "E1a_575": ("E1-RL", "E1-OE"), "E1a_placebo": ("E1-RL", "E1-OE"), "E1b": ("E1-OE", "E1-C4R"), "E1c": ("E1-RL", "E1-C4R")}[r.contrast_id]
+        mk = {"GPT": "openai_gpt54mini", "GEMINI": "google_gemini31flashlite"}[r.model]
+        w = o[o.model_key == mk].pivot(index="firm_key", columns="e1_condition", values=f"delta_R_score_{r.oracle}")
+        if r.contrast_id == "E1a":
+            w = w.loc[own.index[own != "OE"]]
+        if r.contrast_id == "E1a_placebo":
+            w = w.loc[own.index[own == "OE"]]
+        maxdiff = max(maxdiff, abs(float((w[cond[0]] - w[cond[1]]).mean()) - float(r.estimate)))
+    git_changed = git("diff", "--name-only", "5fbf549", "HEAD", "--", "ablation_20261102/E1/E1_PROTOCOL.md", "ablation_20261102/E1/scripts/e1_build_requests.py",
+                      "ablation_20261102/E1/scripts/e1_analyze.py", "ablation_20261102/E1/requests").strip()
+    ev = {"delivered": len(resp), "attempts": sorted({r["attempt"] for r in resp}), "jobs": len(sub["jobs"]), "resubmissions": sum(1 for j in sub["jobs"] if j["attempt"] > 1),
+          "returned_model_all_expected": bool(all(r["returned_model"] == exp_model[r["provider"]] for r in resp)),
+          "per_model_condition_575": bool((o.groupby(["model_key", "e1_condition"]).size() == 575).all()), "observations": len(o),
+          "duplicate_keys": int(o.duplicated(["model_key", "firm_key", "e1_condition"]).sum()),
+          "strict_unusable_to_A0": int((~o.strict_usable).sum()),
+          "unusable_have_zero_action": bool(all(max(abs(v) for v in json.loads(s).values()) == 0.0 for s in o[~o.strict_usable].strict_itt_action_json)),
+          "selected_only_from_batch_jobs": bool(all(r["job_name"].startswith("e1-") for r in resp)),
+          "T5_means_recomputed_independently_max_abs_diff": maxdiff,
+          "contract_files_changed_since_5fbf549": git_changed or "none"}
+    ok = (ev["delivered"] == 3450 and ev["resubmissions"] == 0 and ev["returned_model_all_expected"] and ev["per_model_condition_575"] and ev["duplicate_keys"] == 0
+          and ev["unusable_have_zero_action"] and ev["selected_only_from_batch_jobs"] and maxdiff < 1e-12 and ev["contract_files_changed_since_5fbf549"] == "none")
+    return ok, ev
+
+
+def q19():
+    t5 = pd.read_csv(c.RESULTS / "T5_E1.csv")
+    p = t5[t5.contrast_id == "E1a_placebo"]
+    ev = {"rows": len(p), "n_firms": sorted(p.n_firms.unique().tolist()), "min_holm_p": float(p.holm_p.min()),
+          "audit_required": bool((p.holm_p < 0.05).any())}
+    return len(p) == 6 and ev["n_firms"] == [232] and not ev["audit_required"], ev
+
+
+FILE_GROUPS = {
+    "results/T1_primary_A1_A4.csv": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q07", "Q08"],
+    "results/T2_S1.csv": ["Q03", "Q04", "Q11"], "results/T3_REF1.csv": ["Q03", "Q04", "Q10", "Q11"],
+    "results/T4_robustness.csv, R9_candidate_selection.csv, R10_reference_assignment.csv": ["Q03", "Q06", "Q09", "Q11"],
+    "results/T5_E1.csv, E1_wording.json, D3_E1a_by_oracle.csv, D1_E1c_vs_A3.csv": ["Q16", "Q17", "Q18", "Q19"],
+    "figures/F1-F5": ["Q03", "Q08", "Q18", "Q19"],
+}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--report", type=Path)
@@ -233,7 +305,9 @@ def main():
               ("Q05", "Draft links", lambda: q05(obs)), ("Q06", "Reference assignment", q06), ("Q07", "Strict rule", lambda: q07(obs)),
               ("Q08", "Mean reproduction (T1)", lambda: q08(obs)), ("Q09", "Candidate selection vs thesis (R9)", q09), ("Q10", "C3-E", lambda: q10(obs)),
               ("Q11", "New analysis contract (seeds, families, status)", q11), ("Q12", "Frozen unchanged", lambda: q12(not args.skip_frozen_hash)),
-              ("Q16", "E1 pre-registration order (before first provider call)", q16_17)]
+              ("Q16", "E1 pre-registration order (before first provider call)", q16_17),
+              ("Q17", "E1 prompt identity (manifest, shards, placebo pairs)", q17), ("Q18", "E1 generation complete and independently recomputed", q18),
+              ("Q19", "E1 placebo gate (232 firms)", q19)]
     results = []
     for qid, name, fn in checks:
         try:
@@ -246,14 +320,18 @@ def main():
     (c.RESULTS / "_qa_results.json").write_text(json.dumps(out, ensure_ascii=False, indent=1, default=str) + "\n", encoding="utf-8")
     if args.report:
         lines = [MARK_BEGIN, "", "## Automated checks (scripts/90_qa.py)", "",
-                 f"Run at {out['generated_utc']} on HEAD {out['head'][:12]}. Evidence: `results/_qa_results.json`. File status of tables and figures: DRAFT until every check below passes and the user has signed off the human lines.", "",
+                 f"Run at {out['generated_utc']} on HEAD {out['head'][:12]}. Evidence: `results/_qa_results.json`. ", "",
                  "| ID | Check | Result | Key evidence |", "| --- | --- | --- | --- |"]
         for r in results:
             ev = json.dumps(r["evidence"], ensure_ascii=False, default=str)
             ev = (ev[:300] + " ...") if len(ev) > 300 else ev
             lines.append(f"| {r['id']} | {r['name']} | {r['status']} | `{ev.replace('|', '/')}` |")
-        lines += ["", "Q13-Q15 (number cross-check of report and slides, representative-condition notation, Human baseline notation): not yet run; the human sign-off lines are written by the user only.",
-                  "Q17-Q19: see the E1 section below (recorded by hand from the E1 run files).", "", MARK_END]
+        status = {r["id"]: r["status"] for r in results}
+        lines += ["", "### File status", "", "| Files | Required checks | Status |", "| --- | --- | --- |"]
+        for files, need in FILE_GROUPS.items():
+            ok_all = all(status.get(q) == "PASS" for q in need)
+            lines.append(f"| `{files}` | {', '.join(need)} | {'VERIFIED' if ok_all else 'DRAFT'} |")
+        lines += ["", "Q13-Q15 (number cross-check of report, slides and notes; representative-condition notation; Human baseline notation) are recorded in the section below. The human sign-off lines are written by the user only.", "", MARK_END]
         text = args.report.read_text(encoding="utf-8") if args.report.exists() else ""
         if MARK_BEGIN in text:
             pre, rest = text.split(MARK_BEGIN, 1)
