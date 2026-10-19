@@ -49,7 +49,7 @@ def main(table: Path, out: Path) -> None:
         ax.set_xlabel("정책가치 차이 [95% 신뢰구간]")
         for s in ("top", "right"):
             ax.spines[s].set_visible(False)
-    fig.text(0.01, -0.03, "탐색적 실험(새 배치, 자유 작성 · High · B1 · Strict ITT). 채운 점: 해당 묶음 Holm p < .05. 구간은 보정 전. 343개 값을 575개 평균처럼 읽지 않는다.", fontsize=8)
+    fig.text(0.01, -0.03, "탐색적 실험(새 배치, 자유 작성, 추론 높음, 행동크기 1 이하, Strict 처리). 채운 점은 해당 묶음의 Holm p가 .05 미만인 경우이고 구간은 보정 전이다. E1a는 343개 기업, E1b와 E1c는 575개 기업의 평균이다.", fontsize=8)
     fig.subplots_adjust(right=0.86, wspace=0.55)
     out.mkdir(parents=True, exist_ok=True)
     fig.savefig(out / "F5_E1.png", dpi=300, bbox_inches="tight", facecolor="white")

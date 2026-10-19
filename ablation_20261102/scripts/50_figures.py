@@ -70,7 +70,6 @@ def f1():
     ax.text(0.2, 5.85, "실선 화살표: 같은 C4 초안을 받아 수정", fontsize=8, va="center")
     ax.text(0.2, 5.6, "점선 화살표: 참조로 제시되는 C3-E 행동", fontsize=8, va="center")
     ax.text(0.2, 5.35, "회색 점선 양방향 표시: 대비(처치 - 대조)", fontsize=8, va="center")
-    ax.text(0.2, 5.1, "(대비는 화살표가 아니다)", fontsize=8, va="center")
     save(fig, "F1_structure")
 
 
@@ -117,6 +116,8 @@ def f2(t1):
     # slide variants (larger text for projection)
     forest(t1, ["A1", "A2"], "slides/F2a_slide", ["A1  진단 유도 (C5 - C4)", "A2  자기 재검토 (C4R - C4)"], scale=1.7)
     forest(t1, ["A3", "A4"], "slides/F2b_slide", ["A3  참조정보 추가 패키지의 증분 (C6-E - C4R)", "A4  참조 연결 (C6-E - C6-EX)"], scale=1.7)
+    for cid, title in (("A1", "A1  진단 유도 (C5 - C4)"), ("A2", "A2  자기 재검토 (C4R - C4)"), ("A3", "A3  참조정보 추가 패키지의 증분 (C6-E - C4R)"), ("A4", "A4  참조 연결 (C6-E - C6-EX)")):
+        forest(t1, [cid], f"slides/F_{cid}_slide", [title], scale=1.7)
 
 
 def f3(t1):
@@ -144,7 +145,7 @@ def f3(t1):
         sp.set_visible(False)
     ax.tick_params(length=0)
     fig.text(0.01, -0.04, "회색 칸: 평균 차이 양수, 흰 칸: 음수. 굵은 테두리와 *: 주 보정 Holm p < .05. †: High 설정에서 60개 묶음 보정으로도 p < .05. "
-                          "Strict ITT, 자유 작성, 575개 기업. Oracle 사이 크기는 비교하지 않는다.", fontsize=8)
+                          "Strict ITT, 자유 작성, 575개 기업. Oracle마다 척도가 달라 방향과 유의성만 표시했다.", fontsize=8)
     save(fig, "F3_heatmap")
 
 
@@ -192,7 +193,7 @@ def f4(t1, supp):
     draw(axes[2], None, "A3  Run1(●)과 Run2(□), Strict", [("Run1", strict("A3"), 0.14, True), ("Run2", run2("C6-E", "C4R"), -0.14, False)])
     for ax in axes:
         ax.set_xlabel("정책가치 차이 [95% 신뢰구간]")
-    fig.text(0.01, -0.06, "자유 작성 · B1 · Oracle-α · 575개 기업 · 구간은 보정 전. Repaired는 같은 응답을 다른 규칙으로 처리한 것이며 의도의 복원으로 읽지 않는다.", fontsize=8)
+    fig.text(0.01, -0.06, "자유 작성 · B1 · Oracle-α · 575개 기업 · 구간은 보정 전. Repaired는 같은 응답을 다른 규칙으로 처리한 결과다.", fontsize=8)
     fig.subplots_adjust(wspace=0.12)
     save(fig, "F4_robustness")
 
