@@ -1,0 +1,259 @@
+{
+ "a3_positive_of_12": 11,
+ "a3_holm_sig_of_12": 2,
+ "a2_positive_of_12": 6,
+ "a2_holm_sig_of_12": 4,
+ "a2_sig_with_60family_of_12": 2,
+ "thesis_expected": {
+  "a3_positive": 11,
+  "a3_sig": 2,
+  "a2_positive": 6,
+  "a2_sig": 4,
+  "a2_sig_60": 2
+ },
+ "a3_means_matched_3dp": "12/12",
+ "a2_means_matched_3dp": "4/4 (the four significant values quoted in Sec.6.3)",
+ "all_star_checks_match": true,
+ "rows": [
+  {
+   "key": "A2|GPT|BASELINE|alpha",
+   "estimate": 0.024919,
+   "holm_p": 0.020798,
+   "holm_p_60": null,
+   "significant": true,
+   "thesis_value": 0.025,
+   "thesis_star": true,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A2|GPT|BASELINE|beta",
+   "estimate": 0.007441,
+   "holm_p": 0.261974,
+   "holm_p_60": null,
+   "significant": false,
+   "star_match": true
+  },
+  {
+   "key": "A2|GPT|BASELINE|gamma",
+   "estimate": 0.003477,
+   "holm_p": 0.424158,
+   "holm_p_60": null,
+   "significant": false,
+   "star_match": true
+  },
+  {
+   "key": "A2|GEMINI|BASELINE|alpha",
+   "estimate": -0.038956,
+   "holm_p": 0.125187,
+   "holm_p_60": null,
+   "significant": false,
+   "star_match": true
+  },
+  {
+   "key": "A2|GEMINI|BASELINE|beta",
+   "estimate": -0.020498,
+   "holm_p": 0.0004,
+   "holm_p_60": null,
+   "significant": true,
+   "thesis_value": -0.02,
+   "thesis_star": true,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A2|GEMINI|BASELINE|gamma",
+   "estimate": -0.013018,
+   "holm_p": 0.179382,
+   "holm_p_60": null,
+   "significant": false,
+   "star_match": true
+  },
+  {
+   "key": "A2|GPT|HIGH|alpha",
+   "estimate": 0.039594,
+   "holm_p": 0.0028,
+   "holm_p_60": 0.069993,
+   "significant": true,
+   "thesis_value": 0.04,
+   "thesis_star": true,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A2|GPT|HIGH|beta",
+   "estimate": 0.005314,
+   "holm_p": 0.159584,
+   "holm_p_60": 1.0,
+   "significant": false,
+   "star_match": true
+  },
+  {
+   "key": "A2|GPT|HIGH|gamma",
+   "estimate": 0.011301,
+   "holm_p": 0.261574,
+   "holm_p_60": 1.0,
+   "significant": false,
+   "star_match": true
+  },
+  {
+   "key": "A2|GEMINI|HIGH|alpha",
+   "estimate": -0.020333,
+   "holm_p": 0.231577,
+   "holm_p_60": 1.0,
+   "significant": false,
+   "star_match": true
+  },
+  {
+   "key": "A2|GEMINI|HIGH|beta",
+   "estimate": -0.003939,
+   "holm_p": 0.011199,
+   "holm_p_60": 0.263174,
+   "significant": true,
+   "thesis_value": -0.004,
+   "thesis_star": true,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A2|GEMINI|HIGH|gamma",
+   "estimate": -0.005161,
+   "holm_p": 0.875912,
+   "holm_p_60": 1.0,
+   "significant": false,
+   "star_match": true
+  },
+  {
+   "key": "A3|GPT|BASELINE|alpha",
+   "estimate": 0.085054,
+   "holm_p": 0.020798,
+   "holm_p_60": null,
+   "significant": true,
+   "thesis_value": 0.085,
+   "thesis_star": true,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A3|GPT|BASELINE|beta",
+   "estimate": 0.016265,
+   "holm_p": 0.261974,
+   "holm_p_60": null,
+   "significant": false,
+   "thesis_value": 0.016,
+   "thesis_star": false,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A3|GPT|BASELINE|gamma",
+   "estimate": 0.023022,
+   "holm_p": 0.167983,
+   "holm_p_60": null,
+   "significant": false,
+   "thesis_value": 0.023,
+   "thesis_star": false,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A3|GEMINI|BASELINE|alpha",
+   "estimate": 0.043964,
+   "holm_p": 0.125187,
+   "holm_p_60": null,
+   "significant": false,
+   "thesis_value": 0.044,
+   "thesis_star": false,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A3|GEMINI|BASELINE|beta",
+   "estimate": 0.007028,
+   "holm_p": 0.456354,
+   "holm_p_60": null,
+   "significant": false,
+   "thesis_value": 0.007,
+   "thesis_star": false,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A3|GEMINI|BASELINE|gamma",
+   "estimate": 0.031098,
+   "holm_p": 0.006799,
+   "holm_p_60": null,
+   "significant": true,
+   "thesis_value": 0.031,
+   "thesis_star": true,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A3|GPT|HIGH|alpha",
+   "estimate": 0.009335,
+   "holm_p": 0.677132,
+   "holm_p_60": 1.0,
+   "significant": false,
+   "thesis_value": 0.009,
+   "thesis_star": false,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A3|GPT|HIGH|beta",
+   "estimate": -0.001947,
+   "holm_p": 0.871713,
+   "holm_p_60": 1.0,
+   "significant": false,
+   "thesis_value": -0.002,
+   "thesis_star": false,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A3|GPT|HIGH|gamma",
+   "estimate": 0.018249,
+   "holm_p": 0.261574,
+   "holm_p_60": 1.0,
+   "significant": false,
+   "thesis_value": 0.018,
+   "thesis_star": false,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A3|GEMINI|HIGH|alpha",
+   "estimate": 0.037033,
+   "holm_p": 0.231577,
+   "holm_p_60": 1.0,
+   "significant": false,
+   "thesis_value": 0.037,
+   "thesis_star": false,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A3|GEMINI|HIGH|beta",
+   "estimate": 0.008661,
+   "holm_p": 0.053795,
+   "holm_p_60": 1.0,
+   "significant": false,
+   "thesis_value": 0.009,
+   "thesis_star": false,
+   "mean_match_3dp": true,
+   "star_match": true
+  },
+  {
+   "key": "A3|GEMINI|HIGH|gamma",
+   "estimate": 0.007846,
+   "holm_p": 0.875912,
+   "holm_p_60": 1.0,
+   "significant": false,
+   "thesis_value": 0.008,
+   "thesis_star": false,
+   "mean_match_3dp": true,
+   "star_match": true
+  }
+ ]
+}

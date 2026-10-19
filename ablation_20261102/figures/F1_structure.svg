@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="516.6pt" height="269.424pt" viewBox="0 0 516.6 269.424" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-20T04:51:30.746711</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 269.424 
+L 516.6 269.424 
+L 516.6 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 25.2792 163.18968 
+L 119.6928 163.18968 
+Q 123.7104 163.18968 123.7104 159.78936 
+L 123.7104 118.13544 
+Q 123.7104 114.73512 119.6928 114.73512 
+L 25.2792 114.73512 
+Q 21.2616 114.73512 21.2616 118.13544 
+L 21.2616 159.78936 
+Q 21.2616 163.18968 25.2792 163.18968 
+z
+" clip-path="url(#p95f9253186)" style="fill: #ffffff; stroke: #000000; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 25.2792 250.32288 
+L 119.6928 250.32288 
+Q 123.7104 250.32288 123.7104 246.92256 
+L 123.7104 205.26864 
+Q 123.7104 201.86832 119.6928 201.86832 
+L 25.2792 201.86832 
+Q 21.2616 201.86832 21.2616 205.26864 
+L 21.2616 246.92256 
+Q 21.2616 250.32288 25.2792 250.32288 
+z
+" clip-path="url(#p95f9253186)" style="fill: #ffffff; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 221.1372 80.30688 
+L 335.6388 80.30688 
+Q 339.6564 80.30688 339.6564 76.90656 
+L 339.6564 35.25264 
+Q 339.6564 31.85232 335.6388 31.85232 
+L 221.1372 31.85232 
+Q 217.1196 31.85232 217.1196 35.25264 
+L 217.1196 76.90656 
+Q 217.1196 80.30688 221.1372 80.30688 
+z
+" clip-path="url(#p95f9253186)" style="fill: #ffffff; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 221.1372 163.18968 
+L 335.6388 163.18968 
+Q 339.6564 163.18968 339.6564 159.78936 
+L 339.6564 118.13544 
+Q 339.6564 114.73512 335.6388 114.73512 
+L 221.1372 114.73512 
+Q 217.1196 114.73512 217.1196 118.13544 
+L 217.1196 159.78936 
+Q 217.1196 163.18968 221.1372 163.18968 
+z
+" clip-path="url(#p95f9253186)" style="fill: #ffffff; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 221.1372 246.07248 
+L 335.6388 246.07248 
+Q 339.6564 246.07248 339.6564 242.67216 
+L 339.6564 201.01824 
+Q 339.6564 197.61792 335.6388 197.61792 
+L 221.1372 197.61792 
+Q 217.1196 197.61792 217.1196 201.01824 
+L 217.1196 242.67216 
+Q 217.1196 246.07248 221.1372 246.07248 
+z
+" clip-path="url(#p95f9253186)" style="fill: #ffffff; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 401.9292 163.18968 
+L 491.3208 163.18968 
+Q 495.3384 163.18968 495.3384 159.78936 
+L 495.3384 118.13544 
+Q 495.3384 114.73512 491.3208 114.73512 
+L 401.9292 114.73512 
+Q 397.9116 114.73512 397.9116 118.13544 
+L 397.9116 159.78936 
+Q 397.9116 163.18968 401.9292 163.18968 
+z
+" clip-path="url(#p95f9253186)" style="fill: #ffffff; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #000000; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(67.003734 136.916482)">C4</text>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(52.903969 146.404802)">직접 생성</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(67.150688 219.305522)">C5</text>
+    <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(42.321938 228.793842)">진단 유도 생성</text>
+    <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(49.326469 238.282162)">(C4와 독립)</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(270.308391 53.994307)">C4R</text>
+    <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(243.723938 63.561377)">참조 없는 재검토</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(268.880344 136.877107)">C6-E</text>
+    <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(228.13425 146.444177)">C3-E 행동을 참조로 제시</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(266.155734 215.015747)">C6-EX</text>
+    <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(228.13425 224.504067)">다른 기업의 C3-E 행동을</text>
+    <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(254.305969 234.071137)">참조로 제시</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(437.117344 132.172322)">C3-E</text>
+    <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(416.056641 141.660642)">RL 정책의 행동</text>
+    <text style="font-size: 9px; font-family: 'Malgun Gothic'" transform="translate(408.234375 151.148962)">(고정, 외부 기준선)</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 122.706 126.2112 
+Q 170.415 91.1454 217.042951 56.874164 
+" style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 213.076171 57.555824 
+L 217.042951 56.874164 
+L 215.20821 60.456584 
+z
+" style="stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 122.706 138.9624 
+Q 170.415 138.9624 216.782359 138.9624 
+" style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 213.182359 137.1624 
+L 216.782359 138.9624 
+L 213.182359 140.7624 
+z
+" style="stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 122.706 151.7136 
+Q 170.415 186.7794 217.042951 221.050636 
+" style="fill: none; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 215.20821 217.468216 
+L 217.042951 221.050636 
+L 213.076171 220.368976 
+z
+" style="stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 398.916 138.9624 
+Q 368.784 138.9624 339.993641 138.9624 
+" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 343.593641 140.7624 
+L 339.993641 138.9624 
+L 343.593641 137.1624 
+z
+" style="stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 419.004 162.3396 
+Q 378.828 188.9046 339.77112 214.72962 
+" style="fill: none; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 343.766822 214.245503 
+L 339.77112 214.72962 
+L 341.781248 211.242589 
+z
+" style="stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #000000; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 72.986 201.7184 
+Q 82.5807 182.529 72.986 163.3396 
+" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8c8c8c; stroke-linecap: round"/>
+    <path d="M 76.205938 199.303447 
+L 72.986 201.7184 
+L 72.986 197.693478 
+" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8c8c8c; stroke-linecap: round"/>
+    <path d="M 72.986 167.364522 
+L 72.986 163.3396 
+L 76.205938 165.754553 
+" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8c8c8c; stroke-linecap: round"/>
+   </g>
+   <g id="text_7">
+    <g id="patch_14">
+     <path d="M 44.865 190.103062 
+C 46.873665 190.103062 48.80033 189.305011 50.220671 187.884671 
+C 51.641011 186.46433 52.439063 184.537665 52.439063 182.529 
+C 52.439063 180.520335 51.641011 178.59367 50.220671 177.173329 
+C 48.80033 175.752989 46.873665 174.954937 44.865 174.954937 
+C 42.856335 174.954937 40.92967 175.752989 39.509329 177.173329 
+C 38.088989 178.59367 37.290938 180.520335 37.290938 182.529 
+C 37.290938 184.537665 38.088989 186.46433 39.509329 187.884671 
+C 40.92967 189.305011 42.856335 190.103062 44.865 190.103062 
+z
+" style="fill: #ffffff; stroke: #8c8c8c; stroke-width: 0.8; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Malgun Gothic'; text-anchor: middle" x="44.865" y="185.227242" transform="rotate(-0 44.865 185.227242)">A1</text>
+   </g>
+   <g id="patch_15">
+    <path d="M 58.53709 115.631143 
+Q 155.8362 119.6328 217.416992 44.194506 
+" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8c8c8c; stroke-linecap: round"/>
+    <path d="M 62.060082 117.577556 
+L 58.53709 115.631143 
+L 62.208016 113.980597 
+" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8c8c8c; stroke-linecap: round"/>
+    <path d="M 213.746066 45.845052 
+L 217.416992 44.194506 
+L 216.534873 48.121574 
+" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8c8c8c; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <g id="patch_16">
+     <path d="M 157.86 109.132942 
+C 159.868665 109.132942 161.79533 108.334891 163.215671 106.914551 
+C 164.636011 105.49421 165.434063 103.567545 165.434063 101.55888 
+C 165.434063 99.550215 164.636011 97.62355 163.215671 96.203209 
+C 161.79533 94.782869 159.868665 93.984817 157.86 93.984817 
+C 155.851335 93.984817 153.92467 94.782869 152.504329 96.203209 
+C 151.083989 97.62355 150.285937 99.550215 150.285937 101.55888 
+C 150.285937 103.567545 151.083989 105.49421 152.504329 106.914551 
+C 153.92467 108.334891 155.851335 109.132942 157.86 109.132942 
+z
+" style="fill: #ffffff; stroke: #8c8c8c; stroke-width: 0.8; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Malgun Gothic'; text-anchor: middle" x="157.86" y="104.257122" transform="rotate(-0 157.86 104.257122)">A2</text>
+   </g>
+   <g id="patch_17">
+    <path d="M 277.888 80.4568 
+Q 269.3559 97.521 277.888 114.5852 
+" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8c8c8c; stroke-linecap: round"/>
+    <path d="M 274.668062 82.871753 
+L 277.888 80.4568 
+L 277.888 84.481722 
+" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8c8c8c; stroke-linecap: round"/>
+    <path d="M 277.888 110.560278 
+L 277.888 114.5852 
+L 274.668062 112.170247 
+" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8c8c8c; stroke-linecap: round"/>
+   </g>
+   <g id="text_9">
+    <g id="patch_18">
+     <path d="M 303.498 105.095062 
+C 305.506665 105.095062 307.43333 104.297011 308.853671 102.876671 
+C 310.274011 101.45633 311.072063 99.529665 311.072063 97.521 
+C 311.072063 95.512335 310.274011 93.58567 308.853671 92.165329 
+C 307.43333 90.744989 305.506665 89.946937 303.498 89.946937 
+C 301.489335 89.946937 299.56267 90.744989 298.142329 92.165329 
+C 296.721989 93.58567 295.923938 95.512335 295.923938 97.521 
+C 295.923938 99.529665 296.721989 101.45633 298.142329 102.876671 
+C 299.56267 104.297011 301.489335 105.095062 303.498 105.095062 
+z
+" style="fill: #ffffff; stroke: #8c8c8c; stroke-width: 0.8; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Malgun Gothic'; text-anchor: middle" x="303.498" y="100.219242" transform="rotate(-0 303.498 100.219242)">A3</text>
+   </g>
+   <g id="patch_19">
+    <path d="M 277.888 163.3396 
+Q 269.3559 180.4038 277.888 197.468 
+" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8c8c8c; stroke-linecap: round"/>
+    <path d="M 274.668062 165.754553 
+L 277.888 163.3396 
+L 277.888 167.364522 
+" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8c8c8c; stroke-linecap: round"/>
+    <path d="M 277.888 193.443078 
+L 277.888 197.468 
+L 274.668062 195.053047 
+" style="fill: none; stroke-dasharray: 1,1.65; stroke-dashoffset: 0; stroke: #8c8c8c; stroke-linecap: round"/>
+   </g>
+   <g id="text_10">
+    <g id="patch_20">
+     <path d="M 303.498 187.977862 
+C 305.506665 187.977862 307.43333 187.179811 308.853671 185.759471 
+C 310.274011 184.33913 311.072063 182.412465 311.072063 180.4038 
+C 311.072063 178.395135 310.274011 176.46847 308.853671 175.048129 
+C 307.43333 173.627789 305.506665 172.829737 303.498 172.829737 
+C 301.489335 172.829737 299.56267 173.627789 298.142329 175.048129 
+C 296.721989 176.46847 295.923938 178.395135 295.923938 180.4038 
+C 295.923938 182.412465 296.721989 184.33913 298.142329 185.759471 
+C 299.56267 187.179811 301.489335 187.977862 303.498 187.977862 
+z
+" style="fill: #ffffff; stroke: #8c8c8c; stroke-width: 0.8; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Malgun Gothic'; text-anchor: middle" x="303.498" y="183.102042" transform="rotate(-0 303.498 183.102042)">A4</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 8px; font-family: 'Malgun Gothic'; text-anchor: start" x="17.244" y="16.191069" transform="rotate(-0 17.244 16.191069)">실선 화살표: 같은 C4 초안을 받아 수정</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 8px; font-family: 'Malgun Gothic'; text-anchor: start" x="17.244" y="26.852069" transform="rotate(-0 17.244 26.852069)">점선 화살표: 참조로 제시되는 C3-E 행동</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 8px; font-family: 'Malgun Gothic'; text-anchor: start" x="17.244" y="37.462444" transform="rotate(-0 17.244 37.462444)">회색 점선 양방향 표시: 대비(처치 - 대조)</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 8px; font-family: 'Malgun Gothic'; text-anchor: start" x="17.244" y="48.069069" transform="rotate(-0 17.244 48.069069)">(대비는 화살표가 아니다)</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p95f9253186">
+   <rect x="7.2" y="7.2" width="502.2" height="255.024"/>
+  </clipPath>
+ </defs>
+</svg>

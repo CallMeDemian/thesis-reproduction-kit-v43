@@ -1,0 +1,276 @@
+{
+ "generated_utc": "2026-10-19T19:52:18.315111+00:00",
+ "head": "209cf29d3fbe026cea4a31bd313a83738c63ef8c",
+ "results": [
+  {
+   "id": "Q01",
+   "name": "Source pin",
+   "status": "PASS",
+   "evidence": {
+    "base": "071848881349c8675bb4e15193a747fa02679986",
+    "branch": "ablation-20261102",
+    "head": "209cf29d3fbe026cea4a31bd313a83738c63ef8c",
+    "python": "3.12.10",
+    "pandas": "3.0.2",
+    "numpy": "2.4.4",
+    "input_sha256": {
+     "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/frozen_inputs/stage8/canonical_itt_observations.parquet": "aedfadbf1728a14d3e4cb45bfa8a022d2c10313c52606e7bd1aee68899de8a0d",
+     "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/canonical_v13/V13_SUPPLEMENTAL_RESULTS.csv": "62de26f92106bd5525cfc6c0f6885c719bdd77646c533350edae4978b126c4e8",
+     "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/canonical_v13/parent_gate_sensitivity_v13.csv": "a415d2c2d93e5bb6cc37e7440bfedd5b6eaf2a1d244ad1f268dd8c413c1a0b34",
+     "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/frozen_inputs/stage8/V13_BASELINE_STRICT_PRIMARY_FULLSTREAM.csv": "deca8883ebc0b42ad87562e2abeb2de329a767342fdab30d094cff60f5a08de8",
+     "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/frozen_inputs/stage8/V13_HIGH_STRICT_PRIMARY_FULLSTREAM.csv": "b150f8134ab7101533102a2ef0c5056143edbb44d7fc33fea20d102578df85f5",
+     "frozen/original_release/evaluation/llm_final_evaluation_20260913/stage9/HIGH_STRICT_ITT/llm_stage9_llm_rl_comparison.csv": "6c1d94c2f81ae5a8f8ec193be2b57d43047a24e14152fa2e897e0381e27cd3b4"
+    },
+    "inputs_check": "PASS"
+   }
+  },
+  {
+   "id": "Q02",
+   "name": "Scale",
+   "status": "PASS",
+   "evidence": {
+    "requests_total": {
+     "actual": 48300,
+     "expected": 48300
+    },
+    "strict_requests_21x575x2x2": {
+     "actual": 48300,
+     "expected": 48300
+    },
+    "observations_rows": {
+     "actual": 96600,
+     "expected": 96600
+    },
+    "registry_rows": {
+     "actual": 914,
+     "expected": 914
+    },
+    "primary_rows": {
+     "actual": 96,
+     "expected": 96
+    },
+    "supplemental_rows": {
+     "actual": 722,
+     "expected": 722
+    },
+    "parent_gate_rows": {
+     "actual": 96,
+     "expected": 96
+    }
+   }
+  },
+  {
+   "id": "Q03",
+   "name": "Pairing and row counts",
+   "status": "PASS",
+   "evidence": {
+    "T1_rows": 96,
+    "T2_rows": 24,
+    "T3_rows": 24,
+    "T3_tested": 12,
+    "T3_descriptive": 12,
+    "R9_rows": 24,
+    "all_n_firms_575": true,
+    "result_id_duplicates": 0
+   }
+  },
+  {
+   "id": "Q04",
+   "name": "Cell match (only the intended axis differs)",
+   "status": "PASS",
+   "evidence": {
+    "A1": {
+     "cells_x_firms": 4600,
+     "model_regime_budget_cells": 8,
+     "every_firm_cell_has_both_policies": true
+    },
+    "A2": {
+     "cells_x_firms": 4600,
+     "model_regime_budget_cells": 8,
+     "every_firm_cell_has_both_policies": true
+    },
+    "A3": {
+     "cells_x_firms": 4600,
+     "model_regime_budget_cells": 8,
+     "every_firm_cell_has_both_policies": true
+    },
+    "A4": {
+     "cells_x_firms": 4600,
+     "model_regime_budget_cells": 8,
+     "every_firm_cell_has_both_policies": true
+    },
+    "R9_candidate9_cells": 4,
+    "S1_both_regimes_per_cell": true
+   }
+  },
+  {
+   "id": "Q05",
+   "name": "Draft links",
+   "status": "PASS",
+   "evidence": {
+    "C4R": {
+     "rows": 11500,
+     "expected": 11500,
+     "parent_is_same_run_same_firm_C4": 11500
+    },
+    "C6-E": {
+     "rows": 11500,
+     "expected": 11500,
+     "parent_is_same_run_same_firm_C4": 11500
+    },
+    "C6-EX": {
+     "rows": 4600,
+     "expected": 4600,
+     "parent_is_same_run_same_firm_C4": 4600
+    }
+   }
+  },
+  {
+   "id": "Q06",
+   "name": "Reference assignment",
+   "status": "PASS",
+   "evidence": {
+    "firms": 575,
+    "self_reference": 0,
+    "same_action": 141
+   }
+  },
+  {
+   "id": "Q07",
+   "name": "Strict rule",
+   "status": "PASS",
+   "evidence": {
+    "UNRESOLVED_INFRA_rows": 0,
+    "strict_unusable_rows": 8376,
+    "all_unusable_mapped_to_zero_action": true,
+    "strict_statuses": {
+     "ACCEPTED": 39924,
+     "CONFIRMED_UNUSABLE_COMPLETION": 8376
+    },
+    "repaired_rows_equal_requests": 48300
+   }
+  },
+  {
+   "id": "Q08",
+   "name": "Mean reproduction (T1)",
+   "status": "PASS",
+   "evidence": {
+    "rows_matched": 96,
+    "np_isclose_atol_rtol_1e-12_all": true,
+    "max_abs_diff": 1.0061396160665481e-16
+   }
+  },
+  {
+   "id": "Q09",
+   "name": "Candidate selection vs thesis (R9)",
+   "status": "PASS",
+   "evidence": {
+    "a3_positive_of_12": 11,
+    "a3_holm_sig_of_12": 2,
+    "a2_positive_of_12": 6,
+    "a2_holm_sig_of_12": 4,
+    "a2_sig_with_60family_of_12": 2,
+    "thesis_expected": {
+     "a3_positive": 11,
+     "a3_sig": 2,
+     "a2_positive": 6,
+     "a2_sig": 4,
+     "a2_sig_60": 2
+    },
+    "a3_means_matched_3dp": "12/12",
+    "a2_means_matched_3dp": "4/4 (the four significant values quoted in Sec.6.3)",
+    "all_star_checks_match": true
+   }
+  },
+  {
+   "id": "Q10",
+   "name": "C3-E",
+   "status": "PASS",
+   "evidence": {
+    "c3e_rows": 575,
+    "firm_key_unique": true,
+    "c3e_alpha_mean": 0.923299,
+    "high_vs_stage9_gap_rows_each": [
+     575
+    ],
+    "high_vs_stage9_gap_max_abs_diff": 8.326672684688674e-17
+   }
+  },
+  {
+   "id": "Q11",
+   "name": "New analysis contract (seeds, families, status)",
+   "status": "PASS",
+   "evidence": {
+    "registry_seed_mismatches_of_722": 0,
+    "T2_S1.csv": {
+     "rows": 24,
+     "status": {
+      "EXPLORATORY": 24
+     },
+     "families": {
+      "S1_ALL24": 24
+     },
+     "key_fields_ok": true
+    },
+    "T3_REF1.csv": {
+     "rows": 24,
+     "status": {
+      "EXPLORATORY": 12,
+      "DESCRIPTIVE": 12
+     },
+     "families": {
+      "REF1_CANDIDATE9_12": 12
+     },
+     "key_fields_ok": true
+    },
+    "R9_candidate_selection.csv": {
+     "rows": 24,
+     "status": {
+      "RECOMPUTED": 24
+     },
+     "families": {
+      "R9_GPT_alpha_BASELINE_2": 2,
+      "R9_GPT_beta_BASELINE_2": 2,
+      "R9_GPT_gamma_BASELINE_2": 2,
+      "R9_GEMINI_alpha_BASELINE_2": 2,
+      "R9_GEMINI_beta_BASELINE_2": 2,
+      "R9_GEMINI_gamma_BASELINE_2": 2,
+      "R9_GPT_alpha_HIGH_2": 2,
+      "R9_GPT_beta_HIGH_2": 2,
+      "R9_GPT_gamma_HIGH_2": 2,
+      "R9_GEMINI_alpha_HIGH_2": 2,
+      "R9_GEMINI_beta_HIGH_2": 2,
+      "R9_GEMINI_gamma_HIGH_2": 2
+     },
+     "key_fields_ok": true
+    }
+   }
+  },
+  {
+   "id": "Q12",
+   "name": "Frozen unchanged",
+   "status": "PASS",
+   "evidence": {
+    "git_diff_base_frozen_empty": true,
+    "git_status_frozen_empty": true,
+    "files_hashed": 1101,
+    "combined_sha256": "dccfce595a222cdd84729c4905c7ae37fbb093173520c15d29162b2d58f6e491",
+    "note": "no frozen/ hash list existed from the start of work; this is the first list (kept outside the repository, private/). Evidence of no change since checkout: git diff and git status above (checked before every commit)."
+   }
+  },
+  {
+   "id": "Q16",
+   "name": "E1 pre-registration order (before first provider call)",
+   "status": "PASS",
+   "evidence": {
+    "protocol_commit_before_first_provider_call": true,
+    "protocol_commit_time": "2026-10-20T04:14:32+09:00",
+    "first_smoke_response_mtime_utc": "2026-10-19T19:17:33.895954+00:00",
+    "protocol_commit_on_origin": true,
+    "build_checks_all_pass": true,
+    "manifest_sha256_equals_expected": true,
+    "requests": 3450
+   }
+  }
+ ]
+}

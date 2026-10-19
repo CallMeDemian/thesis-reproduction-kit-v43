@@ -1,0 +1,73 @@
+{
+ "status": "PASS",
+ "checks": {
+  "observations_rows": {
+   "actual": 96600,
+   "expected": 96600
+  },
+  "strict_requests_21x575x2x2": {
+   "actual": 48300,
+   "expected": 48300
+  },
+  "requests_total": {
+   "actual": 48300,
+   "expected": 48300
+  },
+  "firms": {
+   "actual": 575,
+   "expected": 575
+  },
+  "primary_rows": {
+   "actual": 96,
+   "expected": 96
+  },
+  "supplemental_rows": {
+   "actual": 722,
+   "expected": 722
+  },
+  "parent_gate_rows": {
+   "actual": 96,
+   "expected": 96
+  },
+  "registry_rows": {
+   "actual": 914,
+   "expected": 914
+  },
+  "c3e_itt_rows": {
+   "actual": 575,
+   "expected": 575
+  },
+  "c3e_row_id_unique": {
+   "actual": 575,
+   "expected": 575
+  },
+  "c3e_firm_key_all_empty": {
+   "actual": true,
+   "expected": true
+  },
+  "row_id_firm_key_one_to_one": {
+   "actual": true,
+   "expected": true
+  },
+  "extra_columns_present": {
+   "actual": [
+    "parent_request_id",
+    "reference_row_id",
+    "reference_candidate_id"
+   ],
+   "expected": [
+    "parent_request_id",
+    "reference_row_id",
+    "reference_candidate_id"
+   ]
+  }
+ },
+ "input_sha256": {
+  "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/frozen_inputs/stage8/canonical_itt_observations.parquet": "aedfadbf1728a14d3e4cb45bfa8a022d2c10313c52606e7bd1aee68899de8a0d",
+  "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/canonical_v13/V13_SUPPLEMENTAL_RESULTS.csv": "62de26f92106bd5525cfc6c0f6885c719bdd77646c533350edae4978b126c4e8",
+  "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/canonical_v13/parent_gate_sensitivity_v13.csv": "a415d2c2d93e5bb6cc37e7440bfedd5b6eaf2a1d244ad1f268dd8c413c1a0b34",
+  "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/frozen_inputs/stage8/V13_BASELINE_STRICT_PRIMARY_FULLSTREAM.csv": "deca8883ebc0b42ad87562e2abeb2de329a767342fdab30d094cff60f5a08de8",
+  "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/frozen_inputs/stage8/V13_HIGH_STRICT_PRIMARY_FULLSTREAM.csv": "b150f8134ab7101533102a2ef0c5056143edbb44d7fc33fea20d102578df85f5",
+  "frozen/original_release/evaluation/llm_final_evaluation_20260913/stage9/HIGH_STRICT_ITT/llm_stage9_llm_rl_comparison.csv": "6c1d94c2f81ae5a8f8ec193be2b57d43047a24e14152fa2e897e0381e27cd3b4"
+ }
+}
