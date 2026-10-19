@@ -1,0 +1,103 @@
+{
+  "namespace": "E1_REFERENCE_CONTENT_CONTROL_V1",
+  "high_release_hash": "d5d878bf50718bac65ede73df3fc88c16723870b6c90a790557ff35b063b7ba7",
+  "shuffle_seed": 20261020,
+  "shard_size": 500,
+  "checks": {
+    "cell_inventory": "PASS 575 x 2 models for C4, C4R, C6-E",
+    "own_action_map": "PASS 575/575 agree; counts {'OE': 232, 'RF': 155, 'WC1': 54, 'CX': 41, 'WC2': 39, 'MX2': 36, 'MX1': 18}",
+    "september_bodies_vs_ledger": "PASS 2,300 bodies equal ledger payloads; visible hashes recomputed",
+    "re_render": "PASS 2,300 C4R/C6-E prompts re-rendered identically",
+    "e1_oe": "PASS differs only in the reference JSON; 464 placebo prompts identical to E1-RL",
+    "settings": "PASS every body matches HIGH_REASONING_PROTOCOL.json",
+    "frozen_untouched": "PASS git status --porcelain -- frozen is empty"
+  },
+  "inputs": {
+    "prompt_contract": {
+      "path": "frozen/evidence/llm/prompt_contract.json",
+      "released_sha256": "0ce383553d8135c0df116f993b342be1fd88b4b0f6d356990ae5075c9f38492c",
+      "matched_as": "raw"
+    },
+    "action_contract": {
+      "path": "frozen/original_release/rl/stage2/candidate_action_contract_v4_3.json",
+      "released_sha256": "f722e189a265e111c018341254a648ddb9cecc05aa8c12c3547a023ea4c458c0",
+      "matched_as": "raw"
+    }
+  },
+  "shards": [
+    {
+      "provider": "google",
+      "shard": 1,
+      "requests": 500,
+      "file": "google_e1_shard_00001.jsonl",
+      "sha256": "b925540c3a8f4425b8f0e532c07333e8fdefbe972ffcd2f78f35c5f9e80a8307"
+    },
+    {
+      "provider": "google",
+      "shard": 2,
+      "requests": 500,
+      "file": "google_e1_shard_00002.jsonl",
+      "sha256": "d592fcfca9cd2eda4ded5990589973112fe9b418f5e1c3087bbbf198047c2a88"
+    },
+    {
+      "provider": "google",
+      "shard": 3,
+      "requests": 500,
+      "file": "google_e1_shard_00003.jsonl",
+      "sha256": "5df43212bbc6d3731724fad0338acb5d42860dcb507df2ab93ed453ef3630ef6"
+    },
+    {
+      "provider": "google",
+      "shard": 4,
+      "requests": 225,
+      "file": "google_e1_shard_00004.jsonl",
+      "sha256": "8d08eca2d894f290a425121d84e5c614b5a2d38983bbdf89c9644077a2d8f329"
+    },
+    {
+      "provider": "openai",
+      "shard": 1,
+      "requests": 500,
+      "file": "openai_e1_shard_00001.jsonl",
+      "sha256": "a94813354990649f4cbb54a7857ec4a1abe45b71110c9e9111ccde6e6a85f35b"
+    },
+    {
+      "provider": "openai",
+      "shard": 2,
+      "requests": 500,
+      "file": "openai_e1_shard_00002.jsonl",
+      "sha256": "3cf4742bc5d51b7a3ed46b04fa07874757b5471e2e2b7304d6d9333ddb6ca58c"
+    },
+    {
+      "provider": "openai",
+      "shard": 3,
+      "requests": 500,
+      "file": "openai_e1_shard_00003.jsonl",
+      "sha256": "14cf26f2557e49062f3003ce02f8efe8ab489f839e6270c2b37a9f0d2d5d3301"
+    },
+    {
+      "provider": "openai",
+      "shard": 4,
+      "requests": 225,
+      "file": "openai_e1_shard_00004.jsonl",
+      "sha256": "79a3074bee040d799aa14095ff480f1e318ab6153206d62ee5e76e7dc666d167"
+    }
+  ],
+  "manifest_sha256": "1f12775443db3a929cddf7a619a27882ad49fe5b189da23572f908854064357a",
+  "counts": {
+    "requests": 3450,
+    "by_condition": {
+      "E1-RL": 1150,
+      "E1-OE": 1150,
+      "E1-C4R": 1150
+    },
+    "own_action": {
+      "OE": 232,
+      "RF": 155,
+      "WC1": 54,
+      "CX": 41,
+      "WC2": 39,
+      "MX2": 36,
+      "MX1": 18
+    }
+  }
+}

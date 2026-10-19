@@ -1,0 +1,5 @@
+﻿{
+  "selftest": "PASS",
+  "holm": "reproduces the 12 frozen primary families (96 rows)",
+  "pipeline": "E1c == frozen A3 and E1a_575 == frozen A4 for High/free8/B1 (both models, 3 Oracles)"
+}
