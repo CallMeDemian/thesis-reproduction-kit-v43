@@ -1,4 +1,4 @@
-﻿# QA_REPORT (ablation_20261102)
+# QA_REPORT (ablation_20261102)
 
 File status: DRAFT
 
@@ -62,8 +62,9 @@ Q17-Q19: see the E1 section; Q18 and Q19 stay open until all 3,450 responses are
 | Smoke test (2 firms x 3 conditions x 2 models) | PASS: access, parse and returned model equal to expected (6/6 OpenAI, 6/6 Gemini). Responses stored, not scored or analysed. The first Gemini attempts failed in my transport code (client lifecycle, then response key case) before reaching the prompt path; no request body or prompt changed | E1/smoke/ (summary files of every run kept) |
 | Scoring path: September C4, C4R, C6-E rows of the cell (3,450 rows, both models) | PASS: R_score, A0 score and delta_R_score for alpha, beta and gamma equal the frozen values (atol = rtol = 1e-9; max abs difference 2.8e-14) | E1/scoring/score_gate_result.json |
 | Run root | project root = THESIS_REPRO_RUN_ROOT = ..\runroot built from the v2.1.1 distribution zip by E1/scripts/e1_setup_runroot.ps1. Two adjustments, both path mapping only: the frozen action contract is exposed as contracts/scientific/v43_action_contract.json, and the copy of r085_financial_cost_contract.json gets an alias key (03_stage2/... path) with the same digest | E1/scripts/e1_setup_runroot.ps1 |
-| Generation complete (3,450), returned models, Strict rule applied | OPEN | collector log E1/runs/collector_log.jsonl |
-| Q19 placebo gate (232 firms) and audit if p < .05 | OPEN | to be recorded here per E1_PROTOCOL.md Sec. 9 |
+| Q18 Generation complete (3,450), returned models, Strict rule applied | PASS: 3,450 delivered on attempt 1 (no resubmission, no duplicates); returned_model equals the expected version for all 3,450 (1,725 per provider); 50 completed-but-unusable responses (Gemini 26, OpenAI 24) ran as A0 under Strict; 575 responses per model x condition; no prompt or code path changed after the smoke test; smoke responses excluded (batch regenerated those firms); observations scored with the validated path | E1/runs/collector_log.jsonl, E1/runs/ALL_DELIVERED.txt, E1/observations/e1_observations_summary.json |
+| Q19 placebo gate (232 firms) | PASS: all six Holm-adjusted p = 1.000 (>= .05); the Sec. 9 audit was therefore not triggered | results/T5_E1.csv (E1a_placebo rows), results/E1_wording.json |
+| E1 analysis (status DRAFT until the final QA on Oct 25) | e1_analyze.py ran once on the complete observations. Pre-registered wording for E1a (343 firms): both models fall in the row for combinations not listed above: "differs by evaluation model". Per Oracle (Holm p): GPT alpha +0.156 (.006), beta -0.022 (.008), gamma +0.052 (.031); Gemini alpha +0.145 (.008), beta -0.018 (.048), gamma +0.027 (.106). E1b and E1c reported unchanged in T5 | results/T5_E1.csv, results/E1_wording.json, figures/F5_E1 |
 
 ## Notes recorded for interpretation (2026-10-20)
 

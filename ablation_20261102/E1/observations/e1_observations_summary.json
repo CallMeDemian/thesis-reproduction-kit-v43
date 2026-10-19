@@ -1,0 +1,6 @@
+{
+ "rows": 3450,
+ "per_model_condition": "{('google_gemini31flashlite', 'E1-C4R'): 575, ('google_gemini31flashlite', 'E1-OE'): 575, ('google_gemini31flashlite', 'E1-RL'): 575, ('openai_gpt54mini', 'E1-C4R'): 575, ('openai_gpt54mini', 'E1-OE'): 575, ('openai_gpt54mini', 'E1-RL'): 575}",
+ "strict_unusable_rows": 50,
+ "sha256_parquet": "9afbdd177b463e9c0667deddc4b7c62d3166d7c6e46ef34b02a270699972364c"
+}

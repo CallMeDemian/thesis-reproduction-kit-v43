@@ -1,0 +1,53 @@
+{
+  "placebo_gate": "PASS",
+  "by_model": {
+    "GPT": {
+      "case": "MIXED",
+      "sentence": "평가모형에 따라 엇갈렸다",
+      "per_oracle": {
+        "alpha": {
+          "estimate": 0.156218,
+          "ci_low": 0.066024,
+          "ci_high": 0.254392,
+          "holm_p": 0.005999
+        },
+        "beta": {
+          "estimate": -0.022131,
+          "ci_low": -0.041641,
+          "ci_high": -0.006579,
+          "holm_p": 0.007999
+        },
+        "gamma": {
+          "estimate": 0.052343,
+          "ci_low": 0.011963,
+          "ci_high": 0.095641,
+          "holm_p": 0.031197
+        }
+      }
+    },
+    "GEMINI": {
+      "case": "MIXED",
+      "sentence": "평가모형에 따라 엇갈렸다",
+      "per_oracle": {
+        "alpha": {
+          "estimate": 0.144925,
+          "ci_low": 0.050575,
+          "ci_high": 0.238982,
+          "holm_p": 0.007999
+        },
+        "beta": {
+          "estimate": -0.018446,
+          "ci_low": -0.040399,
+          "ci_high": -0.001903,
+          "holm_p": 0.047595
+        },
+        "gamma": {
+          "estimate": 0.026768,
+          "ci_low": -0.00545,
+          "ci_high": 0.060159,
+          "holm_p": 0.105789
+        }
+      }
+    }
+  }
+}
