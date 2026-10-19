@@ -30,11 +30,11 @@ File status: DRAFT
 
 ## Automated checks (scripts/90_qa.py)
 
-Run at 2026-10-19T19:52:18.315111+00:00 on HEAD 209cf29d3fbe. Evidence: `results/_qa_results.json`. File status of tables and figures: DRAFT until every check below passes and the user has signed off the human lines.
+Run at 2026-10-19T20:28:22.173555+00:00 on HEAD d63fe00b861f. Evidence: `results/_qa_results.json`. File status of tables and figures: DRAFT until every check below passes and the user has signed off the human lines.
 
 | ID | Check | Result | Key evidence |
 | --- | --- | --- | --- |
-| Q01 | Source pin | PASS | `{"base": "071848881349c8675bb4e15193a747fa02679986", "branch": "ablation-20261102", "head": "209cf29d3fbe026cea4a31bd313a83738c63ef8c", "python": "3.12.10", "pandas": "3.0.2", "numpy": "2.4.4", "input_sha256": {"frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/frozen_inputs/sta ...` |
+| Q01 | Source pin | PASS | `{"base": "071848881349c8675bb4e15193a747fa02679986", "branch": "ablation-20261102", "head": "d63fe00b861fffe0d11d61e6a632dab44d491bbe", "python": "3.12.10", "pandas": "3.0.2", "numpy": "2.4.4", "input_sha256": {"frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/frozen_inputs/sta ...` |
 | Q02 | Scale | PASS | `{"requests_total": {"actual": 48300, "expected": 48300}, "strict_requests_21x575x2x2": {"actual": 48300, "expected": 48300}, "observations_rows": {"actual": 96600, "expected": 96600}, "registry_rows": {"actual": 914, "expected": 914}, "primary_rows": {"actual": 96, "expected": 96}, "supplemental_row ...` |
 | Q03 | Pairing and row counts | PASS | `{"T1_rows": 96, "T2_rows": 24, "T3_rows": 24, "T3_tested": 12, "T3_descriptive": 12, "R9_rows": 24, "all_n_firms_575": true, "result_id_duplicates": 0}` |
 | Q04 | Cell match (only the intended axis differs) | PASS | `{"A1": {"cells_x_firms": 4600, "model_regime_budget_cells": 8, "every_firm_cell_has_both_policies": true}, "A2": {"cells_x_firms": 4600, "model_regime_budget_cells": 8, "every_firm_cell_has_both_policies": true}, "A3": {"cells_x_firms": 4600, "model_regime_budget_cells": 8, "every_firm_cell_has_both ...` |
@@ -49,7 +49,7 @@ Run at 2026-10-19T19:52:18.315111+00:00 on HEAD 209cf29d3fbe. Evidence: `results
 | Q16 | E1 pre-registration order (before first provider call) | PASS | `{"protocol_commit_before_first_provider_call": true, "protocol_commit_time": "2026-10-20T04:14:32+09:00", "first_smoke_response_mtime_utc": "2026-10-19T19:17:33.895954+00:00", "protocol_commit_on_origin": true, "build_checks_all_pass": true, "manifest_sha256_equals_expected": true, "requests": 3450}` |
 
 Q13-Q15 (number cross-check of report and slides, representative-condition notation, Human baseline notation): not yet run; the human sign-off lines are written by the user only.
-Q17-Q19: see the E1 section; Q18 and Q19 stay open until all 3,450 responses are collected and analysed.
+Q17-Q19: see the E1 section below (recorded by hand from the E1 run files).
 
 <!-- QA_AUTO_END -->
 

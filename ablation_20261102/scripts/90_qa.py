@@ -253,7 +253,7 @@ def main():
             ev = (ev[:300] + " ...") if len(ev) > 300 else ev
             lines.append(f"| {r['id']} | {r['name']} | {r['status']} | `{ev.replace('|', '/')}` |")
         lines += ["", "Q13-Q15 (number cross-check of report and slides, representative-condition notation, Human baseline notation): not yet run; the human sign-off lines are written by the user only.",
-                  "Q17-Q19: see the E1 section; Q18 and Q19 stay open until all 3,450 responses are collected and analysed.", "", MARK_END]
+                  "Q17-Q19: see the E1 section below (recorded by hand from the E1 run files).", "", MARK_END]
         text = args.report.read_text(encoding="utf-8") if args.report.exists() else ""
         if MARK_BEGIN in text:
             pre, rest = text.split(MARK_BEGIN, 1)

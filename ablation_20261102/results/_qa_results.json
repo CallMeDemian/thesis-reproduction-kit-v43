@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-19T19:52:18.315111+00:00",
- "head": "209cf29d3fbe026cea4a31bd313a83738c63ef8c",
+ "generated_utc": "2026-10-19T20:28:22.173555+00:00",
+ "head": "d63fe00b861fffe0d11d61e6a632dab44d491bbe",
  "results": [
   {
    "id": "Q01",
@@ -9,7 +9,7 @@
    "evidence": {
     "base": "071848881349c8675bb4e15193a747fa02679986",
     "branch": "ablation-20261102",
-    "head": "209cf29d3fbe026cea4a31bd313a83738c63ef8c",
+    "head": "d63fe00b861fffe0d11d61e6a632dab44d491bbe",
     "python": "3.12.10",
     "pandas": "3.0.2",
     "numpy": "2.4.4",
