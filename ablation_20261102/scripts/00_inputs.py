@@ -13,7 +13,7 @@ def main() -> dict:
     supp = pd.read_csv(c.SUPP_PATH)
     pb, ph = pd.read_csv(c.PRIM_BASE), pd.read_csv(c.PRIM_HIGH)
     parent = pd.read_csv(c.PARENT_PATH)
-    s9 = pd.read_csv(c.C3E_PATH, low_memory=False)
+    s9 = pd.read_csv(c.require_file(c.C3E_PATH), low_memory=False)
     c3e = s9[(s9.policy == "C3-E") & (s9.analysis_population == "itt")]
     checks = {
         "observations_rows": (len(obs), 96600),

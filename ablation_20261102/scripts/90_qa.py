@@ -28,12 +28,22 @@ def git(*a) -> str:
     return subprocess.run(["git", "-C", str(c.KIT), *a], capture_output=True, text=True, encoding="utf-8").stdout
 
 
+def git_ok(*a) -> bool:
+    """Exit status 0 (git answers yes/no questions such as --is-ancestor through the exit status, not stdout)."""
+    return subprocess.run(["git", "-C", str(c.KIT), *a], capture_output=True).returncode == 0
+
+
+def has_commit(rev: str) -> bool:
+    return git_ok("cat-file", "-e", f"{rev}^{{commit}}")
+
+
 def q01():
     inp = json.loads((c.RESULTS / "_inputs_check.json").read_text(encoding="utf-8"))
     ev = {"base": c.BASE_COMMIT, "branch": git("branch", "--show-current").strip(), "head": git("rev-parse", "HEAD").strip(),
           "python": platform.python_version(), "pandas": pd.__version__, "numpy": np.__version__,
-          "input_sha256": inp["input_sha256"], "inputs_check": inp["status"]}
-    ok = ev["branch"] == "ablation-20261102" and inp["status"] == "PASS" and git("merge-base", "--is-ancestor", c.BASE_COMMIT, "HEAD") == ""
+          "input_sha256": inp["input_sha256"], "inputs_check": inp["status"],
+          "base_is_ancestor_of_head": has_commit(c.BASE_COMMIT) and git_ok("merge-base", "--is-ancestor", c.BASE_COMMIT, "HEAD")}
+    ok = ev["branch"] == "ablation-20261102" and inp["status"] == "PASS" and ev["base_is_ancestor_of_head"]
     return ok, ev
 
 
@@ -143,7 +153,7 @@ def q10(obs):
     t3mod = import_module("30_ref1_T3")
     c3e = t3mod.c3e_values(obs)
     t3 = pd.read_csv(c.RESULTS / "T3_REF1.csv")
-    gaps = pd.read_parquet(c.KIT / c.S9 / "llm_stage9_paired_vs_C3-E.parquet")
+    gaps = pd.read_parquet(c.require_file(c.KIT / c.S9 / "llm_stage9_paired_vs_C3-E.parquet"))
     diffs = []
     for model in c.MODELS:
         for oracle in c.ORACLES:
@@ -195,12 +205,14 @@ def q12(write_list: bool):
         rel = p.relative_to(c.KIT).as_posix()
         lines.append(f"{d.hexdigest()}  {rel}")
         h.update((lines[-1] + "\n").encode("utf-8"))
-    ev = {"git_diff_base_frozen_empty": diff == "", "git_status_frozen_empty": status == "", "files_hashed": len(files),
-          "combined_sha256": h.hexdigest(),
-          "note": "no frozen/ hash list existed from the start of work; this is the first list (kept outside the repository, private/). Evidence of no change since checkout: git diff and git status above (checked before every commit)."}
-    if write_list:
-        (c.KIT.parent / "private" / "frozen_sha256_list_20261020.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    return diff == "" and status == "", ev
+    private = c.KIT.parent / "private"
+    ev = {"base_commit_present": has_commit(base), "git_diff_base_frozen_empty": diff == "", "git_status_frozen_empty": status == "",
+          "files_hashed": len(files), "combined_sha256": h.hexdigest(),
+          "hash_list_written": bool(write_list and private.is_dir()),
+          "note": "no frozen/ hash list existed from the start of work; this is the first list (kept outside the repository, private/, written only when that folder exists). Evidence of no change since checkout: git diff and git status above (checked before every commit)."}
+    if ev["hash_list_written"]:
+        (private / "frozen_sha256_list_20261020.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return ev["base_commit_present"] and diff == "" and status == "", ev
 
 
 def q16_17():
@@ -227,7 +239,7 @@ def q17():
     e1 = c.ABL / "E1"
     man = pd.read_csv(e1 / "requests/E1_request_manifest.csv", dtype=str)
     report = json.loads((e1 / "requests/E1_build_report.json").read_text(encoding="utf-8"))
-    shard_ok = all(c.sha256_file(e1 / "requests/batches" / s["file"]) == s["sha256"] for s in report["shards"])
+    shard_ok = all(c.sha256_file(c.require_file(e1 / "requests/batches" / s["file"])) == s["sha256"] for s in report["shards"])
     wide = man.pivot_table(index=["model_key", "firm_key"], columns="e1_condition", values="visible_payload_sha256", aggfunc="first")
     own = man.drop_duplicates("firm_key").set_index("firm_key").own_C3E_action
     wide = wide.join(own, on="firm_key")
@@ -246,7 +258,7 @@ def q17():
 def q18():
     e1 = c.ABL / "E1"
     o = pd.read_parquet(e1 / "observations/e1_observations.parquet")
-    resp = [json.loads(t) for t in (e1 / "runs/responses.jsonl").open(encoding="utf-8")]
+    resp = [json.loads(t) for t in c.require_file(e1 / "runs/responses.jsonl").open(encoding="utf-8")]
     sub = json.loads((e1 / "runs/submissions.json").read_text(encoding="utf-8"))
     t5 = pd.read_csv(c.RESULTS / "T5_E1.csv")
     exp_model = {"openai": "gpt-5.4-mini-2026-03-17", "google": "gemini-3.1-flash-lite"}
@@ -264,6 +276,8 @@ def q18():
         maxdiff = max(maxdiff, abs(float((w[cond[0]] - w[cond[1]]).mean()) - float(r.estimate)))
     git_changed = git("diff", "--name-only", "5fbf549", "HEAD", "--", "ablation_20261102/E1/E1_PROTOCOL.md", "ablation_20261102/E1/scripts/e1_build_requests.py",
                       "ablation_20261102/E1/scripts/e1_analyze.py", "ablation_20261102/E1/requests").strip()
+    if not has_commit("5fbf549"):
+        git_changed = "not checkable: commit 5fbf549 is not in this clone"
     ev = {"delivered": len(resp), "attempts": sorted({r["attempt"] for r in resp}), "jobs": len(sub["jobs"]), "resubmissions": sum(1 for j in sub["jobs"] if j["attempt"] > 1),
           "returned_model_all_expected": bool(all(r["returned_model"] == exp_model[r["provider"]] for r in resp)),
           "per_model_condition_575": bool((o.groupby(["model_key", "e1_condition"]).size() == 575).all()), "observations": len(o),

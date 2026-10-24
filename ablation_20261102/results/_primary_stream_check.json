@@ -1,0 +1,51 @@
+{
+ "status": "PASS",
+ "rows": 96,
+ "columns": {
+  "N": {
+   "compared": 96,
+   "match": 96,
+   "max_abs_diff": 0.0
+  },
+  "estimate": {
+   "compared": 96,
+   "match": 96,
+   "max_abs_diff": 9.71445146547012e-17
+  },
+  "ci_low": {
+   "compared": 96,
+   "match": 96,
+   "max_abs_diff": 9.71445146547012e-17
+  },
+  "ci_high": {
+   "compared": 96,
+   "match": 96,
+   "max_abs_diff": 9.71445146547012e-17
+  },
+  "raw_p": {
+   "compared": 96,
+   "match": 96,
+   "max_abs_diff": 1.1102230246251565e-16
+  },
+  "neg": {
+   "compared": 96,
+   "match": 96,
+   "max_abs_diff": 0.0
+  },
+  "holm_p": {
+   "compared": 96,
+   "match": 96,
+   "max_abs_diff": 1.1102230246251565e-16
+  }
+ },
+ "production_summarize_effects_ci_identical": true,
+ "method": "kit Stage 9 pairing and group order; ITT + PP rows of each arm; one PCG64 stream per arm",
+ "seed": 20260912,
+ "draws": 10000,
+ "holm_family": "arm x model x oracle (8 rows)",
+ "sources": {
+  "canonical_itt_observations.parquet": "aedfadbf1728a14d3e4cb45bfa8a022d2c10313c52606e7bd1aee68899de8a0d",
+  "V13_BASELINE_STRICT_PRIMARY_FULLSTREAM.csv": "b0d9ff0314b3d0cba1624cba2f3ce423ef3e7a00782ecc1758fc4c881ecea424",
+  "V13_HIGH_STRICT_PRIMARY_FULLSTREAM.csv": "c7c0827fb704bc3f025b6fbe00632589e61ee89eced633cf217c960bd0b96ab1"
+ }
+}

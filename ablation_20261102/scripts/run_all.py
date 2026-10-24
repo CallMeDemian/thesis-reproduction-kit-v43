@@ -1,4 +1,4 @@
-"""Run the ablation pipeline in order: inputs -> T1 -> T2 -> T3 -> T4/R9/R10 -> figures -> (E1 outputs) -> QA.
+"""Run the ablation pipeline in order: inputs -> T1 -> primary stream check -> T2 -> T3 -> T4/R9/R10 -> figures -> (E1 outputs) -> QA.
 
 Usage (kit root, Python 3.12 with the kit's pinned packages, PYTHONUTF8=1):
     python ablation_20261102/scripts/run_all.py
@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-STEPS = ["00_inputs.py", "10_primary_T1.py", "20_s1_T2.py", "30_ref1_T3.py", "40_robust_T4.py", "50_figures.py"]
+STEPS = ["00_inputs.py", "10_primary_T1.py", "15_primary_stream_check.py", "20_s1_T2.py", "30_ref1_T3.py", "40_robust_T4.py", "50_figures.py"]
 POST_E1 = ["55_figure_F5.py", "60_descriptive.py"]
 
 

@@ -70,6 +70,21 @@ def load_obs() -> pd.DataFrame:
     return pd.read_parquet(OBS_PATH)
 
 
+LFS_POINTER_HEAD = b"version https://git-lfs.github.com/spec/v1"
+
+
+def require_file(path: Path) -> Path:
+    """Stop with a plain message when an input is missing or is still a Git LFS pointer."""
+    path = Path(path)
+    rel = path.relative_to(KIT).as_posix()
+    if not path.is_file():
+        raise SystemExit(f"missing input: {rel}")
+    with path.open("rb") as handle:
+        if handle.read(len(LFS_POINTER_HEAD)) == LFS_POINTER_HEAD:
+            raise SystemExit(f"{rel} is a Git LFS pointer. Run: git lfs pull -I \"{rel}\"")
+    return path
+
+
 def seed_key(*, analysis_id, lhs, rhs, model, oracle, reasoning_regime, budget, action_space,
              execution_policy="STRICT", information_condition="IC-b", population="ITT", replicate="RUN1") -> dict:
     return {"action_space": action_space, "analysis_id": analysis_id, "budget": budget, "execution_policy": execution_policy,

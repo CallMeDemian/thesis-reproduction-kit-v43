@@ -15,7 +15,7 @@ import common as c
 
 
 def c3e_values(obs: pd.DataFrame) -> pd.DataFrame:
-    s9 = pd.read_csv(c.C3E_PATH, low_memory=False)
+    s9 = pd.read_csv(c.require_file(c.C3E_PATH), low_memory=False)
     x = s9[(s9.policy == "C3-E") & (s9.analysis_population == "itt")].copy()
     m = obs[["row_id", "firm_key"]].drop_duplicates()
     x = x.drop(columns=["firm_key"]).merge(m, on="row_id", how="left", validate="one_to_one")
@@ -69,7 +69,7 @@ def main() -> pd.DataFrame:
     t3.loc[mask, "holm_p"] = c.holm(t3.loc[mask, "p_raw"].to_numpy())
     c.write_csv(t3, c.RESULTS / "T3_REF1.csv")
     # check against the stage9 paired file: High mean difference vs C3-E must equal the stage9 gap (ITT)
-    gaps = pd.read_parquet(c.KIT / c.S9 / "llm_stage9_paired_vs_C3-E.parquet")
+    gaps = pd.read_parquet(c.require_file(c.KIT / c.S9 / "llm_stage9_paired_vs_C3-E.parquet"))
     checks["stage9_gap_columns"] = [x for x in gaps.columns if x.startswith("gap_")]
     checks["stage9_gap_rows"] = int(len(gaps))
     out = {}
