@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-19T21:31:06.279064+00:00",
- "head": "6ec9ae0a350413b2779188621a7c4767a8694873",
+ "generated_utc": "2026-10-24T14:24:12.138088+00:00",
+ "head": "7ceb3272b90884fbd99837f63c084638f07917ba",
  "results": [
   {
    "id": "Q01",
@@ -9,7 +9,7 @@
    "evidence": {
     "base": "071848881349c8675bb4e15193a747fa02679986",
     "branch": "ablation-20261102",
-    "head": "6ec9ae0a350413b2779188621a7c4767a8694873",
+    "head": "7ceb3272b90884fbd99837f63c084638f07917ba",
     "python": "3.12.10",
     "pandas": "3.0.2",
     "numpy": "2.4.4",
@@ -21,7 +21,8 @@
      "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/frozen_inputs/stage8/V13_HIGH_STRICT_PRIMARY_FULLSTREAM.csv": "b150f8134ab7101533102a2ef0c5056143edbb44d7fc33fea20d102578df85f5",
      "frozen/original_release/evaluation/llm_final_evaluation_20260913/stage9/HIGH_STRICT_ITT/llm_stage9_llm_rl_comparison.csv": "6c1d94c2f81ae5a8f8ec193be2b57d43047a24e14152fa2e897e0381e27cd3b4"
     },
-    "inputs_check": "PASS"
+    "inputs_check": "PASS",
+    "base_is_ancestor_of_head": true
    }
   },
   {
@@ -251,11 +252,13 @@
    "name": "Frozen unchanged",
    "status": "PASS",
    "evidence": {
+    "base_commit_present": true,
     "git_diff_base_frozen_empty": true,
     "git_status_frozen_empty": true,
     "files_hashed": 1101,
-    "combined_sha256": "dccfce595a222cdd84729c4905c7ae37fbb093173520c15d29162b2d58f6e491",
-    "note": "no frozen/ hash list existed from the start of work; this is the first list (kept outside the repository, private/). Evidence of no change since checkout: git diff and git status above (checked before every commit)."
+    "combined_sha256": "2c1364392a4527fa474156b7babeedce8aee8dcc0520c2b2658c2a08066e5e93",
+    "hash_list_written": true,
+    "note": "no frozen/ hash list existed from the start of work; this is the first list (kept outside the repository, private/, written only when that folder exists). Evidence of no change since checkout: git diff and git status above (checked before every commit)."
    }
   },
   {
@@ -265,7 +268,7 @@
    "evidence": {
     "protocol_commit_before_first_provider_call": true,
     "protocol_commit_time": "2026-10-20T04:14:32+09:00",
-    "first_smoke_response_mtime_utc": "2026-10-19T19:17:33.895954+00:00",
+    "first_smoke_response_mtime_utc": "2026-10-24T14:18:13.009751+00:00",
     "protocol_commit_on_origin": true,
     "build_checks_all_pass": true,
     "manifest_sha256_equals_expected": true,
