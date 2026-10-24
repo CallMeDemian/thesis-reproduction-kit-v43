@@ -1,4 +1,4 @@
-"""Recheck of thesis Table 4-1 (direction agreement, AUC) and the upgrade share used in section 4.2.
+"""Recheck of thesis Table 4-1 (direction agreement, AUC) and the upgrade share among out-of-time rating movers.
 
 Runs the kit's Loop-B1 code (credit_recourse.oracle.verification.verify_stage1_substrate_validation) on the
 deployed Oracle firm-year outputs inside the distribution zip, which is a regular file (no Git LFS needed).
@@ -37,7 +37,7 @@ EXPECTED = {
     "beta": {"movers": 165, "agreement_pct": 72.7, "ci95_pct": [65.5, 78.9], "auc": 0.777},
     "gamma": {"movers": 165, "agreement_pct": 68.5, "ci95_pct": [61.0, 75.1], "auc": 0.782},
 }
-EXPECTED_UPGRADE_SHARE_PCT = 53.9  # "약 54%" in section 4.2
+EXPECTED_UPGRADE_SHARE_PCT = 53.9  # upgrades among the 165 out-of-time movers
 # Table 4-1 note: cases whose three years (t-1, t, t+1) are all 2020 or later.
 EXPECTED_FULL_OOT = {"alpha": (116, 73.3, 0.798), "beta": (116, 75.9, 0.751), "gamma": (116, 70.7, 0.794)}
 EXPECTED_OOT_BY_YEAR = {2020: 22, 2021: 27, 2022: 48, 2023: 68}
