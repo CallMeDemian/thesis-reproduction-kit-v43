@@ -1,0 +1,294 @@
+{
+ "run_root_identity": {
+  "sim_business_plan_mode": "calibrated_bp_rate_v4",
+  "preserve_current_non_current_residual": true,
+  "predicted_fiscal_year": 2025
+ },
+ "action_contract": "candidate_action_v4_equal_intensity_semantic9",
+ "simulator_semantic_contract": "simulator_action_semantic_contract_v4_3_dl_interest_full_year",
+ "states": 5175,
+ "firms": 575,
+ "identity_max_relative_error": {
+  "assets = liabilities + equity": 3.3912347452974196e-16,
+  "assets = current + non-current": 1.8554901989938543e-16,
+  "liabilities = current + non-current": 2.519628540290016e-16
+ },
+ "negative_cash_states": 0,
+ "negative_current_assets_states": 0,
+ "candidate_vs_A0": {
+  "DL": {
+   "debt": {
+    "expected": "decrease",
+    "moved": 267,
+    "wrong_direction": 0
+   },
+   "sim__pure_interest_expense": {
+    "expected": "decrease",
+    "moved": 266,
+    "wrong_direction": 0
+   },
+   "sim__cash": {
+    "expected": "decrease",
+    "moved": 267,
+    "wrong_direction": 0
+   },
+   "sim__revenue": {
+    "expected": "unchanged",
+    "violations": 0
+   }
+  },
+  "RF": {
+   "sim__short_term_debt": {
+    "expected": "decrease",
+    "moved": 383,
+    "wrong_direction": 0
+   },
+   "long_gross": {
+    "expected": "increase",
+    "moved": 383,
+    "wrong_direction": 0
+   },
+   "sim__current_liabilities": {
+    "expected": "decrease",
+    "moved": 383,
+    "wrong_direction": 0
+   },
+   "debt": {
+    "expected": "unchanged",
+    "violations": 0
+   },
+   "sim__pure_interest_expense": {
+    "expected": "unchanged",
+    "violations": 0
+   },
+   "sim__cash": {
+    "expected": "unchanged",
+    "violations": 0
+   },
+   "sim__total_assets": {
+    "expected": "unchanged",
+    "violations": 0
+   },
+   "sim__revenue": {
+    "expected": "unchanged",
+    "violations": 0
+   }
+  },
+  "CX": {
+   "sim__capex": {
+    "expected": "decrease",
+    "moved": 448,
+    "wrong_direction": 0
+   },
+   "sim__ppe": {
+    "expected": "decrease",
+    "moved": 448,
+    "wrong_direction": 0
+   },
+   "sim__cash": {
+    "expected": "increase or unchanged",
+    "moved": 356,
+    "wrong_direction": 0
+   },
+   "debt": {
+    "expected": "decrease or unchanged",
+    "moved": 135,
+    "wrong_direction": 0
+   },
+   "sim__revenue": {
+    "expected": "unchanged",
+    "violations": 0
+   }
+  },
+  "WC1": {
+   "sim__inventory": {
+    "expected": "decrease",
+    "moved": 538,
+    "wrong_direction": 0
+   },
+   "sim__receivables": {
+    "expected": "decrease",
+    "moved": 573,
+    "wrong_direction": 0
+   },
+   "sim__cash": {
+    "expected": "increase or unchanged",
+    "moved": 459,
+    "wrong_direction": 0
+   },
+   "debt": {
+    "expected": "decrease or unchanged",
+    "moved": 159,
+    "wrong_direction": 0
+   },
+   "sim__revenue": {
+    "expected": "unchanged",
+    "violations": 0
+   }
+  },
+  "WC2": {
+   "sim__inventory": {
+    "expected": "decrease",
+    "moved": 537,
+    "wrong_direction": 0
+   },
+   "sim__receivables": {
+    "expected": "decrease",
+    "moved": 573,
+    "wrong_direction": 0
+   },
+   "sim__payables": {
+    "expected": "increase",
+    "moved": 538,
+    "wrong_direction": 0
+   },
+   "sim__cash": {
+    "expected": "increase or unchanged",
+    "moved": 462,
+    "wrong_direction": 0
+   },
+   "debt": {
+    "expected": "decrease or unchanged",
+    "moved": 159,
+    "wrong_direction": 0
+   },
+   "sim__revenue": {
+    "expected": "unchanged",
+    "violations": 0
+   }
+  },
+  "OE": {
+   "sim__cogs": {
+    "expected": "decrease",
+    "moved": 540,
+    "wrong_direction": 0
+   },
+   "sim__sga": {
+    "expected": "decrease",
+    "moved": 574,
+    "wrong_direction": 0
+   },
+   "sim__operating_income": {
+    "expected": "increase",
+    "moved": 575,
+    "wrong_direction": 0
+   },
+   "sim__net_income": {
+    "expected": "increase",
+    "moved": 575,
+    "wrong_direction": 0
+   },
+   "sim__total_equity": {
+    "expected": "increase",
+    "moved": 575,
+    "wrong_direction": 0
+   },
+   "sim__cash": {
+    "expected": "increase or unchanged",
+    "moved": 441,
+    "wrong_direction": 0
+   },
+   "debt": {
+    "expected": "decrease or unchanged",
+    "moved": 159,
+    "wrong_direction": 0
+   },
+   "sim__revenue": {
+    "expected": "unchanged",
+    "violations": 0
+   }
+  },
+  "MX1": {
+   "debt": {
+    "expected": "decrease",
+    "moved": 438,
+    "wrong_direction": 0
+   },
+   "sim__pure_interest_expense": {
+    "expected": "decrease",
+    "moved": 278,
+    "wrong_direction": 0
+   },
+   "sim__operating_income": {
+    "expected": "increase",
+    "moved": 575,
+    "wrong_direction": 0
+   },
+   "sim__revenue": {
+    "expected": "unchanged",
+    "violations": 0
+   }
+  },
+  "MX2": {
+   "debt": {
+    "expected": "decrease",
+    "moved": 447,
+    "wrong_direction": 0
+   },
+   "sim__inventory": {
+    "expected": "decrease",
+    "moved": 536,
+    "wrong_direction": 0
+   },
+   "sim__receivables": {
+    "expected": "decrease",
+    "moved": 573,
+    "wrong_direction": 0
+   },
+   "sim__payables": {
+    "expected": "increase",
+    "moved": 535,
+    "wrong_direction": 0
+   },
+   "sim__revenue": {
+    "expected": "unchanged",
+    "violations": 0
+   }
+  }
+ },
+ "reflected_firms": {
+  "DL": 267,
+  "RF": 383,
+  "CX": 448,
+  "WC1": 575,
+  "WC2": 575,
+  "OE": 575,
+  "MX1": 575,
+  "MX2": 575
+ },
+ "repayment_firms": {
+  "DL": 267,
+  "MX1": 279,
+  "MX2": 298
+ },
+ "not_reflected": {
+  "DL_no_opening_debt": 116,
+  "DL_debt_but_no_cash_above_liquidity_reserve": 192,
+  "RF_no_opening_short_term_debt": 192,
+  "CX_plan_capex_not_above_depreciation": 127
+ },
+ "not_reflected_unexplained": {
+  "DL": 0,
+  "RF": 0,
+  "CX": 0
+ },
+ "dl_partial_repayment_firms": 89,
+ "shortfall_borrowing_firms": {
+  "A0": 159,
+  "DL": 159,
+  "RF": 159,
+  "CX": 116,
+  "WC1": 117,
+  "WC2": 113,
+  "OE": 134,
+  "MX1": 143,
+  "MX2": 131
+ },
+ "audit": {
+  "rows": 12075,
+  "accounting_check_not_ok": 0,
+  "preflight_not_ok": 0,
+  "clipped": 0
+ },
+ "status": "PASS"
+}
