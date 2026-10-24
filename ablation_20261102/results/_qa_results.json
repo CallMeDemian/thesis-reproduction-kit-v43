@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-24T14:24:12.138088+00:00",
- "head": "7ceb3272b90884fbd99837f63c084638f07917ba",
+ "generated_utc": "2026-10-24T21:17:59.435564+00:00",
+ "head": "1be0915559d8f5ae1c00ec624d06b06b71eb6982",
  "results": [
   {
    "id": "Q01",
@@ -9,7 +9,7 @@
    "evidence": {
     "base": "071848881349c8675bb4e15193a747fa02679986",
     "branch": "ablation-20261102",
-    "head": "7ceb3272b90884fbd99837f63c084638f07917ba",
+    "head": "1be0915559d8f5ae1c00ec624d06b06b71eb6982",
     "python": "3.12.10",
     "pandas": "3.0.2",
     "numpy": "2.4.4",
@@ -256,9 +256,10 @@
     "git_diff_base_frozen_empty": true,
     "git_status_frozen_empty": true,
     "files_hashed": 1101,
-    "combined_sha256": "2c1364392a4527fa474156b7babeedce8aee8dcc0520c2b2658c2a08066e5e93",
+    "combined_sha256": "4cfccfadac7c748c66d98d5992ca4f0d2ddb9745c5c179cb4993d6d48740e14b",
     "hash_list_written": true,
-    "note": "no frozen/ hash list existed from the start of work; this is the first list (kept outside the repository, private/, written only when that folder exists). Evidence of no change since checkout: git diff and git status above (checked before every commit)."
+    "hash_list_file": "frozen_sha256_list_20261024_1be0915.txt",
+    "note": "frozen/ hash list kept outside the repository (private/, written only when that folder exists; one file per date and commit, an existing file is never overwritten). The combined hash differs between a clone with Git LFS pointers and one with pulled LFS content. Evidence of no change since checkout: git diff and git status above (checked before every commit)."
    }
   },
   {
@@ -268,7 +269,9 @@
    "evidence": {
     "protocol_commit_before_first_provider_call": true,
     "protocol_commit_time": "2026-10-20T04:14:32+09:00",
-    "first_smoke_response_mtime_utc": "2026-10-24T14:18:13.009751+00:00",
+    "first_provider_time_utc": "2026-10-19T19:17:23+00:00",
+    "smoke_responses_with_provider_time": "12/12",
+    "time_source": "provider timestamps saved inside the smoke responses (OpenAI created_at, Gemini HTTP date header); file modification times change on checkout and are not used",
     "protocol_commit_on_origin": true,
     "build_checks_all_pass": true,
     "manifest_sha256_equals_expected": true,
