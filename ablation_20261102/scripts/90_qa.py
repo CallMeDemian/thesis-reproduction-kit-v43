@@ -11,6 +11,7 @@ import platform
 import subprocess
 import sys
 from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 import numpy as np
@@ -194,7 +195,9 @@ def q12(write_list: bool):
     base = c.BASE_COMMIT
     diff = git("diff", "--name-only", base, "--", "frozen").strip()
     status = git("status", "--porcelain", "--", "frozen").strip()
-    files = sorted(p for p in (c.KIT / "frozen").rglob("*") if p.is_file())
+    # tracked files only, in git's byte order: ignored local files (e.g. __pycache__) and the platform's path sort
+    # order must not change the combined hash
+    files = [c.KIT / t for t in git("ls-files", "-z", "--", "frozen").split("\0") if t]
     h = hashlib.sha256()
     lines = []
     for p in files:
@@ -206,27 +209,61 @@ def q12(write_list: bool):
         lines.append(f"{d.hexdigest()}  {rel}")
         h.update((lines[-1] + "\n").encode("utf-8"))
     private = c.KIT.parent / "private"
+    list_name = f"frozen_sha256_list_{datetime.now(timezone.utc):%Y%m%d}_{git('rev-parse', '--short=7', 'HEAD').strip()}.txt"
     ev = {"base_commit_present": has_commit(base), "git_diff_base_frozen_empty": diff == "", "git_status_frozen_empty": status == "",
           "files_hashed": len(files), "combined_sha256": h.hexdigest(),
           "hash_list_written": bool(write_list and private.is_dir()),
-          "note": "no frozen/ hash list existed from the start of work; this is the first list (kept outside the repository, private/, written only when that folder exists). Evidence of no change since checkout: git diff and git status above (checked before every commit)."}
-    if ev["hash_list_written"]:
-        (private / "frozen_sha256_list_20261020.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+          "hash_list_file": list_name,
+          "note": "frozen/ hash list kept outside the repository (private/, written only when that folder exists; one file per date and commit, "
+                  "an existing file is never overwritten). The combined hash differs between a clone with Git LFS pointers and one with "
+                  "pulled LFS content. Evidence of no change since checkout: git diff and git status above (checked before every commit)."}
+    if ev["hash_list_written"] and not (private / list_name).exists():
+        (private / list_name).write_text("\n".join(lines) + "\n", encoding="utf-8")
     return ev["base_commit_present"] and diff == "" and status == "", ev
+
+
+def _provider_time(obj) -> datetime | None:
+    """Earliest provider-side timestamp in a saved response: OpenAI `created_at` (Unix time) or the HTTP `date` header
+    kept by the Gemini SDK. Unlike file modification times, these do not change when the file is checked out again."""
+    found: list[datetime] = []
+
+    def walk(o):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if k == "created_at" and isinstance(v, (int, float)) and not isinstance(v, bool):
+                    found.append(datetime.fromtimestamp(v, timezone.utc))
+                elif k.lower() == "date" and isinstance(v, str):
+                    try:
+                        found.append(parsedate_to_datetime(v).astimezone(timezone.utc))
+                    except (TypeError, ValueError):
+                        pass
+                else:
+                    walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+
+    walk(obj)
+    return min(found) if found else None
 
 
 def q16_17():
     e1 = c.ABL / "E1"
     first = git("log", "--diff-filter=A", "--format=%cI", "--", "ablation_20261102/E1/E1_PROTOCOL.md").strip().splitlines()
     commit_time = datetime.fromisoformat(first[-1]).timestamp() if first else None
-    smoke = [p.stat().st_mtime for p in (e1 / "smoke").glob("smoke_*.json")]
-    first_call = min(smoke) if smoke else None
+    responses = sorted(p for p in (e1 / "smoke").glob("smoke_*.json") if not p.name.startswith("smoke_summary"))
+    stamps = [_provider_time(json.loads(p.read_text(encoding="utf-8"))) for p in responses]
+    stamped = [t for t in stamps if t is not None]
+    first_call = min(stamped).timestamp() if stamped and len(stamped) == len(responses) else None
     report = json.loads((e1 / "requests/E1_build_report.json").read_text(encoding="utf-8"))
     man = hashlib.sha256((e1 / "requests/E1_request_manifest.csv").read_bytes()).hexdigest()
     pushed = git("branch", "-r", "--contains", git("log", "--diff-filter=A", "--format=%H", "--", "ablation_20261102/E1/E1_PROTOCOL.md").strip().splitlines()[-1]).strip()
     ev = {"protocol_commit_before_first_provider_call": bool(commit_time and first_call and commit_time < first_call),
           "protocol_commit_time": first[-1] if first else None,
-          "first_smoke_response_mtime_utc": datetime.fromtimestamp(first_call, timezone.utc).isoformat() if first_call else None,
+          "first_provider_time_utc": datetime.fromtimestamp(first_call, timezone.utc).isoformat() if first_call else None,
+          "smoke_responses_with_provider_time": f"{len(stamped)}/{len(responses)}",
+          "time_source": "provider timestamps saved inside the smoke responses (OpenAI created_at, Gemini HTTP date header); "
+                         "file modification times change on checkout and are not used",
           "protocol_commit_on_origin": "origin/ablation-20261102" in pushed,
           "build_checks_all_pass": all(v.startswith("PASS") for v in report["checks"].values()),
           "manifest_sha256_equals_expected": man == "1f12775443db3a929cddf7a619a27882ad49fe5b189da23572f908854064357a",
