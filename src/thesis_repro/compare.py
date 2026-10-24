@@ -25,11 +25,25 @@ def _artifact_state(run_dir: Path, relative: str) -> dict[str, Any]:
     return {"state": "present" if path.is_file() else "missing", "path": relative, "sha256": _sha256(path) if path.is_file() else None}
 
 
+_LFS_POINTER_HEAD = b"version https://git-lfs.github.com/spec/v1"
+
+
+def _is_lfs_pointer(path: Path) -> bool:
+    """True when the file is a Git LFS pointer (clone without `git lfs pull`), not the asset itself."""
+    try:
+        with path.open("rb") as handle:
+            return handle.read(len(_LFS_POINTER_HEAD)) == _LFS_POINTER_HEAD
+    except OSError:
+        return False
+
+
 def _c3e_comparison(root: Path, run_dir: Path) -> dict[str, Any]:
     fresh_path = run_dir / "07_c3e/c3e_actions.parquet"
     frozen_path = root / "frozen/original_release/rl/C3E_E2_7SEED_BALANCED_DFEBAFA6/C3E_firm_actions.parquet"
     if not fresh_path.is_file() or not frozen_path.is_file():
         return {"status": "UNAVAILABLE", "reason": "fresh or frozen C3-E action table missing"}
+    if _is_lfs_pointer(frozen_path):
+        return {"status": "UNAVAILABLE", "reason": "frozen C3-E action table is a Git LFS pointer (git lfs pull)"}
     fresh = pd.read_parquet(fresh_path)
     frozen = pd.read_parquet(frozen_path)
     if "row_id" not in fresh or "row_id" not in frozen:
@@ -78,6 +92,8 @@ def _stage9_comparison(root: Path, run_dir: Path) -> dict[str, Any]:
     frozen_path = root / "frozen/original_release/evaluation/llm_final_evaluation_20260913/stage9/BASELINE_STRICT_ITT/llm_stage9_primary_contrast_summary.csv"
     if not fresh_path.is_file() or not frozen_path.is_file():
         return {"status": "UNAVAILABLE", "reason": "fresh or frozen Stage9 summary missing"}
+    if _is_lfs_pointer(frozen_path):
+        return {"status": "UNAVAILABLE", "reason": "frozen Stage9 summary is a Git LFS pointer (git lfs pull)"}
     fresh = pd.read_csv(fresh_path)
     frozen = pd.read_csv(frozen_path)
     keys = [key for key in ("contrast", "backend", "model_key", "mode", "information_condition", "budget", "analysis_population") if key in fresh and key in frozen]
