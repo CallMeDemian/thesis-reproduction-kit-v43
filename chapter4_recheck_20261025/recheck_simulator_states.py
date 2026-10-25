@@ -171,7 +171,7 @@ def main() -> int:
     ok &= out["negative_cash_states"] == 0 and out["negative_current_assets_states"] == 0
     ok &= out["audit"]["accounting_check_not_ok"] == 0 and out["audit"]["preflight_not_ok"] == 0
     out["status"] = "PASS" if ok else "FAIL"
-    (HERE / "table4_3_simulator_actions.json").write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    (HERE / "table4_3_simulator_actions.json").write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
     print(f"{out['states']} states; identity max rel error {max(out['identity_max_relative_error'].values()):.1e}; "
           f"negative cash {out['negative_cash_states']}, negative current assets {out['negative_current_assets_states']}")
     for cid, res in checks.items():

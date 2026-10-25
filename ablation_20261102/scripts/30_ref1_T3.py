@@ -88,7 +88,7 @@ def main() -> pd.DataFrame:
                 mine = t3[(t3.model == c.MODEL_CODE[model]) & (t3.oracle == oracle) & (t3.action_space == space) & (t3.reasoning_regime == "HIGH")]
                 out[f"{c.MODEL_CODE[model]}_{oracle}_{space}"] = {"stage9_gap_mean_n": mean_gap, "t3_high_estimate": float(mine.estimate.iloc[0])}
     checks["high_mean_vs_stage9_gap"] = out
-    (c.RESULTS / "_T3_checks.json").write_text(json.dumps(checks, indent=1) + "\n", encoding="utf-8")
+    (c.RESULTS / "_T3_checks.json").write_text(json.dumps(checks, indent=1) + "\n", encoding="utf-8", newline="\n")
     return t3
 
 

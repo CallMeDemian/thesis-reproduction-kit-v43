@@ -230,16 +230,24 @@ def q12(write_list: bool):
         h.update((lines[-1] + "\n").encode("utf-8"))
     private = c.KIT.parent / "private"
     list_name = f"frozen_sha256_list_{datetime.now(timezone.utc):%Y%m%d}_{git('rev-parse', '--short=7', 'HEAD').strip()}.txt"
+    # Checkout-independent identity of frozen/: SHA-256 of `git ls-tree -r -z HEAD -- frozen` (modes, blob ids, paths).
+    # Blob ids are the committed bytes, so LF/CRLF checkouts and LFS pointer/content clones give the same value.
+    tree_listing = subprocess.run(["git", "-C", str(c.KIT), "ls-tree", "-r", "-z", "HEAD", "--", "frozen"], capture_output=True).stdout
+    expected = json.loads((Path(__file__).resolve().parent / "frozen_tree_expected.json").read_text(encoding="utf-8"))
+    tree_sha = hashlib.sha256(tree_listing).hexdigest()
     ev = {"base_commit_present": has_commit(base), "git_diff_base_frozen_empty": diff == "", "git_status_frozen_empty": status == "",
-          "files_hashed": len(files), "combined_sha256": h.hexdigest(),
+          "frozen_tree_sha256": tree_sha, "frozen_tree_sha256_expected": expected["frozen_tree_sha256"],
+          "frozen_tree_entries": tree_listing.count(b"\0"), "frozen_tree_equals_expected": tree_sha == expected["frozen_tree_sha256"],
+          "files_hashed": len(files), "combined_sha256": h.hexdigest(), "combined_sha256_depends_on_checkout": True,
           "hash_list_written": bool(write_list and private.is_dir()),
           "hash_list_file": list_name,
           "note": "frozen/ hash list kept outside the repository (private/, written only when that folder exists; one file per date and commit, "
-                  "an existing file is never overwritten). The combined hash differs between a clone with Git LFS pointers and one with "
-                  "pulled LFS content. Evidence of no change since checkout: git diff and git status above (checked before every commit)."}
+                  "an existing file is never overwritten). combined_sha256 hashes the checked-out bytes, so it differs "
+                  "between LF and CRLF checkouts and between Git LFS pointer and content clones; it is printed for reference only. "
+                  "The verdict uses frozen_tree_sha256 (committed blob ids) against frozen_tree_expected.json, plus git diff and git status."}
     if ev["hash_list_written"] and not (private / list_name).exists():
-        (private / list_name).write_text("\n".join(lines) + "\n", encoding="utf-8")
-    return ev["base_commit_present"] and diff == "" and status == "", ev
+        (private / list_name).write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    return ev["base_commit_present"] and diff == "" and status == "" and ev["frozen_tree_equals_expected"], ev
 
 
 def _provider_time(obj) -> datetime | None:
@@ -430,7 +438,7 @@ def main():
         results.append({"id": qid, "name": name, "status": status, "evidence": ev})
         print(qid, status, ev.get("reason", "") if isinstance(ev, dict) else "")
     out = {"generated_utc": datetime.now(timezone.utc).isoformat(), "head": git("rev-parse", "HEAD").strip(), "results": results}
-    (c.RESULTS / "_qa_results.json").write_text(json.dumps(out, ensure_ascii=False, indent=1, default=str) + "\n", encoding="utf-8")
+    (c.RESULTS / "_qa_results.json").write_text(json.dumps(out, ensure_ascii=False, indent=1, default=str) + "\n", encoding="utf-8", newline="\n")
     if args.report:
         lines = [MARK_BEGIN, "", "## Automated checks (scripts/90_qa.py)", "",
                  f"Run at {out['generated_utc']} on HEAD {out['head'][:12]}. Evidence: `results/_qa_results.json`. ", "",
@@ -452,7 +460,7 @@ def main():
             text = pre + "\n".join(lines) + post
         else:
             text = text.rstrip() + "\n\n" + "\n".join(lines) + "\n"
-        args.report.write_text(text, encoding="utf-8")
+        args.report.write_text(text, encoding="utf-8", newline="\n")
     sys.exit(0 if all(r["status"] in ("PASS", "WARN") for r in results) else 1)
 
 

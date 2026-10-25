@@ -88,7 +88,7 @@ def main() -> dict:
            "seed": SEED, "draws": B, "holm_family": "arm x model x oracle (8 rows)",
            "sources": {p.name: c.sha256_file(p) for p in (c.OBS_PATH, c.PRIM_BASE, c.PRIM_HIGH)}}
     c.RESULTS.mkdir(parents=True, exist_ok=True)
-    (c.RESULTS / "_primary_stream_check.json").write_text(json.dumps(out, indent=1) + "\n", encoding="utf-8")
+    (c.RESULTS / "_primary_stream_check.json").write_text(json.dumps(out, indent=1) + "\n", encoding="utf-8", newline="\n")
     return out
 
 

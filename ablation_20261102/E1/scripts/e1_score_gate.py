@@ -56,7 +56,7 @@ def main() -> None:
         ok &= bool(d_ok.all() and r_ok.all() and n_ok.all())
     report["status"] = "PASS" if ok and not args.limit else ("DEBUG_ONLY" if args.limit else "FAIL")
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    args.out.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps(report, indent=2))
     sys.exit(0 if ok else 1)
 

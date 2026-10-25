@@ -78,7 +78,7 @@ def main() -> None:
     summary = {"rows": len(obs), "per_model_condition": obs.groupby(["model_key", "e1_condition"]).size().to_dict().__repr__(),
                "strict_unusable_rows": int((~obs.strict_usable).sum()),
                "sha256_parquet": hashlib.sha256((out / "e1_observations.parquet").read_bytes()).hexdigest()}
-    (out / "e1_observations_summary.json").write_text(json.dumps(summary, indent=1) + "\n", encoding="utf-8")
+    (out / "e1_observations_summary.json").write_text(json.dumps(summary, indent=1) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps({k: summary[k] for k in ("rows", "strict_unusable_rows", "sha256_parquet")}))
 
 

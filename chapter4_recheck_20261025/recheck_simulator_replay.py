@@ -249,7 +249,7 @@ def main() -> int:
     ok = (all(out["checks"].values()) and out["replay_identity_max_relative_error"] <= IDENTITY_MAX
           and out["replay_negative_cash_states"] == 0 and out["replay_negative_current_assets_states"] == 0)
     out["status"] = "PASS" if ok else "FAIL"
-    (HERE / "table4_2_simulator_replay.json").write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    (HERE / "table4_2_simulator_replay.json").write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
     for s in SPLITS:
         b = by[s]
         print(f"{s:4s} replayed {b['replayed']:5d}  gap median {b['median_gap']:+.2f}  |gap| median {b['median_abs_gap']:.2f}  "

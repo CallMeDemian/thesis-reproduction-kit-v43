@@ -62,7 +62,7 @@ def main() -> pd.DataFrame:
             "a3_sign_counts": {"positive_of_24_free8": int(((t1.contrast_id == "A3") & (t1.estimate > 0)).sum()),
                                "holm_lt_05": int(((t1.contrast_id == "A3") & (t1.holm_p < 0.05)).sum()),
                                "holm60_lt_05": int(((t1.contrast_id == "A3") & (t1.holm_p_60 < 0.05)).sum())}}
-    (c.RESULTS / "_T1_meta.json").write_text(json.dumps(meta, indent=1) + "\n", encoding="utf-8")
+    (c.RESULTS / "_T1_meta.json").write_text(json.dumps(meta, indent=1) + "\n", encoding="utf-8", newline="\n")
     return t1
 
 
