@@ -68,6 +68,17 @@ python -m thesis_repro rebuild-c3e --release original
 - Baseline/High LLM 실행 기록
 - Stage8/Stage9 evaluation evidence
 
+LLM 요청이 보존된 설계 입력에서 그대로 다시 만들어지는지는 다음 명령으로 확인합니다. 공급자를 호출하지 않습니다.
+
+```powershell
+python -m thesis_repro rebuild-requests --verify
+```
+
+- Baseline과 High의 provider batch 요청 48,300건을 다시 만들어 저장된 요청과 바이트 단위로 비교합니다. 판정은 이 비교로만 정합니다.
+- 행동 계약은 동결 원본 `frozen/original_release/rl/stage2/candidate_action_contract_v4_3.json`을 씁니다. C6-EX 참조표와 C3-E 파일은 `frozen/distribution`의 인증된 배포 ZIP에서 꺼내 실행 폴더에 둡니다.
+- 출시 당시 기록된 소스 해시는 체크아웃 바이트, LF, CRLF 기준으로 각각 대조해 출력합니다. 출시 뒤 내용이 바뀐 런타임 소스는 경고로만 표시하며, 바뀐 내용은 `provenance/SCIENTIFIC_CODE_CHANGES.md`에 있습니다.
+- 결과는 `runs/<run-id>/rebuild_requests/REBUILD_REPORT.json`에 남습니다.
+
 GitHub의 Source ZIP에는 Git LFS object가 모두 들어 있지 않을 수 있으므로, 원 실험 자산까지 볼 때는 clone 후 `git lfs pull`을 사용하는 편이 좋습니다.
 
 ## Level C — raw data부터 전체 재실행

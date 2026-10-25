@@ -143,7 +143,7 @@ def load_design(root: Path | None = None) -> DesignBundle:
             "stage9_revision_metrics": "src/credit_recourse/eval/final_stage9_llm_rl_comparison/revision_metrics.py",
         }[name]
         if file_hash(resolve_hash_path(rel)) != expected:
-            raise ContractError(f"Released source hash drift: {name}")
+            raise ContractError(f"Released source hash drift: {name}. To rebuild and check the frozen requests offline, run: python -m thesis_repro rebuild-requests --verify")
     return DesignBundle(repo, design, release, matrix, models, prompts, information, retry, action, release["design_release_hash"])
 
 

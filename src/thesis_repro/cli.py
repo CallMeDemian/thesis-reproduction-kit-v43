@@ -48,6 +48,9 @@ def _build_parser() -> argparse.ArgumentParser:
     search.add_argument("--catalog", type=Path)
     search.add_argument("--source-run", required=True)
     search.add_argument("--run-id", default="search-reproduction")
+    rebuild = sub.add_parser("rebuild-requests", help="rebuild the frozen LLM provider requests offline and compare them byte for byte")
+    rebuild.add_argument("--verify", action="store_true", required=True, help="compare every rebuilt request with the stored provider batch line")
+    rebuild.add_argument("--run-id", default="rebuild-requests")
     sub.add_parser("verify-original")
     sub.add_parser("rebuild-c3e").add_argument("--release", choices=("original",), required=True)
     data = sub.add_parser("data")
@@ -143,6 +146,12 @@ def main(argv: list[str] | None = None) -> None:
         elif args.command == "search":
             from .search import reproduce_search
             result = reproduce_search(ROOT, mode="rl", catalog_path=args.catalog, source_run=args.source_run, run_id=args.run_id)
+            _print(result)
+            if result.get("status") != "PASS":
+                raise SystemExit(1)
+        elif args.command == "rebuild-requests":
+            from .rebuild_requests import rebuild_requests
+            result = rebuild_requests(ROOT, args.run_id, verify=args.verify)
             _print(result)
             if result.get("status") != "PASS":
                 raise SystemExit(1)
