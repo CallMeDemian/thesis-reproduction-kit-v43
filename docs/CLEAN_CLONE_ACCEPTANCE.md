@@ -5,7 +5,10 @@
 This path does not require the original multi-gigabyte LFS tree:
 
 ```powershell
-python -m pip install -e ".[full,dev]"
+python -m pip install -r contracts/scientific/final_freeze/requirements.reproduction.lock.txt
+python -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+python -m pip install -r requirements/dev.lock.txt
+python -m pip install -e . --no-deps
 python -m thesis_repro verify
 python -m thesis_repro reproduce --run-id clean-clone-published
 ```
