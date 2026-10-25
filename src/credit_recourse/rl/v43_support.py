@@ -154,7 +154,7 @@ def prepare_action_support(root):
         'parts_relative_path':parts.relative_to(folder).as_posix(),
         'part_hashes':{p.name:file_sha256(p) for p in parts.glob('*.parquet')},
         'decision_year_max': int(rows.fiscal_year.max()), 'outcome_year_max': int(rows.outcome_year.max()),
-        'evaluation_rows_used': 0, 'firm_specific_exceptions': False, 'simulator_modified': True, 'simulator_change': 'R085 broad cost repair authorized by frozen user request'}
+        'evaluation_rows_used': 0, 'firm_specific_exceptions': False, 'simulator_modified': True, 'simulator_change': 'R085 broad cost repair (frozen decision)'}
     write_json(folder / 'action_support_metadata.json', metadata)
     print('V43_SUPPORT_PASS', len(rows), len(rejected), metadata['failed_candidates'], flush=True)
     return metadata

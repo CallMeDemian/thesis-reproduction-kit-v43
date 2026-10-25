@@ -30,6 +30,6 @@ Place these files at the Stage 3 bundle root, ensuring the input folders exist:
 The `stage1c` folder must point to the current Stage 1C v3.2 output.
 
 
-## Packaging fix applied by ChatGPT
+## Packaging fix
 - Added root `stage3_config.yaml` because the pipeline loads `Path("stage3_config.yaml")`.
 - Added `stage3_pipeline_v3.py` as canonical execution file; `stage3_pipeline.py` remains as compatibility alias.
