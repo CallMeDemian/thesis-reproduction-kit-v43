@@ -44,9 +44,22 @@ def build_fresh_thesis_outputs(root: Path, run_id: str) -> dict[str, Any]:
             pd.read_csv(path).to_excel(writer, sheet_name=sheet[:31], index=False)
         pd.read_parquet(required["revision_metrics"]).head(10000).to_excel(writer, sheet_name="revision_metrics", index=False)
         pd.read_parquet(required["identity_contrast"]).head(10000).to_excel(writer, sheet_name="identity_contrast", index=False)
+    # Read the workbook back and compare each sheet's row count with its source table.
+    expected_rows = {
+        "primary_contrasts": len(pd.read_csv(required["primary_contrast_summary"])),
+        "budget_interaction": len(pd.read_csv(required["budget_interaction_summary"])),
+        "failure_audit": len(pd.read_csv(required["failure_audit"])),
+        "revision_metrics": min(len(pd.read_parquet(required["revision_metrics"])), 10000),
+        "identity_contrast": min(len(pd.read_parquet(required["identity_contrast"])), 10000),
+    }
+    written_rows = {sheet: len(frame) for sheet, frame in pd.read_excel(workbook, sheet_name=None).items()}
+    package_check = {sheet: {"source_rows": rows, "workbook_rows": written_rows.get(sheet)} for sheet, rows in expected_rows.items()}
     metadata = {
         "schema_version": "fresh_thesis_outputs_v1",
-        "status": "PASS",
+        "status": "PASS" if all(v["source_rows"] == v["workbook_rows"] for v in package_check.values()) else "FAIL",
+        "status_basis": "workbook sheets read back and row counts compared with their same-run Stage9 sources",
+        "package_check": package_check,
+        "value_comparison_with_frozen": "NOT_CHECKED (done by the CompareFrozen stage)",
         "run_id": run_id,
         "source": "same_run_stage9",
         "frozen_registry_overwritten": False,

@@ -212,6 +212,8 @@ def _final_stage(paths, stage: str, parent_hashes: list[str], *, context=None) -
         if stage == "ThesisOutputs":
             from scripts.build_fresh_thesis_outputs import build_fresh_thesis_outputs
             payload = build_fresh_thesis_outputs(paths.root, paths.run_id)
+            if payload.get("status") != "PASS":
+                raise ValueError(f"thesis output package check failed: {payload.get('package_check')}")
             destination = paths.thesis_outputs_root
             path = destination / "OUTPUT_METADATA.json"
         elif stage == "CompareFrozen":

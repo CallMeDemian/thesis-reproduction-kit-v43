@@ -43,9 +43,10 @@ def test_without_train_flag_nothing_is_trained(tmp_path, fake_runtime):
 
 
 def test_train_flag_starts_training(tmp_path, fake_runtime, monkeypatch):
-    monkeypatch.setattr(search, "build_search_baseline", lambda root, source_run: {"status": "PASS"})
+    monkeypatch.setattr(search, "build_search_baseline", lambda root, source_run: {"status": "BASELINE_WRITTEN"})
     result = search.reproduce_search(tmp_path, catalog_path=_catalog(tmp_path), source_run="fresh", execute=True)
-    assert result["status"] == "PASS"
+    assert result["status"] == "TRAINING_COMPLETED"
+    assert result["comparison_with_historical_selection"] == "NOT_CHECKED"
     assert fake_runtime == [("B27", False), ("DT06", False)]
 
 

@@ -182,7 +182,7 @@ def run(root: Path, run_id: str, artifact_root: Path | None = None, run_stage1: 
                 stage1_rc = stage1_main(window)
                 if stage1_rc != 0:
                     raise RuntimeError(f"production Stage1 returned {stage1_rc} for window={window}")
-        stage1_status = "E2E_PASS"
+        stage1_status = "SYNTHETIC_E2E_PASS"
 
     backend_root = work_root / "stage1_oracle_backends"
     if run_stage1:
@@ -202,7 +202,10 @@ def run(root: Path, run_id: str, artifact_root: Path | None = None, run_stage1: 
             raise RuntimeError("production Oracle verification did not PASS")
         if verification.get("fixture_verification_contract", {}).get("contract") != "SYNTHETIC_E2E_ACCEPTANCE":
             raise RuntimeError("synthetic Oracle fixture did not record its explicit fixture verification contract")
-        validation = {"status": "PASS", "mode": "production_stage0_stage1_e2e", "acceptance_profile": "SYNTHETIC_E2E_ACCEPTANCE", "stage1_input_mode": stage1_input_mode, "stage1_rc": 0, "backend_root": str(backend_root), "stage1_report": {"status": report.get("status"), "final_result_allowed": report.get("final_result_allowed"), "execution_profile": report.get("execution_profile")}, "verification": verification}
+        # The checks above are real, but on a tiny synthetic panel: the verdict is an architecture
+        # acceptance, not a thesis-level result (the ledger keeps its own thesis gate verdict).
+        validation = {"status": "SYNTHETIC_PASS", "mode": "production_stage0_stage1_e2e", "acceptance_profile": "SYNTHETIC_E2E_ACCEPTANCE", "thesis_level_verdict": False, "thesis_gate_verdict": verification["fixture_verification_contract"].get("thesis_gate_verdict"), "stage1_input_mode": stage1_input_mode, "stage1_rc": 0, "backend_root": str(backend_root), "stage1_report": {"status": report.get("status"), "final_result_allowed": report.get("final_result_allowed"), "execution_profile": report.get("execution_profile")}, "verification": verification}
+        print("SYNTHETIC_E2E_ACCEPTANCE: Stage0/Stage1 ran on synthetic fixture data; this is not a thesis-level verdict.")
         validation_path = oracle_root / "oracle_fixture_validation.json"; validation_path.write_text(json.dumps(validation, indent=2), encoding="utf-8")
         artifacts = [stage0 / "canonical_panel/stage0_canonical_panel.parquet", stage0 / "stage0_validation.json", ledger, validation_path]
         output = pd.read_parquet(backend_root / "alpha/oracle_firm_year_output_alpha.parquet")
