@@ -57,7 +57,13 @@ def build_search_baseline(root: Path, source_run: str) -> dict[str, Any]:
     return {"status": "PASS", "path": str(destination.relative_to(root)).replace("\\", "/"), "source_run": source_run, "baseline": baseline}
 
 
-def reproduce_search(root: Path, *, mode: str = "rl", catalog_path: Path | None = None, execute: bool = True, run_id: str = "search-reproduction", source_run: str | None = None) -> dict[str, Any]:
+def reproduce_search(root: Path, *, mode: str = "rl", catalog_path: Path | None = None, execute: bool = False, run_id: str = "search-reproduction", source_run: str | None = None) -> dict[str, Any]:
+    """Reproduce the RL Stage5 search over a supplied catalog.
+
+    Training starts only with ``execute=True`` (CLI ``--train``).  Without it
+    the catalog is read and validated, the planned runs are returned and
+    nothing is trained or written.
+    """
     root = Path(root).resolve()
     candidates = [Path(catalog_path)] if catalog_path else [root / "contracts/search/rl_search_catalog.csv", root / "data/search/RL_HYPERPARAMETER_SEARCH.xlsx", root / "data/search/RL_HYPERPARAMETER_SEARCH.csv", root / "data/search/RL_HYPERPARAMETER_SEARCH.json"]
     catalog = next((path.resolve() for path in candidates if path.is_file()), None)
@@ -77,13 +83,7 @@ def reproduce_search(root: Path, *, mode: str = "rl", catalog_path: Path | None 
             return baseline
         os.environ["THESIS_REPRO_SEARCH_BASELINE"] = str(root / "runs" / source_run / "03_stage2/V43_STAGE5_SEARCH_BASELINE.json")
     names = {field.name for field in fields(SearchConfig)} - {"run_id"}
-    output = root / "runs" / run_id / "search" / "rl"
-    output.mkdir(parents=True, exist_ok=True)
-    snapshot = output / "catalog_snapshot.csv"
-    with snapshot.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=sorted({key for row in rows for key in row}))
-        writer.writeheader(); writer.writerows(rows)
-    results = []
+    configs = []
     for index, row in enumerate(rows):
         values: dict[str, Any] = {key: row[key] for key in names if key in row and row[key] not in ("", None)}
         values["run_id"] = str(row.get("run_id") or row.get("id") or f"catalog-{index:04d}")
@@ -91,11 +91,17 @@ def reproduce_search(root: Path, *, mode: str = "rl", catalog_path: Path | None 
             if key in values:
                 annotation = next(field.type for field in fields(SearchConfig) if field.name == key)
                 values[key] = float(values[key]) if key not in {"epochs", "seed"} else int(float(values[key]))
-        config = SearchConfig(**values).validate()
-        if execute:
-            results.append(prepare_run(root, config, dry_run=False))
-        else:
-            results.append({"run_id": config.run_id, "status": "PLANNED"})
+        configs.append(SearchConfig(**values).validate())
+    if not execute:
+        return {"status": "PLANNED", "scope": "ORIGINAL_SEARCH_REPRODUCTION", "mode": mode, "catalog": str(catalog), "training_runs": 0,
+                "planned_runs": [config.run_id for config in configs], "to_train": "rerun with --train (starts RL Stage5 training for every planned run)"}
+    output = root / "runs" / run_id / "search" / "rl"
+    output.mkdir(parents=True, exist_ok=True)
+    snapshot = output / "catalog_snapshot.csv"
+    with snapshot.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=sorted({key for row in rows for key in row}))
+        writer.writeheader(); writer.writerows(rows)
+    results = [prepare_run(root, config, dry_run=False) for config in configs]
     leaderboard = output / "reconstructed_leaderboard.json"
     leaderboard.write_text(json.dumps(results, indent=2, default=str) + "\n", encoding="utf-8")
     selected = {"status": "PASS", "historical_reference_selection": ["B27", "M2_S0935", "DT06", "T15_REWARD_S088"], "selection_rule_status": "EXTERNAL_SELECTION_RULE_NOT_DISTRIBUTED", "selection_basis": "historical reference only; reconstructed leaderboard is reported separately"}
