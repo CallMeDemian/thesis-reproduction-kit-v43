@@ -33,6 +33,48 @@ def _hash(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _read_header(path: Path) -> list[str]:
+    import pandas as pd
+    try:
+        frame = pd.read_excel(path, nrows=0, engine="calamine")
+    except Exception:
+        frame = pd.read_excel(path, nrows=0)
+    return [str(column) for column in frame.columns]
+
+
+def _expected_schema(group_root: str, relative: Path) -> dict[str, Any] | None:
+    """Columns the raw loaders require, taken from the loader code itself.
+
+    raw_all statement files: build_stage0_foundation_from_raw finds a firm-code and a year column with find_col.
+    rating_sample files: rating_contract_repair requires exact column names.
+    Other files (ratio sheets, nonfinancial tables) have no column contract in the loaders and stay NOT_CHECKED.
+    """
+    if group_root.endswith("raw_all"):
+        from credit_recourse.oracle.stage0 import build_stage0_foundation_from_raw as stage0
+        if "재무비율" in relative.name or stage0.infer_statement_type(relative) is None:
+            return None
+        return {"loader": "credit_recourse.oracle.stage0.build_stage0_foundation_from_raw", "find_col": {
+            "firm_code": [stage0.K_CODE, "종목코드", "회사코드", "stock_code", "code"],
+            "year": [stage0.K_YEAR, "사업연도", "결산년도", "fiscal_year", "year"]}}
+    if group_root.endswith("rating_sample"):
+        from credit_recourse.oracle.stage0 import rating_contract_repair as rating
+        return {"loader": "credit_recourse.oracle.stage0.rating_contract_repair", "exact": [
+            rating.KEY_KR, rating.YEAR_KR, rating.RATING_KR, "증권구분", "평가사구분", "평가사명 및 등급", "평가일"]}
+    return None
+
+
+def _check_schema(path: Path, expected: dict[str, Any]) -> dict[str, Any]:
+    try:
+        columns = _read_header(path)
+    except Exception as exc:
+        return {"schema_status": "SCHEMA_MISMATCH", "schema_error": f"unreadable: {type(exc).__name__}"}
+    missing = [name for name in expected.get("exact", []) if name not in columns]
+    if "find_col" in expected:
+        from credit_recourse.oracle.stage0.build_stage0_foundation_from_raw import find_col
+        missing += [role for role, candidates in expected["find_col"].items() if find_col(columns, candidates) is None]
+    return {"schema_status": "SCHEMA_MISMATCH" if missing else "SCHEMA_MATCH", "schema_loader": expected["loader"], **({"schema_missing": missing} if missing else {})}
+
+
 def verify_input_contract(*, write: bool = True) -> dict[str, Any]:
     """Check restored private inputs against the authoritative inventory.
 
@@ -95,6 +137,11 @@ def verify_input_contract(*, write: bool = True) -> dict[str, Any]:
                         if row["hash_status"] == "HASH_MISMATCH" and not row["optional"]:
                             required_ok = False
                     row["status"] = "HASH_MISMATCH" if row["hash_status"] == "HASH_MISMATCH" else "SIZE_MATCH"
+                    expected_schema = _expected_schema(str(group["target_root"]).replace("\\", "/"), relative)
+                    if expected_schema is not None and path.suffix.lower() == ".xlsx":
+                        row.update(_check_schema(path, expected_schema))
+                        if row["schema_status"] == "SCHEMA_MISMATCH" and not row["optional"]:
+                            required_ok = False
             records.append(row)
 
     present_paths = {
@@ -115,6 +162,22 @@ def verify_input_contract(*, write: bool = True) -> dict[str, Any]:
         "size_mismatch_count": sum(row["status"] == "SIZE_MISMATCH" for row in records),
         "optional_missing_count": sum(row["status"] == "OPTIONAL_MISSING" for row in records),
         "status_vocabulary": ["PRESENT", "MISSING", "SIZE_MATCH", "SIZE_MISMATCH", "HASH_MATCH", "HASH_MISMATCH", "OPTIONAL_MISSING", "SCHEMA_MATCH", "SCHEMA_MISMATCH"],
+        "schema_mismatch_count": sum(row.get("schema_status") == "SCHEMA_MISMATCH" for row in records),
+        "comparison_basis": {
+            "presence_and_size": "each file is compared with relative_path and size_bytes in the inventory",
+            "hash": "receipt comparison: sha256 is compared with data/raw/input_receipt.json, which `data restore` writes from the same archives. "
+                    "This is self-referential: it shows the files did not change after restore, not that they are the original licensed files "
+                    "(the inventory records no per-file hash).",
+            "schema": "header check of xlsx files against the columns the raw loaders require (raw_all statement files: firm-code and year "
+                      "columns as found by build_stage0_foundation_from_raw.find_col; rating_sample files: the exact columns required by "
+                      "rating_contract_repair). Files without a loader column contract stay NOT_CHECKED.",
+        },
+        "konex_files": {
+            "inventory_entries": sum("konex_optional/" in row["path"] for row in records),
+            "marked_optional": sum(row["optional"] for row in records if "konex_optional/" in row["path"]),
+            "note": "The inventory description mentions optional KONEX files, but no inventory entry carries optional=true, so data doctor "
+                    "treats the files under raw_nonfinancial/konex_optional/ as required.",
+        },
         "unexpected_raw_files": extras,
         "files": records,
     }
