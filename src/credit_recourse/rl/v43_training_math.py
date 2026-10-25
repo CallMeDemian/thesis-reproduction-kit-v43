@@ -24,7 +24,7 @@ def _weighted_mean_one(weights: torch.Tensor, counts: torch.Tensor) -> torch.Ten
 def _normalize_by_soft_mass(weights: torch.Tensor, counts: torch.Tensor, *, cap: float | None = None) -> torch.Tensor:
     out = weights.float() / _weighted_mean_one(weights.float(), counts).clamp_min(1e-12)
     if cap is not None and float(cap) > 0:
-        # Preserve the user-visible cap as a hard maximum.  We deliberately do
+        # Preserve the configured cap as a hard maximum.  We deliberately do
         # not renormalize after capping because that could push rare-candidate
         # weights above the cap again.
         out = out.clamp(max=float(cap))

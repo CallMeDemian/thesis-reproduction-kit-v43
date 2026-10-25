@@ -1,4 +1,4 @@
-# V1.3 final release handoff
+# V1.3 final release notes
 
 ## What was verified
 - Source Stage8: 96,600 rows, 575 firms.
