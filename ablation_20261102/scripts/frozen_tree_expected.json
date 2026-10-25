@@ -1,8 +1,10 @@
 {
-  "frozen_tree_sha256": "a35d340f523b9597679f717cbe7168ce8a90b3d279695b894fdab2fa15b15a25",
+  "frozen_tree_sha256": "59439de9dd7fa419ef4cfb77bc7fb65d8363d62ec67bb242beeb6dcd24f1ce68",
   "definition": "SHA-256 of the raw output bytes of `git ls-tree -r -z HEAD -- frozen` (mode, type, blob id and path of every tracked file under frozen/, NUL-terminated)",
   "entries": 1101,
-  "computed_at": "3cab74461f79ed693fb08523ad7b7a1a6525f1b7",
-  "same_value_at": ["4a708166babed0a4a7299a25230144d348f44102", "071848881349c8675bb4e15193a747fa02679986"],
+  "computed_at": "e0a4d5b2bc50a237a771bfc7c8eab2cd4d3112a4",
+  "same_value_at": ["df79f62d8a6c1a3f9a15c14d765cd31430cb1a3e"],
+  "previous_value": {"frozen_tree_sha256": "a35d340f523b9597679f717cbe7168ce8a90b3d279695b894fdab2fa15b15a25", "computed_at": "3cab74461f79ed693fb08523ad7b7a1a6525f1b7", "same_value_at": ["4a708166babed0a4a7299a25230144d348f44102", "071848881349c8675bb4e15193a747fa02679986"]},
+  "change": "frozen/ paths changed after the previous value are listed in provenance/POST_FREEZE_EDITS.csv",
   "note": "Independent of line-ending settings and of whether Git LFS content is pulled, because blob ids identify the committed bytes."
 }

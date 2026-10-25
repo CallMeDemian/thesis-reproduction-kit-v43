@@ -7,6 +7,7 @@ on the published branch); WARN does not fail the run.
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import json
 import platform
@@ -213,8 +214,15 @@ def q11():
 
 def q12(write_list: bool):
     base = c.BASE_COMMIT
-    diff = git("diff", "--name-only", base, "--", "frozen").strip()
+    diff = git("diff", "--name-only", "-M", base, "--", "frozen").strip()
     status = git("status", "--porcelain", "--", "frozen").strip()
+    # files edited after the freeze are listed (path, previous/new sha256) in provenance/POST_FREEZE_EDITS.csv;
+    # a renamed file appears under its new path because the diff detects renames
+    edits_csv = c.KIT / "provenance/POST_FREEZE_EDITS.csv"
+    listed = {r["path"]: r["new_sha256"] for r in csv.DictReader(edits_csv.open(encoding="utf-8"))} if edits_csv.is_file() else {}
+    changed = [p for p in diff.splitlines() if p]
+    unlisted = [p for p in changed if p not in listed or not (c.KIT / p).is_file()
+                or hashlib.sha256((c.KIT / p).read_bytes()).hexdigest() != listed[p]]
     # tracked files only, in git's byte order: ignored local files (e.g. __pycache__) and the platform's path sort
     # order must not change the combined hash
     files = [c.KIT / t for t in git("ls-files", "-z", "--", "frozen").split("\0") if t]
@@ -236,6 +244,7 @@ def q12(write_list: bool):
     expected = json.loads((Path(__file__).resolve().parent / "frozen_tree_expected.json").read_text(encoding="utf-8"))
     tree_sha = hashlib.sha256(tree_listing).hexdigest()
     ev = {"base_commit_present": has_commit(base), "git_diff_base_frozen_empty": diff == "", "git_status_frozen_empty": status == "",
+          "frozen_paths_changed_since_base": changed, "changed_paths_not_in_post_freeze_edits": unlisted,
           "frozen_tree_sha256": tree_sha, "frozen_tree_sha256_expected": expected["frozen_tree_sha256"],
           "frozen_tree_entries": tree_listing.count(b"\0"), "frozen_tree_equals_expected": tree_sha == expected["frozen_tree_sha256"],
           "files_hashed": len(files), "combined_sha256": h.hexdigest(), "combined_sha256_depends_on_checkout": True,
@@ -244,10 +253,11 @@ def q12(write_list: bool):
           "note": "frozen/ hash list kept outside the repository (private/, written only when that folder exists; one file per date and commit, "
                   "an existing file is never overwritten). combined_sha256 hashes the checked-out bytes, so it differs "
                   "between LF and CRLF checkouts and between Git LFS pointer and content clones; it is printed for reference only. "
-                  "The verdict uses frozen_tree_sha256 (committed blob ids) against frozen_tree_expected.json, plus git diff and git status."}
+                  "The verdict uses frozen_tree_sha256 (committed blob ids) against frozen_tree_expected.json, plus git diff and git status; "
+                  "a frozen/ path changed since the base commit passes only if provenance/POST_FREEZE_EDITS.csv lists it with its current sha256."}
     if ev["hash_list_written"] and not (private / list_name).exists():
         (private / list_name).write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
-    return ev["base_commit_present"] and diff == "" and status == "" and ev["frozen_tree_equals_expected"], ev
+    return ev["base_commit_present"] and not unlisted and status == "" and ev["frozen_tree_equals_expected"], ev
 
 
 def _provider_time(obj) -> datetime | None:
