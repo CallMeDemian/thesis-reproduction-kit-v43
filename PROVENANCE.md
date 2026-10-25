@@ -39,3 +39,10 @@ and lineage, not thesis-scale fresh scientific replication.
 changed lines, category, kit commits). `provenance/SCIENTIFIC_CODE_CHANGES.md`
 summarises the semantic changes with before/after snippets. The kit commits
 state no reasons; the record says so instead of inferring one.
+
+## Known discrepancies in frozen records
+
+`provenance/KNOWN_FROZEN_DISCREPANCIES.md` lists recorded values in `frozen/`
+and `provenance/` that differ from the value recomputed from the bytes they
+describe, with the command, the confirmed cause and the impact. `frozen/` is
+not modified.
