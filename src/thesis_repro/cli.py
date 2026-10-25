@@ -20,6 +20,15 @@ from .certify import certify_run
 from .status import is_scientific_accepted
 
 
+def _utf8_stdio() -> None:
+    """Write console output as UTF-8 so Korean file names print on any console code page (e.g. cp1252)."""
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+
+
 def _print(value: object) -> None:
     print(json.dumps(value, indent=2, ensure_ascii=False, default=str))
 
@@ -111,6 +120,7 @@ def _inspect(kind: str, identifier: str) -> object:
 
 
 def main(argv: list[str] | None = None) -> None:
+    _utf8_stdio()
     args = _build_parser().parse_args(argv)
     try:
         if args.command == "doctor":
