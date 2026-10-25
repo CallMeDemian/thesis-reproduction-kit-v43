@@ -92,7 +92,15 @@ def _doctor() -> dict[str, object]:
 
 def _inspect(kind: str, identifier: str) -> object:
     if kind == "run":
-        return load_json(ROOT / "runs" / identifier / "run_manifest.json")
+        run_root = ROOT / "runs" / identifier
+        manifest = run_root / "run_manifest.json"
+        if manifest.is_file():
+            return load_json(manifest)
+        # `reproduce` (published-evidence path) writes a receipt instead of a run-engine manifest.
+        receipt = run_root / "final/REPRODUCTION_RECEIPT.json"
+        if receipt.is_file():
+            return {"run_id": identifier, "source": str(receipt.relative_to(ROOT)).replace("\\", "/"), "receipt": load_json(receipt)}
+        raise FileNotFoundError(f"no run_manifest.json or final/REPRODUCTION_RECEIPT.json under runs/{identifier}")
     if kind == "result":
         frozen = verify_frozen()
         return {"result_id": identifier, "frozen_registry": "available" if frozen["status"] == "PASS" else "unavailable", "hint": "Extract the registry member from the frozen ZIP for row-level inspection."}
