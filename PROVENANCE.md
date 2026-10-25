@@ -46,3 +46,15 @@ state no reasons; the record says so instead of inferring one.
 and `provenance/` that differ from the value recomputed from the bytes they
 describe, with the command, the confirmed cause and the impact. `frozen/` is
 not modified.
+
+## Directory digests
+
+The pack digests in `frozen/original_release/ORIGINAL_RELEASE_MANIFEST.json`
+are `sha256` of the byte-order-sorted rows `"<root-relative path>\t<sha256>"`,
+one per file of the pack in `provenance/ASSET_PACK_MANIFEST.json`, each row
+ending with a newline. The v1.3 capsule digest in
+`frozen/release/frozen_manifest.json` follows `tree_sha256()` of the source
+release (Git file order, CRLF->LF for text suffixes, rows
+`"<dir-relative path>\t<sha256>"` joined by newlines without a final newline).
+`scripts/recompute_directory_digests.py` recomputes all five; details and
+results are in `provenance/DIRECTORY_DIGESTS.md`.
