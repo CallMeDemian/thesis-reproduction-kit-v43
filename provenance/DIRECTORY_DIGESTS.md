@@ -113,6 +113,17 @@ files the source repository tracked, so the kit's own listing (35 files after
 quoting, including the parquet) does not match and the capsule is reported as
 `정의 미확인`.
 
+After the post-freeze edits listed in `provenance/POST_FREEZE_EDITS.csv`, two
+capsule files differ from the source repository (`SHA256SUMS.txt` and the
+renamed `REPRO_KIT_V13_NOTES.md`), so the kit copy no longer gives `e8876488…`.
+The script's `srcblob` set hashes the same 34 files from the source
+repository's blobs and reproduces the recorded value; it prints every file
+whose kit copy differs from its source blob, and that list is the capsule part
+of `POST_FREEZE_EDITS.csv`. The recorded value is left unchanged because the
+frozen submission release (`frozen/release/submission/…/release.json`,
+`artifact_registry.json`, `audits/SCIENTIFIC_DRIFT_AUDIT.*`) records the same
+value.
+
 The digest therefore does not cover the capsule's manuscript `.docx`/`.pdf`
 or its Stage8 parquet. Those files are covered elsewhere: all three are listed
 with matching hashes in the capsule's `SHA256SUMS.txt`, and the parquet is

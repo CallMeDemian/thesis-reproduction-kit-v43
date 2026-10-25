@@ -597,8 +597,8 @@
     },
     {
       "new_relative_path": "contracts/scientific/final_freeze/thesis_claim_evidence_map_v4_bootstrap.xlsx",
-      "new_byte_size": 116599,
-      "new_sha256": "92706ec9a9a91e51f43146a4ec46366a496a3e5a59d4e823d3cb307f24c870c3",
+      "new_byte_size": 116499,
+      "new_sha256": "f57d6c20577ed3582f3d088f651bf50648c8f6c8a4d9aa22fa71f159e9c555a7",
       "old_relative_path": null,
       "old_byte_size": null,
       "old_sha256": null,
@@ -697,8 +697,8 @@
     },
     {
       "new_relative_path": "docs/ARCHITECTURE.md",
-      "new_byte_size": 233,
-      "new_sha256": "546c79b63f262a9f14b25e9a6f6feabff83b91225aa955211ccfb4178fc82c1a",
+      "new_byte_size": 311,
+      "new_sha256": "ff0645d4f98c17bb5bdcdcad2193dc0777432c3f7caddbc3c2768b26a645494e",
       "old_relative_path": null,
       "old_byte_size": null,
       "old_sha256": null,
@@ -1296,14 +1296,14 @@
       "migration_action": "COPIED_BYTE_IDENTICAL"
     },
     {
-      "new_relative_path": "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/REPRO_KIT_V13_CHATGPT_HANDOFF.md",
-      "new_byte_size": 1073,
-      "new_sha256": "69c4c174a0e88ebc760ef63e3d7b999018a33cc8c102457b5c9d0022820235a6",
+      "new_relative_path": "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/REPRO_KIT_V13_NOTES.md",
+      "new_byte_size": 1053,
+      "new_sha256": "e13e5a5bb8727a34f56820b34646ab0200a5f1cc02a21ada43168d0ae26356f0",
       "old_relative_path": "repro_audit/FINAL_RELEASE/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/REPRO_KIT_V13_CHATGPT_HANDOFF.md",
       "old_byte_size": 1073,
       "old_sha256": "69c4c174a0e88ebc760ef63e3d7b999018a33cc8c102457b5c9d0022820235a6",
       "semantic_role": "frozen",
-      "migration_action": "COPIED_BYTE_IDENTICAL"
+      "migration_action": "CURATED_OR_TRANSFORMED_FROM_SOURCE"
     },
     {
       "new_relative_path": "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/reproduction/reproduce_all_v13.py",
@@ -1347,13 +1347,13 @@
     },
     {
       "new_relative_path": "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/SHA256SUMS.txt",
-      "new_byte_size": 3796,
-      "new_sha256": "9a59b6c6fa691a2169ce04800447fcabdd1c8c2f23db6677d44a8f0faaec1ea7",
+      "new_byte_size": 3750,
+      "new_sha256": "43d7ffe877a901fd67722c21bc67d680af1f39ee76c997bf914d259d216fda2f",
       "old_relative_path": "repro_audit/FINAL_RELEASE/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/SHA256SUMS.txt",
       "old_byte_size": 3796,
       "old_sha256": "9a59b6c6fa691a2169ce04800447fcabdd1c8c2f23db6677d44a8f0faaec1ea7",
       "semantic_role": "frozen",
-      "migration_action": "COPIED_BYTE_IDENTICAL"
+      "migration_action": "CURATED_OR_TRANSFORMED_FROM_SOURCE"
     },
     {
       "new_relative_path": "frozen/evidence/v1.3/THESIS_REPRO_KIT_v1.3_FINAL_RENDER_VERIFIED_CLEAN/tests/test_v13_contract.py",
@@ -13227,13 +13227,13 @@
     },
     {
       "new_relative_path": "src/credit_recourse/oracle/stage1/stage00_02_ratio_engineering/candidate_ratio_master.xlsx",
-      "new_byte_size": 14336,
-      "new_sha256": "8d19553b96d484805a37e3f92a7fe7d29cc1991c9e1072c703242e815559d734",
+      "new_byte_size": 14608,
+      "new_sha256": "f9e65fa535f196dca7b295f624973365bdfe2da0b08acba1c51bdb6edd74ea3e",
       "old_relative_path": "src/credit_recourse/oracle/stage1/stage00_02_ratio_engineering/candidate_ratio_master.xlsx",
       "old_byte_size": 14336,
       "old_sha256": "8d19553b96d484805a37e3f92a7fe7d29cc1991c9e1072c703242e815559d734",
       "semantic_role": "src",
-      "migration_action": "COPIED_BYTE_IDENTICAL"
+      "migration_action": "CURATED_OR_TRANSFORMED_FROM_SOURCE"
     },
     {
       "new_relative_path": "src/credit_recourse/oracle/stage1/stage00_02_ratio_engineering/manual_standard_item_map.csv",
@@ -13407,13 +13407,13 @@
     },
     {
       "new_relative_path": "src/credit_recourse/oracle/stage1/stage00_04_variable_selection/README_PATCH.md",
-      "new_byte_size": 1405,
-      "new_sha256": "70b5eb8c4d98622f3b80d85d0890c771458d1f595608f9ce07811880d5afa93d",
+      "new_byte_size": 1386,
+      "new_sha256": "3feed9c7a74c51da05a0ca1a90eda5445278b8c4d31c3aec3bd3ba315f95ea70",
       "old_relative_path": "src/credit_recourse/oracle/stage1/stage00_04_variable_selection/README_PATCH.md",
       "old_byte_size": 1405,
       "old_sha256": "70b5eb8c4d98622f3b80d85d0890c771458d1f595608f9ce07811880d5afa93d",
       "semantic_role": "src",
-      "migration_action": "COPIED_BYTE_IDENTICAL"
+      "migration_action": "CURATED_OR_TRANSFORMED_FROM_SOURCE"
     },
     {
       "new_relative_path": "src/credit_recourse/oracle/stage1/stage00_04_variable_selection/README_ROOT_FIX.md",
@@ -14087,13 +14087,13 @@
     },
     {
       "new_relative_path": "src/credit_recourse/rl/v43_training_math.py",
-      "new_byte_size": 22502,
-      "new_sha256": "15dcdc18ee9fa9dcebbc9ddcdb1077a27a904bb928f073b8daa6e67c29ab5f33",
+      "new_byte_size": 22500,
+      "new_sha256": "aa67588cc3eabaec8e671ce360629a6fd69c57496ddc888f07ade21ac6bf2b8b",
       "old_relative_path": "src/credit_recourse/rl/v43_training_math.py",
       "old_byte_size": 22502,
       "old_sha256": "15dcdc18ee9fa9dcebbc9ddcdb1077a27a904bb928f073b8daa6e67c29ab5f33",
       "semantic_role": "src",
-      "migration_action": "COPIED_BYTE_IDENTICAL"
+      "migration_action": "CURATED_OR_TRANSFORMED_FROM_SOURCE"
     },
     {
       "new_relative_path": "src/credit_recourse/simulator/__init__.py",
@@ -14518,8 +14518,8 @@
   ],
   "summary": {
     "new_file_count": 1451,
-    "byte_identical_count": 1269,
-    "curated_or_transformed_count": 6,
+    "byte_identical_count": 1264,
+    "curated_or_transformed_count": 11,
     "new_product_file_count": 176
   }
 }

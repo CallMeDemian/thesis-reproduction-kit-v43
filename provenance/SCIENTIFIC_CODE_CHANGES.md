@@ -289,3 +289,19 @@ and `rebuild-c3e` 575/575 actions. The commits that add this record were checked
 before/after regression of the same commands (pytest, verify, frozen-replay, reproduce,
 verify-original, rebuild-c3e, chapter 4 rechecks, ablation run_all, E1 chain); no result
 value changed.
+
+## Edits after `4a70816`
+
+Three rows of the CSV reflect a later edit of string literals and comments
+(`provenance/POST_FREEZE_EDITS.csv`), so the CSV now has 59 rows:
+
+- `rl/v43_support.py`: one string value in the support metadata; the row's
+  `current_sha256` and line counts are those of the edited file (18 lines at
+  `4a70816`, now 20).
+- `rl/v43_training_math.py` and
+  `oracle/stage1/stage00_04_variable_selection/README_PATCH.md`: identical to
+  `449c942c` at `4a70816`; one comment or heading line each, category `other`.
+
+All three are 주석·메타데이터 문자열만 변경. No computation, check or numeric output
+depends on the edited text; the `v43_support.py` string is written only as the
+`simulator_change` label of a fresh run's `action_support_metadata.json`.

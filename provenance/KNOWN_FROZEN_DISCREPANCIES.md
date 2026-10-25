@@ -314,3 +314,25 @@ python provenance/scripts/c2_line_ending_hashes.py <kit_abl> 3cab744 <path>=<rec
   (entry 2a `new_sha256`, note 2b) without changing any recorded hash. It has
   since been corrected in the same change set (entry 2a `new_sha256`,
   notes 2b; the previous value is kept as `recorded_new_sha256_before_c82a29b`).
+
+## 10. Post-freeze edits in `frozen/`
+
+- List: `provenance/POST_FREEZE_EDITS.csv` (path, previous and new sha256,
+  change type). Inside `frozen/` it covers two files of the v1.3 capsule:
+  `SHA256SUMS.txt` and the file renamed to `REPRO_KIT_V13_NOTES.md` (its
+  previous path is the `old_relative_path` of its `MIGRATION_MANIFEST.json`
+  entry).
+- Effects on recorded values:
+  - The capsule's `SHA256SUMS.txt` lists the new name and sha256, so the
+    capsule's own listing still checks against the kit files (apart from the
+    pre-existing entries of section 1 and section 7).
+  - The capsule digest `e8876488…` (`frozen/release/frozen_manifest.json` and
+    the frozen submission release) is unchanged. It reproduces from the source
+    repository's blobs, not from the kit copy;
+    `scripts/recompute_directory_digests.py --orig` prints the two files above
+    as the only differences (`provenance/DIRECTORY_DIGESTS.md`).
+  - The distribution zip is unchanged. Its `frozen_replay/v1.3/` copy and its
+    `SHA256SUMS.txt`/`RELEASE_MANIFEST.json` still describe the capsule as
+    frozen, so the zip copy and the kit capsule differ in these two files.
+- Impact: none on results. Neither file is read by any verification or
+  reproduction command.
