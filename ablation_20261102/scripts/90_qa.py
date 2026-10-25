@@ -1,4 +1,4 @@
-"""Automated QA Q01-Q12 (plus the pre-registration facts of Q16-Q17) -> QA_REPORT.md section and results/_qa_results.json.
+"""Automated QA Q01-Q12, Q16-Q19 and Q20 (independent Holm recomputation) -> QA_REPORT.md section and results/_qa_results.json.
 
 Every check prints its evidence. Nothing is marked PASS without a computed comparison. A check may return WARN
 with a printed reason when its condition cannot be decided in this checkout (Q01 on a detached HEAD that is not
@@ -280,6 +280,7 @@ def q16_17():
     pushed = git("branch", "-r", "--contains", git("log", "--diff-filter=A", "--format=%H", "--", "ablation_20261102/E1/E1_PROTOCOL.md").strip().splitlines()[-1]).strip()
     ev = {"protocol_commit_before_first_provider_call": bool(commit_time and first_call and commit_time < first_call),
           "protocol_commit_time": first[-1] if first else None,
+          "protocol_commit_time_basis": "committer date of the commit that added E1_PROTOCOL.md (set by the committer), not the GitHub server push time",
           "first_provider_time_utc": datetime.fromtimestamp(first_call, timezone.utc).isoformat() if first_call else None,
           "smoke_responses_with_provider_time": f"{len(stamped)}/{len(responses)}",
           "time_source": "provider timestamps saved inside the smoke responses (OpenAI created_at, Gemini HTTP date header); "
@@ -357,8 +358,47 @@ def q19():
     return len(p) == 6 and ev["n_firms"] == [232] and not ev["audit_required"], ev
 
 
+def _holm_independent(p: list[float]) -> list[float]:
+    """Holm step-down adjustment written out separately from common.holm and the analysis package."""
+    m = len(p)
+    ranked = sorted(range(m), key=lambda i: (p[i], i))
+    adjusted = [0.0] * m
+    running = 0.0
+    for k, i in enumerate(ranked):
+        running = max(running, min(1.0, (m - k) * p[i]))
+        adjusted[i] = running
+    return adjusted
+
+
+def q20():
+    """Primary Holm p recomputed from the frozen raw p in the result registry (families: model x Oracle x reasoning
+    setting, 8 comparisons each, thesis section 3.7; the registry leaves holm_family_id empty for PRIMARY rows)."""
+    import io
+    import zipfile
+    from thesis_repro.frozen import REGISTRY_MEMBER
+    distribution = c.require_file(c.KIT / "frozen/distribution/THESIS_REPRO_KIT_v2.1.1_FINAL.zip")
+    with zipfile.ZipFile(distribution) as archive, archive.open(REGISTRY_MEMBER) as handle:
+        reg = pd.read_csv(io.TextIOWrapper(handle, encoding="utf-8-sig"))
+    prim = reg[reg.result_class == "PRIMARY"].copy()
+    keys = ["model_key", "oracle", "reasoning_regime"]
+    sizes = prim.groupby(keys).size()
+    prim["holm_recomputed"] = np.nan
+    for _, idx in prim.groupby(keys).groups.items():
+        prim.loc[idx, "holm_recomputed"] = _holm_independent(prim.loc[idx, "raw_p_frozen"].astype(float).tolist())
+    diff = (prim.holm_recomputed - prim.holm_p_frozen.astype(float)).abs()
+    same_sig = int(((prim.holm_recomputed < 0.05) == (prim.holm_p_frozen.astype(float) < 0.05)).sum())
+    t1 = pd.read_csv(c.RESULTS / "T1_primary_A1_A4.csv")
+    t1_family_sizes = sorted(t1.groupby("holm_family").size().unique().tolist())
+    ev = {"primary_rows": len(prim), "families": int(len(sizes)), "family_sizes": sorted(sizes.unique().tolist()),
+          "registry_holm_family_id_filled": int(prim.holm_family_id.notna().sum()), "T1_family_sizes": t1_family_sizes,
+          "max_abs_diff_vs_registry_holm_p_frozen": float(diff.max()), "significance_p_lt_05_same": f"{same_sig}/{len(prim)}",
+          "holm_function": "written in 90_qa.py, not imported from common or credit_recourse"}
+    ok = len(prim) == 96 and len(sizes) == 12 and ev["family_sizes"] == [8] and t1_family_sizes == [8] and float(diff.max()) <= 1e-12 and same_sig == 96
+    return ok, ev
+
+
 FILE_GROUPS = {
-    "results/T1_primary_A1_A4.csv": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q07", "Q08"],
+    "results/T1_primary_A1_A4.csv": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q07", "Q08", "Q20"],
     "results/T2_S1.csv": ["Q03", "Q04", "Q11"], "results/T3_REF1.csv": ["Q03", "Q04", "Q10", "Q11"],
     "results/T4_robustness.csv, R9_candidate_selection.csv, R10_reference_assignment.csv": ["Q03", "Q06", "Q09", "Q11"],
     "results/T5_E1.csv, E1_wording.json, D3_E1a_by_oracle.csv, D1_E1c_vs_A3.csv": ["Q16", "Q17", "Q18", "Q19"],
@@ -378,7 +418,8 @@ def main():
               ("Q11", "New analysis contract (seeds, families, status)", q11), ("Q12", "Frozen unchanged", lambda: q12(not args.skip_frozen_hash)),
               ("Q16", "E1 pre-registration order (before first provider call)", q16_17),
               ("Q17", "E1 prompt identity (manifest, shards, placebo pairs)", q17), ("Q18", "E1 generation complete and independently recomputed", q18),
-              ("Q19", "E1 placebo gate (232 firms)", q19)]
+              ("Q19", "E1 placebo gate (232 firms)", q19),
+              ("Q20", "Primary Holm p recomputed independently from frozen raw p", q20)]
     results = []
     for qid, name, fn in checks:
         try:
