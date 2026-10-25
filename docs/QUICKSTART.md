@@ -3,10 +3,13 @@
 Reference environment는 Python 3.11입니다.
 
 ```powershell
-python -m pip install -e ".[full,dev]"
+python -m pip install -r contracts/scientific/final_freeze/requirements.reproduction.lock.txt
+python -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+python -m pip install -r requirements/dev.lock.txt
+python -m pip install -e . --no-deps
 ```
 
-정확한 historical package version은 아래 두 파일에 기록되어 있습니다.
+설치 순서의 이유는 README의 “논문 결과를 가장 간단하게 확인하는 방법”에 있습니다. 정확한 historical package version은 아래 두 파일에 기록되어 있습니다.
 
 ```text
 contracts/scientific/final_freeze/reproduction_environment_lock.json

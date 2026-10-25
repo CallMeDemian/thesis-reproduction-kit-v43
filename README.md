@@ -14,10 +14,23 @@
 
 ## 논문 결과를 가장 간단하게 확인하는 방법
 
-Python 3.11 환경에서 아래 세 명령을 실행하면 됩니다.
+Python 3.11 환경에서 먼저 잠금 파일에 적힌 버전 그대로 설치합니다.
 
 ```powershell
-python -m pip install -e ".[full,dev]"
+python -m pip install -r contracts/scientific/final_freeze/requirements.reproduction.lock.txt
+python -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+python -m pip install -r requirements/dev.lock.txt
+python -m pip install -e . --no-deps
+```
+
+- 첫 줄은 분석에 쓰인 패키지를 잠금 버전으로 설치합니다.
+- torch는 잠금 파일에 없고 따로 설치합니다(`reproduction_environment_lock.json`의 2.6.0). 합성 전체 DAG 점검(`acceptance-e2e`)에 필요하며, CPU 빌드로 충분합니다. RL 재학습에는 CUDA 12.4 빌드가 필요합니다.
+- `requirements/dev.lock.txt`는 테스트 도구(pytest)입니다.
+- 마지막 줄은 이 저장소를 의존성 없이 연결합니다. 잠금 버전이 다른 버전으로 바뀌지 않습니다.
+
+그다음 아래 두 명령을 실행하면 됩니다.
+
+```powershell
 python -m thesis_repro verify
 python -m thesis_repro reproduce --run-id published_check
 ```

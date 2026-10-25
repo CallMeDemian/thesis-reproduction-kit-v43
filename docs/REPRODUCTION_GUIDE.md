@@ -9,7 +9,10 @@
 Python 3.11 환경에서 아래 명령을 실행합니다.
 
 ```powershell
-python -m pip install -e ".[full,dev]"
+python -m pip install -r contracts/scientific/final_freeze/requirements.reproduction.lock.txt
+python -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+python -m pip install -r requirements/dev.lock.txt
+python -m pip install -e . --no-deps
 python -m thesis_repro verify
 python -m thesis_repro reproduce --run-id published_check
 ```
