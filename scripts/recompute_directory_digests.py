@@ -22,6 +22,8 @@ the real content):
                        `tree_sha256()` in the source release's src/credit_recourse/repro/release.py does.
                srcq    same as gitq, but the names are listed from the source repository (option
                        --orig, see below) at the directory's original location, and read from the kit
+               srcblob same names as srcq, hashed from the source repository's blobs (text suffixes
+                       CRLF->LF); files whose kit copy differs are printed as notes
   file bytes   raw | lf (CRLF->LF) | crlf (LF->CRLF) | textlf (CRLF->LF only for
                .csv .json .md .py .txt .yaml .yml)       [ignored for recorded-hash file sets]
   path form    dir (relative to the directory) | root (relative to the kit root) |
@@ -44,7 +46,8 @@ Usage: python recompute_directory_digests.py <kit_folder> [--orig <source_repo>]
 with its refs fetched, for example:
     git clone --no-checkout <kit>/frozen/original_release/source/REPRO_KIT_semantic_repair.bundle orig
     git -C orig fetch <bundle> "refs/*:refs/remotes/bundle/*"
-It is only used to list which files the source repository tracked in a directory (set srcq).
+It is used to list which files the source repository tracked in a directory (set srcq) and to
+hash those files from the source blobs (set srcblob).
 """
 from __future__ import annotations
 
@@ -161,6 +164,32 @@ def source_quoted_existing(orig: Path, kit: Path, rel_dir: str) -> dict[str, lis
     return uniq
 
 
+def source_blobs(orig: Path, rel_dir: str) -> dict[str, list[tuple[str, str]]]:
+    """Like source_quoted_existing, but hash the source repository's own blobs (CRLF->LF for text
+    suffixes) instead of the kit files. Quoted (non-ASCII) names are skipped, as tree_sha256() did.
+    Returns {"srcblob@<rev>": [(kit_path, sha256), ...]} for each distinct listing."""
+    base = rel_dir.rstrip("/").split("/")[-1]
+    marker = "/" + base + "/"
+    out: dict[str, list[tuple[str, str]]] = {}
+    refs = subprocess.run(["git", "-C", str(orig), "for-each-ref", "--format=%(objectname:short)"],
+                          capture_output=True, text=True).stdout.split()
+    for rev in refs:
+        listing = subprocess.run(["git", "-c", "core.quotepath=true", "-C", str(orig), "ls-tree", "-r", "--name-only", rev],
+                                 capture_output=True).stdout.decode("utf-8").splitlines()
+        rows = []
+        for n in listing:
+            if (marker not in n and not n.startswith(base + "/")) or n.startswith('"'):
+                continue
+            rel = n.split(marker, 1)[1] if marker in n else n[len(base) + 1:]
+            data = subprocess.run(["git", "-C", str(orig), "show", f"{rev}:{n}"], capture_output=True, check=True).stdout
+            if Path(n).suffix.lower() in TEXT_SUFFIXES:
+                data = data.replace(b"\r\n", b"\n")
+            rows.append((f"{rel_dir}/{rel}", sha(data)))
+        if rows and rows not in out.values():
+            out[f"srcblob@{rev}"] = rows
+    return out
+
+
 def candidates(kit: Path, rel_dir: str, file_sets: dict[str, list[tuple[str, str | None]]], hasher: FileHasher):
     """Yield (label, digest) for every construction.
 
@@ -244,6 +273,12 @@ def main(argv: list[str]) -> int:
             if orig:
                 for k, v in source_quoted_existing(orig, kit, rel_dir).items():
                     sets[k] = [(n, None) for n in v]
+                for k, v in source_blobs(orig, rel_dir).items():
+                    sets[k] = v
+                    # files whose kit copy differs from the source blob (expected: provenance/POST_FREEZE_EDITS.csv)
+                    for rp, h in v:
+                        if not (kit / rp).is_file() or hasher.get(kit / rp)["textlf"] != h:
+                            print(f"note: {k} {rp} differs from the kit copy")
             jobs.append((art["logical_id"], rel_dir, art["sha256"], sets))
 
     jobs.sort(key=lambda j: (j[0] not in TARGETS, j[0]))
