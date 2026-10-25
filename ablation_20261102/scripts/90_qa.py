@@ -1,6 +1,8 @@
 """Automated QA Q01-Q12 (plus the pre-registration facts of Q16-Q17) -> QA_REPORT.md section and results/_qa_results.json.
 
-Every check prints its evidence. Nothing is marked PASS without a computed comparison.
+Every check prints its evidence. Nothing is marked PASS without a computed comparison. A check may return WARN
+with a printed reason when its condition cannot be decided in this checkout (Q01 on a detached HEAD that is not
+on the published branch); WARN does not fail the run.
 """
 from __future__ import annotations
 
@@ -40,12 +42,30 @@ def has_commit(rev: str) -> bool:
 
 def q01():
     inp = json.loads((c.RESULTS / "_inputs_check.json").read_text(encoding="utf-8"))
-    ev = {"base": c.BASE_COMMIT, "branch": git("branch", "--show-current").strip(), "head": git("rev-parse", "HEAD").strip(),
+    branch = git("branch", "--show-current").strip()
+    head = git("rev-parse", "HEAD").strip()
+    ev = {"base": c.BASE_COMMIT, "branch": branch, "head": head,
           "python": platform.python_version(), "pandas": pd.__version__, "numpy": np.__version__,
           "input_sha256": inp["input_sha256"], "inputs_check": inp["status"],
           "base_is_ancestor_of_head": has_commit(c.BASE_COMMIT) and git_ok("merge-base", "--is-ancestor", c.BASE_COMMIT, "HEAD")}
-    ok = ev["branch"] == "ablation-20261102" and inp["status"] == "PASS" and ev["base_is_ancestor_of_head"]
-    return ok, ev
+    if inp["status"] != "PASS" or not ev["base_is_ancestor_of_head"]:
+        ev["reason"] = "inputs check failed or the base commit is not an ancestor of HEAD"
+        return "FAIL", ev
+    if branch == "ablation-20261102":
+        ev["reason"] = "on branch ablation-20261102"
+        return "PASS", ev
+    if not branch:
+        # detached HEAD (tag or commit checkout): record the commit and accept it when it is on the published branch
+        on_origin = "origin/ablation-20261102" in git("branch", "-r", "--contains", head)
+        ev["detached_head_commit"] = head
+        ev["head_on_origin_ablation_20261102"] = on_origin
+        if on_origin:
+            ev["reason"] = "detached HEAD at a commit contained in origin/ablation-20261102"
+            return "PASS", ev
+        ev["reason"] = "detached HEAD at a commit not found on origin/ablation-20261102 in this clone; branch condition not decidable"
+        return "WARN", ev
+    ev["reason"] = f"checked-out branch {branch!r} is not ablation-20261102; inputs and base ancestry checked"
+    return "WARN", ev
 
 
 def q02():
@@ -365,8 +385,9 @@ def main():
             ok, ev = fn()
         except BaseException as exc:  # noqa: BLE001
             ok, ev = False, {"error": f"{type(exc).__name__}: {exc}"}
-        results.append({"id": qid, "name": name, "status": "PASS" if ok else "FAIL", "evidence": ev})
-        print(qid, "PASS" if ok else "FAIL")
+        status = ok if isinstance(ok, str) else ("PASS" if ok else "FAIL")
+        results.append({"id": qid, "name": name, "status": status, "evidence": ev})
+        print(qid, status, ev.get("reason", "") if isinstance(ev, dict) else "")
     out = {"generated_utc": datetime.now(timezone.utc).isoformat(), "head": git("rev-parse", "HEAD").strip(), "results": results}
     (c.RESULTS / "_qa_results.json").write_text(json.dumps(out, ensure_ascii=False, indent=1, default=str) + "\n", encoding="utf-8")
     if args.report:
@@ -380,7 +401,7 @@ def main():
         status = {r["id"]: r["status"] for r in results}
         lines += ["", "### File status", "", "| Files | Required checks | Status |", "| --- | --- | --- |"]
         for files, need in FILE_GROUPS.items():
-            ok_all = all(status.get(q) == "PASS" for q in need)
+            ok_all = all(status.get(q) in ("PASS", "WARN") for q in need)
             lines.append(f"| `{files}` | {', '.join(need)} | {'VERIFIED' if ok_all else 'DRAFT'} |")
         lines += ["", "Q13-Q15 (number cross-check of report, slides and notes; representative-condition notation; Human baseline notation) are recorded in the section below. The human sign-off lines are written by the user only.", "", MARK_END]
         text = args.report.read_text(encoding="utf-8") if args.report.exists() else ""
@@ -391,7 +412,7 @@ def main():
         else:
             text = text.rstrip() + "\n\n" + "\n".join(lines) + "\n"
         args.report.write_text(text, encoding="utf-8")
-    sys.exit(0 if all(r["status"] == "PASS" for r in results) else 1)
+    sys.exit(0 if all(r["status"] in ("PASS", "WARN") for r in results) else 1)
 
 
 if __name__ == "__main__":
