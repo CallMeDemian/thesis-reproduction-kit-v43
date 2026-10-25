@@ -258,7 +258,8 @@ def prepare_requests(run_root: Path, *, limit: int | None = None) -> dict[str, A
         if limit is not None and len(rows) >= limit:
             break
     target.write_text("".join(json.dumps(row, sort_keys=True) + "\n" for row in rows), encoding="utf-8")
-    report = {"status": "PASS", "request_count": len(rows), "expected_requests": limit if limit is not None else EXPECTED_REQUESTS, "execution_class": "SYNTHETIC_E2E_ACCEPTANCE" if limit is not None else "REAL_COMPUTE"}
+    expected_requests = limit if limit is not None else EXPECTED_REQUESTS
+    report = {"status": "PASS" if len(rows) == expected_requests else "FAILED", "request_count": len(rows), "expected_requests": expected_requests, "execution_class": "SYNTHETIC_E2E_ACCEPTANCE" if limit is not None else "REAL_COMPUTE"}
     (paths.llm_root / "prepare_report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     return report
 

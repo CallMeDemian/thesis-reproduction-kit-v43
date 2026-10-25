@@ -14,6 +14,14 @@ def _write_book(path: Path, sheets: dict[str, pd.DataFrame]) -> None:
             frame.to_excel(writer, sheet_name=name[:31], index=False)
 
 
+def _reproduction_status(row: pd.Series) -> str:
+    """PASS/FAIL only where a reconstructed and a frozen estimate are both present; otherwise NOT_CHECKED."""
+    rebuilt, frozen = row.get("estimate_reconstructed"), row.get("estimate_frozen")
+    if pd.isna(rebuilt) or pd.isna(frozen):
+        return "NOT_CHECKED"
+    return "PASS" if abs(float(rebuilt) - float(frozen)) <= 1e-12 else "FAIL"
+
+
 def build(root: Path, run_id: str, profile: str) -> Path:
     root = Path(root).resolve()
     from credit_recourse.analysis.final_v43.runner import run as run_analysis
@@ -32,7 +40,7 @@ def build(root: Path, run_id: str, profile: str) -> Path:
     index["chapter"] = index["thesis_role"].map({"PRIMARY_THESIS": "5/6", "SUPPLEMENTAL": "6", "DESCRIPTIVE_SENSITIVITY": "6"}).fillna("6")
     index["classification"] = index["result_class"].map({"PARENT_GATE": "TEXTUAL_DESCRIPTIVE"}).fillna("COMPUTATIONAL")
     index["result_count"] = 1
-    index["reproduction_status"] = "PASS"
+    index["reproduction_status"] = registry.apply(_reproduction_status, axis=1)
     _write_book(out / "THESIS_OUTPUT_INDEX.xlsx", {"README": pd.DataFrame([{"run_id": run_id, "profile": profile, "rows": 914, "source": source_rel}]), "INDEX": index})
 
     numeric_columns = ["result_id", "N", "estimate", "ci_low", "ci_high", "raw_p", "holm_p", "source", "thesis_role"]
@@ -52,7 +60,7 @@ def build(root: Path, run_id: str, profile: str) -> Path:
     trace["analysis contract"] = trace.get("statistical_path", "")
     trace["reproduced estimate"] = trace.get("estimate_reconstructed", "")
     trace["frozen estimate"] = trace.get("estimate_frozen", "")
-    trace["match"] = trace.apply(lambda row: "PASS" if pd.notna(row.get("estimate_reconstructed")) and pd.notna(row.get("estimate_frozen")) and abs(float(row["estimate_reconstructed"]) - float(row["estimate_frozen"])) <= 1e-12 else "NOT_APPLICABLE", axis=1)
+    trace["match"] = trace.apply(_reproduction_status, axis=1).replace({"NOT_CHECKED": "NOT_APPLICABLE"})
     trace["notes"] = trace["thesis_role"]
     trace_columns = ["manuscript_location", "table_id", "result_id", "canonical_file", "canonical_key", "firm_source", "Stage8 source", "analysis contract", "reproduced estimate", "frozen estimate", "match", "notes"]
     _write_book(out / "TRACEABILITY_MATRIX.xlsx", {"README": pd.DataFrame([{"run_id": run_id, "rows": len(trace)}]), "TRACEABILITY": trace.reindex(columns=trace_columns)})

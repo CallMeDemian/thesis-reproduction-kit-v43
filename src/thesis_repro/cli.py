@@ -156,7 +156,7 @@ def main(argv: list[str] | None = None) -> None:
             from .search import reproduce_search
             result = reproduce_search(ROOT, mode="rl", catalog_path=args.catalog, execute=args.train, source_run=args.source_run, run_id=args.run_id)
             _print(result)
-            if result.get("status") not in {"PASS", "PLANNED"}:
+            if result.get("status") not in {"TRAINING_COMPLETED", "PLANNED"}:
                 raise SystemExit(1)
         elif args.command == "rebuild-requests":
             from .rebuild_requests import rebuild_requests

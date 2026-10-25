@@ -54,7 +54,7 @@ def build_search_baseline(root: Path, source_run: str) -> dict[str, Any]:
     destination = run_root / "03_stage2/V43_STAGE5_SEARCH_BASELINE.json"
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(json.dumps(baseline, indent=2) + "\n", encoding="utf-8")
-    return {"status": "PASS", "path": str(destination.relative_to(root)).replace("\\", "/"), "source_run": source_run, "baseline": baseline}
+    return {"status": "BASELINE_WRITTEN", "status_basis": "the five source-run artifacts exist and their hashes are recorded; nothing is compared", "path": str(destination.relative_to(root)).replace("\\", "/"), "source_run": source_run, "baseline": baseline}
 
 
 def reproduce_search(root: Path, *, mode: str = "rl", catalog_path: Path | None = None, execute: bool = False, run_id: str = "search-reproduction", source_run: str | None = None) -> dict[str, Any]:
@@ -79,7 +79,7 @@ def reproduce_search(root: Path, *, mode: str = "rl", catalog_path: Path | None 
         if not source_run:
             return {"status": "INPUT_REQUIRED", "reason": "COMPLETED_FRESH_RUN_REQUIRED_FOR_SEARCH_BASELINE"}
         baseline = build_search_baseline(root, source_run)
-        if baseline.get("status") != "PASS":
+        if baseline.get("status") != "BASELINE_WRITTEN":
             return baseline
         os.environ["THESIS_REPRO_SEARCH_BASELINE"] = str(root / "runs" / source_run / "03_stage2/V43_STAGE5_SEARCH_BASELINE.json")
     names = {field.name for field in fields(SearchConfig)} - {"run_id"}
@@ -104,6 +104,6 @@ def reproduce_search(root: Path, *, mode: str = "rl", catalog_path: Path | None 
     results = [prepare_run(root, config, dry_run=False) for config in configs]
     leaderboard = output / "reconstructed_leaderboard.json"
     leaderboard.write_text(json.dumps(results, indent=2, default=str) + "\n", encoding="utf-8")
-    selected = {"status": "PASS", "historical_reference_selection": ["B27", "M2_S0935", "DT06", "T15_REWARD_S088"], "selection_rule_status": "EXTERNAL_SELECTION_RULE_NOT_DISTRIBUTED", "selection_basis": "historical reference only; reconstructed leaderboard is reported separately"}
+    selected = {"status": "NOT_CHECKED", "status_basis": "the reconstructed leaderboard is not compared with the historical selection because the selection rule is not distributed", "historical_reference_selection": ["B27", "M2_S0935", "DT06", "T15_REWARD_S088"], "selection_rule_status": "EXTERNAL_SELECTION_RULE_NOT_DISTRIBUTED", "selection_basis": "historical reference only; reconstructed leaderboard is reported separately"}
     (output / "selected_configurations.json").write_text(json.dumps(selected, indent=2) + "\n", encoding="utf-8")
-    return {"status": "PASS", "scope": "ORIGINAL_SEARCH_REPRODUCTION", "mode": mode, "catalog": str(catalog.relative_to(root)).replace("\\", "/"), "catalog_sha256": hashlib.sha256(catalog.read_bytes()).hexdigest(), "run_count": len(results), "outputs": str(output.relative_to(root)).replace("\\", "/")}
+    return {"status": "TRAINING_COMPLETED", "comparison_with_historical_selection": "NOT_CHECKED", "scope": "ORIGINAL_SEARCH_REPRODUCTION", "mode": mode, "catalog": str(catalog.relative_to(root)).replace("\\", "/"), "catalog_sha256": hashlib.sha256(catalog.read_bytes()).hexdigest(), "run_count": len(results), "outputs": str(output.relative_to(root)).replace("\\", "/")}

@@ -102,7 +102,7 @@ def _stage9_comparison(root: Path, run_dir: Path) -> dict[str, Any]:
         return {"status": "UNAVAILABLE", "reason": "no compatible Stage9 estimand identity"}
     merged = fresh[keys + [estimate]].merge(frozen[keys + [estimate]], on=keys, suffixes=("_fresh", "_frozen"), how="inner")
     if merged.empty:
-        return {"status": "PASS", "matched_estimands": 0, "comparison_only": True}
+        return {"status": "UNAVAILABLE", "reason": "no Stage9 estimand matched between the fresh and frozen summaries", "matched_estimands": 0, "comparison_only": True}
     diff = pd.to_numeric(merged[f"{estimate}_fresh"], errors="coerce") - pd.to_numeric(merged[f"{estimate}_frozen"], errors="coerce")
     return {"status": "PASS", "matched_estimands": int(len(merged)), "estimate_mae": float(diff.abs().mean()), "estimate_rank_correlation": float(pd.to_numeric(merged[f"{estimate}_fresh"], errors="coerce").corr(pd.to_numeric(merged[f"{estimate}_frozen"], errors="coerce"), method="spearman")) if len(merged) > 1 else None, "comparison_only": True}
 
