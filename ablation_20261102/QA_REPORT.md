@@ -13,7 +13,7 @@ File status: see the "File status" table in the automated section. Tables and fi
 | Packages | google-genai==2.31.0, joblib==1.5.3, matplotlib==3.11.0, numpy==2.4.4, openai==3.35.1, openpyxl==3.1.5, pandas==3.0.2, pyarrow==24.0.0, pytest==9.1.1, python-docx==1.2.0, python-pptx==1.0.2, PyYAML==6.0.3, scikit-learn==1.8.0, scipy==1.17.1, statsmodels==0.14.6 |
 | LFS state | Cloned with GIT_LFS_SKIP_SMUDGE=1; E1 inputs and stage9 HIGH_STRICT_ITT pulled; other LFS objects not yet fetched |
 | thesis_repro verify | PASS (ablation_20261102/E1/verify_output.txt) |
-| Deck SHA-256 | 2667921758789af260215270c99344e3c955a9f38a8f6843405f6881d0f79e4b (matches) |
+| Deck SHA-256 | 8b056be42194e82ae1ea0808fc391708fd7aac89f72701eb537b3282c39ddcec (matches; value after the edit listed in provenance/POST_FREEZE_EDITS.csv) |
 | Thesis SHA-256 | f6257868c52534fc6477ac249ed463731402553de2cf0786b9667df76b0073a1 (matches) |
 | git status --porcelain -- frozen | empty |
 

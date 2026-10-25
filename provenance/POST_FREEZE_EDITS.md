@@ -20,3 +20,6 @@ Records updated with these edits: the v1.3 capsule's `SHA256SUMS.txt`,
 path of a renamed file stays in its `old_relative_path`),
 `SCIENTIFIC_CODE_CHANGES.csv/.md`, `DIRECTORY_DIGESTS.md` and
 `KNOWN_FROZEN_DISCREPANCIES.md` (section 10).
+On the ablation branch also `human_baseline_final_20261019/SHA256SUMS.txt`,
+the deck SHA-256 in `ablation_20261102/QA_REPORT.md` and the Q12 expected
+value `ablation_20261102/scripts/frozen_tree_expected.json`.
