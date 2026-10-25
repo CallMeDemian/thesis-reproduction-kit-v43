@@ -30,3 +30,12 @@ migration context, not the current verification state.
 Synthetic acceptance invokes the canonical FullClean DAG, run engine, and
 canonical adapters on deterministic fixture inputs. It proves architecture
 and lineage, not thesis-scale fresh scientific replication.
+
+## Changes to the scientific code since the original release
+
+`provenance/SCIENTIFIC_CODE_CHANGES.csv` lists the 57 files under
+`src/credit_recourse` whose bytes differ from the original release commit
+`449c942c` without being recorded elsewhere (original and current sha256,
+changed lines, category, kit commits). `provenance/SCIENTIFIC_CODE_CHANGES.md`
+summarises the semantic changes with before/after snippets. The kit commits
+state no reasons; the record says so instead of inferring one.
