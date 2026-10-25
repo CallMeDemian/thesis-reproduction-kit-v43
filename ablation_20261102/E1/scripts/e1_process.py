@@ -1,8 +1,10 @@
 """E1 response processing: normalize -> parse -> Strict ITT, using the kit's own functions.
 
 Mirrors ``final_release.collection.collect_downloaded`` for one provider output line. It does not
-use ``load_design`` (which fails on a plain checkout because of line-ending hash drift) and does not
-touch the ledger. The design object carries only what the parser and ``apply_itt_rule`` read:
+use ``load_design``, which stops on every checkout (LF or CRLF): some released source hashes were
+recorded from CRLF bytes and some from LF bytes, several runtime sources changed after the release,
+and the release used the frozen action contract. ``python -m thesis_repro rebuild-requests --verify``
+rebuilds and checks the frozen requests instead. This module does not touch the ledger. The design object carries only what the parser and ``apply_itt_rule`` read:
 ``root``, ``prompts`` (frozen prompt contract) and ``action_contract``.
 """
 from __future__ import annotations
