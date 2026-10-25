@@ -128,7 +128,7 @@ def main() -> int:
     out["checks"]["upgrade_share_oot_pct"] = share == EXPECTED_UPGRADE_SHARE_PCT
     ok &= out["checks"]["upgrade_share_oot_pct"]
     out["status"] = "PASS" if ok else "FAIL"
-    (HERE / "table4_1_direction_auc.json").write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    (HERE / "table4_1_direction_auc.json").write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
     for name, rec in out["oracles"].items():
         o = rec["oot"]
         print(f"{name:5s} OOT movers {o['movers']}  agreement {100 * o['agreement']:.1f}% "
