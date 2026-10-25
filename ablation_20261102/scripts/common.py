@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import io
 import subprocess
 import sys
 from pathlib import Path
@@ -110,6 +111,13 @@ def paired_by(frame: pd.DataFrame, axis: str, left, right, score: str, keys: lis
     wide = wide.sort_values("firm_key").reset_index(drop=True)
     wide["difference"] = wide[left] - wide[right]
     return wide
+
+
+def save_svg(fig, path: Path, **kwargs) -> None:
+    """SVG with LF line endings: matplotlib writes SVG files in text mode, which gives CRLF on Windows."""
+    buffer = io.StringIO()
+    fig.savefig(buffer, format="svg", **kwargs)
+    Path(path).write_text(buffer.getvalue(), encoding="utf-8", newline="\n")
 
 
 def write_csv(df: pd.DataFrame, path: Path) -> None:

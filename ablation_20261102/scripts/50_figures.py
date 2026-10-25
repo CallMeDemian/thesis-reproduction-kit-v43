@@ -23,7 +23,7 @@ LABEL = {"GPT": "GPT-5.4-mini", "GEMINI": "Gemini 3.1 Flash-Lite", "BASELINE": "
 def save(fig, name):
     (c.FIGURES / name).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(c.FIGURES / f"{name}.png", dpi=300, bbox_inches="tight", facecolor="white")
-    fig.savefig(c.FIGURES / f"{name}.svg", bbox_inches="tight", facecolor="white")
+    c.save_svg(fig, c.FIGURES / f"{name}.svg", bbox_inches="tight", facecolor="white")
     plt.close(fig)
 
 

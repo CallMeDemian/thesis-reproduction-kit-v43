@@ -53,7 +53,7 @@ def main(table: Path, out: Path) -> None:
     fig.subplots_adjust(right=0.86, wspace=0.55)
     out.mkdir(parents=True, exist_ok=True)
     fig.savefig(out / "F5_E1.png", dpi=300, bbox_inches="tight", facecolor="white")
-    fig.savefig(out / "F5_E1.svg", bbox_inches="tight", facecolor="white")
+    c.save_svg(fig, out / "F5_E1.svg", bbox_inches="tight", facecolor="white")
 
 
 if __name__ == "__main__":
