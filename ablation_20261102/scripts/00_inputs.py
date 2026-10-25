@@ -38,7 +38,7 @@ def main() -> dict:
     out = {"status": "PASS" if not bad else "FAIL",
            "checks": {k: {"actual": v[0], "expected": v[1]} for k, v in checks.items()}, "input_sha256": hashes}
     c.RESULTS.mkdir(parents=True, exist_ok=True)
-    (c.RESULTS / "_inputs_check.json").write_text(json.dumps(out, indent=1, default=str) + "\n", encoding="utf-8", newline="\n")
+    (c.RESULTS / "_inputs_check.json").write_text(json.dumps(out, indent=1, default=str) + "\n", encoding="utf-8", newline="\r\n")
     if bad:
         raise SystemExit("00_inputs FAILED: " + json.dumps(bad, default=str))
     return out

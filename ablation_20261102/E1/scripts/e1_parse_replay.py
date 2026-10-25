@@ -168,7 +168,7 @@ def main() -> None:
     syn = synthetic(design, good_action)
     result = {"september_replay": rep, "synthetic": syn, "status": "PASS" if rep["pass"] and syn["pass"] else "FAIL"}
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+    args.out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\r\n")
     print(json.dumps({"status": result["status"], "september_replay": {k: v for k, v in rep.items() if k != "mismatch_examples"},
                       "synthetic_pass": syn["pass"], "synthetic_failed": [c for c in syn["cases"] if not c["pass"]]}, indent=1))
     sys.exit(0 if result["status"] == "PASS" else 1)

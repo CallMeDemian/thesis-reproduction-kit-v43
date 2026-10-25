@@ -125,7 +125,7 @@ def r9_checks(t: pd.DataFrame) -> dict:
         "all_star_checks_match": all(d["star_match"] for d in detail if d.get("star_match") is not None),
         "rows": detail,
     }
-    (c.RESULTS / "_R9_checks.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1, default=str) + "\n", encoding="utf-8", newline="\n")
+    (c.RESULTS / "_R9_checks.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1, default=str) + "\n", encoding="utf-8", newline="\r\n")
     return summary
 
 

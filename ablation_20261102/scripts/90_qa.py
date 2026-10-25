@@ -438,7 +438,7 @@ def main():
         results.append({"id": qid, "name": name, "status": status, "evidence": ev})
         print(qid, status, ev.get("reason", "") if isinstance(ev, dict) else "")
     out = {"generated_utc": datetime.now(timezone.utc).isoformat(), "head": git("rev-parse", "HEAD").strip(), "results": results}
-    (c.RESULTS / "_qa_results.json").write_text(json.dumps(out, ensure_ascii=False, indent=1, default=str) + "\n", encoding="utf-8", newline="\n")
+    (c.RESULTS / "_qa_results.json").write_text(json.dumps(out, ensure_ascii=False, indent=1, default=str) + "\n", encoding="utf-8", newline="\r\n")
     if args.report:
         lines = [MARK_BEGIN, "", "## Automated checks (scripts/90_qa.py)", "",
                  f"Run at {out['generated_utc']} on HEAD {out['head'][:12]}. Evidence: `results/_qa_results.json`. ", "",
