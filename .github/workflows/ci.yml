@@ -82,3 +82,21 @@ jobs:
           name: synthetic-full-e2e-${{ github.sha }}
           if-no-files-found: error
           path: runs/ci-synthetic-full/
+
+  windows-lf-acceptance-e2e:
+    # GitHub "Download ZIP" and clones made with core.autocrlf=false keep LF bytes on Windows.
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - run: git config --global core.autocrlf false
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install -r contracts/scientific/final_freeze/requirements.reproduction.lock.txt
+      - run: python -m pip install -e . --no-deps
+      - run: python -m thesis_repro acceptance-e2e --run-id ci-windows-lf
+      - run: python -m thesis_repro trace --run-id ci-windows-lf

@@ -86,6 +86,18 @@ def _copy_design_inputs(root: Path, destination: Path) -> dict[str, dict[str, st
     return copied
 
 
+def _copy_contract_bytes(source: Path, target: Path) -> Path:
+    """Copy a contract file byte for byte.
+
+    Later stages compare SHA-256 hashes of the run-local copy with the
+    checked-out source file, so the copy must not translate line endings
+    (a text-mode write produces CRLF on Windows).
+    """
+    target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(source, target)
+    return target
+
+
 def _resolve_input_source(paths) -> Path:
     configured = os.environ.get("THESIS_REPRO_STAGE2_SOURCE_ROOT")
     if configured:
@@ -332,7 +344,7 @@ def _synthetic_stage2(paths, parent_hashes: list[str], context) -> StageResult:
     input_source = paths.stage2_root / "input_source"
     (input_source / "input_splits").mkdir(parents=True, exist_ok=True)
     action_source = input_source / "candidate_action_contract_v4_3.json"
-    action_source.write_text(contract_path.read_text(encoding="utf-8"), encoding="utf-8")
+    _copy_contract_bytes(contract_path, action_source)
     history = frame[frame["firm_id"].isin(firms)].copy().rename(columns={"firm_id": "firm_id", "year": "fiscal_year"})
     nonfinancial_path = source.parent.parent / "stage00_04_variable_selection/stage1c/nonfinancial_metadata_panel.parquet"
     if nonfinancial_path.is_file():
