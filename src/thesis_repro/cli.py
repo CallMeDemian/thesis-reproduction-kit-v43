@@ -48,6 +48,7 @@ def _build_parser() -> argparse.ArgumentParser:
     search.add_argument("--catalog", type=Path)
     search.add_argument("--source-run", required=True)
     search.add_argument("--run-id", default="search-reproduction")
+    search.add_argument("--train", action="store_true", help="start RL Stage5 training for every catalog entry; without it the planned runs are only listed")
     rebuild = sub.add_parser("rebuild-requests", help="rebuild the frozen LLM provider requests offline and compare them byte for byte")
     rebuild.add_argument("--verify", action="store_true", required=True, help="compare every rebuilt request with the stored provider batch line")
     rebuild.add_argument("--run-id", default="rebuild-requests")
@@ -153,9 +154,9 @@ def main(argv: list[str] | None = None) -> None:
                 raise SystemExit(1)
         elif args.command == "search":
             from .search import reproduce_search
-            result = reproduce_search(ROOT, mode="rl", catalog_path=args.catalog, source_run=args.source_run, run_id=args.run_id)
+            result = reproduce_search(ROOT, mode="rl", catalog_path=args.catalog, execute=args.train, source_run=args.source_run, run_id=args.run_id)
             _print(result)
-            if result.get("status") != "PASS":
+            if result.get("status") not in {"PASS", "PLANNED"}:
                 raise SystemExit(1)
         elif args.command == "rebuild-requests":
             from .rebuild_requests import rebuild_requests
