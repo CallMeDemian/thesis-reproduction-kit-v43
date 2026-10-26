@@ -28,9 +28,10 @@ python -m pip install -e . --no-deps
 - `requirements/dev.lock.txt`는 테스트 도구(pytest)입니다.
 - 마지막 줄은 이 저장소를 의존성 없이 연결합니다. 잠금 버전이 다른 버전으로 바뀌지 않습니다.
 
-그다음 아래 두 명령을 실행하면 됩니다.
+그다음 아래 두 명령을 실행하면 됩니다. 첫 줄은 Python을 UTF-8 모드로 실행하는 설정으로, 한국어가 아닌 Windows에서도 파일을 UTF-8로 읽고 씁니다(같은 PowerShell 창의 이후 명령에 모두 적용).
 
 ```powershell
+$env:PYTHONUTF8 = "1"
 python -m thesis_repro verify
 python -m thesis_repro reproduce --run-id published_check
 ```
