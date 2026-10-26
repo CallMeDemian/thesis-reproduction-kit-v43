@@ -87,6 +87,8 @@ jobs:
     # GitHub "Download ZIP" and clones made with core.autocrlf=false keep LF bytes on Windows.
     runs-on: windows-latest
     timeout-minutes: 90
+    env:
+      PYTHONUTF8: "1"
     steps:
       - run: git config --global core.autocrlf false
       - uses: actions/checkout@v4
