@@ -1,2 +1,0 @@
-"""Fresh scientific stage adapters."""
-
