@@ -10,6 +10,7 @@
 
 현재 기준 release는 [v1.0.4](https://github.com/CallMeDemian/thesis-reproduction-kit-v43/releases/tag/thesis-v43-reproduction-kit-v1.0.4)입니다.
 Ablation 결과(E1 추가 실험 포함)는 release [thesis-v43-ablation-20261102](https://github.com/CallMeDemian/thesis-reproduction-kit-v43/releases/tag/thesis-v43-ablation-20261102)에 있으며, 그 안의 `ablation_20261102/`를 저장소 최상위에 두면 main의 코드로 실행됩니다.
+Human baseline 출처 목록(문서 236건, 비교 대상 56개 기업)은 release [thesis-v43-human-baseline-20261019](https://github.com/CallMeDemian/thesis-reproduction-kit-v43/releases/tag/thesis-v43-human-baseline-20261019)에 있습니다.
 
 ---
 
