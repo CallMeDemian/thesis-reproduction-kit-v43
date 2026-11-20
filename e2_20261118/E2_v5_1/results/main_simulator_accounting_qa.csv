@@ -1,0 +1,4 @@
+﻿scenario,rows,simulator_failures,accounting_checks_pass,accounting_error_max_abs
+S0,13450,0,13450,3.814697265625e-06
+S1,12650,0,12650,1.52587890625e-05
+S2,12650,0,12650,3.814697265625e-06

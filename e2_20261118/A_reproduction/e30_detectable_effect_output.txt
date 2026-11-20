@@ -1,0 +1,26 @@
+===== google_gemini31flashlite
+C6-E - C4R  alpha r1 +0.090 (se 0.025, MDE80 0.070) | r2 +0.065 (se 0.025) | avg +0.078 (se 0.019, MDE80 0.052) | corr(r1,r2) +0.11
+C6-E - C4R  beta  r1 +0.016 (se 0.006, MDE80 0.016) | r2 +0.021 (se 0.009) | avg +0.018 (se 0.007, MDE80 0.018) | corr(r1,r2) +0.47
+C6-E - C4R  gamma r1 +0.022 (se 0.011, MDE80 0.030) | r2 +0.017 (se 0.008) | avg +0.020 (se 0.008, MDE80 0.022) | corr(r1,r2) +0.29
+C6-E - C4R  zmean r1 +0.045 (se 0.012, t 3.9) | avg +0.043 (se 0.009, t 4.6)
+C6-E - C4   alpha r1 +0.080 (se 0.023, MDE80 0.066) | r2 +0.057 (se 0.021) | avg +0.069 (se 0.017, MDE80 0.048) | corr(r1,r2) +0.22
+C6-E - C4   beta  r1 +0.014 (se 0.006, MDE80 0.016) | r2 +0.019 (se 0.006) | avg +0.017 (se 0.006, MDE80 0.015) | corr(r1,r2) +0.84
+C6-E - C4   gamma r1 +0.026 (se 0.011, MDE80 0.032) | r2 +0.011 (se 0.010) | avg +0.018 (se 0.008, MDE80 0.022) | corr(r1,r2) +0.09
+C6-E - C4   zmean r1 +0.044 (se 0.012, t 3.8) | avg +0.038 (se 0.009, t 4.4)
+C4R - C4    alpha r1 -0.010 (se 0.016, MDE80 0.046) | r2 -0.008 (se 0.018) | avg -0.009 (se 0.012, MDE80 0.033) | corr(r1,r2) -0.06
+C4R - C4    beta  r1 -0.001 (se 0.001, MDE80 0.004) | r2 -0.002 (se 0.007) | avg -0.002 (se 0.004, MDE80 0.010) | corr(r1,r2) -0.05
+C4R - C4    gamma r1 +0.004 (se 0.006, MDE80 0.018) | r2 -0.007 (se 0.008) | avg -0.002 (se 0.005, MDE80 0.014) | corr(r1,r2) -0.02
+C4R - C4    zmean r1 -0.001 (se 0.007, t -0.2) | avg -0.004 (se 0.006, t -0.7)
+===== openai_gpt54mini
+C6-E - C4R  alpha r1 +0.100 (se 0.032, MDE80 0.090) | r2 +0.098 (se 0.026) | avg +0.099 (se 0.022, MDE80 0.061) | corr(r1,r2) +0.12
+C6-E - C4R  beta  r1 +0.023 (se 0.012, MDE80 0.034) | r2 +0.033 (se 0.012) | avg +0.028 (se 0.009, MDE80 0.026) | corr(r1,r2) +0.29
+C6-E - C4R  gamma r1 +0.020 (se 0.012, MDE80 0.034) | r2 +0.042 (se 0.011) | avg +0.031 (se 0.010, MDE80 0.027) | corr(r1,r2) +0.36
+C6-E - C4R  zmean r1 +0.051 (se 0.017, t 3.0) | avg +0.061 (se 0.012, t 4.9)
+C6-E - C4   alpha r1 +0.127 (se 0.035, MDE80 0.097) | r2 +0.125 (se 0.028) | avg +0.126 (se 0.024, MDE80 0.066) | corr(r1,r2) +0.15
+C6-E - C4   beta  r1 +0.021 (se 0.011, MDE80 0.031) | r2 +0.037 (se 0.011) | avg +0.029 (se 0.010, MDE80 0.027) | corr(r1,r2) +0.49
+C6-E - C4   gamma r1 +0.021 (se 0.012, MDE80 0.034) | r2 +0.051 (se 0.012) | avg +0.036 (se 0.010, MDE80 0.028) | corr(r1,r2) +0.33
+C6-E - C4   zmean r1 +0.057 (se 0.017, t 3.4) | avg +0.071 (se 0.013, t 5.4)
+C4R - C4    alpha r1 +0.026 (se 0.014, MDE80 0.040) | r2 +0.028 (se 0.019) | avg +0.027 (se 0.012, MDE80 0.033) | corr(r1,r2) -0.00
+C4R - C4    beta  r1 -0.003 (se 0.005, MDE80 0.015) | r2 +0.004 (se 0.007) | avg +0.001 (se 0.004, MDE80 0.012) | corr(r1,r2) -0.00
+C4R - C4    gamma r1 +0.001 (se 0.004, MDE80 0.010) | r2 +0.009 (se 0.006) | avg +0.005 (se 0.004, MDE80 0.010) | corr(r1,r2) -0.00
+C4R - C4    zmean r1 +0.006 (se 0.007, t 0.8) | avg +0.010 (se 0.006, t 1.6)

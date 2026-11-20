@@ -1,0 +1,220 @@
+
+######## HIGH_STRICT_ITT / free8 / IC-b / B1
+-- run-to-run agreement (replicate 1 vs 2), same model
+model                        cond   usable1 usable2   exact    near     top    supp  L1mean   L1med    |dA|   sameA     rA     rB     rG
+google_gemini31flashlite     C4       0.991   0.983   0.073   0.277   0.619   0.372   0.561   0.502   0.279   0.803   0.80   0.76   0.77
+google_gemini31flashlite     C4R      0.986   0.984   0.061   0.259   0.645   0.346   0.535   0.488   0.250   0.817   0.80   0.79   0.79
+google_gemini31flashlite     C6-E     0.984   0.979   0.104   0.303   0.650   0.384   0.495   0.440   0.248   0.826   0.82   0.80   0.83
+   diff C6-E - C4R [exact] +0.043 [+0.017, +0.071]
+   diff C6-E - C4R [near ] +0.043 [+0.002, +0.082]
+   diff C6-E - C4R [top  ] +0.005 [-0.038, +0.050]
+   diff C6-E - C4R [supp ] +0.038 [-0.002, +0.080]
+   diff C6-E - C4R [l1   ] -0.040 [-0.069, -0.009]
+   diff C6-E - C4  [exact] +0.031 [+0.003, +0.057]
+   diff C6-E - C4  [near ] +0.026 [-0.012, +0.066]
+   diff C6-E - C4  [top  ] +0.031 [-0.009, +0.073]
+   diff C6-E - C4  [supp ] +0.012 [-0.026, +0.049]
+   diff C6-E - C4  [l1   ] -0.066 [-0.094, -0.036]
+openai_gpt54mini             C4       0.974   0.970   0.459   0.544   0.706   0.619   0.465   0.128   0.268   0.830   0.81   0.75   0.82
+openai_gpt54mini             C4R      0.986   0.988   0.475   0.551   0.729   0.626   0.450   0.078   0.253   0.842   0.84   0.77   0.84
+openai_gpt54mini             C6-E     0.984   0.983   0.557   0.612   0.772   0.654   0.377   0.000   0.185   0.877   0.88   0.83   0.90
+   diff C6-E - C4R [exact] +0.082 [+0.037, +0.125]
+   diff C6-E - C4R [near ] +0.061 [+0.017, +0.103]
+   diff C6-E - C4R [top  ] +0.043 [+0.003, +0.082]
+   diff C6-E - C4R [supp ] +0.028 [-0.014, +0.071]
+   diff C6-E - C4R [l1   ] -0.073 [-0.121, -0.023]
+   diff C6-E - C4  [exact] +0.097 [+0.052, +0.144]
+   diff C6-E - C4  [near ] +0.068 [+0.023, +0.111]
+   diff C6-E - C4  [top  ] +0.066 [+0.023, +0.108]
+   diff C6-E - C4  [supp ] +0.035 [-0.012, +0.080]
+   diff C6-E - C4  [l1   ] -0.088 [-0.137, -0.036]
+-- C6-E: exact adoption of RL reference action, by replicate; and run agreement by adoption pattern
+google_gemini31flashlite     adopt r1 0.155 r2 0.170 both 0.085 one 0.155 none 0.760 | exact-agree among none-adopt 0.030 (n=437)
+     mean L1 distance to RL action: C4 r1 1.114  | C6-E r1 0.905 r2 0.890
+     mean L1 distance to RL action: C4R r1 1.124  | C6-E r1 0.905 r2 0.890
+openai_gpt54mini             adopt r1 0.466 r2 0.471 both 0.386 one 0.165 none 0.449 | exact-agree among none-adopt 0.380 (n=258)
+     mean L1 distance to RL action: C4 r1 1.052  | C6-E r1 0.791 r2 0.766
+     mean L1 distance to RL action: C4R r1 1.052  | C6-E r1 0.791 r2 0.766
+-- cross-model agreement (GPT vs Gemini), replicate 1
+C4     exact 0.089 near 0.271 top 0.546 supp 0.334 L1mean 0.681 L1med 0.578
+C4R    exact 0.083 near 0.256 top 0.544 supp 0.296 L1mean 0.685 L1med 0.600
+C6-E   exact 0.170 near 0.277 top 0.609 supp 0.330 L1mean 0.609 L1med 0.523
+C6-EX  exact 0.137 near 0.277 top 0.586 supp 0.322 L1mean 0.643 L1med 0.635
+C5     exact 0.202 near 0.437 top 0.614 supp 0.480 L1mean 0.591 L1med 0.411
+   diff C6-E - C4R   [exact] +0.087 [+0.061, +0.115]
+   diff C6-E - C4R   [near ] +0.021 [-0.017, +0.061]
+   diff C6-E - C4R   [top  ] +0.064 [+0.024, +0.104]
+   diff C6-E - C4R   [l1   ] -0.076 [-0.112, -0.040]
+   diff C6-E - C4    [exact] +0.082 [+0.052, +0.110]
+   diff C6-E - C4    [near ] +0.005 [-0.028, +0.040]
+   diff C6-E - C4    [top  ] +0.063 [+0.021, +0.104]
+   diff C6-E - C4    [l1   ] -0.072 [-0.107, -0.035]
+   diff C6-E - C6-EX [exact] +0.033 [+0.000, +0.066]
+   diff C6-E - C6-EX [near ] +0.000 [-0.038, +0.042]
+   diff C6-E - C6-EX [top  ] +0.023 [-0.021, +0.066]
+   diff C6-E - C6-EX [l1   ] -0.033 [-0.075, +0.008]
+
+######## HIGH_STRICT_ITT / free8 / IC-b / BINF
+-- run-to-run agreement (replicate 1 vs 2), same model
+model                        cond   usable1 usable2   exact    near     top    supp  L1mean   L1med    |dA|   sameA     rA     rB     rG
+google_gemini31flashlite     C4       1.000   1.000   0.092   0.203   0.779   0.306   0.787   0.691   0.320   0.777   0.86   0.82   0.87
+google_gemini31flashlite     C4R      1.000   1.000   0.082   0.191   0.774   0.315   0.831   0.721   0.360   0.760   0.86   0.85   0.88
+google_gemini31flashlite     C6-E     1.000   1.000   0.068   0.200   0.743   0.409   0.706   0.613   0.357   0.793   0.87   0.87   0.89
+   diff C6-E - C4R [exact] -0.014 [-0.038, +0.009]
+   diff C6-E - C4R [near ] +0.009 [-0.024, +0.040]
+   diff C6-E - C4R [top  ] -0.031 [-0.066, +0.003]
+   diff C6-E - C4R [supp ] +0.094 [+0.056, +0.132]
+   diff C6-E - C4R [l1   ] -0.125 [-0.164, -0.089]
+   diff C6-E - C4  [exact] -0.024 [-0.045, -0.003]
+   diff C6-E - C4  [near ] -0.003 [-0.031, +0.028]
+   diff C6-E - C4  [top  ] -0.037 [-0.073, -0.002]
+   diff C6-E - C4  [supp ] +0.103 [+0.071, +0.136]
+   diff C6-E - C4  [l1   ] -0.081 [-0.110, -0.049]
+openai_gpt54mini             C4       0.988   0.995   0.266   0.423   0.729   0.539   0.544   0.337   0.299   0.803   0.81   0.72   0.80
+openai_gpt54mini             C4R      0.998   1.000   0.308   0.438   0.743   0.551   0.544   0.337   0.308   0.790   0.81   0.76   0.82
+openai_gpt54mini             C6-E     0.988   0.988   0.459   0.525   0.788   0.588   0.428   0.156   0.255   0.868   0.87   0.83   0.89
+   diff C6-E - C4R [exact] +0.151 [+0.106, +0.198]
+   diff C6-E - C4R [near ] +0.087 [+0.042, +0.134]
+   diff C6-E - C4R [top  ] +0.045 [+0.009, +0.082]
+   diff C6-E - C4R [supp ] +0.037 [-0.009, +0.083]
+   diff C6-E - C4R [l1   ] -0.116 [-0.166, -0.065]
+   diff C6-E - C4  [exact] +0.193 [+0.148, +0.240]
+   diff C6-E - C4  [near ] +0.103 [+0.056, +0.151]
+   diff C6-E - C4  [top  ] +0.059 [+0.021, +0.099]
+   diff C6-E - C4  [supp ] +0.049 [+0.003, +0.094]
+   diff C6-E - C4  [l1   ] -0.117 [-0.162, -0.071]
+-- C6-E: exact adoption of RL reference action, by replicate; and run agreement by adoption pattern
+google_gemini31flashlite     adopt r1 0.043 r2 0.056 both 0.014 one 0.071 none 0.915 | exact-agree among none-adopt 0.059 (n=526)
+     mean L1 distance to RL action: C4 r1 1.510  | C6-E r1 1.264 r2 1.271
+     mean L1 distance to RL action: C4R r1 1.620  | C6-E r1 1.264 r2 1.271
+openai_gpt54mini             adopt r1 0.421 r2 0.438 both 0.332 one 0.195 none 0.473 | exact-agree among none-adopt 0.268 (n=272)
+     mean L1 distance to RL action: C4 r1 1.083  | C6-E r1 0.702 r2 0.675
+     mean L1 distance to RL action: C4R r1 1.124  | C6-E r1 0.702 r2 0.675
+-- cross-model agreement (GPT vs Gemini), replicate 1
+C4     exact 0.010 near 0.118 top 0.517 supp 0.245 L1mean 1.107 L1med 1.033
+C4R    exact 0.010 near 0.111 top 0.522 supp 0.240 L1mean 1.179 L1med 1.110
+C6-E   exact 0.040 near 0.132 top 0.534 supp 0.277 L1mean 0.980 L1med 0.893
+C6-EX  exact 0.023 near 0.127 top 0.520 supp 0.233 L1mean 1.043 L1med 0.954
+C5     exact 0.040 near 0.270 top 0.563 supp 0.377 L1mean 0.876 L1med 0.729
+   diff C6-E - C4R   [exact] +0.030 [+0.016, +0.045]
+   diff C6-E - C4R   [near ] +0.021 [-0.007, +0.047]
+   diff C6-E - C4R   [top  ] +0.012 [-0.023, +0.047]
+   diff C6-E - C4R   [l1   ] -0.199 [-0.245, -0.152]
+   diff C6-E - C4    [exact] +0.030 [+0.017, +0.045]
+   diff C6-E - C4    [near ] +0.014 [-0.014, +0.038]
+   diff C6-E - C4    [top  ] +0.017 [-0.016, +0.054]
+   diff C6-E - C4    [l1   ] -0.127 [-0.171, -0.082]
+   diff C6-E - C6-EX [exact] +0.017 [+0.002, +0.035]
+   diff C6-E - C6-EX [near ] +0.005 [-0.026, +0.037]
+   diff C6-E - C6-EX [top  ] +0.014 [-0.026, +0.052]
+   diff C6-E - C6-EX [l1   ] -0.062 [-0.113, -0.012]
+
+######## BASELINE_STRICT_ITT / free8 / IC-b / B1
+-- run-to-run agreement (replicate 1 vs 2), same model
+model                        cond   usable1 usable2   exact    near     top    supp  L1mean   L1med    |dA|   sameA     rA     rB     rG
+google_gemini31flashlite     C4       0.153   0.157   0.770   0.790   0.790   0.790   0.214   0.000   0.211   0.906   0.75   0.20   0.28
+google_gemini31flashlite     C4R      0.132   0.163   0.812   0.850   0.852   0.852   0.153   0.000   0.182   0.927   0.80   0.41   0.46
+google_gemini31flashlite     C6-E     0.144   0.165   0.802   0.812   0.814   0.814   0.192   0.000   0.225   0.903   0.73   0.29   0.38
+   diff C6-E - C4R [exact] -0.010 [-0.043, +0.024]
+   diff C6-E - C4R [near ] -0.038 [-0.071, -0.005]
+   diff C6-E - C4R [top  ] -0.038 [-0.071, -0.003]
+   diff C6-E - C4R [supp ] -0.038 [-0.071, -0.005]
+   diff C6-E - C4R [l1   ] +0.039 [+0.005, +0.073]
+   diff C6-E - C4  [exact] +0.031 [-0.007, +0.070]
+   diff C6-E - C4  [near ] +0.023 [-0.010, +0.057]
+   diff C6-E - C4  [top  ] +0.024 [-0.010, +0.061]
+   diff C6-E - C4  [supp ] +0.024 [-0.010, +0.061]
+   diff C6-E - C4  [l1   ] -0.023 [-0.060, +0.013]
+openai_gpt54mini             C4       0.443   0.452   0.431   0.442   0.463   0.449   0.594   0.500   0.363   0.797   0.49   0.21   0.28
+openai_gpt54mini             C4R      0.640   0.637   0.362   0.381   0.417   0.393   0.723   0.833   0.405   0.758   0.53   0.36   0.47
+openai_gpt54mini             C6-E     0.572   0.586   0.497   0.499   0.503   0.499   0.541   0.333   0.414   0.777   0.55   0.36   0.59
+   diff C6-E - C4R [exact] +0.136 [+0.083, +0.191]
+   diff C6-E - C4R [near ] +0.118 [+0.063, +0.172]
+   diff C6-E - C4R [top  ] +0.085 [+0.033, +0.139]
+   diff C6-E - C4R [supp ] +0.106 [+0.052, +0.158]
+   diff C6-E - C4R [l1   ] -0.182 [-0.248, -0.116]
+   diff C6-E - C4  [exact] +0.066 [+0.016, +0.122]
+   diff C6-E - C4  [near ] +0.057 [+0.007, +0.111]
+   diff C6-E - C4  [top  ] +0.040 [-0.010, +0.090]
+   diff C6-E - C4  [supp ] +0.050 [-0.005, +0.103]
+   diff C6-E - C4  [l1   ] -0.052 [-0.117, +0.010]
+-- C6-E: exact adoption of RL reference action, by replicate; and run agreement by adoption pattern
+google_gemini31flashlite     adopt r1 0.101 r2 0.108 both 0.037 one 0.136 none 0.828 | exact-agree among none-adopt 0.926 (n=476)
+     mean L1 distance to RL action: C4 r1 1.032  | C6-E r1 0.916 r2 0.913
+     mean L1 distance to RL action: C4R r1 1.022  | C6-E r1 0.916 r2 0.913
+openai_gpt54mini             adopt r1 0.433 r2 0.480 both 0.270 one 0.374 none 0.357 | exact-agree among none-adopt 0.639 (n=205)
+     mean L1 distance to RL action: C4 r1 1.090  | C6-E r1 0.657 r2 0.599
+     mean L1 distance to RL action: C4R r1 1.127  | C6-E r1 0.657 r2 0.599
+-- cross-model agreement (GPT vs Gemini), replicate 1
+C4     exact 0.501 near 0.506 top 0.518 supp 0.511 L1mean 0.485 L1med 0.000
+C4R    exact 0.334 near 0.351 top 0.360 supp 0.357 L1mean 0.641 L1med 1.000
+C6-E   exact 0.438 near 0.440 top 0.435 supp 0.440 L1mean 0.556 L1med 1.000
+C6-EX  exact 0.489 near 0.489 top 0.492 supp 0.489 L1mean 0.511 L1med 0.500
+C5     exact 0.329 near 0.341 top 0.370 supp 0.353 L1mean 0.677 L1med 1.000
+   diff C6-E - C4R   [exact] +0.104 [+0.052, +0.157]
+   diff C6-E - C4R   [near ] +0.089 [+0.037, +0.137]
+   diff C6-E - C4R   [top  ] +0.075 [+0.021, +0.127]
+   diff C6-E - C4R   [l1   ] -0.085 [-0.141, -0.032]
+   diff C6-E - C4    [exact] -0.063 [-0.113, -0.012]
+   diff C6-E - C4    [near ] -0.066 [-0.117, -0.014]
+   diff C6-E - C4    [top  ] -0.083 [-0.132, -0.033]
+   diff C6-E - C4    [l1   ] +0.072 [+0.017, +0.123]
+   diff C6-E - C6-EX [exact] -0.050 [-0.106, +0.002]
+   diff C6-E - C6-EX [near ] -0.049 [-0.103, +0.007]
+   diff C6-E - C6-EX [top  ] -0.057 [-0.111, -0.003]
+   diff C6-E - C6-EX [l1   ] +0.046 [-0.010, +0.100]
+
+######## BASELINE_STRICT_ITT / free8 / IC-b / BINF
+-- run-to-run agreement (replicate 1 vs 2), same model
+model                        cond   usable1 usable2   exact    near     top    supp  L1mean   L1med    |dA|   sameA     rA     rB     rG
+google_gemini31flashlite     C4       1.000   1.000   0.090   0.226   0.696   0.388   0.946   0.754   0.441   0.753   0.84   0.83   0.88
+google_gemini31flashlite     C4R      1.000   1.000   0.050   0.163   0.692   0.393   0.953   0.730   0.426   0.757   0.86   0.85   0.89
+google_gemini31flashlite     C6-E     1.000   1.000   0.059   0.203   0.668   0.423   0.841   0.679   0.319   0.807   0.89   0.87   0.92
+   diff C6-E - C4R [exact] +0.009 [-0.012, +0.030]
+   diff C6-E - C4R [near ] +0.040 [+0.007, +0.075]
+   diff C6-E - C4R [top  ] -0.024 [-0.063, +0.016]
+   diff C6-E - C4R [supp ] +0.030 [-0.009, +0.066]
+   diff C6-E - C4R [l1   ] -0.112 [-0.160, -0.062]
+   diff C6-E - C4  [exact] -0.031 [-0.056, -0.010]
+   diff C6-E - C4  [near ] -0.023 [-0.052, +0.007]
+   diff C6-E - C4  [top  ] -0.028 [-0.063, +0.009]
+   diff C6-E - C4  [supp ] +0.035 [+0.005, +0.064]
+   diff C6-E - C4  [l1   ] -0.104 [-0.145, -0.065]
+openai_gpt54mini             C4       0.729   0.744   0.143   0.170   0.280   0.188   1.183   1.000   0.638   0.661   0.44   0.27   0.46
+openai_gpt54mini             C4R      0.944   0.960   0.160   0.200   0.390   0.231   1.208   1.000   0.532   0.685   0.58   0.52   0.68
+openai_gpt54mini             C6-E     0.875   0.877   0.263   0.271   0.426   0.292   0.952   1.000   0.439   0.737   0.70   0.49   0.70
+   diff C6-E - C4R [exact] +0.103 [+0.063, +0.144]
+   diff C6-E - C4R [near ] +0.071 [+0.026, +0.115]
+   diff C6-E - C4R [top  ] +0.037 [-0.010, +0.085]
+   diff C6-E - C4R [supp ] +0.061 [+0.019, +0.103]
+   diff C6-E - C4R [l1   ] -0.256 [-0.344, -0.174]
+   diff C6-E - C4  [exact] +0.120 [+0.075, +0.165]
+   diff C6-E - C4  [near ] +0.101 [+0.057, +0.143]
+   diff C6-E - C4  [top  ] +0.146 [+0.097, +0.190]
+   diff C6-E - C4  [supp ] +0.104 [+0.063, +0.150]
+   diff C6-E - C4  [l1   ] -0.231 [-0.314, -0.151]
+-- C6-E: exact adoption of RL reference action, by replicate; and run agreement by adoption pattern
+google_gemini31flashlite     adopt r1 0.047 r2 0.040 both 0.019 one 0.049 none 0.932 | exact-agree among none-adopt 0.043 (n=536)
+     mean L1 distance to RL action: C4 r1 2.161  | C6-E r1 1.839 r2 1.830
+     mean L1 distance to RL action: C4R r1 2.251  | C6-E r1 1.839 r2 1.830
+openai_gpt54mini             adopt r1 0.435 r2 0.447 both 0.212 one 0.457 none 0.330 | exact-agree among none-adopt 0.153 (n=190)
+     mean L1 distance to RL action: C4 r1 1.293  | C6-E r1 0.664 r2 0.648
+     mean L1 distance to RL action: C4R r1 1.418  | C6-E r1 0.664 r2 0.648
+-- cross-model agreement (GPT vs Gemini), replicate 1
+C4     exact 0.016 near 0.023 top 0.212 supp 0.059 L1mean 2.138 L1med 2.070
+C4R    exact 0.016 near 0.024 top 0.289 supp 0.057 L1mean 2.120 L1med 2.089
+C6-E   exact 0.033 near 0.047 top 0.330 supp 0.061 L1mean 1.905 L1med 1.874
+C6-EX  exact 0.035 near 0.049 top 0.308 supp 0.089 L1mean 1.970 L1med 1.945
+C5     exact 0.080 near 0.143 top 0.424 supp 0.223 L1mean 1.639 L1med 1.405
+   diff C6-E - C4R   [exact] +0.017 [+0.003, +0.031]
+   diff C6-E - C4R   [near ] +0.023 [+0.007, +0.040]
+   diff C6-E - C4R   [top  ] +0.042 [-0.002, +0.083]
+   diff C6-E - C4R   [l1   ] -0.216 [-0.280, -0.147]
+   diff C6-E - C4    [exact] +0.017 [+0.003, +0.031]
+   diff C6-E - C4    [near ] +0.024 [+0.009, +0.040]
+   diff C6-E - C4    [top  ] +0.118 [+0.080, +0.160]
+   diff C6-E - C4    [l1   ] -0.233 [-0.299, -0.171]
+   diff C6-E - C6-EX [exact] -0.002 [-0.021, +0.017]
+   diff C6-E - C6-EX [near ] -0.002 [-0.024, +0.019]
+   diff C6-E - C6-EX [top  ] +0.023 [-0.024, +0.068]
+   diff C6-E - C6-EX [l1   ] -0.065 [-0.143, +0.008]

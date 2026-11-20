@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "source_database_read_mode": "read-only immutable; no writes or journal changes",
+  "locked_records_verified": 6900,
+  "expected_unique_C4_and_NR_records": 6900,
+  "NR_main_reuse_rows": 4600,
+  "C4_parent_unique_rows": 2300,
+  "raw_text_hash_payload_and_selected_attempt_verified": true,
+  "errors": [],
+  "missing": [],
+  "paid_llm_calls": 0,
+  "rl_training_runs": 0
+}

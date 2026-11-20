@@ -1,0 +1,18 @@
+{
+  "script": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\policy_advice_taking_financial_state.py",
+  "runtime": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime",
+  "output": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\policy_advice_taking_financial_state",
+  "n_firm_model_rows": 1150,
+  "n_unique_firms": 575,
+  "models": [
+    "GPT",
+    "Gemini"
+  ],
+  "stage8_scores_sha256": "519ef1a1aca7620905ba0a6c38bae69315b741e0566e0591a42f3fdb61f8dd74",
+  "action_contract_sha256": "f722e189a265e111c018341254a648ddb9cecc05aa8c12c3547a023ea4c458c0",
+  "prompt_payload_sha256": "10e78a84a1fdcd8af80b4057795214c896a20c4c1a7444a9cd01c7eab4dd3d56",
+  "uptake_denominator_threshold_normalized_squared": 1e-06,
+  "analysis_population": "strict ITT primary; HIGH/FREE8/IC-b/B1/Run1",
+  "no_new_llm_calls": true,
+  "no_rl_retraining": true
+}

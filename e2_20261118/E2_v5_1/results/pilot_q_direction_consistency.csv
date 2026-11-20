@@ -1,0 +1,11 @@
+﻿provider,metric,direction_amount_mismatch_count
+openai,pretax_income,0
+openai,interest_expense,17
+openai,total_debt,15
+openai,cash,15
+openai,current_liabilities,25
+google,pretax_income,2
+google,interest_expense,0
+google,total_debt,0
+google,cash,0
+google,current_liabilities,0

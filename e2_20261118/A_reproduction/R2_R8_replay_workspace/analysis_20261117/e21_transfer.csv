@@ -1,0 +1,23 @@
+level,method,home,h,o
+policy,RL policy (no evaluator in reward),alpha+beta+gamma,0.03686556746019867,0.1490740452870072
+policy,behaviour cloning,alpha+beta+gamma,-0.10581671750333826,-0.003991619749093144
+policy,"catalog argmax by α,β,γ",alpha+beta+gamma,0.3950892988502396,0.17627074078106791
+policy,catalog argmax by α,alpha,0.5813595181008661,0.18560029740593123
+policy,"catalog argmax by δ,ε",δ1+δ2+ε1+ε2,0.524418197395321,0.021210623164477683
+policy,"grid argmax by α,β,γ",alpha+beta+gamma,0.6747022461163105,0.30335841765868116
+policy,grid argmax by α,alpha,0.8865093472154052,0.1728063240484859
+policy,"grid argmax by δ,ε",δ1+δ2+ε1+ε2,0.777634377811866,0.1462858571420843
+LLM,GPT: RL reference (C6-E),alpha+beta+gamma,0.0685158386765972,0.046907612700006596
+LLM,"GPT: RL reference, E1 (vs E1 self-review)",alpha+beta+gamma,0.07147115543111252,0.04967637642665497
+LLM,"GPT: verifier best-of-10 by α,β,γ",alpha+beta+gamma,0.1973828573493657,0.0609772740033161
+LLM,GPT: verifier best-of-10 by α,alpha,0.24846754061225837,0.03808003639296242
+LLM,"GPT: verifier best-of-10 by δ,ε",δ1+δ2+ε1+ε2,0.18692410396323353,0.08619459615109552
+LLM,"GPT: verifier best-of-2 by α,β,γ",alpha+beta+gamma,0.08533649855308881,0.017944826196299467
+LLM,GPT: self-review (C4R),alpha+beta+gamma,0.007140666299383161,0.004654903771151622
+LLM,Gemini: RL reference (C6-E),alpha+beta+gamma,0.05344715117765849,0.03913450713877574
+LLM,"Gemini: RL reference, E1 (vs E1 self-review)",alpha+beta+gamma,0.0419294590764823,0.011830425743225764
+LLM,"Gemini: verifier best-of-10 by α,β,γ",alpha+beta+gamma,0.25613426333744893,0.0798214131896429
+LLM,Gemini: verifier best-of-10 by α,alpha,0.31409203502798344,0.049678799377623595
+LLM,"Gemini: verifier best-of-10 by δ,ε",δ1+δ2+ε1+ε2,0.2647667229304387,0.08983723248555678
+LLM,"Gemini: verifier best-of-2 by α,β,γ",alpha+beta+gamma,0.11637851801132389,0.051063082729828395
+LLM,Gemini: self-review (C4R),alpha+beta+gamma,-0.001337470722994567,0.008277526735569621

@@ -1,0 +1,46 @@
+﻿model,contrast,evaluator,difference,ci95_low,ci95_high,n_firms,interpretation
+ALL,T_minus_N,alpha,0.05196483087184044,0.022718103879957954,0.08121108670917263,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+ALL,T_minus_N,beta,0.028090288953011074,0.020420808147657954,0.03660146395744215,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+ALL,T_minus_N,gamma,0.017090634366705295,0.005151829679401804,0.029154644488395325,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+ALL,RT_minus_R,alpha,-0.01606217199551174,-0.04937546834851944,0.016482655255182325,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+ALL,RT_minus_R,beta,0.00967786466769953,0.00045272189553158276,0.019967990918200708,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+ALL,RT_minus_R,gamma,0.0022988028683707962,-0.012229575778632932,0.01744326052702606,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+ALL,RT_minus_T,alpha,0.02026136722984764,-0.004033341764052718,0.04447037342352436,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+ALL,RT_minus_T,beta,0.004656574336770533,-0.005588029274820699,0.0158682034005278,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+ALL,RT_minus_T,gamma,0.010531497861255467,-2.10503992792944e-06,0.021710235028573464,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+ALL,R_minus_N,alpha,0.08828837009719981,0.05985701355425672,0.1179191362177585,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+ALL,R_minus_N,beta,0.023068998622082074,0.012826519070512486,0.03410496015241071,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+ALL,R_minus_N,gamma,0.025323329359589964,0.011515472159773629,0.03921489604148313,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+ALL,interaction_RT_minus_R_minus_T_plus_N,alpha,-0.06802700286735217,-0.1060760302377586,-0.030383645132017183,575,factorial interaction of information package under mixed generation vintage
+ALL,interaction_RT_minus_R_minus_T_plus_N,beta,-0.01841242428531154,-0.030660195814957773,-0.007198998122981884,575,factorial interaction of information package under mixed generation vintage
+ALL,interaction_RT_minus_R_minus_T_plus_N,gamma,-0.014791831498334497,-0.030997686490949375,0.00118793647872031,575,factorial interaction of information package under mixed generation vintage
+openai_gpt54mini,T_minus_N,alpha,0.09864301645432957,0.051816403267098236,0.1470746905604696,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+openai_gpt54mini,T_minus_N,beta,0.044727951914865935,0.03143595156192864,0.05968665402174835,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+openai_gpt54mini,T_minus_N,gamma,0.02709384118370911,0.007932938135844277,0.04757129736143116,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+openai_gpt54mini,RT_minus_R,alpha,0.02376861490541166,-0.025720710836031065,0.07404122535504855,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+openai_gpt54mini,RT_minus_R,beta,0.026086876146980593,0.013257178557241829,0.04052827722803991,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+openai_gpt54mini,RT_minus_R,gamma,0.012968227113067636,-0.008793325228876585,0.035098815375693176,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+openai_gpt54mini,RT_minus_T,alpha,0.02419064470345588,-0.016525079615136377,0.06478873705010049,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+openai_gpt54mini,RT_minus_T,beta,0.009413102536914226,-0.00784827910456776,0.028663517049657073,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+openai_gpt54mini,RT_minus_T,gamma,0.01685065514118892,-0.0015598722513240333,0.03530161710346745,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+openai_gpt54mini,R_minus_N,alpha,0.09906504625237378,0.05693756655618042,0.14242517625473927,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+openai_gpt54mini,R_minus_N,beta,0.028054178304799567,0.010316700975664941,0.047421201183585254,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+openai_gpt54mini,R_minus_N,gamma,0.030976269211830394,0.012291313771150655,0.04979232285708145,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+openai_gpt54mini,interaction_RT_minus_R_minus_T_plus_N,alpha,-0.07487440154891792,-0.13214546753471826,-0.018143067112803883,575,factorial interaction of information package under mixed generation vintage
+openai_gpt54mini,interaction_RT_minus_R_minus_T_plus_N,beta,-0.01864107576788534,-0.035751250878630285,-0.0014629146922983721,575,factorial interaction of information package under mixed generation vintage
+openai_gpt54mini,interaction_RT_minus_R_minus_T_plus_N,gamma,-0.014125614070641473,-0.03904625398731623,0.010017751535422422,575,factorial interaction of information package under mixed generation vintage
+google_gemini31flashlite,T_minus_N,alpha,0.005286645289351298,-0.02441393416435365,0.03444632390884645,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+google_gemini31flashlite,T_minus_N,beta,0.01145262599115621,0.0036896576079852644,0.020593992043565774,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+google_gemini31flashlite,T_minus_N,gamma,0.007087427549701478,-0.003553008034730493,0.01874676598385516,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+google_gemini31flashlite,RT_minus_R,alpha,-0.055892958896435134,-0.09343574716007017,-0.02131031792171834,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+google_gemini31flashlite,RT_minus_R,beta,-0.006731146811581531,-0.01981755054049022,0.00395274176686527,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+google_gemini31flashlite,RT_minus_R,gamma,-0.008370621376326043,-0.02344239388687133,0.006575479303437631,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+google_gemini31flashlite,RT_minus_T,alpha,0.0163320897562394,-0.012328080078644055,0.04443495508725786,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+google_gemini31flashlite,RT_minus_T,beta,-9.995386337316046e-05,-0.009627047959655901,0.008684888370698965,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+google_gemini31flashlite,RT_minus_T,gamma,0.004212340581322015,-0.005797887649177765,0.014280698992168295,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+google_gemini31flashlite,R_minus_N,alpha,0.07751169394202584,0.04252669118488128,0.11583205122269154,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+google_gemini31flashlite,R_minus_N,beta,0.01808381893936458,0.006897236821691429,0.03220503975215492,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+google_gemini31flashlite,R_minus_N,gamma,0.019670389507349534,0.0044070758281439994,0.035179424976751306,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK
+google_gemini31flashlite,interaction_RT_minus_R_minus_T_plus_N,alpha,-0.06117960418578643,-0.10813660074960794,-0.016686929475187323,575,factorial interaction of information package under mixed generation vintage
+google_gemini31flashlite,interaction_RT_minus_R_minus_T_plus_N,beta,-0.01818377280273774,-0.03674734431156298,-0.00536135568918414,575,factorial interaction of information package under mixed generation vintage
+google_gemini31flashlite,interaction_RT_minus_R_minus_T_plus_N,gamma,-0.01545804892602752,-0.03215168287864905,0.0009940177889874089,575,factorial interaction of information package under mixed generation vintage

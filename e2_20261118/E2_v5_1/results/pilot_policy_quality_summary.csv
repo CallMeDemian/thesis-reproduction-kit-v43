@@ -1,0 +1,9 @@
+﻿provider,condition,requests,delivered,strict_usable,strict_usable_rate_of_requests,strict_usable_rate_of_delivered,expected_model_mismatch,refusal,output_limit,empty,infra_unresolved
+google,N,100,100,98,0.98,0.98,0,0,0,0,0
+google,R,100,100,99,0.99,0.99,0,0,0,0,0
+google,RT,100,100,99,0.99,0.99,0,0,0,0,0
+google,T,100,100,99,0.99,0.99,0,0,0,0,0
+openai,N,100,100,98,0.98,0.98,0,0,0,0,0
+openai,R,100,100,99,0.99,0.99,0,0,0,0,0
+openai,RT,100,100,99,0.99,0.99,0,0,0,0,0
+openai,T,100,100,99,0.99,0.99,0,0,0,0,0

@@ -1,0 +1,25 @@
+{
+  "recomputed_type_counts": {
+    "direct_acceptance": 356,
+    "partial_acceptance": 351,
+    "reject_or_maintain": 338,
+    "opposite_direction": 60,
+    "unrelated_revision": 26,
+    "combination": 19
+  },
+  "expected_type_counts": {
+    "direct_acceptance": 356,
+    "partial_acceptance": 351,
+    "reject_or_maintain": 338,
+    "opposite_direction": 60,
+    "unrelated_revision": 26,
+    "combination": 19
+  },
+  "type_count_discrepancies": {},
+  "swap_changed_firms": 434,
+  "swap_same_firms": 141,
+  "type_rule_match_E": 1150,
+  "type_rule_match_X": 1150,
+  "negative_control_pairs": 1150,
+  "missing_provider_inputs": 0
+}

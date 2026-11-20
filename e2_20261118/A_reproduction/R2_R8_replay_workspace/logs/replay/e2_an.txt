@@ -1,0 +1,39 @@
+OE grid idx 11 dist 0.0e+00 max|dV| 0.0e+00
+RF grid idx 293 dist 0.0e+00 max|dV| 0.0e+00
+WC1 grid idx 174 dist 0.0e+00 max|dV| 0.0e+00
+MX1 grid idx 375 dist 0.0e+00 max|dV| 0.0e+00
+DL grid idx 405 dist 0.0e+00 max|dV| 0.0e+00
+CX grid idx 605 dist 0.0e+00 max|dV| 2.8e-14
+grid size 606 budget levels [0.   0.25 0.5  0.75 1.  ]
+upper bound catalog-9: [1.401 0.332 0.544]  grid-606: [1.735 0.469 0.697]
+grid transfer (rows optimised on, cols scored on)
+       alpha   beta  gamma
+alpha  1.735  0.293  0.357
+beta   1.237  0.469  0.374
+gamma  1.048  0.228  0.697
+share of own optimum
+       alpha   beta  gamma
+alpha  1.000  0.623  0.511
+beta   0.713  1.000  0.536
+gamma  0.604  0.485  1.000
+                                pool  alpha_held  beta_held  gamma_held  alpha_in  beta_in  gamma_in
+                             OE only       0.765      0.278       0.194     0.765    0.278     0.194
+                      RL only (C3-E)       0.923      0.207       0.246     0.923    0.207     0.246
+                      OE + catalog-9       1.019      0.270       0.302     1.029    0.301     0.315
+OE + grid-606 (verifier-only search)       1.182      0.334       0.379     1.265    0.380     0.406
+              OE + random-1 grid pts       0.789      0.278       0.205     0.791    0.280     0.206
+              OE + random-2 grid pts       0.809      0.279       0.214     0.814    0.282     0.215
+              OE + random-4 grid pts       0.842      0.280       0.229     0.850    0.287     0.231
+              OE + random-8 grid pts       0.881      0.282       0.246     0.893    0.292     0.250
+             OE + random-16 grid pts       0.927      0.284       0.265     0.944    0.299     0.272
+             OE + random-32 grid pts       0.977      0.288       0.285     1.000    0.309     0.295
+             OE + random-64 grid pts       1.017      0.293       0.307     1.051    0.320     0.321
+            OE + random-128 grid pts       1.061      0.294       0.322     1.099    0.330     0.339
+            OE + random-256 grid pts       1.093      0.300       0.340     1.144    0.338     0.359
+catalog-9 held-out vs RL: {'alpha': '+0.096 [+0.007,+0.179]', 'beta': '+0.063 [+0.020,+0.103]', 'gamma': '+0.056 [+0.019,+0.094]'}
+catalog-9 held-out vs OE: {'alpha': '+0.253 [+0.179,+0.337]', 'beta': '-0.008 [-0.039,+0.013]', 'gamma': '+0.108 [+0.072,+0.147]'}
+grid-606 held-out vs RL: {'alpha': '+0.258 [+0.158,+0.361]', 'beta': '+0.127 [+0.083,+0.173]', 'gamma': '+0.132 [+0.088,+0.180]'}
+grid-606 held-out vs OE: {'alpha': '+0.416 [+0.321,+0.523]', 'beta': '+0.056 [+0.020,+0.098]', 'gamma': '+0.184 [+0.138,+0.236]'}
+selected when alpha held out: mean budget share by axis {'CX': np.float64(0.045), 'DL': np.float64(0.021), 'RF': np.float64(0.068), 'INV': np.float64(0.042), 'AR': np.float64(0.0), 'AP': np.float64(0.058), 'COGS': np.float64(0.461), 'SGA': np.float64(0.302)} | default kept 0.574 | uses RF 0.087 | mean budget 1.00
+selected when beta held out: mean budget share by axis {'CX': np.float64(0.034), 'DL': np.float64(0.053), 'RF': np.float64(0.059), 'INV': np.float64(0.042), 'AR': np.float64(0.001), 'AP': np.float64(0.029), 'COGS': np.float64(0.394), 'SGA': np.float64(0.367)} | default kept 0.694 | uses RF 0.075 | mean budget 0.98
+selected when gamma held out: mean budget share by axis {'CX': np.float64(0.027), 'DL': np.float64(0.012), 'RF': np.float64(0.081), 'INV': np.float64(0.049), 'AR': np.float64(0.0), 'AP': np.float64(0.03), 'COGS': np.float64(0.477), 'SGA': np.float64(0.322)} | default kept 0.623 | uses RF 0.096 | mean budget 1.00

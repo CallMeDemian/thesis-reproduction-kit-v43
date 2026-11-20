@@ -1,0 +1,4 @@
+﻿evaluator,P3_minus_R_gap_D,RT_minus_R_gain_G,gap_recovery_G_over_D,ci95_low,ci95_high,bootstrap_reps_positive_denominator,n_firms,interpretation
+alpha,0.1025568627188624,-0.01606217199551174,-0.1566172323303486,-0.7933551495105063,0.17481789514610682,9984,575,score-gap recovery only; not evidence of shared action mechanism
+beta,0.03510946603841827,0.00967786466769953,0.27564830114788985,0.009181628515046353,1.8806314090314205,9767,575,score-gap recovery only; not evidence of shared action mechanism
+gamma,0.05499729941276162,0.0022988028683707962,0.04179846815964531,-0.24802595977151665,0.369923503875356,10000,575,score-gap recovery only; not evidence of shared action mechanism

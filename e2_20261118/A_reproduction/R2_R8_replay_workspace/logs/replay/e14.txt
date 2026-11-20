@@ -1,0 +1,43 @@
+α: 117/165 = 70.9% Wilson [63.6, 77.3]
+δ1: 121/165 = 73.3% Wilson [66.1, 79.5]
+δ2: 108/165 = 65.5% Wilson [57.9, 72.3]
+ε1: 109/165 = 66.1% Wilson [58.5, 72.8]
+ε2: 104/165 = 63.0% Wilson [55.4, 70.0]
+
+reference effect split into mix shift and assignment shift (same batch E1; free-form, high, ≤1)
+ model reference evaluator  total  mix_shift  assignment_shift       assign_CI
+   GPT RL policy     alpha  0.096      0.015             0.081 [+0.024,+0.144]
+   GPT RL policy      beta  0.027      0.003             0.024 [+0.006,+0.045]
+   GPT RL policy     gamma  0.031      0.003             0.028 [+0.007,+0.053]
+   GPT RL policy        δ1  0.030      0.004             0.026 [+0.002,+0.056]
+   GPT RL policy        δ2  0.066      0.004             0.062 [+0.009,+0.117]
+   GPT RL policy        ε1  0.043      0.013             0.030 [-0.007,+0.068]
+   GPT RL policy        ε2  0.079      0.011             0.068 [-0.007,+0.150]
+   GPT Heuristic     alpha -0.006      0.056            -0.063 [-0.114,-0.015]
+   GPT Heuristic      beta  0.039      0.036             0.003 [-0.019,+0.027]
+   GPT Heuristic     gamma -0.005      0.013            -0.018 [-0.040,+0.005]
+   GPT Heuristic        δ1  0.014      0.027            -0.013 [-0.035,+0.013]
+   GPT Heuristic        δ2  0.016      0.022            -0.005 [-0.067,+0.056]
+   GPT Heuristic        ε1  0.003      0.034            -0.030 [-0.060,-0.000]
+   GPT Heuristic        ε2  0.017      0.034            -0.017 [-0.081,+0.053]
+Gemini RL policy     alpha  0.085      0.013             0.071 [+0.014,+0.132]
+Gemini RL policy      beta  0.011      0.007             0.005 [-0.003,+0.012]
+Gemini RL policy     gamma  0.011      0.004             0.007 [-0.015,+0.029]
+Gemini RL policy        δ1  0.019      0.002             0.017 [+0.002,+0.032]
+Gemini RL policy        δ2 -0.002      0.002            -0.004 [-0.056,+0.045]
+Gemini RL policy        ε1  0.016      0.018            -0.002 [-0.030,+0.027]
+Gemini RL policy        ε2  0.003      0.013            -0.010 [-0.084,+0.055]
+Gemini Heuristic     alpha -0.003      0.043            -0.047 [-0.098,+0.003]
+Gemini Heuristic      beta  0.031      0.036            -0.004 [-0.021,+0.015]
+Gemini Heuristic     gamma -0.002      0.014            -0.016 [-0.036,+0.003]
+Gemini Heuristic        δ1  0.019      0.020            -0.001 [-0.027,+0.031]
+Gemini Heuristic        δ2 -0.036      0.002            -0.038 [-0.101,+0.021]
+Gemini Heuristic        ε1 -0.009      0.029            -0.037 [-0.066,-0.011]
+Gemini Heuristic        ε2 -0.016      0.017            -0.033 [-0.104,+0.029]
+RL policy : assignment shift positive in 11/14, mix shift positive in 14/14, total positive in 13/14
+Heuristic : assignment shift positive in 1/14, mix shift positive in 14/14, total positive in 7/14
+ model         arm  alpha_tot  beta_tot  gamma_tot  δ1_tot  δ2_tot  ε1_tot  ε2_tot  alpha_asg  beta_asg  gamma_asg  δ1_asg  δ2_asg  ε1_asg  ε2_asg
+   GPT  C6-E − C4R      0.100     0.023      0.020   0.004   0.062   0.055   0.083      0.090     0.020      0.016  -0.001   0.056   0.049   0.076
+   GPT C6-EX − C4R     -0.014     0.015     -0.009  -0.002  -0.002  -0.019  -0.028     -0.022     0.011     -0.007  -0.011  -0.001  -0.021  -0.025
+Gemini  C6-E − C4R      0.090     0.016      0.022   0.018   0.010   0.027   0.088      0.071     0.008      0.019   0.009  -0.003   0.007   0.074
+Gemini C6-EX − C4R      0.048     0.011      0.011  -0.007  -0.055  -0.016   0.015      0.019    -0.003      0.006  -0.019  -0.066  -0.035  -0.003

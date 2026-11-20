@@ -1,0 +1,17 @@
+﻿provider,condition,generation_source,requests,input_tokens,output_tokens_including_reasoning,estimated_batch_cost_usd,input_rate_per_million,output_rate_per_million
+google,N,existing_main_reuse,1150,0,0,0.0,0.125,0.75
+google,Q,new_request,475,2842092,3028232,2.626436,0.125,0.75
+google,Q,pilot_reuse,100,598375,646120,0.559387,0.125,0.75
+google,R,existing_main_reuse,1150,0,0,0.0,0.125,0.75
+google,RT,new_request,1050,7810221,3072601,3.280728,0.125,0.75
+google,RT,pilot_reuse,100,743676,305273,0.321914,0.125,0.75
+google,T,new_request,1050,7613669,2894363,3.122481,0.125,0.75
+google,T,pilot_reuse,100,724966,271766,0.294445,0.125,0.75
+openai,N,existing_main_reuse,1150,0,0,0.0,0.375,2.25
+openai,Q,new_request,475,2267506,10952736,25.493971,0.375,2.25
+openai,Q,pilot_reuse,100,477400,2213304,5.158959,0.375,2.25
+openai,R,existing_main_reuse,1150,0,0,0.0,0.375,2.25
+openai,RT,new_request,1050,6235872,6937220,17.947197,0.375,2.25
+openai,RT,pilot_reuse,100,594046,665925,1.721098,0.375,2.25
+openai,T,new_request,1050,6086430,7283308,18.669854,0.375,2.25
+openai,T,pilot_reuse,100,579816,671099,1.727404,0.375,2.25

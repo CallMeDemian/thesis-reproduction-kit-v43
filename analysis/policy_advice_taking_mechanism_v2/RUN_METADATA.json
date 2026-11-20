@@ -1,0 +1,13 @@
+{
+  "script": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\policy_advice_taking_mechanism_v2.py",
+  "runtime": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime",
+  "v1_source": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\policy_advice_taking_financial_state",
+  "rows": 1150,
+  "negative_control_pairs": 1150,
+  "inputs_mapped": 2300,
+  "stage8_scores": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage8_llm_multi_oracle_eval\\llm_stage8_multi_oracle_scores_all_populations.parquet",
+  "no_new_llm_calls": true,
+  "no_rl_retraining": true,
+  "decomposition_contribution_check_max_abs_error": 4.163336342344337e-17,
+  "swap_did_output": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\policy_advice_taking_mechanism_v2\\REFERENCE_SWAP_DID.csv"
+}

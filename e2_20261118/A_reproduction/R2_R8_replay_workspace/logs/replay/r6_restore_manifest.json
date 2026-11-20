@@ -1,0 +1,106 @@
+{
+  "status": "RESTORED_EXACTLY; historical R6 only; no E2 score accessed",
+  "created_utc": "2026-11-18T19:07:38.916425+00:00",
+  "files": {
+    "README": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\README.md",
+      "bytes": 6839,
+      "sha256": "6f7ac826fe777b08809c0333b3138bf5552d36dbd72555d5c4ee044ac55707c7"
+    },
+    "prep2": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\prep2.py",
+      "bytes": 2686,
+      "sha256": "1a4b13bcc74c7e086571863471843143ac878640f764fba795a1962b2e532118"
+    },
+    "hz": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\hz.py",
+      "bytes": 5896,
+      "sha256": "bc3cc0f2fe87776bd55c3097f4a69ff7e1d5053efbcc75545ada0e67265aa5ba"
+    },
+    "delta_train": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\delta_train.py",
+      "bytes": 4428,
+      "sha256": "132509016314e9e461597af0217d4807e77ccbe8cccbf9b235ac8f64effc02f9"
+    },
+    "fam2": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\fam2.py",
+      "bytes": 5024,
+      "sha256": "85669208e0f1ef2592652307ccc44416feda426b747abc957b65a5977b250c03"
+    },
+    "e18_generator": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\e18_gen.py",
+      "bytes": 1917,
+      "sha256": "426098b14d5341e21bcbc928f86384677c1098f48f1c121978c00f5dd79cf028"
+    },
+    "e18_analysis": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\e18_an.py",
+      "bytes": 5793,
+      "sha256": "937106549bb7743419c85a6d883da6da04c6c869223dc7111833201d78399da0"
+    },
+    "e20": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\e20.py",
+      "bytes": 2433,
+      "sha256": "bb8d56ee8f0b92d5a6c896aee3a10524e3f20ab89e087b013b3c2a4492911738"
+    },
+    "e18_b1_all7": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\e18_b1_all7.npz",
+      "bytes": 1944110,
+      "sha256": "61f82b01ba929cc0444b1ab2bfe30edc240ccd3ff3f9f2bb946a5f1fa56054fc"
+    },
+    "e12_assign": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\e12_assign.npz",
+      "bytes": 973874,
+      "sha256": "7a905e41d7d3f8d91d9575f8cc8386828799f833c9b1612e20f7e8379db77918"
+    },
+    "A9": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\A9.npy",
+      "bytes": 289928,
+      "sha256": "c3bd6d9dd03bb99949d75633e9019d25a6f43294c627c7d0006d63a97f348f61"
+    },
+    "delta_models": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\delta_models.joblib",
+      "bytes": 209537,
+      "sha256": "2e1a25400aa5573dbe3b6439e3db9e5d498c11426a3885c840e6ca478c210985"
+    },
+    "delta2_models": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\delta2_models.joblib",
+      "bytes": 206929,
+      "sha256": "5aed66b447301a7d05a1dcc8157f97d5475d6c324ec7d04dea985fc6875e1e58"
+    },
+    "e23_bo10": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\e23_bo10.npz",
+      "bytes": 259742,
+      "sha256": "8dabda53ee987d1fb7f3216f0547e99ba30627b01eb10f123d4361bb19271f77"
+    },
+    "e23_analysis": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\analysis_20261117\\e23_an.py",
+      "bytes": 2728,
+      "sha256": "a18e79d43bc81976926d92606304b6746b23a3c7fee82b3aaea555930af291d8"
+    },
+    "old_e18_log": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\logs\\replay\\e18_an.txt",
+      "bytes": 15982,
+      "sha256": "e57a273fbcfa89ec0b997ed95693a84bf97dd16e2424c6461b415bd6c5540882"
+    },
+    "restored_e18_log": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\logs\\replay\\e18_an_restore_20261119.txt",
+      "bytes": 15982,
+      "sha256": "e57a273fbcfa89ec0b997ed95693a84bf97dd16e2424c6461b415bd6c5540882"
+    },
+    "old_e20_log": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\logs\\replay\\e20.txt",
+      "bytes": 4984,
+      "sha256": "f93041767cc7e5136f5cf6ffa513e8fc2d1da678345c862a3020e2221fda3523"
+    },
+    "restored_e20_log": {
+      "path": "e2_20261118\\A_reproduction\\R2_R8_replay_workspace\\logs\\replay\\e20_restore_20261119.txt",
+      "bytes": 4984,
+      "sha256": "f93041767cc7e5136f5cf6ffa513e8fc2d1da678345c862a3020e2221fda3523"
+    }
+  },
+  "existing_vs_restore_log_bytes_equal": {
+    "e18": true,
+    "e20": true
+  },
+  "expected_R6_mismatch_preserved": true
+}

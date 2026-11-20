@@ -1,0 +1,249 @@
+{
+  "member_count": 28,
+  "firm_count": 575,
+  "action_order": [
+    "A0",
+    "DL",
+    "RF",
+    "CX",
+    "WC1",
+    "WC2",
+    "OE",
+    "MX1",
+    "MX2"
+  ],
+  "value_available": false,
+  "value_column_seen": false,
+  "value_note": "No retained V(s) is used. A checkpoint-compatible extraction is required before Q-V features can be analyzed.",
+  "members": [
+    {
+      "configuration": "B27",
+      "seed": "seed_2",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\B27\\seed_2\\actor_critic_outputs.parquet",
+      "sha256": "f17475daa4408ed2fe99b62171f124eabf6ea04b306d4a3d417041db026a4fc7",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "B27",
+      "seed": "seed_11",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\B27\\seed_11\\actor_critic_outputs.parquet",
+      "sha256": "fa1e19fef82cff4662d6320cc3fe41127e69066e14f0a944bb73e540930817ab",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "B27",
+      "seed": "seed_12",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\B27\\seed_12\\actor_critic_outputs.parquet",
+      "sha256": "8c3228d2aa26683bb335878140da5b79f98b9f4f0c1df2ee82a93b64504e13f6",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "B27",
+      "seed": "seed_13",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\B27\\seed_13\\actor_critic_outputs.parquet",
+      "sha256": "c8546f45a61e9f365ad95aa0dfbcaa4bd07e0d503aa3a6cfc94f73e15935df33",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "B27",
+      "seed": "seed_14",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\B27\\seed_14\\actor_critic_outputs.parquet",
+      "sha256": "193e6069659684d35a91e292193e077dd3c27a610812536a5ab2b71b7930dc0c",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "B27",
+      "seed": "seed_15",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\B27\\seed_15\\actor_critic_outputs.parquet",
+      "sha256": "f47b4f0a618829890d00948d8db9622e1088a8979cbefdf6e6b5e865df5de4ef",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "B27",
+      "seed": "seed_16",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\B27\\seed_16\\actor_critic_outputs.parquet",
+      "sha256": "a4195e616c4f7504408c899adcf0bf883066117e169ffba073af6a83783b1522",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "M2_S0935",
+      "seed": "seed_2",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\M2_S0935\\seed_2\\actor_critic_outputs.parquet",
+      "sha256": "0cdce7de7be40ea3945a7ca4e2520b2e3341f887fcff9907343519a1afc21267",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "M2_S0935",
+      "seed": "seed_11",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\M2_S0935\\seed_11\\actor_critic_outputs.parquet",
+      "sha256": "d4f5a29b834cc924eac4883447a22024357aa6525edd6fc5c2aaf1e04fee3a8b",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "M2_S0935",
+      "seed": "seed_12",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\M2_S0935\\seed_12\\actor_critic_outputs.parquet",
+      "sha256": "7a2870812d267d3b079612af2eba98f8f49d2584fdcb698d5f1eeb5a6144da41",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "M2_S0935",
+      "seed": "seed_13",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\M2_S0935\\seed_13\\actor_critic_outputs.parquet",
+      "sha256": "1456c9036e7e3d9749f1a63d6b0292255b76b13e06f6cf8632715771f47fbead",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "M2_S0935",
+      "seed": "seed_14",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\M2_S0935\\seed_14\\actor_critic_outputs.parquet",
+      "sha256": "c753edd9be5e840c785a6c096bae579b31b80744510575e81533e9b626732ddf",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "M2_S0935",
+      "seed": "seed_15",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\M2_S0935\\seed_15\\actor_critic_outputs.parquet",
+      "sha256": "b0968347bf2821730c06ff71fa4867898785d329506de1e42edd4109c9b3085f",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "M2_S0935",
+      "seed": "seed_16",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\M2_S0935\\seed_16\\actor_critic_outputs.parquet",
+      "sha256": "2ca5509c0bfa2135061e23bea13eadd4e3f1717acd23dac4dbc8ffd0eefc472f",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "DT06",
+      "seed": "seed_2",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\DT06\\seed_2\\actor_critic_outputs.parquet",
+      "sha256": "05d0b11043caee0f9e4dea16cf6eb90ae9b1e9145c91f8f649ab07d36e202b0c",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "DT06",
+      "seed": "seed_11",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\DT06\\seed_11\\actor_critic_outputs.parquet",
+      "sha256": "3d0e45a4e9865cec83945f530bb1cb715a3d351af598f140deb2295b0aeb2b77",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "DT06",
+      "seed": "seed_12",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\DT06\\seed_12\\actor_critic_outputs.parquet",
+      "sha256": "1eee00c8d15d797bdf3cb0b3d87d7225e8226ffa3094f894896d157cdd874084",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "DT06",
+      "seed": "seed_13",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\DT06\\seed_13\\actor_critic_outputs.parquet",
+      "sha256": "574d2a765fbed42ac8eefedceaa7f9a93fbff6867c2d53eab64b4abb21147f15",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "DT06",
+      "seed": "seed_14",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\DT06\\seed_14\\actor_critic_outputs.parquet",
+      "sha256": "d8f02ac6ac0144015fab1067f189af923598797c487efada9ffdb8eaefad44f7",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "DT06",
+      "seed": "seed_15",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\DT06\\seed_15\\actor_critic_outputs.parquet",
+      "sha256": "3a07ef048b875368ae519c5851fa61230d686039b1f4a582d0a71f27018b9315",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "DT06",
+      "seed": "seed_16",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\DT06\\seed_16\\actor_critic_outputs.parquet",
+      "sha256": "089db7c4e796843b5e6ccb8e111cb0d6e3a78ea3715dbb40a6244c02cf83022b",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "T15_REWARD_S088",
+      "seed": "seed_2",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\T15_REWARD_S088\\seed_2\\actor_critic_outputs.parquet",
+      "sha256": "3ca914f2f639668497b268567345f6aaef89560515546a735b57a022f9f369a7",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "T15_REWARD_S088",
+      "seed": "seed_11",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\T15_REWARD_S088\\seed_11\\actor_critic_outputs.parquet",
+      "sha256": "457c12b76b7bad8a41291e6a4d796223b92729d8b4d1e10506e5986d27c9afcc",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "T15_REWARD_S088",
+      "seed": "seed_12",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\T15_REWARD_S088\\seed_12\\actor_critic_outputs.parquet",
+      "sha256": "7317f255a4244137df183c90d451462fa9d718415df36b3e50c0cf9c7c49a8d2",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "T15_REWARD_S088",
+      "seed": "seed_13",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\T15_REWARD_S088\\seed_13\\actor_critic_outputs.parquet",
+      "sha256": "fd5246a1746aa92b32b344f6fc40074f70018f0e8907c9bb70fa848ff7c2cece",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "T15_REWARD_S088",
+      "seed": "seed_14",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\T15_REWARD_S088\\seed_14\\actor_critic_outputs.parquet",
+      "sha256": "a8ff1a1b7bba820061e2bfb80eb01f2913ba406f075cec72c10c7b93edc1291a",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "T15_REWARD_S088",
+      "seed": "seed_15",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\T15_REWARD_S088\\seed_15\\actor_critic_outputs.parquet",
+      "sha256": "067cca76ba40c898026287122dda01eb6b69fd3b72c6621343a95169c487a05b",
+      "rows": 575,
+      "has_value_column": false
+    },
+    {
+      "configuration": "T15_REWARD_S088",
+      "seed": "seed_16",
+      "path": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage5_candidate_iql\\C3E_E2_7SEED_BALANCED_DFEBAFA6\\members\\T15_REWARD_S088\\seed_16\\actor_critic_outputs.parquet",
+      "sha256": "3c552fb5785be6d3cc6c15bbcff19bf5ab263a0938c493b2b2efe4212e75d183",
+      "rows": 575,
+      "has_value_column": false
+    }
+  ],
+  "runtime_root": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime",
+  "stage8": "C:\\Users\\Demian\\Desktop\\REPRO_KIT_semantic_repair\\analysis\\rl_reference_gate_runtime\\data\\final_freeze\\stage8_llm_multi_oracle_eval\\llm_stage8_multi_oracle_scores_all_populations.parquet",
+  "stage8_sha256": "e846a9e7c1175c8f97203b187cd8307d9be4f0e7d9ad51fefe9a7bd4d196b92f",
+  "join_check": "Every model/oracle primary analysis joined exactly 575 firms.",
+  "outcome": "g_i = delta_R_score(C6-E) - delta_R_score(C4R)"
+}

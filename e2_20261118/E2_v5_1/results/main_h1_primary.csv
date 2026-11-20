@@ -1,0 +1,2 @@
+﻿primary_hypothesis,model,contrast,evaluator,difference,ci95_low,ci95_high,n_firms,interpretation,interpretation_rule
+H1 alpha RT−R,ALL,RT_minus_R,alpha,-0.01606217199551174,-0.04937546834851944,0.016482655255182325,575,package comparison; full-sample N/R are historical-vintage; T/RT use common TASK,CI lower bound >0 supports improvement; non-significance does not establish equivalence

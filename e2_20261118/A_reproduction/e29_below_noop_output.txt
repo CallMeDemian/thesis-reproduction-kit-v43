@@ -1,0 +1,50 @@
+
+#### HIGH_STRICT_ITT / free8 / IC-b / B1 / r1
+model                      cond      a<0    b<0    g<0  any<0  all>0  all>=0,some>0  all==0
+google_gemini31flashlite   C4      0.009  0.066  0.157  0.193  0.228          0.793   0.014
+google_gemini31flashlite   C4R     0.010  0.077  0.153  0.195  0.228          0.784   0.021
+google_gemini31flashlite   C5      0.014  0.066  0.170  0.207  0.230          0.770   0.023
+google_gemini31flashlite   C6-E    0.009  0.068  0.163  0.202  0.247          0.781   0.017
+google_gemini31flashlite   C6-EX   0.010  0.073  0.150  0.197  0.247          0.788   0.016
+openai_gpt54mini           C4      0.010  0.057  0.158  0.197  0.228          0.767   0.037
+openai_gpt54mini           C4R     0.009  0.059  0.162  0.197  0.235          0.779   0.024
+openai_gpt54mini           C5      0.003  0.028  0.158  0.177  0.212          0.795   0.028
+openai_gpt54mini           C6-E    0.009  0.056  0.174  0.210  0.259          0.767   0.023
+openai_gpt54mini           C6-EX   0.009  0.052  0.155  0.188  0.228          0.786   0.026
+   google_gemin C6-E - C4R   [anyneg] +0.007 [-0.014, +0.028]
+   google_gemin C6-E - C4R   [allpos] +0.019 [+0.000, +0.038]
+   google_gemin C6-E - C4    [anyneg] +0.009 [-0.010, +0.028]
+   google_gemin C6-E - C4    [allpos] +0.019 [+0.002, +0.038]
+   google_gemin C4R - C4    [anyneg] +0.002 [-0.012, +0.016]
+   google_gemin C4R - C4    [allpos] +0.000 [-0.012, +0.012]
+   google_gemin C6-E - C6-EX [anyneg] +0.005 [-0.016, +0.026]
+   google_gemin C6-E - C6-EX [allpos] +0.000 [-0.021, +0.021]
+   openai_gpt54 C6-E - C4R   [anyneg] +0.014 [-0.007, +0.035]
+   openai_gpt54 C6-E - C4R   [allpos] +0.024 [+0.005, +0.045]
+   openai_gpt54 C6-E - C4    [anyneg] +0.014 [-0.007, +0.035]
+   openai_gpt54 C6-E - C4    [allpos] +0.031 [+0.012, +0.049]
+   openai_gpt54 C4R - C4    [anyneg] +0.000 [-0.010, +0.010]
+   openai_gpt54 C4R - C4    [allpos] +0.007 [-0.003, +0.017]
+   openai_gpt54 C6-E - C6-EX [anyneg] +0.023 [-0.002, +0.047]
+   openai_gpt54 C6-E - C6-EX [allpos] +0.031 [+0.009, +0.054]
+
+#### HIGH_STRICT_ITT / candidate9 / IC-b / B1 / r1
+model                      cond      a<0    b<0    g<0  any<0  all>0  all>=0,some>0  all==0
+google_gemini31flashlite   C4      0.009  0.063  0.162  0.205  0.217          0.776   0.019
+google_gemini31flashlite   C4R     0.009  0.066  0.167  0.214  0.212          0.767   0.019
+google_gemini31flashlite   C6-E    0.009  0.057  0.167  0.207  0.228          0.776   0.017
+openai_gpt54mini           C4      0.010  0.043  0.167  0.190  0.203          0.757   0.054
+openai_gpt54mini           C4R     0.009  0.035  0.176  0.193  0.217          0.777   0.030
+openai_gpt54mini           C6-E    0.010  0.040  0.174  0.197  0.231          0.779   0.024
+   google_gemin C6-E - C4R   [anyneg] -0.007 [-0.024, +0.009]
+   google_gemin C6-E - C4R   [allpos] +0.016 [+0.002, +0.030]
+   google_gemin C6-E - C4    [anyneg] +0.002 [-0.014, +0.017]
+   google_gemin C6-E - C4    [allpos] +0.010 [-0.003, +0.024]
+   google_gemin C4R - C4    [anyneg] +0.009 [+0.000, +0.019]
+   google_gemin C4R - C4    [allpos] -0.005 [-0.016, +0.005]
+   openai_gpt54 C6-E - C4R   [anyneg] +0.003 [-0.012, +0.019]
+   openai_gpt54 C6-E - C4R   [allpos] +0.014 [-0.002, +0.030]
+   openai_gpt54 C6-E - C4    [anyneg] +0.007 [-0.009, +0.023]
+   openai_gpt54 C6-E - C4    [allpos] +0.028 [+0.010, +0.047]
+   openai_gpt54 C4R - C4    [anyneg] +0.003 [-0.010, +0.017]
+   openai_gpt54 C4R - C4    [allpos] +0.014 [+0.003, +0.026]

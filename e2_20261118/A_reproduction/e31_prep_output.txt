@@ -1,0 +1,38 @@
+(11500, 56) 0.9834782608695652
+reference_candidate_id
+OE     232
+RF     155
+WC1     54
+CX      41
+WC2     39
+MX2     36
+MX1     18
+mean units by axis:
+u_growth_capex_reduction_pct     0.034
+u_deleveraging_total_debt_pct    0.052
+u_refinancing_short_debt_pct     0.329
+u_inv_turnover_chg               0.048
+u_ar_turnover_chg                0.042
+u_ap_turnover_chg                0.004
+u_cogs_ratio_chg                 0.194
+u_sga_ratio_chg                  0.243
+T                                0.946
+overlap                          0.456
+pure growth_capex_reduction_pct       outputs     77 firms   24
+pure deleveraging_total_debt_pct      outputs     26 firms   13
+pure refinancing_short_debt_pct       outputs   2118 firms  279
+pure inv_turnover_chg                 outputs      0 firms    0
+pure ar_turnover_chg                  outputs      5 firms    4
+pure ap_turnover_chg                  outputs      0 firms    0
+pure cogs_ratio_chg                   outputs      4 firms    4
+pure sga_ratio_chg                    outputs    169 firms   37
+exact RL outputs 2492 firms 349
+      sum  <lambda_0>
+rl                   
+CX     55          19
+MX1    42           8
+MX2     8           7
+OE   1283         157
+RF   1009         131
+WC1    81          19
+WC2    14           8

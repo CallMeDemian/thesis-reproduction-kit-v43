@@ -1,0 +1,200 @@
+{
+  "task": "existing-artifact completeness, hashes, identities and arithmetic only",
+  "paid_llm_calls": 0,
+  "rl_training_runs": 0,
+  "simulator_reruns": 0,
+  "bootstrap_reruns": 0,
+  "checks": [
+    {
+      "check": "original_E2_artifact_manifest",
+      "pass": true,
+      "details": {
+        "files": 165,
+        "mismatches": []
+      }
+    },
+    {
+      "check": "original_B1_artifact_manifest",
+      "pass": true,
+      "details": {
+        "files": 19
+      }
+    },
+    {
+      "check": "26_original_provider_file_hashes",
+      "pass": true,
+      "details": {
+        "files": 26
+      }
+    },
+    {
+      "check": "execution_manifest_cardinality",
+      "pass": true,
+      "details": {
+        "rows": 10350,
+        "unique_ids": 10350,
+        "conditions": {
+          "N": 2300,
+          "R": 2300,
+          "T": 2300,
+          "RT": 2300,
+          "Q": 1150
+        }
+      }
+    },
+    {
+      "check": "execution_manifest_complete_cells",
+      "pass": true,
+      "details": "{('N', 'google_gemini31flashlite', 1): 575, ('N', 'google_gemini31flashlite', 2): 575, ('N', 'openai_gpt54mini', 1): 575, ('N', 'openai_gpt54mini', 2): 575, ('Q', 'google_gemini31flashlite', 1): 575, ('Q', 'openai_gpt54mini', 1): 575, ('R', 'google_gemini31flashlite', 1): 575, ('R', 'google_gemini31flashlite', 2): 575, ('R', 'openai_gpt54mini', 1): 575, ('R', 'openai_gpt54mini', 2): 575, ('RT', 'google_gemini31flashlite', 1): 575, ('RT', 'google_gemini31flashlite', 2): 575, ('RT', 'openai_gpt54mini', 1): 575, ('RT', 'openai_gpt54mini', 2): 575, ('T', 'google_gemini31flashlite', 1): 575, ('T', 'google_gemini31flashlite', 2): 575, ('T', 'openai_gpt54mini', 1): 575, ('T', 'openai_gpt54mini', 2): 575}"
+    },
+    {
+      "check": "new_request_response_id_coverage",
+      "pass": true,
+      "details": {
+        "requests": 5150,
+        "responses": 5150,
+        "expected": 5150
+      }
+    },
+    {
+      "check": "pilot_raw_response_count",
+      "pass": true,
+      "details": {
+        "responses": 1000
+      }
+    },
+    {
+      "check": "reused_pilot_ids_present",
+      "pass": true,
+      "details": {
+        "used_pilot_ids": 600
+      }
+    },
+    {
+      "check": "T_RT_identical_table_hashes",
+      "pass": true,
+      "details": {
+        "rows": 4600
+      }
+    },
+    {
+      "check": "saved_score_rows",
+      "pass": true,
+      "details": {
+        "all_scores": 38750,
+        "main_S0": 9200
+      }
+    },
+    {
+      "check": "condition_values_from_saved_scores",
+      "pass": true,
+      "details": {
+        "max_abs_error": 1.1102230246251565e-16,
+        "cells": 36
+      }
+    },
+    {
+      "check": "V_equals_C_plus_A",
+      "pass": true,
+      "details": {
+        "max_abs_error": 2.7755575615628914e-16,
+        "cells": 30
+      }
+    },
+    {
+      "check": "factorial_point_contrasts",
+      "pass": true,
+      "details": {
+        "max_abs_error": 3.3306690738754696e-16,
+        "rows": 45
+      }
+    },
+    {
+      "check": "100_valid_unique_derangements",
+      "pass": true,
+      "details": {
+        "rows": 57500,
+        "derangements": 100
+      }
+    },
+    {
+      "check": "integrity_summary_counts",
+      "pass": true,
+      "details": {
+        "q_valid": 1139,
+        "q_sign_mismatches": 466,
+        "policy_invalid_A0": 111
+      }
+    },
+    {
+      "check": "behavior_type_and_swap_counts",
+      "pass": true,
+      "details": {
+        "recomputed_type_counts": {
+          "direct_acceptance": 356,
+          "partial_acceptance": 351,
+          "reject_or_maintain": 338,
+          "opposite_direction": 60,
+          "unrelated_revision": 26,
+          "combination": 19
+        },
+        "expected_type_counts": {
+          "direct_acceptance": 356,
+          "partial_acceptance": 351,
+          "reject_or_maintain": 338,
+          "opposite_direction": 60,
+          "unrelated_revision": 26,
+          "combination": 19
+        },
+        "type_count_discrepancies": {},
+        "swap_changed_firms": 434,
+        "swap_same_firms": 141,
+        "type_rule_match_E": 1150,
+        "type_rule_match_X": 1150,
+        "negative_control_pairs": 1150,
+        "missing_provider_inputs": 0
+      }
+    },
+    {
+      "check": "advice_study_stage8_input_hash",
+      "pass": true,
+      "details": {
+        "sha256": "519ef1a1aca7620905ba0a6c38bae69315b741e0566e0591a42f3fdb61f8dd74"
+      }
+    },
+    {
+      "check": "preserved_replay_exit_statuses",
+      "pass": true,
+      "details": {
+        "records": 14,
+        "note": "Historical logs inspected, no analysis re-executed."
+      }
+    },
+    {
+      "check": "e17_preserved_357_numeric_cells",
+      "pass": true,
+      "details": {
+        "expected_numeric_cells": 357,
+        "actual_numeric_cells": 357,
+        "max_abs_error": 0.0
+      }
+    },
+    {
+      "check": "preserved_python_syntax",
+      "pass": true,
+      "details": {
+        "failures": []
+      }
+    },
+    {
+      "check": "credential_pattern_hit_review",
+      "pass": true,
+      "details": {
+        "all_hits_in_opaque_provider_ciphertext": true,
+        "actual_secret_values_printed": false,
+        "method": "Pattern matches reviewed by JSON field; encrypted-content coincidences retained byte-for-byte."
+      }
+    }
+  ],
+  "pass": true
+}

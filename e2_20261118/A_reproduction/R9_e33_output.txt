@@ -1,0 +1,17 @@
+cost-only outputs 2728 firms 333
+f
+(-0.01, 0.2]     180
+(0.2, 0.45]      199
+(0.45, 0.55]    2282
+(0.55, 0.8]       62
+(0.8, 1.0]         5
+firms with variation in COGS fraction: 46 outputs 553 f range 0.0 1.0
+alpha  within-firm slope per +1.0 COGS fraction: +0.257 [+0.034, +0.556]
+beta   within-firm slope per +1.0 COGS fraction: +0.124 [+0.088, +0.158]
+gamma  within-firm slope per +1.0 COGS fraction: -0.028 [-0.086, +0.013]
+alpha  cogs_heavy - balanced: n=11 mean +0.021 [+0.000, +0.064]
+alpha  balanced - sga_heavy: n=97 mean +0.053 [+0.012, +0.110]
+beta   cogs_heavy - balanced: n=11 mean +0.041 [+0.023, +0.059]
+beta   balanced - sga_heavy: n=97 mean +0.028 [+0.023, +0.035]
+gamma  cogs_heavy - balanced: n=11 mean +0.018 [+0.000, +0.053]
+gamma  balanced - sga_heavy: n=97 mean -0.006 [-0.019, +0.006]

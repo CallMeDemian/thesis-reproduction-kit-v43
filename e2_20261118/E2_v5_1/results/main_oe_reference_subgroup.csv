@@ -1,0 +1,7 @@
+﻿contrast,evaluator,C3E_action_group,n_firms,mean_difference,ci95_low,ci95_high,interpretation
+RT_minus_R,alpha,OE,232,0.021057098910990658,-0.02025103413678482,0.06502824875474088,exploratory subgroup; firm is bootstrap unit
+RT_minus_R,alpha,non_OE,343,-0.041169084095536684,-0.08802275459833458,0.0036705945458808896,exploratory subgroup; firm is bootstrap unit
+RT_minus_R,beta,OE,232,0.00787642881951395,-0.01171526409988756,0.028179009674918244,exploratory subgroup; firm is bootstrap unit
+RT_minus_R,beta,non_OE,343,0.010896328565014558,0.002240997509501792,0.020399485855603836,exploratory subgroup; firm is bootstrap unit
+RT_minus_R,gamma,OE,232,0.019491200099779008,0.003927045078943194,0.036050804526279304,exploratory subgroup; firm is bootstrap unit
+RT_minus_R,gamma,non_OE,343,-0.009329873976196857,-0.030370905575523296,0.012618820201381246,exploratory subgroup; firm is bootstrap unit

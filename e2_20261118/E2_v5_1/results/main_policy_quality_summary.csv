@@ -1,0 +1,9 @@
+﻿model_key,condition,requests,delivered,strict_usable,infra_unresolved,output_limit,refusal,invalid
+google_gemini31flashlite,N,1150,1150,1133,0,0,0,17
+google_gemini31flashlite,R,1150,1150,1129,0,0,0,21
+google_gemini31flashlite,RT,1150,1150,1138,0,0,0,12
+google_gemini31flashlite,T,1150,1150,1139,0,0,0,11
+openai_gpt54mini,N,1150,1150,1135,0,0,0,15
+openai_gpt54mini,R,1150,1150,1131,0,0,0,19
+openai_gpt54mini,RT,1150,1150,1139,0,0,0,11
+openai_gpt54mini,T,1150,1150,1145,0,0,0,5

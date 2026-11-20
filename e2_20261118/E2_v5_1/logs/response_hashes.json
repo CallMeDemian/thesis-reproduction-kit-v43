@@ -1,0 +1,12 @@
+[
+  {
+    "path": "e2_20261118\\E2_v5_1\\responses\\pilot_openai_attempt1_output.jsonl",
+    "bytes": 56547175,
+    "sha256": "c3fa963dcc642049197c04f1697bbf7e63a6de85db8f455115fdfda9f473cef6"
+  },
+  {
+    "path": "e2_20261118\\E2_v5_1\\responses\\pilot_google_attempt1_output.jsonl",
+    "bytes": 7123364,
+    "sha256": "b92dabec2df05b64ecf0cfa61186109982805db92afacfe80a0a4f4fc173844c"
+  }
+]

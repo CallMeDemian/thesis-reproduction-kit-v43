@@ -1,0 +1,26 @@
+C:\Users\Demian\Desktop\REPRO_KIT_semantic_repair\e2_20261118\source_inputs\tech_review_20261118\e34_costmix_noref.py:10: Pandas4Warning: Starting with pandas version 4.0 all arguments of sum will be keyword-only.
+  t = pd.crosstab(x.grp, x.bin); print((t.div(t.sum(1), axis=0)).round(3).to_string())
+bin                                               balanced  cogs_heavy  sga_heavy   All
+model_key                grp                                                           
+google_gemini31flashlite no_reference(C4,C5,C4R)       306          49        226   581
+                         with_reference                212          15         62   289
+openai_gpt54mini         no_reference(C4,C5,C4R)      1239           3         70  1312
+                         with_reference                525           0         21   546
+All                                                   2282          67        379  2728
+bin                      balanced  cogs_heavy  sga_heavy
+grp                                                     
+no_reference(C4,C5,C4R)     0.816       0.027      0.156
+with_reference              0.883       0.018      0.099
+no-reference only: firms with variation 45 outputs 381
+alpha  slope +0.241 [+0.044, +0.516]
+beta   slope +0.122 [+0.089, +0.154]
+gamma  slope -0.032 [-0.089, +0.012]
+no-reference outputs: 7916
+u_growth_capex_reduction_pct     0.032
+u_deleveraging_total_debt_pct    0.054
+u_refinancing_short_debt_pct     0.331
+u_inv_turnover_chg               0.048
+u_ar_turnover_chg                0.042
+u_ap_turnover_chg                0.003
+u_cogs_ratio_chg                 0.189
+u_sga_ratio_chg                  0.240

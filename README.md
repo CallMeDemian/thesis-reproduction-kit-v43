@@ -8,7 +8,7 @@
 연구의 전체 framework, 실험조건과 주요 결과는 [Experiment Summary](docs/EXPERIMENT_SUMMARY.md)에 정리되어 있습니다.
 재현 절차는 [Reproduction Guide](docs/REPRODUCTION_GUIDE.md)에서 확인할 수 있습니다.
 
-현재 기준 release는 [v1.0.4](https://github.com/CallMeDemian/thesis-reproduction-kit-v43/releases/tag/thesis-v43-reproduction-kit-v1.0.4)입니다.
+현재 연구 동결 기준은 [v1.1.0](https://github.com/CallMeDemian/thesis-reproduction-kit-v43/releases/tag/thesis-v43-reproduction-kit-v1.1.0)입니다. 후속 연구의 [통합 결과보고서](research_freeze/20261121/INTEGRATED_RESEARCH_REPORT_KO.md)와 [재현 안내](research_freeze/20261121/REPRODUCTION_GUIDE.md)를 참조하세요. 기존 논문 결과 재현 기준 [v1.0.4](https://github.com/CallMeDemian/thesis-reproduction-kit-v43/releases/tag/thesis-v43-reproduction-kit-v1.0.4)는 보존합니다.
 Ablation 결과(E1 추가 실험 포함)는 release [thesis-v43-ablation-20261102](https://github.com/CallMeDemian/thesis-reproduction-kit-v43/releases/tag/thesis-v43-ablation-20261102)에 있으며, 그 안의 `ablation_20261102/`를 저장소 최상위에 두면 main의 코드로 실행됩니다.
 Human baseline 출처 목록(문서 236건, 비교 대상 56개 기업)은 release [thesis-v43-human-baseline-20261019](https://github.com/CallMeDemian/thesis-reproduction-kit-v43/releases/tag/thesis-v43-human-baseline-20261019)에 있습니다.
 

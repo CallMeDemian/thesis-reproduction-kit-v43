@@ -1,0 +1,13 @@
+﻿model,category,n,share,alpha_tie_n,beta_changed_given_alpha_tie_n,gamma_changed_given_alpha_tie_n
+GPT,action_identical,361,0.6278260869565218,361,0,0
+GPT,action_changed_alpha_tie,149,0.2591304347826087,149,147,55
+GPT,action_changed_alpha_changed,65,0.11304347826086956,0,0,0
+GPT,action_changed_alpha_tie_beta_or_gamma_changed,147,0.25565217391304346,147,147,55
+GPT,fallback_involved,17,0.029565217391304348,11,11,3
+GPT,all_action_and_alpha_same,361,0.6278260869565218,361,0,0
+Gemini,action_identical,143,0.24869565217391304,143,0,0
+Gemini,action_changed_alpha_tie,365,0.6347826086956522,365,360,80
+Gemini,action_changed_alpha_changed,67,0.11652173913043479,0,0,0
+Gemini,action_changed_alpha_tie_beta_or_gamma_changed,360,0.6260869565217392,360,360,80
+Gemini,fallback_involved,14,0.02434782608695652,6,3,1
+Gemini,all_action_and_alpha_same,143,0.24869565217391304,143,0,0

@@ -1,0 +1,3 @@
+﻿provider,requests,delivered,input_tokens,output_tokens_including_reasoning,estimated_batch_cost_usd,input_rate_per_million,output_rate_per_million
+openai,500,500,2505782,4217232,10.42844,0.375,2.25
+google,500,500,3133771,1797212,1.73963,0.125,0.75

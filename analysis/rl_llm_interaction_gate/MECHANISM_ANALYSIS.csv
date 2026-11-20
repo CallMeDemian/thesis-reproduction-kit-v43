@@ -1,0 +1,52 @@
+model_key,oracle,analysis,feature,level,n,mean_increment,positive,negative,tie
+google_gemini31flashlite,alpha,group,c4_rl_candidate_match,0,358,0.08153112910076216,29,14,315
+google_gemini31flashlite,alpha,group,c4_rl_candidate_match,1,217,0.10323373132756716,18,6,193
+google_gemini31flashlite,alpha,group,dominant_axis_match,0,375,0.07343966776508226,31,14,330
+google_gemini31flashlite,alpha,group,dominant_axis_match,1,200,0.12024994252124539,16,6,178
+google_gemini31flashlite,alpha,distance_quintile,c4_rl_l2_distance,"(-0.001, 0.273]",115,0.09697854692026445,8,3,104
+google_gemini31flashlite,alpha,distance_quintile,c4_rl_l2_distance,"(0.273, 0.594]",115,0.10346567084133042,9,3,103
+google_gemini31flashlite,alpha,distance_quintile,c4_rl_l2_distance,"(0.594, 0.751]",115,0.08856543947361366,8,4,103
+google_gemini31flashlite,alpha,distance_quintile,c4_rl_l2_distance,"(0.751, 1.031]",115,0.12392092123152579,11,4,100
+google_gemini31flashlite,alpha,distance_quintile,c4_rl_l2_distance,"(1.031, 1.414]",115,0.035676933847656356,11,6,98
+google_gemini31flashlite,beta,group,c4_rl_candidate_match,0,358,0.012611603981739777,151,123,84
+google_gemini31flashlite,beta,group,c4_rl_candidate_match,1,217,0.020630686495150097,113,42,62
+google_gemini31flashlite,beta,group,dominant_axis_match,0,375,0.016048133452081798,171,115,89
+google_gemini31flashlite,beta,group,dominant_axis_match,1,200,0.014868815751898681,93,50,57
+google_gemini31flashlite,beta,distance_quintile,c4_rl_l2_distance,"(-0.001, 0.273]",115,0.018713234600408767,62,14,39
+google_gemini31flashlite,beta,distance_quintile,c4_rl_l2_distance,"(0.273, 0.594]",115,0.015594325282714953,61,33,21
+google_gemini31flashlite,beta,distance_quintile,c4_rl_l2_distance,"(0.594, 0.751]",115,0.037477832490622934,45,38,32
+google_gemini31flashlite,beta,distance_quintile,c4_rl_l2_distance,"(0.751, 1.031]",115,-0.007676810911038739,50,44,21
+google_gemini31flashlite,beta,distance_quintile,c4_rl_l2_distance,"(1.031, 1.414]",115,0.014081098493034787,46,36,33
+google_gemini31flashlite,gamma,group,c4_rl_candidate_match,0,358,0.021224394910889295,43,39,276
+google_gemini31flashlite,gamma,group,c4_rl_candidate_match,1,217,0.023741741769426172,22,13,182
+google_gemini31flashlite,gamma,group,dominant_axis_match,0,375,0.018114556314299837,41,36,298
+google_gemini31flashlite,gamma,group,dominant_axis_match,1,200,0.029786663621007035,24,16,160
+google_gemini31flashlite,gamma,distance_quintile,c4_rl_l2_distance,"(-0.001, 0.273]",115,0.00955483051982862,8,7,100
+google_gemini31flashlite,gamma,distance_quintile,c4_rl_l2_distance,"(0.273, 0.594]",115,0.015097388573308765,10,9,96
+google_gemini31flashlite,gamma,distance_quintile,c4_rl_l2_distance,"(0.594, 0.751]",115,0.030068999233749286,17,9,89
+google_gemini31flashlite,gamma,distance_quintile,c4_rl_l2_distance,"(0.751, 1.031]",115,0.03606215618957944,15,11,89
+google_gemini31flashlite,gamma,distance_quintile,c4_rl_l2_distance,"(1.031, 1.414]",115,0.020088724110176027,15,16,84
+openai_gpt54mini,alpha,group,c4_rl_candidate_match,0,351,0.16072624170798638,39,12,300
+openai_gpt54mini,alpha,group,c4_rl_candidate_match,1,224,0.005674678542765012,8,6,210
+openai_gpt54mini,alpha,group,dominant_axis_match,0,331,0.16149004721960009,36,12,283
+openai_gpt54mini,alpha,group,dominant_axis_match,1,244,0.01734767706309407,11,6,227
+openai_gpt54mini,alpha,distance_quintile,c4_rl_l2_distance,"(-0.001, 0.5]",238,-0.0043139469655948184,7,5,226
+openai_gpt54mini,alpha,distance_quintile,c4_rl_l2_distance,"(0.5, 0.903]",107,0.12336394695575897,13,4,90
+openai_gpt54mini,alpha,distance_quintile,c4_rl_l2_distance,"(0.903, 1.173]",129,0.20087015487450322,16,7,106
+openai_gpt54mini,alpha,distance_quintile,c4_rl_l2_distance,"(1.173, 1.414]",101,0.1940650089882873,11,2,88
+openai_gpt54mini,beta,group,c4_rl_candidate_match,0,351,0.03442772746550407,102,58,191
+openai_gpt54mini,beta,group,c4_rl_candidate_match,1,224,0.005343707279093913,37,15,172
+openai_gpt54mini,beta,group,dominant_axis_match,0,331,0.03689806075620528,100,51,180
+openai_gpt54mini,beta,group,dominant_axis_match,1,244,0.00437649451067631,39,22,183
+openai_gpt54mini,beta,distance_quintile,c4_rl_l2_distance,"(-0.001, 0.5]",238,0.004693336367452407,37,15,186
+openai_gpt54mini,beta,distance_quintile,c4_rl_l2_distance,"(0.5, 0.903]",107,0.018112966816585297,39,28,40
+openai_gpt54mini,beta,distance_quintile,c4_rl_l2_distance,"(0.903, 1.173]",129,0.07547643991224764,39,17,73
+openai_gpt54mini,beta,distance_quintile,c4_rl_l2_distance,"(1.173, 1.414]",101,0.004847133835650705,24,13,64
+openai_gpt54mini,gamma,group,c4_rl_candidate_match,0,351,0.035619978699320314,50,32,269
+openai_gpt54mini,gamma,group,c4_rl_candidate_match,1,224,-0.005476432376151205,10,7,207
+openai_gpt54mini,gamma,group,dominant_axis_match,0,331,0.032543400741094276,45,31,255
+openai_gpt54mini,gamma,group,dominant_axis_match,1,244,0.002065680434021941,15,8,221
+openai_gpt54mini,gamma,distance_quintile,c4_rl_l2_distance,"(-0.001, 0.5]",238,-0.00618203674369663,11,5,222
+openai_gpt54mini,gamma,distance_quintile,c4_rl_l2_distance,"(0.5, 0.903]",107,-0.012564812794320123,14,16,77
+openai_gpt54mini,gamma,distance_quintile,c4_rl_l2_distance,"(0.903, 1.173]",129,0.08583875065455238,19,12,98
+openai_gpt54mini,gamma,distance_quintile,c4_rl_l2_distance,"(1.173, 1.414]",101,0.029885668819389647,16,6,79

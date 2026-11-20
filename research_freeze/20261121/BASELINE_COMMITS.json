@@ -1,0 +1,152 @@
+[
+  {
+    "sha": "b4ed3bf5504d792a0a06f66c7c3712601ae857bf",
+    "author_date": "2026-10-31T18:11:29+09:00",
+    "subject": "docs: link the human baseline source list release"
+  },
+  {
+    "sha": "c82943c29895ba0b6b91282b7006f8fcb02a4c24",
+    "author_date": "2026-10-31T18:04:32+09:00",
+    "subject": "docs: link the ablation results release"
+  },
+  {
+    "sha": "8664b94566115b4cdac4bd14fdc45d5d87e316cd",
+    "author_date": "2026-10-26T19:45:26+09:00",
+    "subject": "ci, readme: run Windows steps in Python UTF-8 mode"
+  },
+  {
+    "sha": "e8846c6db5b51f5726a1c86a815eb27590830f00",
+    "author_date": "2026-10-26T08:11:05+09:00",
+    "subject": "cli: write console output as UTF-8 on any code page"
+  },
+  {
+    "sha": "38524a75efecfb7e25fc5940d1e0cb8d74d13b70",
+    "author_date": "2026-10-26T05:08:16+09:00",
+    "subject": "provenance: list post-freeze edits"
+  },
+  {
+    "sha": "df79f62d8a6c1a3f9a15c14d765cd31430cb1a3e",
+    "author_date": "2026-10-26T05:08:15+09:00",
+    "subject": "records: revise wording in notes and contracts"
+  },
+  {
+    "sha": "15cc3b4bc1b1bbf7bb19550f41d25c1e56689ceb",
+    "author_date": "2026-10-25T17:42:08+09:00",
+    "subject": "provenance: document and recompute the directory digests"
+  },
+  {
+    "sha": "d5f0aa3c1254a9ffed613bd0b20cb1a3f92c5bbe",
+    "author_date": "2026-10-25T17:42:06+09:00",
+    "subject": "provenance: list known discrepancies in frozen records"
+  },
+  {
+    "sha": "306238044f12917ba42e82ab817423e2c9832590",
+    "author_date": "2026-10-25T17:41:52+09:00",
+    "subject": "provenance: record the 57 unrecorded scientific code changes since 449c942c"
+  },
+  {
+    "sha": "17eb6e7277f2c716704fc06282a3ea09d8e3c0f9",
+    "author_date": "2026-10-25T17:23:20+09:00",
+    "subject": "data: state what data doctor compares and add a loader-based schema check"
+  },
+  {
+    "sha": "ee8c1e8269c82d561237f3d883d7d2e606d52998",
+    "author_date": "2026-10-25T17:22:09+09:00",
+    "subject": "chapter4: write the Table 4-1 recheck JSON with LF line endings"
+  },
+  {
+    "sha": "55ead48174f5cf99fb367b18304a480aae38e1e5",
+    "author_date": "2026-10-25T17:21:35+09:00",
+    "subject": "status: derive PASS from a comparison or report NOT_CHECKED"
+  },
+  {
+    "sha": "d16fbcd012a6d817ea7db0bea64a6b6d08973954",
+    "author_date": "2026-10-25T17:18:20+09:00",
+    "subject": "search: start RL training only with --train"
+  },
+  {
+    "sha": "9fd06f59c68630937403d01de1e7a5bb8bc1a73d",
+    "author_date": "2026-10-25T17:18:11+09:00",
+    "subject": "docs: install from the reproduction lock file"
+  },
+  {
+    "sha": "8b8667fa79a4824407af608726bbdcafbec36c69",
+    "author_date": "2026-10-25T17:17:43+09:00",
+    "subject": "cli: inspect run reads the reproduction receipt when no run manifest exists"
+  },
+  {
+    "sha": "56287631bfc7e4db8cbbe7b53b7f561e46b70158",
+    "author_date": "2026-10-25T17:17:24+09:00",
+    "subject": "llm: add an offline rebuild-requests --verify command"
+  },
+  {
+    "sha": "e6cbf891ce35fc3cd5c6b9250f9d83e471d213f5",
+    "author_date": "2026-10-25T17:16:40+09:00",
+    "subject": "ci: install the torch CPU build in the Windows LF acceptance job"
+  },
+  {
+    "sha": "88caf6ff95619828fde4cc4120c8a23490a41c51",
+    "author_date": "2026-10-25T17:16:30+09:00",
+    "subject": "stage2: copy the action contract byte for byte"
+  },
+  {
+    "sha": "4a708166babed0a4a7299a25230144d348f44102",
+    "author_date": "2026-10-25T08:11:41+09:00",
+    "subject": "chapter4: README and comments describe the current Table 4-1 check only"
+  },
+  {
+    "sha": "5171484d33d327def685c4d2055ea6b06a37fdef",
+    "author_date": "2026-10-25T00:46:44+09:00",
+    "subject": "chapter4: recheck Table 4-1 direction agreement from the distribution zip"
+  },
+  {
+    "sha": "0ce658426bb1aa8a19ae9dd2f1f3374b607ab4a1",
+    "author_date": "2026-10-24T22:27:21+09:00",
+    "subject": "compare: treat Git LFS pointers as unavailable"
+  },
+  {
+    "sha": "b8a9b92278a740e6f05e4510151ab7b7fcd8019a",
+    "author_date": "2026-09-23T01:34:54+09:00",
+    "subject": "docs: simplify experiment summary formatting"
+  },
+  {
+    "sha": "e3e49a648fea7392f32c6f6b78defd8c687d229e",
+    "author_date": "2026-09-23T01:34:04+09:00",
+    "subject": "docs: polish public-facing reproduction guides"
+  },
+  {
+    "sha": "c4ebdac0b90dbde70fc19929686593c9e520024d",
+    "author_date": "2026-09-23T01:18:43+09:00",
+    "subject": "docs: align experiment summary with final thesis framing"
+  },
+  {
+    "sha": "91f056ce78ec21e2d7597392e14f0a1abd0c795c",
+    "author_date": "2026-09-23T01:08:01+09:00",
+    "subject": "docs: link experiment summary from README"
+  },
+  {
+    "sha": "dfb48787c41fd10ad8231b8bdfd7b623c583ef2e",
+    "author_date": "2026-09-23T01:07:58+09:00",
+    "subject": "docs: add V4.3 experiment summary"
+  },
+  {
+    "sha": "cd121c5fd382f68772a75066649e778e2b5a3aa8",
+    "author_date": "2026-09-23T00:58:30+09:00",
+    "subject": "docs: remove formulaic README phrasing"
+  },
+  {
+    "sha": "606257067cbfa9b5a42f2073b6849d6d483370ab",
+    "author_date": "2026-09-23T00:57:28+09:00",
+    "subject": "docs: make README audience-neutral"
+  },
+  {
+    "sha": "6780678b1fb27ed8d8b9aa8aed506a24b77b0b3a",
+    "author_date": "2026-09-23T00:55:34+09:00",
+    "subject": "docs: make README more natural for reviewers"
+  },
+  {
+    "sha": "468e0c5d4234b13b13e26e0100dff8f6579df695",
+    "author_date": "2026-09-23T00:53:02+09:00",
+    "subject": "docs: make README professor-friendly"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "new_unique_members_verified": 459,
+  "uncompressed_bytes_verified": 765599817,
+  "catalog_paths": 1412,
+  "existing_dependency_paths_hash_mapped": 891,
+  "additional_preexisting_local_files_credential_scanned": 31,
+  "actual_credential_matches": 0,
+  "provider_ciphertext_pattern_hits": "Reviewed separately; all matches in opaque encrypted_content fields, not credentials",
+  "old_release_zip_digests_verified": true,
+  "baseline_git_commit": "b4ed3bf5504d792a0a06f66c7c3712601ae857bf",
+  "errors": [],
+  "paid_llm_calls": 0,
+  "rl_training_runs": 0,
+  "simulator_reruns": 0
+}

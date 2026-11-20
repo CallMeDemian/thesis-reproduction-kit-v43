@@ -1,0 +1,105 @@
+{
+  "jobs": {
+    "openai": {
+      "provider": "openai",
+      "reserved_name": "e2-v5.1-pilot-20261118-openai-attempt1",
+      "model_id": "gpt-5.4-mini-2026-03-17",
+      "request_count": 500,
+      "request_file": "e2_20261118\\E2_v5_1\\requests\\openai_pilot_mixed.jsonl",
+      "request_file_sha256": "0e5fea9832be589565019befaceeea5adf9c804ee9b52793be3703738919f5b9",
+      "submitted_at_utc": "2026-11-18T14:40:08.667248+00:00",
+      "batch_job_id": "batch_6afdb8cd593c8190bc12bbc78fab1e56",
+      "input_file_id": "file-98g4f6CTZnHeMqJVa4eV9X",
+      "state": "validating",
+      "last_poll": {
+        "at_utc": "2026-11-18T15:25:32.449831+00:00",
+        "state": "completed",
+        "terminal": true,
+        "output_file_id": "file-8YECFxEqQDHzMXiSjWb9fD",
+        "error_file_id": null,
+        "counts": {
+          "completed": 500,
+          "failed": 0,
+          "total": 500
+        }
+      },
+      "downloaded_artifacts": [
+        {
+          "kind": "output",
+          "file_id": "file-8YECFxEqQDHzMXiSjWb9fD",
+          "path": "pilot_openai_attempt1_output.jsonl",
+          "sha256": "c3fa963dcc642049197c04f1697bbf7e63a6de85db8f455115fdfda9f473cef6",
+          "bytes": 56547175
+        }
+      ]
+    },
+    "google": {
+      "provider": "google",
+      "reserved_name": "e2-v5.1-pilot-20261118-google-attempt1",
+      "model_id": "gemini-3.1-flash-lite",
+      "request_count": 500,
+      "request_file": "e2_20261118\\E2_v5_1\\requests\\google_pilot_mixed.jsonl",
+      "request_file_sha256": "590c5ed1cdc858aab8c0d320d6d4a17585cba4ad8b03451f25b8f211499aab46",
+      "submitted_at_utc": "2026-11-18T14:40:15.585930+00:00",
+      "batch_job_id": "batches/wwa12wot2kz7toirawjvglr3fjj9mgish2e6",
+      "input_file_id": "files/y2b4ke5iw0pz",
+      "state": "JobState.JOB_STATE_PENDING",
+      "last_poll": {
+        "at_utc": "2026-11-18T15:25:57.420168+00:00",
+        "state": "JOB_STATE_SUCCEEDED",
+        "terminal": true,
+        "dest_file": "files/batch-wwa12wot2kz7toirawjvglr3fjj9mgish2e6",
+        "counts": null
+      },
+      "downloaded_artifacts": [
+        {
+          "kind": "output",
+          "file_id": "files/batch-wwa12wot2kz7toirawjvglr3fjj9mgish2e6",
+          "path": "pilot_google_attempt1_output.jsonl",
+          "sha256": "b92dabec2df05b64ecf0cfa61186109982805db92afacfe80a0a4f4fc173844c",
+          "bytes": 7123364
+        }
+      ]
+    }
+  },
+  "events": [
+    {
+      "event": "batch_submitted",
+      "provider": "openai",
+      "reserved_name": "e2-v5.1-pilot-20261118-openai-attempt1",
+      "model_id": "gpt-5.4-mini-2026-03-17",
+      "request_count": 500,
+      "request_file": "e2_20261118\\E2_v5_1\\requests\\openai_pilot_mixed.jsonl",
+      "request_file_sha256": "0e5fea9832be589565019befaceeea5adf9c804ee9b52793be3703738919f5b9",
+      "submitted_at_utc": "2026-11-18T14:40:08.667248+00:00",
+      "batch_job_id": "batch_6afdb8cd593c8190bc12bbc78fab1e56",
+      "input_file_id": "file-98g4f6CTZnHeMqJVa4eV9X",
+      "state": "validating"
+    },
+    {
+      "event": "batch_submitted",
+      "provider": "google",
+      "reserved_name": "e2-v5.1-pilot-20261118-google-attempt1",
+      "model_id": "gemini-3.1-flash-lite",
+      "request_count": 500,
+      "request_file": "e2_20261118\\E2_v5_1\\requests\\google_pilot_mixed.jsonl",
+      "request_file_sha256": "590c5ed1cdc858aab8c0d320d6d4a17585cba4ad8b03451f25b8f211499aab46",
+      "submitted_at_utc": "2026-11-18T14:40:15.585930+00:00",
+      "batch_job_id": "batches/wwa12wot2kz7toirawjvglr3fjj9mgish2e6",
+      "input_file_id": "files/y2b4ke5iw0pz",
+      "state": "JobState.JOB_STATE_PENDING"
+    }
+  ],
+  "request_freeze": {
+    "frozen_files": 25,
+    "provider_requests": {
+      "openai": 500,
+      "google": 500
+    },
+    "unique_ids": 1000
+  },
+  "submit_started_at_utc": "2026-11-18T14:40:08.657246+00:00",
+  "updated_at_utc": "2026-11-18T15:25:59.013499+00:00",
+  "pre_call_manifest_at_submission_sha256": "1e78552f2965cc090edbdfaea4d192463e33fddbdc41c3e75b0324a93014a710",
+  "analysis_freeze_created_at_utc": "2026-11-18T14:49:11.473343+00:00"
+}
